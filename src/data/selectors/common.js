@@ -1,11 +1,21 @@
 import { createSelector } from 'reselect'
 
-const stateItem = (name, item, type) => (state, props) => state[name][item]
+const stateItem = (name, item) => (state, props) => {
+  const [id, kind] = name.split("/")
+  const value = state[id][item]
+  const filter = state[id].filter === kind
 
-export const get = (name, item) => createSelector(stateItem(name, item, "get"),
+  if (kind && !filter) {
+    return
+  }
+
+  return value
+}
+
+export const get = (name, item) => createSelector(stateItem(name, item),
                          (data) => (typeof data === 'function' ? data() : data))
 
-export const has = (name, item) => createSelector(stateItem(name, item, "has"),
+export const has = (name, item) => createSelector(stateItem(name, item),
                          (data) => (data != null && data != undefined))
 
 export const hasData = (name) => has(name, "data")

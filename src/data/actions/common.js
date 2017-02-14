@@ -5,24 +5,28 @@ export const type = (name, kind) => `Chunky/${kind.toUpperCase()}/${name.toUpper
 export const timestamp = () => Date.now()
 
 export const start = (name) => ({ type:  type(name, "start"), timestamp: timestamp() })
-export const error = (name, error) => ({ type:  type(name, "error"), error, timestamp: timestamp() })
-export const ok = (name, data) => ({ type:  type(name, "ok"), data, timestamp: timestamp() })
+export const error = (name, error, filter) => ({ type:  type(name, "error"), filter, error, timestamp: timestamp() })
+export const ok = (name, data, filter) => ({ type:  type(name, "ok"), data, filter, timestamp: timestamp() })
 
-export function asyncAction (name, operation) {
+export function asyncAction (name, operation, filter) {
   return (dispatch) => {
     dispatch(start(name))
     operation().
-          then(data => dispatch(ok(name, data))).
-          catch(err => dispatch(error(name, err)))
+          then(data => dispatch(ok(name, data, filter))).
+          catch(err => dispatch(error(name, err, filter)))
   }
 }
 
 export function getFromCache (name, id) {
-  return asyncAction(name, () => cache.retrieveCachedItem(id))
+  return asyncAction(name, () => cache.retrieveCachedItem(id), "cache")
+}
+
+export function deleteFromCache (name, id) {
+  return asyncAction(name, () => cache.clearAuthToken(id), "cache")
 }
 
 export function operation (name, props) {
-  const [chunkName, operationName] = name.split("/")
+  const [chunkName, kind, operationName] = name.split("/")
   if (!props.chunky.chunk.operations || !props.chunky.chunk.operations[operationName]) {
     return Promise.reject(errors.UNDEFINED_OPERATION())
   }
@@ -32,5 +36,5 @@ export function operation (name, props) {
     return Promise.reject(errors.UNDEFINED_OPERATION())
   }
   const operation = new adapter(Object.assign(props.chunky.api, operationProps))
-  return asyncAction(chunkName, () => operation.start())
+  return asyncAction(`${chunkName}/${kind}`, () => operation.start(), "remote")
 }

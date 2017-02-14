@@ -26,7 +26,7 @@ export function cacheItem(key, value) {
       }
 
       // We're good to go
-      resolve()
+      resolve(value)
     })
   })
 }
