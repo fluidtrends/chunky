@@ -7,4 +7,8 @@ export default class ChunkyError extends Error {
     this.stack     = (new Error()).stack
     this.name      = 'Chunky'
   }
+
+  get isChunkyError() {
+    return this.name === 'Chunky'
+  }
 }

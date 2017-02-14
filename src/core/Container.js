@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-export default function (component, selectors, actions) {
+export default function (component, selectors, actions, context) {
 
   const mapStateToProps = (state, props) => {
     var results = {}
@@ -19,7 +19,8 @@ export default function (component, selectors, actions) {
     var results = {}
 
     for (let action in actions) {
-      results[action] = (options) => dispatch(actions[action](Object.assign(options || {}, props)))
+      const actionProps = (options) => Object.assign(options || {}, props, { chunky: context })
+      results[action] = (options) => dispatch(actions[action](actionProps(options)))
     }
 
     return results

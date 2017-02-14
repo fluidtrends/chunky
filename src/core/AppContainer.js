@@ -56,7 +56,10 @@ export default class AppContainer extends Component {
           const route = chunk.routes[routeName]
           if (route.screen && route.container) {
             // Resolve containers
-            chunk.routes[routeName].screen = Container(route.screen, route.container.selectors, route.container.actions)
+            chunk.routes[routeName].screen = Container(route.screen, route.container.selectors, route.container.actions, {
+              api: this.props.api,
+              chunk
+            })
           }
         }
       }
