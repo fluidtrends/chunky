@@ -6,13 +6,13 @@ export const timestamp = () => Date.now()
 
 export const start = (name) => ({ type:  type(name, "start"), timestamp: timestamp() })
 export const error = (name, error) => ({ type:  type(name, "error"), error, timestamp: timestamp() })
-export const ok = (name, data) => ({ type:  type(name, "ok"), timestamp: timestamp() })
+export const ok = (name, data) => ({ type:  type(name, "ok"), data, timestamp: timestamp() })
 
 export function asyncAction (name, operation) {
   return (dispatch) => {
     dispatch(start(name))
     operation().
-          then(data => dispatch(ok(name), data)).
+          then(data => dispatch(ok(name, data))).
           catch(err => dispatch(error(name, err)))
   }
 }

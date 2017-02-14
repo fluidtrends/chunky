@@ -60,7 +60,10 @@ export default class Operation {
 
   onTimeout() { }
   onError(error) { }
-  onResponse(response) { }
+
+  onResponse(response) {
+    return Promise.resolve(response)
+  }
 
   start() {
     if (!this.isSecure) {
@@ -97,10 +100,8 @@ export default class Operation {
     return new Promise((resolve, reject) => {
       Utils.timeout(self.timeout, fetch(url, options)).
             then((response) => self.parseResponse(response)).
-            then((response) => {
-              self.onResponse(response)
-              resolve(response)
-            }).
+            then((response) => self.onResponse(response)).
+            then((response) => resolve(response)).
             catch((error) => {
               if (error.name === 'Chunky') {
                 self.onTimeout()
@@ -125,7 +126,7 @@ export default class Operation {
       response.json().
 
            // Looks like the json is valid, the request is good to go now
-           then(json => resolve({status: response.status, data: json })).
+           then(json => resolve({status: response.status, data: JSON.parse(json.data) })).
 
            // Sounds like an invalid json; we don't fail the response but we
            // will need to flag it as a warning
