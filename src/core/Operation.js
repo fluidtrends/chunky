@@ -62,7 +62,7 @@ export default class Operation {
   onError(error) { }
   onResponse(response) { }
 
-  send() {
+  start() {
     if (!this.isSecure) {
       return this.sendRequest()
     }

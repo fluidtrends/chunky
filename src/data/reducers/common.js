@@ -1,20 +1,22 @@
 export const asyncReducer = (name) => {
   return (state = {}, action) => {
     // Let's see what kind of action this is
-    const [source, type] = action.type.split('/')
+    const [source, type, chunkName, id] = action.type.split('/')
 
     if (source.toLowerCase() != 'chunky') {
       // We only recognize framework actions
       return state
     }
 
-    // Let's look a bit deeper into this action
-    const [kind, id] = type.split(".")
+    if (name.toLowerCase() != chunkName.toLowerCase()) {
+      // We want to ignore foreign actions
+      return state
+    }
 
     // Let's compose the state now
     var newState = { timestamp: action.timestamp }
 
-    switch (kind) {
+    switch (type) {
       case "START":
         newState = Object.assign(newState, { progress: true, done: false })
         break

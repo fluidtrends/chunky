@@ -1,7 +1,7 @@
 import * as cache from '../cache'
 import * as errors from '../../errors'
 
-export const type = (name, kind) => `Chunky/${kind.toUpperCase()}.${name.toUpperCase()}`
+export const type = (name, kind) => `Chunky/${kind.toUpperCase()}/${name.toUpperCase()}`
 export const timestamp = () => Date.now()
 
 export const start = (name) => ({ type:  type(name, "start"), timestamp: timestamp() })
@@ -32,5 +32,5 @@ export function operation (name, props) {
     return Promise.reject(errors.UNDEFINED_OPERATION())
   }
   const operation = new adapter(Object.assign(props.chunky.api, operationProps))
-  return asyncAction(chunkName, () => operation.send())
+  return asyncAction(chunkName, () => operation.start())
 }
