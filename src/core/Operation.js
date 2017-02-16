@@ -60,7 +60,6 @@ export default class Operation {
 
   onTimeout() { }
   onError(error) { }
-
   onResponse(response) {
     return Promise.resolve(response)
   }
@@ -126,7 +125,7 @@ export default class Operation {
       response.json().
 
            // Looks like the json is valid, the request is good to go now
-           then(json => resolve({status: response.status, data: JSON.parse(json.data) })).
+           then(json => resolve({status: response.status, data: json })).
 
            // Sounds like an invalid json; we don't fail the response but we
            // will need to flag it as a warning
