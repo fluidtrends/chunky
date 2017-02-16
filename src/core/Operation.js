@@ -20,6 +20,15 @@ export default class Operation {
       'Accept': Config.API_JSON_CONTENT_TYPE,
       'Cache-Control': 'no-cache'
     }
+    this._body = {}
+
+    if (this.props.body) {
+      for (let item in this.props.body) {
+        if (this.props[item]) {
+          this._body[item] = this.props[item]
+        }
+      }
+    }
   }
 
   get headers() {
@@ -51,7 +60,7 @@ export default class Operation {
   }
 
   get body () {
-    return this.props.body
+    return this._body
   }
 
   get isSecure() {
@@ -60,6 +69,10 @@ export default class Operation {
 
   addHeader(name, value) {
     this._headers[name] = value
+  }
+
+  addBody(name, value) {
+    this._body[name] = value
   }
 
   addAuthHeader(type, value, encodeBase64 = false) {
