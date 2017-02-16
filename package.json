@@ -13,8 +13,13 @@
     "codeclimate": "react-savor codeclimate"
   },
   "babel": {
-    "plugins": [ "transform-react-jsx" ],
-    "presets": [ "react", "es2015" ]
+    "plugins": [
+      "transform-react-jsx"
+    ],
+    "presets": [
+      "react",
+      "es2015"
+    ]
   },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",

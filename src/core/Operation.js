@@ -58,6 +58,31 @@ export default class Operation {
     return this.props.secure || Config.API_DEFAULT_SECURE
   }
 
+  addHeader(name, value) {
+    this._headers[name] = value
+  }
+
+  addAuthHeader(type, value, encodeBase64 = false) {
+    const newValue = base64encode ? Utils.encodeBase64(value) : value
+    this.addHeader('Authorization', `${type} ${newValue}`)
+  }
+
+  addAuthToken(token) {
+    if (!this.authType || !token) {
+      return
+    }
+
+    self.addAuthHeader(this.authType, token)
+  }
+
+  addAuthCredentials(username, password, type, encodeBase64 = false) {
+    if (!username || password) {
+      return
+    }
+
+    this.addAuthHeader(type, `${username}:${password}`, encodeBase64)
+  }
+
   onTimeout() { }
   onError(error) { }
   onResponse(response) {
@@ -73,7 +98,7 @@ export default class Operation {
     return retrieveAuthToken().
            then(token => {
               // Inject the auth token
-              this._headers.Authorization = `${this.authType} ${token}`
+              self.addAuthToken(token)
               return this.sendRequest()
             }).
             catch((error) => {
@@ -93,6 +118,15 @@ export default class Operation {
     if (this.body) {
       // Inject the body if found
       options.body = JSON.stringify(this.body)
+    }
+
+    if (this.props.auth) {
+      // Inject authentification, if any
+      const username = this.props[this.props.auth.username] || this.props.username
+      const password = this.props[this.props.auth.password] || this.props.password
+      const type = this.props[this.props.auth.type] || 'Basic'
+      const base64 = this.props[this.props.auth.base64] || true
+      this.addAuthCredentials(username, password, type, base64)
     }
 
     const self = this
