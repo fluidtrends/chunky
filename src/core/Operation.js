@@ -63,7 +63,7 @@ export default class Operation {
   }
 
   addAuthHeader(type, value, encodeBase64 = false) {
-    const newValue = base64encode ? Utils.encodeBase64(value) : value
+    const newValue = encodeBase64 ? Utils.encodeBase64(value) : value
     this.addHeader('Authorization', `${type} ${newValue}`)
   }
 

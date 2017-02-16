@@ -35,6 +35,6 @@ export function operation (name, props) {
   if (!adapter) {
     return Promise.reject(errors.UNDEFINED_OPERATION())
   }
-  const operation = new adapter(Object.assign(props.chunky.api, operationProps))
+  const operation = new adapter(Object.assign(props.chunky.api, operationProps, props))
   return asyncAction(`${chunkName}/${kind}`, () => operation.start(), "remote")
 }
