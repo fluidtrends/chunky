@@ -88,8 +88,11 @@ export default class Operation {
   onResponse(response) {
     return Promise.resolve(response)
   }
+  init() { }
 
   start() {
+    this.init()
+
     if (!this.isSecure) {
       return this.sendRequest()
     }
@@ -127,6 +130,11 @@ export default class Operation {
       const type = this.props[this.props.auth.type] || 'Basic'
       const base64 = this.props[this.props.auth.base64] || true
       this.addAuthCredentials(username, password, type, base64)
+    }
+
+    if (this.props.headers) {
+      // Looks like we've got some custom headers, let's add them all
+      this._headers = Object.assign(this._headers, this.props.headers)
     }
 
     const self = this
