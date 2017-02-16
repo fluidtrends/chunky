@@ -76,7 +76,7 @@ export default class Operation {
   }
 
   addAuthCredentials(username, password, type, encodeBase64 = false) {
-    if (!username || password) {
+    if (!username || !password) {
       return
     }
 
