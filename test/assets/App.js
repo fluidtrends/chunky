@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { default as IntroScreen } from './IntroScreen'
 
 export default class App extends Component {
 
@@ -11,9 +10,10 @@ export default class App extends Component {
   }
 
   render() {
+    const Screen = this.props.initialRoute.screen
     return (<div>
       <h1> Test App </h1>
-      <IntroScreen config = {this.props.config}/>
+      <Screen/>
       </div>)
   }
 }

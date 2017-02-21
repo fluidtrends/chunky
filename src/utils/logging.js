@@ -18,5 +18,7 @@ export function log(message, type='info') {
       color = '448AFF'
       symbol = '➤'
   }
-  console.log(`%c[Chunky] ${symbol} ${message}`, `background: #${color}; color: white; display: block;`);
+  const output = `%c[Chunky] ${symbol} ${message} background: #${color}; color: white; display: block;`
+  console.log(output)
+  return output
 }

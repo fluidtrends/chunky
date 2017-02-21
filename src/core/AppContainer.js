@@ -30,7 +30,7 @@ export default class AppContainer extends Component {
 
   get initialRoute () {
     const chunk = this.initialChunk
-    return chunk.routes[chunk.startRoute]
+    return (chunk && chunk.routes ? chunk.routes[chunk.startRoute] : undefined)
   }
 
   get chunks() {
@@ -39,7 +39,6 @@ export default class AppContainer extends Component {
 
   parseChunks() {
     this._reducers = {}
-    this._chunks = {}
 
     if (!this.props.chunks) {
       return
@@ -64,6 +63,7 @@ export default class AppContainer extends Component {
         }
       }
 
+      this._chunks = this._chunks || {}
       this._chunks[chunkName] = chunk
     }
 
@@ -124,6 +124,12 @@ export default class AppContainer extends Component {
   render() {
     if (React.Children.count(this.props.children) !== 1) {
       throw new Errors.UNABLE_TO_LOAD_APP()
+    }
+
+    console.log("CHUNKS", this.chunks);
+
+    if (!this.chunks) {
+      throw new Errors.UNABLE_TO_LOAD_CHUNKS()
     }
 
     return (

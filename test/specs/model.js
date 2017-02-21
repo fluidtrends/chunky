@@ -1,8 +1,8 @@
 import savor from 'savor'
-import { User, Token } from '../..'
+import { Data } from '../..'
 
 savor.add("should create a simple User", (context, done) => {
-  const user = new User({
+  const user = new Data.Model.User({
     username: "username",
     email: "email",
     firstName: "firstName",
@@ -23,7 +23,7 @@ savor.add("should create a simple User", (context, done) => {
 }).
 
 add("should create a simple Token", (context, done) => {
-  const token = new Token({
+  const token = new Data.Model.Token({
     access_token: "access_token",
     token_type: "token_type",
     expires_in: "expires_in",

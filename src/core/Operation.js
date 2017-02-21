@@ -23,9 +23,7 @@ export default class Operation {
 
     if (this.props.body) {
       for (let item in this.props.body) {
-        if (this.props[item]) {
-          this.addBody(item, this.props[item])
-        }
+        this.addBody(item, this.props[this.props.body[item]] || this.props.body[item])
       }
     }
   }
@@ -85,7 +83,7 @@ export default class Operation {
       return
     }
 
-    self.addAuthHeader(this.authType, token)
+    this.addAuthHeader(this.authType, token)
   }
 
   addAuthCredentials(username, password, type, encodeBase64 = false) {
@@ -172,7 +170,7 @@ export default class Operation {
       if (!response || response === undefined) {
         // If the response does not contain a json payload, we won't fail this
         // response but we'll send it back with a warning
-        resolve({ status: response.status, warning: Errors.WARNING_EMPTY_RESPONSE, data: {} })
+        resolve({ status: 0, warning: Errors.WARNING_EMPTY_RESPONSE, data: {} })
         return
       }
 
