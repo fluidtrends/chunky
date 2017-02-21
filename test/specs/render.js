@@ -23,6 +23,9 @@ add("should render a simple app without any properties", (context, done) => {
 }).
 
 add("should create an app with some properties", (context, done) => {
+  // Inject a mock adapter
+  global.localStorage = { getItem: (key, callback) => callback(new Error('error')) }
+
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
@@ -47,6 +50,25 @@ add("should create an app with some properties", (context, done) => {
   // Let's clean up the observers
   App.prototype.componentDidMount.restore()
   App.prototype.render.restore()
+
+  // And, we're looking good
+  done()
+}).
+
+add("should create an app with a successful operation", (context, done) => {
+  // Inject a mock adapter
+  global.localStorage = { getItem: (key, callback) => callback(null, JSON.stringify({ token: "token" })) }
+
+  // Start off with an empty dom
+  savor.addDom('<!doctype html><html><body></body></html>')
+
+  // Create some test properties
+  const config = appConfig
+
+  // Let's mount the app
+  const container = context.mount(<Core.AppContainer {...config}>
+    <App {...config } />
+  </Core.AppContainer>)
 
   // And, we're looking good
   done()
