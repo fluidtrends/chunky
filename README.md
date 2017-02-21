@@ -11,6 +11,12 @@
 [![CC](https://codeclimate.com/github/react-chunky/react-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
 [![TC](https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
 
+# React Native Chunky
+[![Version](https://img.shields.io/npm/v/react-native-chunky.svg)](https://www.npmjs.com/package/react-native-chunky)
+[![CI](https://travis-ci.org/react-chunky/react-native-chunky.svg?branch=master)](https://travis-ci.org/react-chunky/react-native-chunky)
+[![CC](https://codeclimate.com/github/react-chunky/react-native-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-native-chunky)
+[![TC](https://codeclimate.com/github/react-chunky/react-native-chunky/badges/coverage.svg)](https://codeclimate.com/github/react-chunky/react-native-chunky)
+
 # License
 
 Copyright (c) 2017 I. Dan Calinescu

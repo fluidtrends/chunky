@@ -12,15 +12,6 @@
     "coverage": "react-savor coverage",
     "codeclimate": "react-savor codeclimate"
   },
-  "babel": {
-    "plugins": [
-      "transform-react-jsx"
-    ],
-    "presets": [
-      "react",
-      "es2015"
-    ]
-  },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
   "bugs": {
@@ -41,7 +32,6 @@
     "reselect": "^2.5.4"
   },
   "devDependencies": {
-    "react-native": "0.x",
     "react-savor": "0.x"
   }
 }
