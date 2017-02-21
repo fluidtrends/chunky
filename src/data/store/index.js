@@ -8,10 +8,11 @@ import reducers                         from '../reducers'
 const loggerMiddleware = createLogger()
 
 // Prepare the app middleware for store injection
-const middleware = applyMiddleware(thunkMiddleware, promiseMiddleware, loggerMiddleware)
+const loggerEnabledMiddleware = applyMiddleware(thunkMiddleware, promiseMiddleware, loggerMiddleware)
+const logglessMiddleware = applyMiddleware(thunkMiddleware, promiseMiddleware)
 
 // Create the store from the reducers
-const store = (appReducers) => createStore(reducers(appReducers), middleware)
+const store = (appReducers, logging = false) => createStore(reducers(appReducers), logging ? loggerEnabledMiddleware : logglessMiddleware)
 
 // Export the store to be used by the entire app
 export default store

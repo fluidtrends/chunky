@@ -13,7 +13,7 @@ export default class AppContainer extends Component {
     this.parseChunks()
 
     // Initialize the store with custom app reducers
-    this.state = { store: DataStore(this.reducers) }
+    this.state = { store: DataStore(this.reducers, this.props.logging) }
   }
 
   get app () {
@@ -125,8 +125,6 @@ export default class AppContainer extends Component {
     if (React.Children.count(this.props.children) !== 1) {
       throw new Errors.UNABLE_TO_LOAD_APP()
     }
-
-    console.log("CHUNKS", this.chunks);
 
     if (!this.chunks) {
       throw new Errors.UNABLE_TO_LOAD_CHUNKS()
