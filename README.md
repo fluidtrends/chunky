@@ -6,12 +6,13 @@
 </p>
 
 # React Chunky
+[![Type](https://img.shields.io/badge/chunky-core-blue.svg)](https://github.com/react-chunky/react-chunky)
 [![Version](https://img.shields.io/npm/v/react-chunky.svg)](https://www.npmjs.com/package/react-chunky)
 [![CI](https://travis-ci.org/react-chunky/react-chunky.svg?branch=master)](https://travis-ci.org/react-chunky/react-chunky)
 [![CC](https://codeclimate.com/github/react-chunky/react-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
 [![TC](https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
 
-# React Native Chunky
+[![Type](https://img.shields.io/badge/chunky-mobile-blue.svg)](https://github.com/react-chunky/react-native-chunky)
 [![Version](https://img.shields.io/npm/v/react-native-chunky.svg)](https://www.npmjs.com/package/react-native-chunky)
 [![CI](https://travis-ci.org/react-chunky/react-native-chunky.svg?branch=master)](https://travis-ci.org/react-chunky/react-native-chunky)
 [![CC](https://codeclimate.com/github/react-chunky/react-native-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-native-chunky)
