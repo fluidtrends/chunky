@@ -2,21 +2,22 @@
   <a href="https://github.com/react-chunky/react-chunky">
     <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/logo.png">
   </a>
-  <p align="center"> The Full Stack React Framework </p>
+  <h2 align="center"> Chunky - The Full Stack React Framework. </h2>
+
   <p align="center">
-  [![Type](https://img.shields.io/badge/chunky-core-blue.svg)](https://github.com/react-chunky/react-chunky)
-  [![Version](https://img.shields.io/npm/v/react-chunky.svg)](https://www.npmjs.com/package/react-chunky)
-  [![CI](https://travis-ci.org/react-chunky/react-chunky.svg?branch=master)](https://travis-ci.org/react-chunky/react-chunky)
-  [![CC](https://codeclimate.com/github/react-chunky/react-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
-  [![TC](https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg)](https://codeclimate.com/github/react-chunky/react-chunky)
+    <a href="https://github.com/react-chunky/react-chunky"> <img src="https://img.shields.io/badge/react--chunky-core-blue.svg"> </a>
+    <a href="https://www.npmjs.com/package/react-chunky"> <img src="https://img.shields.io/npm/v/react-chunky.svg"> </a>
+    <a href="https://travis-ci.org/react-chunky/react-chunky"> <img src="https://travis-ci.org/react-chunky/react-chunky.svg?branch=master"> </a>
+    <a href="https://codeclimate.com/github/react-chunky/react-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-chunky/badges/gpa.svg"> </a>
+    <a href="https://codeclimate.com/github/react-chunky/react-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg"> </a>
   </p>
 
   <p align="center">
-  [![Type](https://img.shields.io/badge/chunky-mobile-blue.svg)](https://github.com/react-chunky/react-native-chunky)
-  [![Version](https://img.shields.io/npm/v/react-native-chunky.svg)](https://www.npmjs.com/package/react-native-chunky)
-  [![CI](https://travis-ci.org/react-chunky/react-native-chunky.svg?branch=master)](https://travis-ci.org/react-chunky/react-native-chunky)
-  [![CC](https://codeclimate.com/github/react-chunky/react-native-chunky/badges/gpa.svg)](https://codeclimate.com/github/react-chunky/react-native-chunky)
-  [![TC](https://codeclimate.com/github/react-chunky/react-native-chunky/badges/coverage.svg)](https://codeclimate.com/github/react-chunky/react-native-chunky)
+    <a href="https://github.com/react-chunky/react-native-chunky"> <img src="https://img.shields.io/badge/react--native--chunky-mobile-blue.svg"> </a>
+    <a href="https://www.npmjs.com/package/react-native-chunky"> <img src="https://img.shields.io/npm/v/react-native-chunky.svg"> </a>
+    <a href="https://travis-ci.org/react-chunky/react-native-chunky"> <img src="https://travis-ci.org/react-chunky/react-native-chunky.svg?branch=master"> </a>
+    <a href="https://codeclimate.com/github/react-chunky/react-native-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-native-chunky/badges/gpa.svg"> </a>
+    <a href="https://codeclimate.com/github/react-chunky/react-native-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-native-chunky/badges/coverage.svg"> </a>
   </p>
 </p>
 
