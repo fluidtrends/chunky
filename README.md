@@ -23,7 +23,9 @@
 
 # React Chunky
 
-The Full Stack React Framework
+Chunky is an opinionated framework that helps you write better React Apps by organizing functionality in modular, cross-functional *chunks*.
+
+[View Documentation](http://chunky.io)
 
 # License
 
