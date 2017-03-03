@@ -1,10 +1,10 @@
 {
   "name": "react-chunky",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "The Full Stack React Framework",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/idancali/react-chunky.git"
+    "url": "git+https://github.com/react-chunky/react-chunky.git"
   },
   "scripts": {
     "test": "react-savor test",
@@ -15,9 +15,9 @@
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/idancali/react-chunky/issues"
+    "url": "https://github.com/react-chunky/react-chunky/issues"
   },
-  "homepage": "https://github.com/idancali/react-chunky",
+  "homepage": "https://github.com/react-chunky/react-chunky",
   "dependencies": {
     "base-64": "^0.1.0",
     "chalk": "^1.1.3",
