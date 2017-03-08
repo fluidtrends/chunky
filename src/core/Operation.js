@@ -116,8 +116,8 @@ export default class Operation {
               return this.sendRequest()
             }).
             catch((error) => {
-              self.onError(Errors.ACCESS_ERROR)
-              return Promise.reject(Errors.ACCESS_ERROR)
+              self.onError(error)
+              return Promise.reject(error)
             })
   }
 
@@ -140,6 +140,7 @@ export default class Operation {
       const password = this.props[this.props.auth.password] || this.props.password
       const type = this.props[this.props.auth.type] || 'Basic'
       const base64 = this.props[this.props.auth.base64] || true
+
       this.addAuthCredentials(username, password, type, base64)
     }
 

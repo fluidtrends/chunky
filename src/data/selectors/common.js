@@ -1,13 +1,7 @@
 import { createSelector } from 'reselect'
 
 const stateItem = (name, item) => (state, props) => {
-  const [id, kind] = name.split("/")
-  const value = state[id][item]
-  const filter = state[id].filter === kind
-
-  if (kind && !filter) {
-    return
-  }
+  const value = state[name][item]
 
   return value
 }
