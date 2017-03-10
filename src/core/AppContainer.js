@@ -43,12 +43,16 @@ export default class AppContainer extends Component {
     const getData = Selectors.common.getData(chunk.name)
     const hasError = Selectors.common.hasError(chunk.name)
     const getError = Selectors.common.getError(chunk.name)
+    const isDone = Selectors.common.isDone(chunk.name)
+    const isProgress = Selectors.common.isProgress(chunk.name)
 
     return {
       [`${chunk.name}HasData`]: hasData,
       [`${chunk.name}Data`]: getData,
       [`${chunk.name}HasError`]: hasError,
-      [`${chunk.name}Error`]: getError
+      [`${chunk.name}Error`]: getError,
+      [`${chunk.name}IsDone`]: isDone,
+      [`${chunk.name}IsInProgress`]: isProgress
     }
   }
 
@@ -65,7 +69,7 @@ export default class AppContainer extends Component {
       case 'update':
         break
       case 'delete':
-        break
+        return () => Actions.common.deleteFromCache(`${chunk.name}/${actionId}`, action.key)
       default:
         break
     }

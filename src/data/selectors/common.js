@@ -18,3 +18,6 @@ export const hasError = (name) => has(name, "error")
 export const getTimestamp = (name) => get(name, "timestamp")
 export const getData = (name) => get(name, "data")
 export const getError = (name) => get(name, "error")
+
+export const isDone = (name) => has(name, "done")
+export const isProgress = (name) => has(name, "progress")
