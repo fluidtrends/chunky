@@ -124,7 +124,7 @@ export default class AppContainer extends Component {
 
   generateContainer(chunk, route) {
     const actions = Object.assign({}, this.generateActions(chunk, route.container.actions))
-    const selectors = Object.assign({}, this.generateSelectors(chunk, route.container.selectors))
+    const selectors = Object.assign({}, this.generateSelectors(chunk, route.container.selectors), chunk.selectors || {})
 
     return Container(route.screen, selectors, actions, {
       api: this.props.api,
