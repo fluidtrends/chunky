@@ -73,25 +73,16 @@ export default class Operation {
     this._body[name] = value
   }
 
-  addAuthHeader(type, value, encodeBase64 = false) {
-    const newValue = encodeBase64 ? Utils.encodeBase64(value) : value
-    this.addHeader('Authorization', `${type} ${newValue}`)
-  }
-
-  addAuthToken(token) {
-    if (!this.authType || !token) {
-      return
-    }
-
-    this.addAuthHeader(this.authType, token)
-  }
-
-  addAuthCredentials(username, password, type, encodeBase64 = false) {
+  createBasicAuthToken (username, password, encodeBase64 = true){
     if (!username || !password) {
       return
     }
+    const basicAuthToken = `${username}:${password}`
+    return encodeBase64 ? Utils.encodeBase64(basicAuthToken) : basicAuthToken
+  }
 
-    this.addAuthHeader(type, `${username}:${password}`, encodeBase64)
+  addAuthToken (token) {
+    this.addHeader('Authorization', `${this.authType} ${token}`)
   }
 
   onTimeout() { }
@@ -110,18 +101,18 @@ export default class Operation {
 
     const self = this
     return retrieveAuthToken().
-           then(token => {
-              // Inject the auth token
-              self.addAuthToken(token)
-              return this.sendRequest()
-            }).
-            catch((error) => {
-              self.onError(error)
-              return Promise.reject(error)
-            })
+      then(token => {
+        // Inject the auth token
+        self.addAuthToken(token)
+        return this.sendRequest()
+      }).
+      catch((error) => {
+        self.onError(error)
+        return Promise.reject(error)
+      })
   }
 
-  sendRequest () {
+  prepareRequest () {
     // Prepare the request properties
     const url = `${this.serverUrl}${this.endpoint}`.toLowerCase()
     const options = {
@@ -134,24 +125,18 @@ export default class Operation {
       options.body = JSON.stringify(this.body)
     }
 
-    if (this.props.auth) {
-      // Inject authentification, if any
-      const username = this.props[this.props.auth.username] || this.props.username
-      const password = this.props[this.props.auth.password] || this.props.password
-      const type = this.props[this.props.auth.type] || 'Basic'
-      const base64 = this.props[this.props.auth.base64] || true
-
-      this.addAuthCredentials(username, password, type, base64)
-    }
-
     if (this.props.headers) {
       // Looks like we've got some custom headers, let's add them all
       this._headers = Object.assign(this._headers, this.props.headers)
     }
+    return {url, options}
+  }
 
+  sendRequest () {
+    let requestParams = this.prepareRequest()
     const self = this
     return new Promise((resolve, reject) => {
-      Utils.timeout(self.timeout, fetch(url, options)).
+      Utils.timeout(self.timeout, fetch(requestParams.url, requestParams.options)).
             then((response) => self.parseResponse(response)).
             then((response) => self.onResponse(response)).
             then((response) => resolve(response)).
