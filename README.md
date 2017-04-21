@@ -10,6 +10,7 @@
     <a href="https://travis-ci.org/react-chunky/react-chunky"> <img src="https://travis-ci.org/react-chunky/react-chunky.svg?branch=master"> </a>
     <a href="https://codeclimate.com/github/react-chunky/react-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-chunky/badges/gpa.svg"> </a>
     <a href="https://codeclimate.com/github/react-chunky/react-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg"> </a>
+    <a href="https://doc.esdoc.org/github.com/react-chunky/react-chunky"> <img src="https://doc.esdoc.org/github.com/react-chunky/react-chunky/badge.svg"> </a>
   </p>
 
   <p align="center">
@@ -18,6 +19,7 @@
     <a href="https://travis-ci.org/react-chunky/react-native-chunky"> <img src="https://travis-ci.org/react-chunky/react-native-chunky.svg?branch=master"> </a>
     <a href="https://codeclimate.com/github/react-chunky/react-native-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-native-chunky/badges/gpa.svg"> </a>
     <a href="https://codeclimate.com/github/react-chunky/react-native-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-native-chunky/badges/coverage.svg"> </a>
+    <a href="https://doc.esdoc.org/github.com/react-chunky/react-native-chunky"> <img src="https://doc.esdoc.org/github.com/react-chunky/react-native-chunky/badge.svg"> </a>
   </p>
 </p>
 

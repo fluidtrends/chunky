@@ -73,18 +73,6 @@ export default class Operation {
     this._body[name] = value
   }
 
-  createBasicAuthToken (username, password, encodeBase64 = true){
-    if (!username || !password) {
-      return
-    }
-    const basicAuthToken = `${username}:${password}`
-    return encodeBase64 ? Utils.encodeBase64(basicAuthToken) : basicAuthToken
-  }
-
-  addAuthToken (token) {
-    this.addHeader('Authorization', `${this.authType} ${token}`)
-  }
-
   onTimeout() { }
   onError(error) { }
   onResponse(response) {
@@ -112,6 +100,45 @@ export default class Operation {
       })
   }
 
+  createBasicAuthToken (username, password, encodeBase64 = true){
+    if (!username || !password) {
+      return
+    }
+    const basicAuthToken = `${username}:${password}`
+    return encodeBase64 ? Utils.encodeBase64(basicAuthToken) : basicAuthToken
+  }
+
+  addAuthToken (token) {
+    this.addHeader('Authorization', `${this.authType} ${token}`)
+  }
+
+  addAuthHeader(type, value, encodeBase64 = false) {
+    const newValue = encodeBase64 ? Utils.encodeBase64(value) : value
+    this.addHeader('Authorization', `${type} ${newValue}`)
+  }
+
+  addAuthCredentials(username, password, type, encodeBase64 = false) {
+    if (!username || !password) {
+      return
+    }
+
+    this.addAuthHeader(type, `${username}:${password}`, encodeBase64)
+  }
+
+  injectAuthCredentials() {
+    if (!this.props.auth) {
+      return
+    }
+
+    // Inject authentification, if any
+    const username = this.props[this.props.auth.username] || this.props.username
+    const password = this.props[this.props.auth.password] || this.props.password
+    const type = this.props[this.props.auth.type] || 'Basic'
+    const base64 = this.props[this.props.auth.base64] || true
+
+    this.addAuthCredentials(username, password, type, base64)
+  }
+
   prepareRequest () {
     // Prepare the request properties
     const url = `${this.serverUrl}${this.endpoint}`.toLowerCase()
@@ -129,6 +156,9 @@ export default class Operation {
       // Looks like we've got some custom headers, let's add them all
       this._headers = Object.assign(this._headers, this.props.headers)
     }
+
+    this.injectAuthCredentials()
+
     return {url, options}
   }
 
