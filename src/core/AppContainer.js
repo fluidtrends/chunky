@@ -123,8 +123,8 @@ export default class AppContainer extends Component {
   }
 
   generateContainer(chunk, route) {
-    const actions = Object.assign({}, this.generateActions(chunk, route.container.actions))
-    const selectors = Object.assign({}, this.generateSelectors(chunk, route.container.selectors), chunk.selectors || {})
+    const actions = Object.assign({}, this.generateActions(chunk, route.actions))
+    const selectors = Object.assign({}, this.generateSelectors(chunk, route.selectors), chunk.selectors || {})
 
     return Container(route.screen, selectors, actions, {
       api: this.props.api,
@@ -152,8 +152,9 @@ export default class AppContainer extends Component {
 
           const route = chunk.routes[routeName]
           route.screen = chunk.screens[routeName]
+          chunk.startRoute = chunk.startRoute || routeName
 
-          if (route.screen && route.container) {
+          if (route.screen && (route.actions || route.selectors)) {
             // Resolve containers
             chunk.routes[routeName].screen = this.generateContainer(chunk, route)
           }
@@ -167,36 +168,50 @@ export default class AppContainer extends Component {
     for (let chunkName in this.chunks) {
       const chunk = this.chunks[chunkName]
 
-      if (chunk.routes) {
-        for (let routeName in chunk.routes) {
+      if (!chunk.routes) {
+        continue
+      }
 
-          const route = chunk.routes[routeName]
-
-          if (route.transitions) {
-            // Resolve transitions
-            for(let transitionName in route.transitions) {
-              const transition = route.transitions[transitionName]
-              route.transitions[transitionName].route = this.resolveTransitionRoute(transition)
-            }
+      for (let routeName in chunk.routes) {
+        const route = chunk.routes[routeName]
+        if (route.transitions) {
+          // Resolve transitions
+          for(let transitionName in route.transitions) {
+            const transition = route.transitions[transitionName]
+            transition.name = transitionName
+            route.transitions[transitionName].route = this.resolveTransitionRoute(transition, chunk)
           }
         }
       }
     }
   }
 
-  resolveTransitionRoute(transition) {
-    if (!transition.id) {
+  resolveTransitionRoute(transition, currentChunk) {
+    // Overwrite the transition with a global definition, if any
+    transition.route = this.props.transitions[transition.name] || transition.route
+
+    if (!transition.route) {
+      // This transition does not define a route and we don't have a global one either
       return
     }
 
-    const [chunkName, routeId] = transition.id.split("/")
-    const chunk = this.chunks[chunkName]
+    // Let's see what chunk we're referencing
+    var [chunkName, route] = transition.route.split("/")
+    var chunk = this.chunks[chunkName]
 
-    if (!chunk || !chunk.routes[routeId]) {
+    if (!route) {
+      route = chunkName
+      chunk = currentChunk
+    }
+
+    if (!chunk || !chunk.routes[route]) {
+      // Well, wrong chunk, or wrong route, so let's forget it
       return
     }
 
-    return chunk.routes[routeId]
+
+    // Sounds like we have ourselves a valid route for this transition
+    return chunk.routes[route]
   }
 
   get reducers() {
