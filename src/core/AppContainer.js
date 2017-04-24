@@ -19,19 +19,8 @@ export default class AppContainer extends Component {
 
   get app () {
     return React.cloneElement(this.props.children, {
-      initialChunk: this.initialChunk,
-      initialRoute: this.initialRoute,
       chunks: this.chunks
     })
-  }
-
-  get initialChunk () {
-    return this.chunks[this.props.startChunk]
-  }
-
-  get initialRoute () {
-    const chunk = this.initialChunk
-    return (chunk && chunk.routes ? chunk.routes[chunk.startRoute] : undefined)
   }
 
   get chunks() {
@@ -151,8 +140,7 @@ export default class AppContainer extends Component {
         for (let routeName in chunk.routes) {
 
           const route = chunk.routes[routeName]
-          route.screen = chunk.screens[routeName]
-          chunk.startRoute = chunk.startRoute || routeName
+          chunk.routes[routeName].screen = chunk.screens[routeName]
 
           if (route.screen && (route.actions || route.selectors)) {
             // Resolve containers
@@ -165,54 +153,70 @@ export default class AppContainer extends Component {
       this._chunks[chunkName] = chunk
     }
 
-    for (let chunkName in this.chunks) {
-      const chunk = this.chunks[chunkName]
-
-      if (!chunk.routes) {
-        continue
-      }
-
-      for (let routeName in chunk.routes) {
-        const route = chunk.routes[routeName]
-        if (route.transitions) {
-          // Resolve transitions
-          for(let transitionName in route.transitions) {
-            const transition = route.transitions[transitionName]
-            transition.name = transitionName
-            route.transitions[transitionName].route = this.resolveTransitionRoute(transition, chunk)
-          }
-        }
-      }
-    }
+    // for (let chunkName in this.chunks) {
+    //   const chunk = this.chunks[chunkName]
+    //
+    //   if (!chunk.routes) {
+    //     continue
+    //   }
+    //
+    //   for (let routeName in chunk.routes) {
+    //     const route = chunk.routes[routeName]
+    //     if (route.transitions) {
+    //       // Resolve transitions
+    //       for(let transitionName in route.transitions) {
+    //         const transition = route.transitions[transitionName]
+    //         transition.name = transitionName
+    //   //       // route.transitions[transitionName].route = this.resolveTransitionRoute(transition, chunk)
+    //       }
+    //     }
+    //   }
+    //
+    // }
   }
 
-  resolveTransitionRoute(transition, currentChunk) {
-    // Overwrite the transition with a global definition, if any
-    transition.route = this.props.transitions[transition.name] || transition.route
-
-    if (!transition.route) {
-      // This transition does not define a route and we don't have a global one either
-      return
-    }
-
-    // Let's see what chunk we're referencing
-    var [chunkName, route] = transition.route.split("/")
-    var chunk = this.chunks[chunkName]
-
-    if (!route) {
-      route = chunkName
-      chunk = currentChunk
-    }
-
-    if (!chunk || !chunk.routes[route]) {
-      // Well, wrong chunk, or wrong route, so let's forget it
-      return
-    }
-
-
-    // Sounds like we have ourselves a valid route for this transition
-    return chunk.routes[route]
-  }
+  // resolveTransitionRoute(transition, currentChunk) {
+  //   // Let's start assuming this is local transition, within the same chunk
+  //   var route = transition.route
+  //
+  //   if (route) {
+  //     if (!currentChunk.routes[route]) {
+  //       // Well, wrong chunk, or wrong route, so let's forget it
+  //       return
+  //     }
+  //
+  //     // Sounds like we have ourselves a valid route for this transition
+  //     return currentChunk.routes[route]
+  //   }
+  //
+  //   // The transition refers to a global transition, so let's find it
+  //   route = this.props.transitions[transition.name]
+  //
+  //   if (!route) {
+  //     // This transition does not define a route and we don't have a global one either
+  //     return
+  //   }
+  //
+  //   console.log(transition, route)
+  //
+  //   // Alright, we've got a global transition, let's have a look at it
+  //   // var [sectionName, chunkName, route] = transition.route.split("/")
+  //   // var chunk = this.chunks[chunkName]
+  //   //
+  //   // if (!route) {
+  //   //   route = chunkName
+  //   //   chunk = currentChunk
+  //   // }
+  //   //
+  //   // if (!chunk || !chunk.routes[route]) {
+  //   //   // Well, wrong chunk, or wrong route, so let's forget it
+  //   //   return
+  //   // }
+  //   //
+  //   //
+  //   // // Sounds like we have ourselves a valid route for this transition
+  //   // return chunk.routes[route]
+  // }
 
   get reducers() {
     return this._reducers
