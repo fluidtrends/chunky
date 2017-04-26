@@ -109,7 +109,8 @@ export default class Operation {
   }
 
   addAuthToken (token) {
-    this.addHeader('Authorization', `${this.authType} ${token}`)
+    const tokenValue = (typeof token === 'string' ? token : token.tokenHashKey)
+    this.addHeader('Authorization', `${this.authType} ${tokenValue}`)
   }
 
   addAuthHeader(type, value, encodeBase64 = false) {
