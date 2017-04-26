@@ -28,9 +28,6 @@ export default class AppContainer extends Component {
   }
 
   generateSelectors(chunk) {
-
-    console.log("generateSelectors", chunk);
-
     const hasData = Selectors.common.hasData(chunk.name)
     const getData = Selectors.common.getData(chunk.name)
     const hasError = Selectors.common.hasError(chunk.name)
@@ -130,7 +127,6 @@ export default class AppContainer extends Component {
 
   parseChunks() {
 
-    console.log("!!!!!! PARSE");
     this._reducers = {}
 
     if (!this.props.chunks) {
