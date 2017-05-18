@@ -27,12 +27,12 @@
 
 Chunky is a (very) opinionated framework that helps you write better React apps by organizing functionality in modular, reusable, composable, cross-functional, end-to-end *chunks*.
 
-### Evil Spaghetti Code = Bad
+### Evil Spaghetti Code = Bad :thumbsdown:
 <p align="center">
     <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/bad.png">
 </p>
 
-### Healthy Chunky Code = Good
+### Healthy Chunky Code = Good :thumbsup:
 <p align="center">
     <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/good.png">
 </p>
