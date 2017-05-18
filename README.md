@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/react-chunky/react-chunky">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/logo.png">
+    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/logo.png">
   </a>
   <h2 align="center"> Chunky - The Full Stack React Framework. </h2>
 
@@ -29,12 +29,12 @@ Chunky is a (very) opinionated framework that helps you write better React apps 
 
 ### Evil Spaghetti Code = Bad
 <p align="center">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/bad.png">
+    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/bad.png">
 </p>
 
 ### Healthy Chunky Code = Good
 <p align="center">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/good.png">
+    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/good.png">
 </p>
 
 # Documentation
