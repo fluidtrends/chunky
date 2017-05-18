@@ -29,7 +29,7 @@ Chunky is a (very) opinionated framework that helps you write better React apps 
 
 ### Chunky Helps You Go From Evil Spaghetti Code
 <p align="center">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/pasta.jpg">
+    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/spaghetti.jpg">
 </p>
 
 ### To Healthy Chunky Code
