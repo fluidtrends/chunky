@@ -29,6 +29,12 @@ Chunky is an opinionated framework that helps you write better React Apps by org
 
 [View Documentation](http://chunky.io)
 
+# About
+
+<p align="center">
+    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/soup.png">
+</p>
+
 # License
 
 Copyright (c) 2017 I. Dan Calinescu
