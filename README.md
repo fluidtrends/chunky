@@ -33,7 +33,7 @@ Chunky is a (very) opinionated framework that helps you write better React apps 
 </p>
 
 ### Healthy Chunky Code = Good :thumbsup:
-<p align="center">
+  <p align="center">
     <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/good.png">
 </p>
 
