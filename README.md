@@ -2,7 +2,7 @@
   <a href="https://github.com/react-chunky/react-chunky">
     <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/logo.png">
   </a>
-  <h2 align="center"> Chunky - The Full Stack React Framework. </h2>
+  <h2 align="center"> The Full Stack React Framework </h2>
 
   <p align="center">
     <a href="https://github.com/react-chunky/react-chunky"> <img src="https://img.shields.io/badge/react--chunky-core-blue.svg"> </a>
@@ -25,16 +25,22 @@
 
 # React Chunky
 
-Chunky is a (very) opinionated framework that helps you write better React apps by organizing functionality in modular, reusable, composable, cross-functional, end-to-end *chunks*.
+Chunky is a (very) opinionated framework that helps you write better React Web And Mobile Apps by organizing functionality in modular, reusable, composable, end-to-end *chunks*.
 
 ### Evil Spaghetti Code = Bad :thumbsdown:
+
+In an ever-growing [React](https://js.coach/react) and [React Native](https://js.coach/react-native) Ecosystem, your React app can very quickly spin out of control and turn into a pile of spaghetti code that will take significant effort to maintain and extend.
+
 <p align="center">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/bad.png">
+  <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/bad.png">
 </p>
 
 ### Healthy Chunky Code = Good :thumbsup:
-  <p align="center">
-    <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/good.png">
+
+With Chunky, you can write cleaner and more manageable React apps by separating functionality into separate chunks of code that you can then reuse, test, compose, extend and even connect to remote microservices.
+
+<p align="center">
+  <img height="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/good.png">
 </p>
 
 # Documentation
