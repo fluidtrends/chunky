@@ -1,18 +1,29 @@
-import { createStore, applyMiddleware } from 'redux'
-import promiseMiddleware                from 'redux-promise'
-import thunkMiddleware                  from 'redux-thunk'
-import createLogger                     from 'redux-logger'
-import reducers                         from '../reducers'
-
-// Activate logging for the middleware
-const loggerMiddleware = createLogger()
+import {
+  createStore,
+  applyMiddleware,
+  compose
+} from 'redux'
+import {
+  composeWithDevTools
+} from 'remote-redux-devtools'
+import promiseMiddleware  from 'redux-promise'
+import thunkMiddleware    from 'redux-thunk'
+import createLogger       from 'redux-logger'
+import reducers           from '../reducers'
 
 // Prepare the app middleware for store injection
-const loggerEnabledMiddleware = applyMiddleware(thunkMiddleware, promiseMiddleware, loggerMiddleware)
-const logglessMiddleware = applyMiddleware(thunkMiddleware, promiseMiddleware)
+const middleware = applyMiddleware(thunkMiddleware, promiseMiddleware, createLogger())
 
-// Create the store from the reducers
-const store = (appReducers, logging = false) => createStore(reducers(appReducers), logging ? loggerEnabledMiddleware : logglessMiddleware)
+// Setup the dev tools composer
+const composeEnhancers = composeWithDevTools({
+  name: 'Chunky',
+  hostname: 'localhost',
+  port: 8000,
+  realtime: true
+})
+
+// Create the store from the reducers and enhancer
+const store = (appReducers) => createStore(reducers(appReducers), composeEnhancers(middleware))
 
 // Export the store to be used by the entire app
 export default store

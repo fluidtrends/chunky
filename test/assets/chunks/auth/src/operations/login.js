@@ -1,4 +1,4 @@
-import { Core } from '../../../../..'
+import { Core } from '../../../../../..'
 
 export default class LoginOperation extends Core.Operation {
 

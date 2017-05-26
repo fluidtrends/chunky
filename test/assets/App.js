@@ -10,10 +10,8 @@ export default class App extends Component {
   }
 
   render() {
-    const Screen = this.props.initialRoute.screen
     return (<div>
       <h1> Test App </h1>
-      <Screen/>
       </div>)
   }
 }
