@@ -15,15 +15,17 @@ import reducers           from '../reducers'
 const middleware = applyMiddleware(thunkMiddleware, promiseMiddleware, createLogger())
 
 // Setup the dev tools composer
-const composeEnhancers = composeWithDevTools({
-  name: 'Chunky',
-  hostname: 'localhost',
-  port: 8000,
-  realtime: true
-})
-
+// const composeEnhancers = composeWithDevTools({
+//   name: 'Chunky',
+//   hostname: 'localhost',
+//   port: 8000,
+//   realtime: true
+// })
+// const enhancer = composeEnhancers(middleware)
 // Create the store from the reducers and enhancer
-const store = (appReducers) => createStore(reducers(appReducers), composeEnhancers(middleware))
+// const store = (appReducers) => createStore(reducers(appReducers), enhancer)
+
+const store = Reactotron.createStore(reducers(appReducers), compose(middleware))
 
 // Export the store to be used by the entire app
 export default store
