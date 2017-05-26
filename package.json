@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "The Full Stack React Framework",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/react-chunky/react-chunky",
   "dependencies": {
-    "react": "16.0.0-alpha.12",
+    "react": "16.0.0-alpha.6",
     "redux": "^3.6.0",
     "react-redux": "^4.4.5",
     "redux-logger": "^2.7.0",
