@@ -6,6 +6,7 @@ import {
 import {
   composeWithDevTools
 } from 'remote-redux-devtools'
+import { reactotronRedux } from 'reactotron-redux'
 import promiseMiddleware  from 'redux-promise'
 import thunkMiddleware    from 'redux-thunk'
 import createLogger       from 'redux-logger'
