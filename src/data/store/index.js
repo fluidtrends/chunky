@@ -15,15 +15,15 @@ import reducers           from '../reducers'
 const middleware = applyMiddleware(thunkMiddleware, promiseMiddleware, createLogger())
 
 // Setup the dev tools composer
-const composeEnhancers = composeWithDevTools({
-  name: 'Chunky',
-  hostname: 'localhost',
-  port: 8000,
-  realtime: true
-})
+// const composeEnhancers = composeWithDevTools({
+//   name: 'Chunky',
+//   hostname: 'localhost',
+//   port: 8000,
+//   realtime: true
+// })
 
 // Create the store from the reducers and middleware
-const store = (appReducers) => createStore(reducers(appReducers), composeEnhancers(middleware))
+const store = (appReducers) => createStore(reducers(appReducers), compose(middleware))
 
 // Export the store to be used by the entire app
 export default store

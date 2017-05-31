@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Provider }         from 'react-redux'
 import DataStore            from '../data/store'
 import * as Errors          from '../errors'
+import * as Operations      from '../operations'
 import Container            from './Container'
 import { Actions, Selectors, Reducers } from '../data'
 
@@ -73,7 +74,16 @@ export default class AppContainer extends Component {
     const adapter = chunk.operations[action.operation]
     const operation = (props) => new adapter(Object.assign({}, this.props.api, operationProps, props))
 
-    return (props) => Actions.common.operation(`${chunk.name}/${actionId}`, operation(props))
+    return (props) => Actions.common.remoteOperation(`${chunk.name}/${actionId}`, operation(props))
+  }
+
+  generateFirebaseAction(chunk, action, actionId) {
+    if (!action.operation || !chunk.operations[action.operation]) {
+      return
+    }
+
+    const operation = (props) => new Operations.Firebase(Object.assign({}, props))
+    return (props) => Actions.common.firebaseOperation(`${chunk.name}/${actionId}`, operation(props))
   }
 
   generateAction(chunk, action, actionId) {
@@ -82,6 +92,8 @@ export default class AppContainer extends Component {
         return this.generateCacheAction(chunk, action, actionId)
       case 'remote':
         return this.generateRemoteAction(chunk, action, actionId)
+      case 'firebase':
+        return this.generateFirebaseAction(chunk, action, actionId)
       default:
         break
     }
