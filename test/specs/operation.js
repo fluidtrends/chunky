@@ -1,16 +1,16 @@
 import savor from 'react-savor'
-import { Core, Data, Config, Errors } from '../..'
+import { Core, Data, Config, Errors, Operations } from '../..'
 
 savor.add("should create a basic post operation", (context, done) => {
   // Create a POST operation
-  const post = new Core.Operation.POST({})
+  const post = new Operations.Default.POST({})
   context.expect(post.method).to.equal(Config.API_POST_METHOD)
   done()
 }).
 
 add("should create a basic auth headers", (context, done) => {
   // Create a POST operation
-  const post = new Core.Operation.POST({})
+  const post = new Operations.Default.POST({})
 
   // Add a base64 basic auth header
   post.addAuthHeader('Basic', 'test', true)
@@ -45,7 +45,7 @@ add("should create a basic auth headers", (context, done) => {
 
 add("should create a custom operation", (context, done) => {
   // Create a custom operation
-  const operation = new Core.Operation({
+  const operation = new Operations.Default({
     email: 'test',
     body: {
       item: "value",
@@ -74,7 +74,7 @@ add("should handle public failed operations", (context, done) => {
   global.fetch = (url, options, body) => Promise.reject(new Error('error'))
 
   // Create a POST operation
-  const post = new Core.Operation.POST({
+  const post = new Operations.Default.POST({
     email: 'test',
     username: 'username',
     password: 'password',
@@ -98,7 +98,7 @@ add("should handle secure failed operations", (context, done) => {
   global.fetch = (url, options, body) => Promise.reject(new Error('error'))
 
   // Create a POST operation
-  const post = new Core.Operation.POST({
+  const post = new Operations.Default.POST({
     email: 'test',
     secure: true,
     username: 'username',
@@ -123,7 +123,7 @@ add("should handle bodyless failed operations", (context, done) => {
   global.fetch = (url, options, body) => Promise.reject(new Error('error'))
 
   // Create a POST operation
-  const post = new Core.Operation.POST({
+  const post = new Operations.Default.POST({
     email: 'test',
     username: 'username',
     password: 'password'
@@ -136,7 +136,7 @@ add("should handle operations timeout", (context, done) => {
   global.fetch = (url, options, body) => Promise.reject(Errors.TIMEOUT_ERROR)
 
   // Create a POST operation
-  const post = new Core.Operation.POST({
+  const post = new Operations.Default.POST({
     timeout: 1
   })
 
@@ -147,7 +147,7 @@ add("should handle empty responses", (context, done) => {
   global.fetch = (url, options, body) => Promise.resolve()
 
   // Create a POST operation
-  const post = new Core.Operation.POST({})
+  const post = new Operations.Default.POST({})
 
   savor.promiseShouldSucceed(post.start(), done, (data) => {})
 }).
@@ -156,7 +156,7 @@ add("should handle invalid responses", (context, done) => {
   global.fetch = (url, options, body) => Promise.resolve({ json: () => Promise.reject(new Error('parse error')) })
 
   // Create a POST operation
-  const post = new Core.Operation.POST({})
+  const post = new Operations.Default.POST({})
 
   savor.promiseShouldSucceed(post.start(), done, (data) => {})
 }).
@@ -165,7 +165,7 @@ add("should handle valid responses", (context, done) => {
   global.fetch = (url, options, body) => Promise.resolve({ json: () => Promise.resolve({ test: 'test' }) })
 
   // Create a POST operation
-  const post = new Core.Operation.POST({})
+  const post = new Operations.Default.POST({})
 
   savor.promiseShouldSucceed(post.start(), done, (data) => {})
 }).
