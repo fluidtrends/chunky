@@ -9,7 +9,7 @@ import {
 
 export default class FirebaseOperation {
 
-  static TYPE () {
+  static TYPES () {
     return { UNKNOWN: 'unknown', 
              EMAIL_SIGNUP: 'register/email', 
              EMAIL_LOGIN: 'login/email', 
@@ -39,22 +39,23 @@ export default class FirebaseOperation {
   init() { }
 
   start() {
+
     this.init()
 
     switch(this.type) {
-        case FirebaseOperation.TYPE.EMAIL_SIGNUP:
+        case FirebaseOperation.TYPES().EMAIL_SIGNUP:
             return this.emailSignup()
-        case FirebaseOperation.TYPE.EMAIL_LOGIN:
+        case FirebaseOperation.TYPES().EMAIL_LOGIN:
             return this.emailLogin()
-        case FirebaseOperation.TYPE.FACEBOOK_LOGIN:
+        case FirebaseOperation.TYPES().FACEBOOK_LOGIN:
             return this.facebookLogin()
-        case FirebaseOperation.TYPE.GOOGLE_LOGIN:
+        case FirebaseOperation.TYPES().GOOGLE_LOGIN:
             return this.googleLogin()
-        case FirebaseOperation.TYPE.TWITTER_LOGIN:
+        case FirebaseOperation.TYPES().TWITTER_LOGIN:
             return this.twitterLogin()
-        case FirebaseOperation.TYPE.GITHUB_LOGIN:
+        case FirebaseOperation.TYPES().GITHUB_LOGIN:
             return this.githubLogin()
-        case FirebaseOperation.TYPE.PHONE_LOGIN:
+        case FirebaseOperation.TYPES().PHONE_LOGIN:
             return this.phoneLogin()
         default:
             return Promise.reject(Errors.UNDEFINED_OPERATION())        
@@ -66,7 +67,19 @@ export default class FirebaseOperation {
   }
 
   emailLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())              
+    const email = this.props.username
+    const password = this.props.password
+
+    return new Promise((resolve, reject) => {
+      firebase.auth().signInWithEmailAndPassword(email, password).
+              then((user) => {
+                  console.log("USER:", user)
+                  resolve({ user })
+                }).
+                catch((err) => {
+                  reject(Errors.INVALID_LOGIN_ERROR)
+                })
+    })
   }
 
   facebookLogin() {

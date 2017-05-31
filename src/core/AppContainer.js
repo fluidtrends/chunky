@@ -78,11 +78,11 @@ export default class AppContainer extends Component {
   }
 
   generateFirebaseAction(chunk, action, actionId) {
-    if (!action.operation || !chunk.operations[action.operation]) {
+    if (!action.operation) {
       return
     }
 
-    const operation = (props) => new Operations.Firebase(Object.assign({}, props))
+    const operation = (props) => new Operations.Firebase(Object.assign({ type: action.operation }, props))
     return (props) => Actions.common.firebaseOperation(`${chunk.name}/${actionId}`, operation(props))
   }
 

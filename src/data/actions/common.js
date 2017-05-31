@@ -25,14 +25,14 @@ export function deleteFromCache (name, id) {
   return asyncAction(name, () => cache.clearAuthToken(id), "cache")
 }
 
-export function operation (name, operation, kind) {
-  return asyncAction(name, () => operation.start(), kind)
+export function operation (name, op, kind) {
+  return asyncAction(name, () => op.start(), kind)
 }
 
-export function remoteOperation (name, operation) {
-  return operation(name, operation, 'remote')
+export function remoteOperation (name, op) {
+  return operation(name, op, 'remote')
 }
 
-export function firebaseOperation (name, operation) {
-  return operation(name, operation, 'firebase')
+export function firebaseOperation (name, op) {
+  return operation(name, op, 'firebase')
 }
