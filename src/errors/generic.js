@@ -8,3 +8,5 @@ export const UNABLE_TO_LOAD_APP = () => new Error("Unable to load the applicatio
 export const UNABLE_TO_LOAD_CHUNKS = () => new Error("Unable to load chunks")
 export const OPERATION_TIMEOUT = () => new Error(`Operation Timed Out`)
 export const UNDEFINED_OPERATION = () => new Error(`Operation Is Not Defined`)
+export const MISSING_OPERATION_OPTIONS = () => new Error(`The Operation Is Missing Options`)
+

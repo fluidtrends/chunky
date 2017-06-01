@@ -12,62 +12,83 @@ export default class FirebaseOperation {
 
   static TYPES () {
     return { UNKNOWN: 'unknown', 
-             EMAIL_SIGNUP: 'register/email', 
-             EMAIL_LOGIN: 'login/email', 
-             FACEBOOK_LOGIN: 'login/facebook', 
-             GOOGLE_LOGIN: 'login/google', 
-             TWITTER_LOGIN: 'login/twitter', 
-             GITHUB_LOGIN: 'login/github', 
-             PHONE_LOGIN: 'login/phone' }
+             REGISTER: 'register', 
+             LOGIN: 'login', 
+             FETCH: 'fetch' }
   }
 
   constructor(props) {
-    this._props = props
+    this._props = this._parseProps(props)
+  }
+
+  _parseProps(props) {
+    // Start off assuming no valid props
+    this._type = FirebaseOperation.TYPES().UNKNOWN
+    this._options = []
+    
+    if (!props.type) {
+      // Looks like this operation did not define a type
+      return props
+    } 
+
+    // Let's look through the type    
+    const options = props.type.split("/")
+
+    if (!options || options.length < 1) { 
+      // We expect at least a simple type
+      return props
+    } 
+    
+    // Great, we have a type    
+    this._type = options[0]
+
+    // We might even have some options
+    this._options = options.slice(1)
+
+    return props
   }
 
   get props() {
     return this._props
   }
 
-  get firebase() {
-      return this.props.adapter
-  }
-
   get type () {
-    return this.props.type || FirebaseOperation.TYPE.UNKNOWN
+    return this._type
   }
 
-  init() { }
+  get options() {
+    return this._options
+  }
 
   start() {
 
-    this.init()
-
     switch(this.type) {
-        case FirebaseOperation.TYPES().EMAIL_SIGNUP:
-            return this.emailSignup()
-        case FirebaseOperation.TYPES().EMAIL_LOGIN:
-            return this.emailLogin()
-        case FirebaseOperation.TYPES().FACEBOOK_LOGIN:
-            return this.facebookLogin()
-        case FirebaseOperation.TYPES().GOOGLE_LOGIN:
-            return this.googleLogin()
-        case FirebaseOperation.TYPES().TWITTER_LOGIN:
-            return this.twitterLogin()
-        case FirebaseOperation.TYPES().GITHUB_LOGIN:
-            return this.githubLogin()
-        case FirebaseOperation.TYPES().PHONE_LOGIN:
-            return this.phoneLogin()
+        case FirebaseOperation.TYPES().LOGIN:
+            return this.login()
+        case FirebaseOperation.TYPES().FETCH:
+            return this.fetch()
         default:
             return Promise.reject(Errors.UNDEFINED_OPERATION())        
     }
   }
 
-  emailSignup() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())              
+  fetch() {
+    if (this.options.length <= 0) {
+      // We need at least one option
+      return Promise.reject(Errors.MISSING_OPERATION_OPTIONS())
+    }
+
+    // Find the root node
+    const node = this.options[0]
+
+    return new Promise((resolve, reject) => {
+      firebase.database().ref(node).on('value', (snapshot) => {
+        resolve( snapshot.val() )
+      })
+    })
   }
 
-  emailLogin() {
+  login() {
     const email = this.props.username
     const password = this.props.password
 
@@ -80,24 +101,4 @@ export default class FirebaseOperation {
               throw Errors.INVALID_LOGIN_ERROR
             })
   }
-
-  facebookLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())        
-  }
-
-  googleLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())              
-  }
-
-  twitterLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())        
-  }
-    
-  githubLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())              
-  }
-
-  googleLogin() {
-    return Promise.reject(Errors.UNDEFINED_OPERATION())              
-  } 
 }
