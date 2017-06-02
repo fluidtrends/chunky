@@ -6,7 +6,7 @@ export function retrieveCachedItem(key) {
     localStorage.getItem(key, (error, value) => {
       if (error || !value || value === undefined) {
         // The item was not found locally
-        reject(Errors.COULD_NOT_RETRIEVE_CACHED_ITEM)
+        reject(Errors.COULD_NOT_RETRIEVE_CACHED_ITEM())
         return
       }
 
@@ -21,7 +21,7 @@ export function cacheItem(key, value) {
     localStorage.setItem(key, JSON.stringify(value), (error) => {
       if (error) {
         // Something went wrong when saving the item
-        reject(Errors.COULD_NOT_CACHE_ITEM)
+        reject(Errors.COULD_NOT_CACHE_ITEM())
         return;
       }
 
@@ -36,7 +36,7 @@ export function clearCachedItem(key) {
     localStorage.removeItem(key, (error) => {
       if (error) {
         // The item could not be removed
-        reject(Errors.COULD_NOT_CLEAR_CACHED_ITEM)
+        reject(Errors.COULD_NOT_CLEAR_CACHED_ITEM())
         return
       }
       resolve()

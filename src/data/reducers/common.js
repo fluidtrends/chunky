@@ -1,9 +1,9 @@
 export const asyncReducer = (name) => {
   return (state = {}, action) => {
     // Let's see what kind of action this is
-    const [source, chunkName, kind, type] = action.type.split('/')
+    const [source, actionState, chunkName, actionName] = action.type.split('/')
 
-    if (source.toLowerCase() != 'chunky') {
+    if (source.toLowerCase() != '@@chunky') {
       // We only recognize framework actions
       return state
     }
@@ -16,15 +16,15 @@ export const asyncReducer = (name) => {
     // Let's compose the state now
     var newState = { timestamp: action.timestamp }
 
-    switch (type) {
+    switch (actionState.toLowerCase()) {
       case "start":
-        newState = Object.assign(newState, { progress: true, done: false })
+        newState = Object.assign(newState, { inProgress: true, done: false, provider: action.provider })
         break
       case "error":
-        newState = Object.assign(newState, { progress: false, done: true, source: action.source, error: action.error })
+        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, error: action.error })
         break
       default:
-        newState = Object.assign(newState, { progress: false, done: true, source: action.source, data: action.data })
+        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, data: action.data || {}})
         break
     }
 

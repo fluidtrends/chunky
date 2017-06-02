@@ -3,19 +3,48 @@ import React, { Component } from 'react'
 import { Provider }         from 'react-redux'
 import DataStore            from '../data/store'
 import * as Errors          from '../errors'
-import * as Operations      from '../operations'
-import Container            from './Container'
-import { Actions, Selectors, Reducers } from '../data'
+import { Providers }        from '../data'
+import Generator            from './Generator'
 
 export default class AppContainer extends Component {
 
   constructor(props) {
     super(props)
 
-    this.parseChunks()
+    // Setup all the data providers
+    this._initializeDataProviders()
+
+    // Create a generator for data injection
+    this._generator = new Generator(Object.assign({ dataProviders: this.dataProviders}, props))
+
+    // Parse all the app chunks
+    this._parseChunks()
 
     // Initialize the store with custom app reducers
     this.state = { store: DataStore(this.reducers, this.props.logging) }
+  }
+
+  _initializeDataProviders() {
+    const supportedProviders = Object.keys(Providers)
+    this._dataProviders = {}
+    supportedProviders.forEach(providerName => {
+      // The providers initialization can be customized globally
+      const providerOptions = this.provisioning[providerName.toLowerCase] || {}
+      const provider = new Providers[providerName](providerOptions)
+      this._dataProviders[providerName.toLowerCase()] = provider
+    })
+  }
+
+  get provisioning () {
+    return this.props.provisioning || {}
+  }
+
+  get dataProviders() {
+    return this._dataProviders
+  }
+
+  get generator() {
+    return this._generator
   }
 
   get app () {
@@ -28,117 +57,7 @@ export default class AppContainer extends Component {
     return this._chunks
   }
 
-  generateSelectors(chunk) {
-    const hasData = Selectors.common.hasData(chunk.name)
-    const getData = Selectors.common.getData(chunk.name)
-    const hasError = Selectors.common.hasError(chunk.name)
-    const getError = Selectors.common.getError(chunk.name)
-    const isDone = Selectors.common.isDone(chunk.name)
-    const isProgress = Selectors.common.isProgress(chunk.name)
-
-    return {
-      [`${chunk.name}HasData`]: hasData,
-      [`${chunk.name}Data`]: getData,
-      [`${chunk.name}HasError`]: hasError,
-      [`${chunk.name}Error`]: getError,
-      [`${chunk.name}IsDone`]: isDone,
-      [`${chunk.name}IsInProgress`]: isProgress
-    }
-  }
-
-  generateCacheAction(chunk, action, actionId) {
-    if (!action.key || !action.type) {
-      return
-    }
-
-    switch (action.type) {
-      case 'create':
-        break
-      case 'retrieve':
-        return () => Actions.common.getFromCache(`${chunk.name}/${actionId}`, action.key)
-      case 'update':
-        break
-      case 'delete':
-        return () => Actions.common.deleteFromCache(`${chunk.name}/${actionId}`, action.key)
-      default:
-        break
-    }
-  }
-
-  generateRemoteAction(chunk, action, actionId) {
-    if (!action.operation || !chunk.api || !chunk.api[action.operation] || !chunk.operations[action.operation]) {
-      return
-    }
-
-    const operationProps = chunk.api[action.operation]
-    const adapter = chunk.operations[action.operation]
-    const operation = (props) => new adapter(Object.assign({}, this.props.api, operationProps, props))
-
-    return (props) => Actions.common.remoteOperation(`${chunk.name}/${actionId}`, operation(props))
-  }
-
-  generateFirebaseAction(chunk, action, actionId) {
-    if (!action.operation) {
-      return
-    }
-
-    const operation = (props) => new Operations.Firebase(Object.assign({ type: action.operation }, props))
-    return (props) => Actions.common.firebaseOperation(`${chunk.name}/${actionId}`, operation(props))
-  }
-
-  generateAction(chunk, action, actionId) {
-    switch (action.source) {
-      case 'cache':
-        return this.generateCacheAction(chunk, action, actionId)
-      case 'remote':
-        return this.generateRemoteAction(chunk, action, actionId)
-      case 'firebase':
-        return this.generateFirebaseAction(chunk, action, actionId)
-      default:
-        break
-    }
-  }
-
-  generateActions(chunk, actions) {
-    if (!actions) {
-      return {}
-    }
-
-    var all = {}
-
-    for (let actionId in actions) {
-      var action = actions[actionId]
-      if (!action || !action.source) {
-        continue
-      }
-
-      // Generate the action
-      const generatedAction = this.generateAction(chunk, action, actionId)
-      if (generatedAction) {
-        // Keep track of it if it was successfully generated
-        all[actionId] = generatedAction
-      }
-    }
-
-    return all
-  }
-
-  generateContainer(chunk, route) {
-    const actions = Object.assign({}, this.generateActions(chunk, route.actions))
-    const selectors = Object.assign({}, this.generateSelectors(chunk))
-
-    return Container(route.screen, selectors, actions, {
-      api: this.props.api,
-      chunk
-    })
-  }
-
-  generateReducer(chunk) {
-    return Reducers.common.asyncReducer(chunk.name)
-  }
-
-  parseChunks() {
-
+  _parseChunks() {
     this._reducers = {}
 
     if (!this.props.chunks) {
@@ -147,7 +66,7 @@ export default class AppContainer extends Component {
 
     for (let chunkName in this.props.chunks) {
       const chunk = this.props.chunks[chunkName]
-      this._reducers = Object.assign(this._reducers, { [chunk.name]: this.generateReducer(chunk) } )
+      this._reducers = Object.assign(this._reducers, { [chunk.name]: this.generator.generateReducer(chunk) } )
 
       if (chunk.routes) {
         for (let routeName in chunk.routes) {
@@ -157,7 +76,7 @@ export default class AppContainer extends Component {
 
           if (route.screen && (route.actions || route.selectors)) {
             // Resolve containers
-            chunk.routes[routeName].screen = this.generateContainer(chunk, route)
+            chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route)
           }
         }
       }

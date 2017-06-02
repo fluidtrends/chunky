@@ -2,7 +2,6 @@ import { createSelector } from 'reselect'
 
 const stateItem = (name, item) => (state, props) => {
   const value = state[name][item]
-
   return value
 }
 
@@ -20,4 +19,4 @@ export const getData = (name) => get(name, "data")
 export const getError = (name) => get(name, "error")
 
 export const isDone = (name) => has(name, "done")
-export const isProgress = (name) => has(name, "progress")
+export const isInProgress = (name) => has(name, "inProgress")

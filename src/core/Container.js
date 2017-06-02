@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 
 export default function (component, selectors, actions, context) {
-
   const mapStateToProps = (state, props) => {
     var results = {}
 

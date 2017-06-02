@@ -1,19 +1,20 @@
-import * as Errors from '../errors'
-import * as Config from '../config'
-import * as Utils from '../utils'
-import ChunkyError from '../core/Error'
+import * as Errors from '../../errors'
+import * as Config from '../../config'
+import * as Utils from '../../utils'
+import ChunkyError from '../../core/Error'
+import DataProvider from '../../core/DataProvider'
 
 import {
   retrieveAuthToken
-} from '../data/cache'
+} from '../cache'
 
-export default class DefaultOperation {
+export default class RemoteDataProvider extends DataProvider  {
 
   static POST (props) {
-    return new DefaultOperation(Object.assign(props, { method: "POST" }))
+    return new RemoteDataProvider(Object.assign(props, { method: "POST" }))
   }
 
-  constructor(props) {
+  parseProps(props) {
     this._props = props
     this._headers = {
       'Content-Type': Config.API_JSON_CONTENT_TYPE,
@@ -203,3 +204,4 @@ export default class DefaultOperation {
      })
   }
 }
+
