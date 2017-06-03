@@ -124,7 +124,6 @@ export default class Generator {
 
     return Container(route.screen, selectors, actions, {
       api: this.props.api,
-      options: route,
       chunk
     })
   }

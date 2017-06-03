@@ -4,7 +4,13 @@ import * as Errors     from './src/errors'
 import * as Styles     from './src/styles'
 import * as Utils      from './src/utils'
 import * as Config     from './src/config'
+import merge           from 'deepmerge'
 
-export { Core, Data, Errors, Styles, Utils, Config }
+function extendChunk(original, another) {
+     return merge.all([original, another])
+}
 
-export default ({Core, Data, Errors, Styles, Utils, Config})
+export { Core, Data, Errors, Styles, Utils, Config, extendChunk }
+
+export default ({Core, Data, Errors, Styles, Utils, Config, extendChunk})
+
