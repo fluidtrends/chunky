@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://github.com/react-chunky/react-chunky">
-    <img width="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/logo.gif">
+    <img width="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/c-logo.gif">
     <br/>
-    <img width="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/logo-h.png">
+    <img width="256" src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/assets/c-logo-h.png">
   </a>
   <h2 align="center"> The Full Stack React Framework </h2>
 
