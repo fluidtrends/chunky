@@ -10,6 +10,10 @@ export default class Screen extends Component {
     this.state = { transitioned: false }
   }
 
+  componentDidMount() {
+    this.props.retrieveDataOnMount && this.props.retrieveData()
+  }
+
   componentWillMount() {
     for(const transitionName in this.props.transitions) {
       // Inject all transitions into this screen
