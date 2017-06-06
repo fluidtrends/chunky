@@ -19,20 +19,13 @@ export default class Generator {
 
   generateSelectors(chunk) {
     const hasData = Selectors.common.hasData(chunk.name)
-    const getData = Selectors.common.getData(chunk.name)
-    const hasError = Selectors.common.hasError(chunk.name)
-    const getError = Selectors.common.getError(chunk.name)
-    const isDone = Selectors.common.isDone(chunk.name)
-    const isInProgress = Selectors.common.isInProgress(chunk.name)
+    const data = Selectors.common.getData(chunk.name)
+    const hasDataError = Selectors.common.hasError(chunk.name)
+    const dataError = Selectors.common.getError(chunk.name)
+    const isDataDone = Selectors.common.isDone(chunk.name)
+    const isDataInProgress = Selectors.common.isInProgress(chunk.name)
 
-    return {
-      [`${chunk.name}HasData`]: hasData,
-      [`${chunk.name}Data`]: getData,
-      [`${chunk.name}HasError`]: hasError,
-      [`${chunk.name}Error`]: getError,
-      [`${chunk.name}IsDone`]: isDone,
-      [`${chunk.name}IsInProgress`]: isInProgress
-    }
+    return { hasData, data, hasDataError, dataError, isDataDone, isDataInProgress }
   }
 
   generateAction(chunk, action) {
@@ -68,7 +61,7 @@ export default class Generator {
 
         for(const chunkName in this.props.chunks) {
           if (Object.keys(localChunks).length === 0 || localChunks[chunkName]) {
-            all.push({name: `${chunkName}/${action.name}`, operation: () => operation(props), provider: action.provider})
+            all.push({name: `${chunkName}/${action.name}`, operation: () => operation(props), provider: action})
           }
         }
         
@@ -77,21 +70,28 @@ export default class Generator {
         }
       }
 
-      return Actions.common.asyncAction(`${chunk.name}/${action.name}`, () => operation(props), action.provider)
+      return Actions.common.asyncAction(`${chunk.name}/${action.name}`, () => operation(props), action)
     }
   }
 
-  parseActionFromURI(uri) {
+  parseActionFromURI(uri, chunk) {
     const url = new URL(uri, true)
-    const action = {
-      name: url.hash.substring(1),
-      provider: url.protocol.slice(0, -1).toLowerCase(),
-      operation: {
-        type: url.hostname.toLowerCase(),
-        arguments: url.pathname.toLowerCase().split("/").slice(1),
-        options: url.query
-      }
+    const operation = {
+      type: url.hostname.toLowerCase(),
+      arguments: url.pathname.toLowerCase().split("/").slice(1),
+      options: url.query
     }
+
+    var flavor = url.hash ? url.hash.substring(1) : ''
+
+    if (!flavor && operation.arguments && operation.arguments[0] && operation.arguments[0] != chunk.name) {
+      // An even more intelligent way to retrieve the flavor
+      flavor = operation.arguments[0]
+    }
+
+    const name = flavor ? `${operation.type}${flavor.charAt(0).toUpperCase()}${flavor.substring(1).toLowerCase()}` : `${operation.type}Data`
+    const provider = url.protocol.slice(0, -1).toLowerCase()
+    const action = { operation, flavor, name, provider }
 
     return action
   }
@@ -104,7 +104,7 @@ export default class Generator {
     var all = {}
     actions.forEach(actionUri => {
       // Parse the action from the URI
-      const action = this.parseActionFromURI(actionUri)
+      const action = this.parseActionFromURI(actionUri, chunk)
 
       // Attempt to generate this action
       const generatedAction = this.generateAction(chunk, action)

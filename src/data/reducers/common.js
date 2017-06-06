@@ -15,6 +15,9 @@ export const asyncReducer = (name) => {
 
     // Let's compose the state now
     var newState = { timestamp: action.timestamp }
+    
+    // Figure out the flavor
+    const flavor = action.flavor || 'main'
 
     switch (actionState.toLowerCase()) {
       case "start":
@@ -24,7 +27,7 @@ export const asyncReducer = (name) => {
         newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, error: action.error })
         break
       default:
-        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, data: action.data || {}})
+        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, data: { [flavor]: action.data } || {}})
         break
     }
 

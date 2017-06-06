@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import URL                  from 'url-parse'
+import URL from 'url-parse'
+import { diff } from 'deep-diff'
 
 export default class Screen extends Component {
 
@@ -36,34 +37,35 @@ export default class Screen extends Component {
 
   push(transition, data) {}
   replace(transition, data) {}
-  onData(name, data) {}  
-  onDataError(type, error) {}
+  onDataChanged(data) {}  
+  onDataError(error) {}
 
   didValueChange(name, nextProps) {
     // Look at the old and new value
     const oldValue = nextProps[name]()
     const newValue = this.props[name]()
 
+    // Check the differences
+    const differences = diff(oldValue, newValue)
+
     // Determine whether it changed or not
-    return (oldValue != newValue)
+    return differences
   }
 
-  valueChanged(name, oldValue, newValue, nextProps) {  
-    if (typeof oldValue === 'boolean') {
-      const value = `${newValue}`.substring(0, 1).toUpperCase() + `${newValue}`.substring(1).toLowerCase()
-      this[`${name}On${value}`] && this[`${name}On${value}`](nextProps)
-      
-      if (name.endsWith("HasError") && newValue) {
-        const chunkName = name.slice(0, -8)
-        this.onDataError(chunkName, nextProps[`${chunkName}Error`]())
-      }
-    }
+  valueChanged(name, nextProps) {  
+    // Look up the old and new values
+    const oldValue = this.props[name]()
+    const newValue = nextProps[name]()
 
-    if (name.endsWith("HasData")) {
-      const chunkName = name.slice(0, -7)
-      this[`${name}OnChanged`] && this[`${name}OnChanged`](oldValue, newValue, nextProps)
-      const data = nextProps[`${chunkName}Data`]()
-      data && this.onData(chunkName, data)
+    switch(name) {
+      case 'hasData':
+        newValue && this.onDataChanged(nextProps.data())
+        break
+      case 'hasDataError':
+        newValue && this.onDataError(nextProps.dataError())
+        break
+      default:
+        break
     }
   }
 
@@ -73,12 +75,8 @@ export default class Screen extends Component {
       return
     }
 
-    // Look up the old and new values
-    const oldValue = this.props[name]()
-    const newValue = nextProps[name]()
-
     // Signal the fact that this value did change
-    this.valueChanged(name, oldValue, newValue, nextProps)
+    this.valueChanged(name, nextProps)
   }
 
   observeValues(names, nextProps) {
@@ -88,6 +86,6 @@ export default class Screen extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Look through the observers, if any
-    this.props.chunky.observers && this.observeValues(this.props.chunky.observers, nextProps)
+    this.observeValues(['hasDataError', 'hasData'], nextProps)
   }
 }
