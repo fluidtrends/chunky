@@ -93,8 +93,6 @@ export default class Generator {
     const provider = url.protocol.slice(0, -1).toLowerCase()
     const action = { operation, flavor, name, provider }
 
-    console.log(action)
-
     return action
   }
 
