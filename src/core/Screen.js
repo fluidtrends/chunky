@@ -43,6 +43,7 @@ export default class Screen extends Component {
   replace(transition, data) {}
   onDataChanged(data) {}  
   onDataError(error) {}
+  onDataDone(data) {}
 
   didValueChange(name, nextProps) {
     // Look at the old and new value
@@ -60,10 +61,10 @@ export default class Screen extends Component {
     // Look up the old and new values
     const oldValue = this.props[name]()
     const newValue = nextProps[name]()
-
+    
     switch(name) {
       case 'hasData':
-        newValue && this.onDataChanged(nextProps.data())
+        this.onDataChanged(nextProps.data())
         break
       case 'hasDataError':
         newValue && this.onDataError(nextProps.dataError())

@@ -6,5 +6,6 @@ export const TIMEOUT_ERROR                    = new Error("The operation timed o
 export const ACCESS_ERROR                     = new Error("The operation requires authentication")
 export const COULD_NOT_RETRIEVE_USER          = new Error("Unable to retrieve user information")
 export const INVALID_LOGIN_ERROR              = new Error("Please make sure your credentials are correct")
+export const INVALID_REGISTER_ERROR           = new Error("The registration failed")
 export const WARNING_EMPTY_RESPONSE           = "empty response"
 export const WARNING_INVALID_RESPONSE         = "invalid response"

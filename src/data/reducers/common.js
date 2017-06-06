@@ -27,7 +27,10 @@ export const asyncReducer = (name) => {
         newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, error: action.error })
         break
       default:
-        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, data: { [flavor]: action.data } || {}})
+        newState = Object.assign(newState, { inProgress: false, done: true, provider: action.provider, data: { [flavor]: action.data }})
+        if (flavor === 'main' && !action.data) {
+          delete newState.data
+        }
         break
     }
 

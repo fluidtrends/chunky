@@ -25,10 +25,27 @@ export default class FirebaseDataProvider extends DataProvider  {
             then((user) => {
               // Let's keep track of the user locally
               return cacheAuth({ user })
-            }).
-            catch((err) => {
-              throw Errors.INVALID_LOGIN_ERROR
             })
+  }
+
+  registerOperation(args, options, props) {
+    // Let's see what kind of a login we want to perform
+    const loginType = args[0]
+
+    if (!loginType || loginType.toLowerCase() !== 'email') {
+      // We only support email registrations for now
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    } 
+
+    // Let's take a look at the credentials
+    const email = props.username
+    const password = props.password
+
+    return firebase.auth().createUserWithEmailAndPassword(email, password).
+          then((user) => {
+            // Let's keep track of the user locally
+            return cacheAuth({ user })
+          })
   }
 
   retrieveOperation(args, options, props) {
