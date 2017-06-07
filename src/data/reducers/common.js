@@ -31,6 +31,10 @@ export const asyncReducer = (name) => {
         if (flavor === 'main' && !action.data) {
           delete newState.data
         }
+
+        if (flavor !== 'main' && !action.data) {
+          delete newState.data[flavor]
+        }
         break
     }
 
