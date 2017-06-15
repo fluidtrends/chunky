@@ -18,24 +18,24 @@ export default class Generator {
   }
 
   generateSelectors(chunk) {
-    const hasData = Selectors.common.hasData(chunk.name)
+    const hasData = Selectors.common.hasData(chunk.name, 'main')
     const data = Selectors.common.getData(chunk.name)
-    const hasDataError = Selectors.common.hasError(chunk.name)
+    const hasDataError = Selectors.common.hasError(chunk.name, 'main')
     const dataError = Selectors.common.getError(chunk.name)
-    const isDataDone = Selectors.common.isDone(chunk.name)
-    const isDataInProgress = Selectors.common.isInProgress(chunk.name)
+    const isDataLoaded = Selectors.common.isDone(chunk.name)
+    const isDataLoading = Selectors.common.isInProgress(chunk.name)
 
-    return { hasData, data, hasDataError, dataError, isDataDone, isDataInProgress }
+    return { hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading }
   }
 
-  generateAction(chunk, action) {
-    if (!action.operation || !action.provider || !this.props.dataProviders[action.provider]) {
+  generateAction(chunk, options) {
+    if (!options || !options.provider || !this.props.dataProviders[options.provider]) {
       // All actions must specify an operation and a data provider
       return
     }
 
     // Look up the data provider first
-    const provider = this.props.dataProviders[action.provider]
+    const provider = this.props.dataProviders[options.provider]
 
     if (!provider) {
       // We want to make sure we have a valid data provider before we move on
@@ -43,89 +43,59 @@ export default class Generator {
     }
 
     // Let's build up the operation from the data provider
-    const operation = (props) => provider.operation(Object.assign({props}, action.operation))
+    const operation = (props) => provider.operation(Object.assign({ props }, options))
 
     // And finally, let's use that operation to generate an action
-    return (props) => {
-      if (action.provider === 'local') {
-        var all = []
-        var localChunks = {}
-        const opts = action.operation.options
-
-        if (opts && opts.chunks) {
-          var chunksArray = opts.chunks.split(',')
-          chunksArray.forEach(localChunk => {
-            localChunks[localChunk] = localChunk
-          })
-        }
-
-        for(const chunkName in this.props.chunks) {
-          if (Object.keys(localChunks).length === 0 || localChunks[chunkName]) {
-            all.push({name: `${chunkName}/${action.name}`, operation: () => operation(props), provider: action})
-          }
-        }
-        
-        if (all.length > 0) {
-          return Actions.common.syncActions(all)
-        }
-      }
-
-      return Actions.common.asyncAction(`${chunk.name}/${action.name}`, () => operation(props), action)
-    }
+    return (props) => Actions.common.asyncAction(`${options.chunkName}/${options.func}`, () => operation(props), options)
   }
 
-  parseActionFromURI(uri, chunk) {
+  parseOperationFromURI(uri, chunk) {
     const url = new URL(uri, true)
-    const operation = {
-      type: url.hostname.toLowerCase(),
-      arguments: url.pathname.toLowerCase().split("/").slice(1),
-      options: url.query
-    }
 
-    var flavor = url.hash ? url.hash.substring(1) : ''
-
-    if (!flavor && operation.arguments && operation.arguments[0] && operation.arguments[0] != chunk.name) {
-      // An even more intelligent way to retrieve the flavor
-      flavor = operation.arguments[0]
-    }
-
-    const name = flavor ? `${operation.type}${flavor.charAt(0).toUpperCase()}${flavor.substring(1).toLowerCase()}` : `${operation.type}Data`
+    const type = url.hostname.toLowerCase()
     const provider = url.protocol.slice(0, -1).toLowerCase()
-    const action = { operation, flavor, name, provider }
-
-    return action
+    const nodes = url.pathname.toLowerCase().split("/").slice(1)
+    const options = url.query
+    const flavor = url.hash ? url.hash.substring(1) : 'main'
+    const chunkName = (provider === 'local' && nodes.length > 0 ? nodes[0] : chunk.name)
+    
+    return { type, nodes, options, flavor, provider, chunkName }
   }
 
-  generateActions(chunk, actions) {
-    if (!actions || !Array.isArray(actions) || actions.length === 0) {
+  generateActions(chunk, route) {
+    if (!route || !route.operations || Object.keys(route.operations).length === 0) {
       return {}
     }
 
     var all = {}
-    actions.forEach(actionUri => {
+
+    for(const operationName in route.operations) {
       // Parse the action from the URI
-      const action = this.parseActionFromURI(actionUri, chunk)
+      const operationUri = route.operations[operationName]
+      const operation = Object.assign({ func: operationName }, this.parseOperationFromURI(operationUri, chunk))
 
       // Attempt to generate this action
-      const generatedAction = this.generateAction(chunk, action)
+      const generatedAction = this.generateAction(chunk, operation)
 
       if (generatedAction) {
         // Keep track of it if it was successfully generated
-        all[action.name] = generatedAction
+        all[operation.func] = generatedAction
+
+        if (Object.keys(all).length === 1) {
+          // Let's track this as the initial operation
+          all.startOperation = generatedAction
+        }
       }
-    })
+    }
 
     return all
   }
 
   generateContainer(chunk, route) {
-    const actions = Object.assign({}, this.generateActions(chunk, route.actions))
+    const actions = Object.assign({}, this.generateActions(chunk, route))
     const selectors = Object.assign({}, this.generateSelectors(chunk))
 
-    return Container(route.screen, selectors, actions, {
-      api: this.props.api,
-      chunk
-    })
+    return Container(route.screen, selectors, actions)
   }
 
   generateReducer(chunk) {

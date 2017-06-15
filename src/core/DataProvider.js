@@ -14,14 +14,14 @@ export default class DataProvider {
     return this._props
   }
   
-  operation(data) {
-    if (!data || !data.type) {
+  operation(options) {
+    if (!options) {
       // We require a type for each operation
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
-
+    
     // Let's check the type of operation we want to execute
-    const type = data.type.toLowerCase()
+    const type = options.type.toLowerCase()
     const executor = this[`${type}Operation`]
 
     if (!executor) {
@@ -30,6 +30,6 @@ export default class DataProvider {
     }
 
     // We should be able to execute it now
-    return executor(data.arguments || [], data.options || {}, data.props || {})
+    return executor(options.nodes || [], options.options || {}, options.props || {})
   }
 }

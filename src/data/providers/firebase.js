@@ -8,9 +8,9 @@ import {
 
 export default class FirebaseDataProvider extends DataProvider  {
 
-  loginOperation(args, options, props) {
+  loginOperation(nodes, options, props) {
     // Let's see what kind of a login we want to perform
-    const loginType = args[0]
+    const loginType = nodes[0]
 
     if (!loginType || loginType.toLowerCase() !== 'email') {
       // We only support email logins for now
@@ -28,9 +28,9 @@ export default class FirebaseDataProvider extends DataProvider  {
             })
   }
 
-  registerOperation(args, options, props) {
+  registerOperation(nodes, options, props) {
     // Let's see what kind of a login we want to perform
-    const loginType = args[0]
+    const loginType = nodes[0]
 
     if (!loginType || loginType.toLowerCase() !== 'email') {
       // We only support email registrations for now
@@ -48,9 +48,9 @@ export default class FirebaseDataProvider extends DataProvider  {
           })
   }
 
-  retrieveOperation(args, options, props) {
+  retrieveOperation(nodes, options, props) {
      // Let's see what kind of a resource we want to retrieve
-    const resource = args[0]
+    const resource = nodes[0]
 
     if (!resource) {
       // We require a resource to be defined

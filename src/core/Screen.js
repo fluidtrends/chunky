@@ -7,11 +7,15 @@ export default class Screen extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { transitioned: false }
+    this._onRetryRetrieveData = this.onRetryRetrieveData.bind(this)
+    this._onCancelRetrieveData = this.onCancelRetrieveData.bind(this)
+
+    this.state = { lastTransitionTimestamp: '',  visible: true }
   }
 
   componentDidMount() {
-    this.props.retrieveDataOnMount && this.props.retrieveData()
+    // Automatically attempt to retrieve the main data, if possible and if desired
+    this.props.startOperationsOnMount && this.props.startOperation && this.props.startOperation()
   }
 
   componentWillMount() {
@@ -22,75 +26,91 @@ export default class Screen extends Component {
   }
 
   injectTransition (transition) {
-    // Let's actually perform the transition to the new route
     this.transitions = this.transitions || {}
     this.transitions[transition.name] = (data) => {
-      if (this.state.triggered || !transition) {
-        // We already transitioned, or this is an unknown transition
-        return
-      }
-      
-      if (transition.type === 'replace') {
-        // We're replacing the previous route with this one
-        this.setState({ triggered: true })
-      }
-      
-      this[transition.type](transition.route, data)
+      this[`${transition.type.toLowerCase()}Transition`](transition.route, data)
     }
   }
 
-  push(transition, data) {}
-  replace(transition, data) {}
-  onDataChanged(data) {}  
-  onDataError(error) {}
-  onDataDone(data) {}
-
-  didValueChange(name, nextProps) {
-    // Look at the old and new value
-    const oldValue = nextProps[name]()
-    const newValue = this.props[name]()
-
-    // Check the differences
-    const differences = diff(oldValue, newValue)
-
-    // Determine whether it changed or not
-    return differences
-  }
-
-  valueChanged(name, nextProps) {  
-    // Look up the old and new values
-    const oldValue = this.props[name]()
-    const newValue = nextProps[name]()
-    
-    switch(name) {
-      case 'hasData':
-        this.onDataChanged(nextProps.data())
-        break
-      case 'hasDataError':
-        newValue && this.onDataError(nextProps.dataError())
-        break
-      default:
-        break
-    }
-  }
-
-  observeValue(name, nextProps) {
-    if (!this.didValueChange(name, nextProps)) {
-      // This value did not change
+  pushTransition(transition, data) {
+    const timeSinceLastTransition = Date.now() - this.state.lastTransitionTimestamp
+    if (this.state.lastTransitionTimestamp && timeSinceLastTransition < 500) {
+      // Ignore transition
       return
     }
 
-    // Signal the fact that this value did change
-    this.valueChanged(name, nextProps)
+    // Timestamp this transition
+    this.setState({ lastTransitionTimestamp: Date.now(), visible: false })
   }
 
-  observeValues(names, nextProps) {
-    // We want to observe all values for changes
-    names.forEach(name => this.observeValue(name, nextProps))
+  get isVisible() {
+    return this.state.visible
+  }
+
+  replaceTransition(transition, data) {
+    // TODO fix replace issue
+    this.pushTransition(transition, data)
+  }
+
+  onRetryRetrieveData() {
+    this.props.retrieveData && this.props.retrieveData()
+  }
+
+  onCancelRetrieveData() {
+    // TODO: handle cancellation
+  }
+
+  operationDidFinish(data, error) {
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.isVisible
   }
 
   componentWillReceiveProps(nextProps) {
-    // Look through the observers, if any
-    this.observeValues(['hasDataError', 'hasData'], nextProps)
+    if (this.isVisible && this.props.isDataLoading() && nextProps.isDataLoaded()) {
+      // Looks like an operation just finished, so let's trigger the callback
+      this.operationDidFinish(nextProps.data(), nextProps.dataError())
+    }
+  }
+
+  renderDataError({ main }) {
+    throw new Error('Chunky says: implement renderDataError in your route.')
+  }
+
+  renderDataLoading() {
+    throw new Error('Chunky says: implement renderDataLoading in your route.')
+  }
+
+  renderDataDefaults() {
+    throw new Error('Chunky says: implement renderDataDefaults in your route.')    
+  }
+
+  renderData() {
+    throw new Error('Chunky says: implement renderData in your route.')    
+  }
+
+  render() {
+    if (this.props.isDataLoading() && this.renderDataLoading) {
+      // We're loading the data still
+      return this.renderDataLoading()
+    }
+
+    if (this.props.hasDataError() && this.renderDataError) {
+      // Looks like there's an error that we need to handle
+      return this.renderDataError(this.props.dataError())
+    }
+    
+    if (!this.props.hasData() && this.renderDataDefaults) {
+      // This screen does not have any data to render
+      return this.renderDataDefaults()
+    }
+
+    if (this.props.hasData() && this.renderData) {
+      return this.renderData(this.props.data())
+    }
+
+    // This should not happen
+    return this.renderDataError({ main: new Error('Could not render the data') })
   }
 }

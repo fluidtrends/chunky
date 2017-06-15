@@ -49,7 +49,8 @@ export default class AppContainer extends Component {
 
   get app () {
     return React.cloneElement(this.props.children, {
-      chunks: this.chunks
+      chunks: this.chunks,
+      strings: this.props.strings
     })
   }
 
@@ -74,7 +75,7 @@ export default class AppContainer extends Component {
           const route = chunk.routes[routeName]
           chunk.routes[routeName].screen = chunk.screens[routeName]
 
-          if (route.screen && (route.actions || route.selectors)) {
+          if (route.screen && (route.operations || route.selectors)) {
             // Resolve containers
             chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route)
           }

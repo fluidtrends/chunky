@@ -1,15 +1,15 @@
 import { createSelector } from 'reselect'
 
-const stateItem = (name, item) => (state, props) => {
-  const value = state[name][item]
+const stateItem = (name, flavor) => (state, props) => {
+  const value = state[name][flavor]
   return value
 }
 
-export const get = (name, item) => createSelector(stateItem(name, item),
+export const get = (name, flavor) => createSelector(stateItem(name, flavor),
                          (data) => (typeof data === 'function' ? data() : data))
 
-export const has = (name, item) => createSelector(stateItem(name, item),
-                         (data) => (data != null && data != undefined))
+export const has = (name, flavor) => createSelector(stateItem(name, flavor),
+                         (data) => (data != null && data != undefined && data))
 
 export const hasData = (name) => has(name, "data")
 export const hasError = (name) => has(name, "error")

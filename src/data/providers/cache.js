@@ -11,17 +11,17 @@ import {
 
 export default class CacheDataProvider extends DataProvider {
 
-  retrieveOperation(args, options, props) {
+  retrieveOperation(nodes, options, props) {
     // Look up the token to fetch
-    const itemKey = args[0]
+    const itemKey = nodes[0]
 
     // Send back the value
     return retrieveCachedItem(`chunky/${itemKey}`)
   }
 
-  deleteOperation(args, options, props) {
+  deleteOperation(nodes, options, props) {
     // Look up the token to remove
-    const itemKey = args[0]
+    const itemKey = nodes[0]
     
     // Send back the value
     return clearCachedItem(`chunky/${itemKey}`)  
