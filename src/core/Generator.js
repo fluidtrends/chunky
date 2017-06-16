@@ -46,7 +46,7 @@ export default class Generator {
     const operation = (props) => provider.operation(Object.assign({ props }, options))
 
     // And finally, let's use that operation to generate an action
-    return (props) => Actions.common.asyncAction(`${options.chunkName}/${options.func}`, () => operation(props), options)
+    return (props) => Actions.common.asyncAction(`${options.chunkName}/${options.func}`, () => operation(props), Object.assign({ props }, options))
   }
 
   parseOperationFromURI(uri, chunk) {

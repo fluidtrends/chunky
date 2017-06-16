@@ -101,7 +101,7 @@ export default class Screen extends Component {
       return this.renderDataError(this.props.dataError())
     }
     
-    if (!this.props.hasData() && this.renderDataDefaults) {
+    if (!this.props.hasData()  && this.renderDataDefaults) {
       // This screen does not have any data to render
       return this.renderDataDefaults()
     }

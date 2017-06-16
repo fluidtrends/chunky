@@ -60,7 +60,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     return new Promise((resolve, reject) => {
       firebase.database().ref(resource).on('value', (snapshot) => {
         // Fetch the resource
-        resolve( snapshot.val() )
+        resolve(snapshot.val())
       })
     })
   }

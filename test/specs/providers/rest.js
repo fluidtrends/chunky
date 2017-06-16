@@ -34,7 +34,7 @@ add("should retrieve a collection", (context, done) => {
     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
 
     // Attempt to retrieve
-    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.data.length).to.equal(2))
+    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.length).to.equal(2))
 }).
 
 add("should handle a timeout", (context, done) => {
@@ -63,7 +63,7 @@ add("should retrieve an empty collection", (context, done) => {
     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
 
     // Attempt to retrieve
-    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.warning).to.equal(Errors.WARNING_EMPTY_RESPONSE))
+    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response).to.be.empty)
 }).
 
 add("should retrieve an invalid collection", (context, done) => {
@@ -76,7 +76,7 @@ add("should retrieve an invalid collection", (context, done) => {
     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
 
     // Attempt to retrieve
-    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.warning).to.equal(Errors.WARNING_INVALID_RESPONSE))
+    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response).to.be.empty)
 }).
 
 add("should create a new node with options", (context, done) => {
@@ -89,7 +89,7 @@ add("should create a new node with options", (context, done) => {
     const operation = provider.operation({ type: 'create', nodes: ['test'], props: { hello: 'world' } })
 
     // Attempt to retrieve
-    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.data.length).to.equal(2))
+    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.length).to.equal(2))
 }).
 
 add("should create a new node without any options", (context, done) => {
@@ -102,7 +102,7 @@ add("should create a new node without any options", (context, done) => {
     const operation = provider.operation({ type: 'create', nodes: ['test'] })
 
     // Attempt to createcreate
-    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.data.length).to.equal(2))
+    savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.length).to.equal(2))
 }).
 
 add("should note create a new node without a specified node", (context, done) => {

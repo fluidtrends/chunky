@@ -11,8 +11,11 @@ export default class AppContainer extends Component {
   constructor(props) {
     super(props)
 
-    // Setup all the data providers
-    this._initializeDataProviders()
+    // Setup all the built-in data providers
+    this._initializeDataProviders(Providers)
+
+    // Setup all the custom data providers
+    this._initializeDataProviders(this.props.providers)
 
     // Create a generator for data injection
     this._generator = new Generator(Object.assign({ dataProviders: this.dataProviders}, props))
@@ -24,13 +27,18 @@ export default class AppContainer extends Component {
     this.state = { store: DataStore(this.reducers, this.props.logging) }
   }
 
-  _initializeDataProviders() {
-    const supportedProviders = Object.keys(Providers)
-    this._dataProviders = {}
+  _initializeDataProviders(pool) {
+    if (!pool) {
+      // Ignore empty provider pools
+      return
+    }
+
+    const supportedProviders = Object.keys(pool)
+    this._dataProviders = this._dataProviders || {}
     supportedProviders.forEach(providerName => {
       // The providers initialization can be customized globally
-      const providerOptions = this.provisioning[providerName.toLowerCase] || {}
-      const provider = new Providers[providerName](providerOptions)
+      const providerOptions = this.provisioning[providerName.toLowerCase()] || {}
+      const provider = new pool[providerName](providerOptions)
       this._dataProviders[providerName.toLowerCase()] = provider
     })
   }
