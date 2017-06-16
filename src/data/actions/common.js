@@ -13,21 +13,3 @@ export function asyncAction (name, operation, options) {
       catch(err => dispatch(error(name, err, options)))
   }
 }
-
-export function asyncActions (collection) {
-  return (dispatch) => {
-    collection.forEach(item => asyncAction(item.name, item.operation, item)(dispatch)) 
-  }
-}
-
-export function syncAction (name, operation, options) {
-  return (dispatch) => {
-      dispatch(ok(name, operation(), options))
-  }
-}
-
-export function syncActions (collection) {
-  return (dispatch) => {
-    collection.forEach(item => syncAction(item.name, item.operation, item)(dispatch)) 
-  }
-}

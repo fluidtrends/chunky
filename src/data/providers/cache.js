@@ -1,7 +1,5 @@
-import * as Errors from '../../errors'
-import * as Config from '../../config'
-import ChunkyError from '../../core/Error'
 import DataProvider from '../../core/DataProvider'
+import merge from 'deepmerge'
 
 import {
   retrieveCachedItem,
@@ -11,15 +9,34 @@ import {
 
 export default class CacheDataProvider extends DataProvider {
 
-  retrieveOperation(nodes, options, props) {
+  create({ nodes, options, props }) {
     // Look up the token to fetch
     const itemKey = nodes[0]
 
     // Send back the value
-    return retrieveCachedItem(`chunky/${itemKey}`)
+    return cacheItem(`chunky/${itemKey}`)
   }
 
-  deleteOperation(nodes, options, props) {
+  retrieve({ nodes, options, props }) {
+    // Look up the token to fetch
+    const itemKey = nodes[0]
+
+    // Send back the value
+    return retrieveCachedItem(`chunky/${itemKey}`, props)
+  }
+
+  update({ nodes, options, props }) {
+    // Look up the token to fetch
+    const itemKey = nodes[0]
+
+    // First retrieve the old value
+    return retrieveCachedItem(`chunky/${itemKey}`).
+
+           // And then deep merge the new data
+           then(oldValue => cacheItem(`chunky/${itemKey}`, merge.all[oldValue, props]))
+  }
+
+  delete({ nodes, options, props }) {
     // Look up the token to remove
     const itemKey = nodes[0]
     

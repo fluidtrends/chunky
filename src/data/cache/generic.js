@@ -22,7 +22,7 @@ export function cacheItem(key, value) {
       if (error) {
         // Something went wrong when saving the item
         reject(Errors.COULD_NOT_CACHE_ITEM())
-        return;
+        return
       }
 
       // We're good to go

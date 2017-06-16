@@ -8,7 +8,7 @@ import {
 
 export default class FirebaseDataProvider extends DataProvider  {
 
-  loginOperation(nodes, options, props) {
+  login({ nodes, options, props }) {
     // Let's see what kind of a login we want to perform
     const loginType = nodes[0]
 
@@ -28,7 +28,7 @@ export default class FirebaseDataProvider extends DataProvider  {
             })
   }
 
-  registerOperation(nodes, options, props) {
+  register({ nodes, options, props }) {
     // Let's see what kind of a login we want to perform
     const loginType = nodes[0]
 
@@ -48,7 +48,7 @@ export default class FirebaseDataProvider extends DataProvider  {
           })
   }
 
-  retrieveOperation(nodes, options, props) {
+  retrieve({ nodes, options, props }) {
      // Let's see what kind of a resource we want to retrieve
     const resource = nodes[0]
 

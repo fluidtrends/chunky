@@ -1,7 +1,7 @@
 {
   "name": "react-chunky",
-  "version": "0.8.3",
-  "description": "The Full Stack React Framework",
+  "version": "0.8.4",
+  "description": "The (kinda) Full Stack React Framework (for mere mortals)",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/react-chunky/react-chunky.git"

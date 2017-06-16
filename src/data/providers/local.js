@@ -5,7 +5,7 @@ import DataProvider from '../../core/DataProvider'
 
 export default class LocalDataProvider extends DataProvider  {
 
-  deleteOperation(nodes, options, props) {
+  delete({ nodes, options, props }) {
     return Promise.resolve()
   } 
 

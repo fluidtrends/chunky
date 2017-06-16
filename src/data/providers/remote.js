@@ -74,9 +74,9 @@ function sendRequest (request) {
 
 export default class RemoteDataProvider extends DataProvider  {
 
-  retrieveOperation(args, options, props) {
+  retrieve({ nodes, options, props }) {
      // Let's see what kind of a resource we want to retrieve
-    const resource = args[0]
+    const resource = nodes[0]
 
     if (!resource) {
       // We require a resource to be defined

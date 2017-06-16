@@ -1,6 +1,4 @@
 import * as Config from '../../config'
-import * as Errors from '../../errors'
-
 import { retrieveCachedItem, cacheItem, clearCachedItem } from './generic'
 
 export function retrieveAuth() {
