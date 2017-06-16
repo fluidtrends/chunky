@@ -6,7 +6,4 @@ export const COULD_NOT_CLEAR_CACHED_ITEM = () => new Error("Unable to clean up t
 export const COULD_NOT_CACHE_ITEM = () => new Error("Unable to cache item")
 export const UNABLE_TO_LOAD_APP = () => new Error("Unable to load the application")
 export const UNABLE_TO_LOAD_CHUNKS = () => new Error("Unable to load chunks")
-export const OPERATION_TIMEOUT = () => new Error(`Operation Timed Out`)
 export const UNDEFINED_OPERATION = () => new Error(`Operation Is Not Defined`)
-export const MISSING_OPERATION_OPTIONS = () => new Error(`The Operation Is Missing Options`)
-

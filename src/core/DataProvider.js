@@ -3,11 +3,11 @@ import * as Errors from '../errors'
 export default class DataProvider {
 
   constructor(props) {
-    this._props = this.parseProps(props)
+    this._props = Object.assign({}, this.defaults, props)
   }
 
-  parseProps(props) {
-    return props
+  get defaults() {
+    return {}
   }
 
   get props () {
@@ -22,12 +22,15 @@ export default class DataProvider {
     
     // Let's check the type of operation we want to execute
     const type = options.type.toLowerCase()
-    const executor = this[`${type.toLowerCase()}`]
+    var executor = this[`${type.toLowerCase()}`]
 
     if (!executor) {
       // Looks like we don't support such operation types
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
+
+    // Bind first
+    executor = executor.bind(this)
 
     // We should be able to execute it now
     return executor({ nodes: options.nodes || [], options: options.options || {}, props: options.props || {} })

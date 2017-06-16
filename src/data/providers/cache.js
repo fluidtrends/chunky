@@ -30,10 +30,10 @@ export default class CacheDataProvider extends DataProvider {
     const itemKey = nodes[0]
 
     // First retrieve the old value
-    return retrieveCachedItem(`chunky/${itemKey}`).
+    return clearCachedItem(`chunky/${itemKey}`).
 
            // And then deep merge the new data
-           then(oldValue => cacheItem(`chunky/${itemKey}`, merge.all[oldValue, props]))
+           then(() => cacheItem(`chunky/${itemKey}`, props))
   }
 
   delete({ nodes, options, props }) {

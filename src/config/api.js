@@ -5,6 +5,7 @@ export const API_DEFAULT_ENDPOINT      = '/'
 export const API_DEFAULT_METHOD        = 'GET'
 export const API_DEFAULT_SECURE        = false
 export const API_DEFAULT_AUTH_TYPE     = 'JWT'
+export const API_DEFAULT_CACHE         = 'no-cache'
 export const API_SECURITY_TYPE_BEARER  = 'Bearer'
 export const API_SECURITY_TYPE_JWT     = 'JWT'
 export const API_JSON_CONTENT_TYPE     = 'application/json'
