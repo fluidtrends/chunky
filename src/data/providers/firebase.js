@@ -18,7 +18,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     } 
 
     // Let's take a look at the credentials
-    const email = props.username
+    const email = props.email
     const password = props.password
 
     return firebase.auth().signInWithEmailAndPassword(email, password).
@@ -38,7 +38,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     } 
 
     // Let's take a look at the credentials
-    const email = props.username
+    const email = props.email
     const password = props.password
 
     return firebase.auth().createUserWithEmailAndPassword(email, password).
