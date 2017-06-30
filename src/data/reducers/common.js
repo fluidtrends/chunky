@@ -31,7 +31,7 @@ export const asyncReducer = (name) => {
     const provider = action.provider
 
     // Let's work on the new state
-    var newState = { flavor: action.flavor, timestamp, provider, inProgress: false, done: true }
+    var newState = { flavor: action.flavor, timestamp, provider, inProgress: false, done: true, action: actionName }
     var data = Object.assign({}, state.data)
     var error = Object.assign({}, state.error)
     

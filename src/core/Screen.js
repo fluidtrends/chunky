@@ -28,11 +28,11 @@ export default class Screen extends Component {
   injectTransition (transition) {
     this.transitions = this.transitions || {}
     this.transitions[transition.name] = (data) => {
-      this[`${transition.type.toLowerCase()}Transition`](transition.route, data)
+      this.transition(transition, data)
     }
   }
 
-  pushTransition(transition, data) {
+  transition(transition, data) {
     const timeSinceLastTransition = Date.now() - this.state.lastTransitionTimestamp
     if (this.state.lastTransitionTimestamp && timeSinceLastTransition < 500) {
       // Ignore transition
@@ -41,15 +41,11 @@ export default class Screen extends Component {
 
     // Timestamp this transition
     this.setState({ lastTransitionTimestamp: Date.now(), visible: false })
+    this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, { ...data, transition })
   }
 
   get isVisible() {
     return this.state.visible
-  }
-
-  replaceTransition(transition, data) {
-    // TODO fix replace issue
-    this.pushTransition(transition, data)
   }
 
   onRetryRetrieveData() {
@@ -60,17 +56,16 @@ export default class Screen extends Component {
     // TODO: handle cancellation
   }
 
-  operationDidFinish(data, error) {
-  }
+  operationDidFinish(name, data, error) {}
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.isVisible
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {    
     if (this.isVisible && this.props.isDataLoading() && nextProps.isDataLoaded()) {
       // Looks like an operation just finished, so let's trigger the callback
-      this.operationDidFinish(nextProps.data(), nextProps.dataError())
+      this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError())
     }
   }
 

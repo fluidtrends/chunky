@@ -17,6 +17,7 @@ export const hasError = (name) => has(name, "error")
 export const getTimestamp = (name) => get(name, "timestamp")
 export const getData = (name) => get(name, "data")
 export const getError = (name) => get(name, "error")
+export const getAction = (name) => get(name, "action")
 
 export const isDone = (name) => has(name, "done")
 export const isInProgress = (name) => has(name, "inProgress")

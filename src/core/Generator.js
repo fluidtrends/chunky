@@ -20,12 +20,13 @@ export default class Generator {
   generateSelectors(chunk) {
     const hasData = Selectors.common.hasData(chunk.name, 'main')
     const data = Selectors.common.getData(chunk.name)
+    const action = Selectors.common.getAction(chunk.name)
     const hasDataError = Selectors.common.hasError(chunk.name, 'main')
     const dataError = Selectors.common.getError(chunk.name)
     const isDataLoaded = Selectors.common.isDone(chunk.name)
     const isDataLoading = Selectors.common.isInProgress(chunk.name)
 
-    return { hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading }
+    return { hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading, action }
   }
 
   generateAction(chunk, options) {
