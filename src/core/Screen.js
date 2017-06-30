@@ -91,22 +91,22 @@ export default class Screen extends Component {
   }
 
   render() {
-    if (this.props.isDataLoading() && this.renderDataLoading) {
+    if (this.props.isDataLoading && this.props.isDataLoading() && this.renderDataLoading) {
       // We're loading the data still
       return this.renderDataLoading()
     }
 
-    if (this.props.hasDataError() && this.renderDataError) {
+    if (this.props.hasDataError && this.props.hasDataError() && this.renderDataError) {
       // Looks like there's an error that we need to handle
       return this.renderDataError(this.props.dataError())
     }
     
-    if (!this.props.hasData()  && this.renderDataDefaults) {
+    if (this.props.hasData && !this.props.hasData()  && this.renderDataDefaults) {
       // This screen does not have any data to render
       return this.renderDataDefaults()
     }
 
-    if (this.props.hasData() && this.renderData) {
+    if (this.props.hasData && this.props.hasData() && this.renderData) {
       return this.renderData(this.props.data())
     }
 

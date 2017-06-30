@@ -58,8 +58,18 @@ export default class FirebaseDataProvider extends DataProvider  {
     } 
 
     return new Promise((resolve, reject) => {
-      firebase.database().ref(resource).on('value', (snapshot) => {
-        // Fetch the resource
+      const ref = firebase.database().ref(resource)
+
+      if (options.latest) {
+        ref.orderByChild("endDate").limitToLast(1).on("child_added", function(snapshot) {
+          // Fetch the latest resource only
+          resolve(snapshot.val())
+        })
+        return
+      }
+
+      ref.on('value', (snapshot) => {
+        // Fetch all the resources
         resolve(snapshot.val())
       })
     })
