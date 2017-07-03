@@ -37,7 +37,7 @@ export const asyncReducer = (name) => {
     
     switch (actionState.toLowerCase()) {
       case "start":
-        return Object.assign({}, newState, { inProgress: true, done: false })
+        return Object.assign({}, newState, { inProgress: true, done: false, data, error })
 
       case "error":
         if (newErrorFlavor) {

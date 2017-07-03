@@ -68,6 +68,32 @@ export default class FirebaseDataProvider extends DataProvider  {
         return
       }
 
+      if (options.startAt) {
+        const [field, index] = options.startAt.split(":")
+        if (field) {
+          ref.orderByChild(field).startAt(Number.parseInt(index)).on("value", function(snapshot) {
+            // Fetch all the resources, by filter
+            var elements = snapshot.val()
+            
+            if (Array.isArray(elements)) {
+              resolve(elements.filter((item) => item))
+              return
+            }
+
+            var newElements = []
+            for(const elementId in elements) {
+              if (elements[elementId]) {
+                // Make sure we deal with an array
+                newElements.push(elements[elementId])
+              }
+            }
+            resolve(newElements)
+
+          })
+          return
+        }
+      }
+
       ref.on('value', (snapshot) => {
         // Fetch all the resources
         resolve(snapshot.val())
