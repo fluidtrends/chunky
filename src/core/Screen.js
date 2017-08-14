@@ -38,6 +38,17 @@ export default class Screen extends Component {
     }
   }
 
+  injectBasicAuth(url) {
+    if (!this.props.basicAuth) {
+      return url
+    }
+
+    const urlRef = new URL(url)
+    const protocol = urlRef.protocol
+    const link = url.substring(protocol.length + 2)
+    return `${protocol}//${this.props.basicAuth.username}:${this.props.basicAuth.password}@${link}` 
+  }
+
   transition(transition, data) {
     const timeSinceLastTransition = Date.now() - this.state.lastTransitionTimestamp
     if (this.state.lastTransitionTimestamp && timeSinceLastTransition < 500) {
