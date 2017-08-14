@@ -32,7 +32,10 @@ export default class DataProvider {
     // Bind first
     executor = executor.bind(this)
 
+    // Resolve the nodes
+    const nodes = (options.nodes ? options.nodes.map(node => (node.charAt(0) === ':' ? (options.props[node.substring(1)] || node): node)) : [])
+
     // We should be able to execute it now
-    return executor({ nodes: options.nodes || [], options: options.options || {}, props: options.props || {} })
+    return executor({ nodes, options: options.options || {}, props: options.props || {} })
   }
 }

@@ -14,7 +14,7 @@ export default class CacheDataProvider extends DataProvider {
     const itemKey = nodes[0]
 
     // Send back the value
-    return cacheItem(`chunky/${itemKey}`)
+    return cacheItem(`chunky/${itemKey}`, props)
   }
 
   retrieve({ nodes, options, props }) {
@@ -22,7 +22,7 @@ export default class CacheDataProvider extends DataProvider {
     const itemKey = nodes[0]
 
     // Send back the value
-    return retrieveCachedItem(`chunky/${itemKey}`, props)
+    return retrieveCachedItem(`chunky/${itemKey}`)
   }
 
   update({ nodes, options, props }) {

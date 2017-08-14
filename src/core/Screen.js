@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import URL from 'url-parse'
 import { diff } from 'deep-diff'
+import { AllHtmlEntities} from 'html-entities' 
 
 export default class Screen extends Component {
 
@@ -11,6 +12,11 @@ export default class Screen extends Component {
     this._onCancelRetrieveData = this.onCancelRetrieveData.bind(this)
 
     this.state = { lastTransitionTimestamp: '',  visible: true }
+    this._entities = new AllHtmlEntities()
+  }
+
+  get entities() {
+    return this._entities
   }
 
   componentDidMount() {
@@ -45,7 +51,8 @@ export default class Screen extends Component {
   }
 
   get isVisible() {
-    return this.state.visible
+    return true
+    // return this.state.visible
   }
 
   onRetryRetrieveData() {
