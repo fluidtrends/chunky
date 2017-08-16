@@ -53,9 +53,9 @@ export default class Generator {
   parseOperationFromURI(uri, chunk) {
     const url = new URL(uri, true)
 
-    const type = url.hostname.toLowerCase()
+    const type = url.hostname
     const provider = url.protocol.slice(0, -1).toLowerCase()
-    const nodes = url.pathname.toLowerCase().split("/").slice(1)
+    const nodes = url.pathname.split("/").slice(1)
     const options = url.query
     const flavor = url.hash ? url.hash.substring(1) : 'main'
     const chunkName = (provider === 'local' && nodes.length > 0 ? nodes[0] : chunk.name)

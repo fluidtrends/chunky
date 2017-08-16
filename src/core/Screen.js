@@ -31,6 +31,9 @@ export default class Screen extends Component {
     }
   }
 
+  componentWillUnmount() {
+  }
+
   injectTransition (transition) {
     this.transitions = this.transitions || {}
     this.transitions[transition.name] = (data) => {

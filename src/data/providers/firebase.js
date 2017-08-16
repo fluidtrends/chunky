@@ -83,6 +83,20 @@ export default class FirebaseDataProvider extends DataProvider  {
     return operations.add(firebase, args)
   }
 
+  unsubscribe({ nodes, options, props }) {
+     // Let's see what kind of a resource we want to subscribe to
+    const node = nodes[0]
+
+    if (!node) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    } 
+
+    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+
+    return operations.unsubscribe(firebase, { key })
+  }
+
   subscribe({ nodes, options, props }) {
     // Let's see what kind of a resource we want to subscribe to
     const node = nodes[0]
@@ -93,26 +107,31 @@ export default class FirebaseDataProvider extends DataProvider  {
     } 
 
     var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
-
-    if (!options.resolve) {
-      // Just a plain retrieval
-      operations.subscribe(firebase, { key, onReceivedData: function(data) {
-        props.onReceivedData && props.onReceivedData(data)
-      }})
-      return Promise.resolve()
+    var params = { key }
+    
+    if (options.latest) {
+      params.orderBy = "timestamp"
+      params.limitToLast = options.latest
     }
 
-    operations.subscribe(firebase, { key, onReceivedData: function(data) {
+    params.onStarted = props.onStarted
+    params.onReceivedData = (data) => {
+      if (!options.resolve) {
+          // Just a plain retrieval
+          return data
+      }
+
       var ops = []
       for (const itemKey in data) {
         key = `${options.resolve}/${itemKey}`
         ops.push(operations.retrieve(firebase, { key }))
       }
-      Promise.all(ops).then(all => {
+      return Promise.all(ops).then(all => {
         props.onReceivedData && props.onReceivedData(all)
       })
-    }})
-    return Promise.resolve()
+    }
+
+    return operations.subscribe(firebase, params)
   }
 
   retrieve({ nodes, options, props }) {
@@ -124,22 +143,35 @@ export default class FirebaseDataProvider extends DataProvider  {
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     } 
 
-    if (options.latest) {
-      return operations.retrieve(firebase, { key: resource, orderBy: options.orderBy, latest: options.latest })
+    const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+    var params = { key }
+
+    if (props.before) {
+      params.endAt = props.before
     }
 
-    const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
-    
+    if (options.latest) {
+      params.orderBy = "timestamp"
+      params.limitToLast = options.latest
+    }
+
     if (!options.resolve) {
       // Just a plain retrieval
-      return operations.retrieve(firebase, { key })
+      return operations.retrieve(firebase, params)
     }
 
     // Retrieve and resolve
-    return operations.retrieve(firebase, { key }).then(data => {
+    return operations.retrieve(firebase, params).then(data => {
       const id = data._id
       delete data._id
-      return Promise.all(Object.keys(data).map(item => operations.retrieve(firebase, { key: `${options.resolve}/${item}` })))
+
+      console.log(data)
+
+      return Promise.all(Object.keys(data).map(item => operations.retrieve(firebase, Object.assign({}, { key: `${options.resolve}/${item}` })))).
+                     then(all => all.filter(i => { 
+                          console.log(props.before, i.timestamp, i.timestamp < props.before)
+                         return (props.before ? i.timestamp < props.before : i)
+                      })) 
     })
 
     // // Let's see if we have a field we requested
