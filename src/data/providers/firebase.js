@@ -63,6 +63,17 @@ export default class FirebaseDataProvider extends DataProvider  {
     return operations.subscribe(firebase, params)
   }
 
+  update({ nodes, options, props }) {
+    if (!nodes || nodes.length < 1) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+    const params = { key, ...props }
+    return operations.update(firebase, params)
+  }
+
   add({ nodes, options, props }) {
     if (!nodes || nodes.length < 1) {
       // We require a resource to be defined
