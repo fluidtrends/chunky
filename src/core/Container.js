@@ -1,22 +1,15 @@
 import { connect } from 'react-redux'
- 
+
 function mapStateToProps (selectors) {
   return (state, props) => {
     if (!props.chunkName || !state[props.chunkName]) {
       return props
     }
-    
-    // const slice = state[props.chunkName]
-    // if (slice.inProgress) {
-    //   console.log(props.chunkName, " IN PROGRESS")
-    // } else {
-    //   console.log(props.chunkName, " DONE!")      
-    // }
 
     var newProps = {}
     for (let name in selectors) {
       const selector = selectors[name]
-      const selectorProps = (options) =>  Object.assign(options || {}, props)
+      const selectorProps = (options) =>  Object.assign(options || {}, { _route: props })
       const result = (options) => selector(state, selectorProps(options))
       newProps[name] = result
     }
@@ -29,7 +22,7 @@ function mapDispatchToProps (actions) {
   return (dispatch, props) => {
     var newProps = {}
     for (let action in actions) {
-      const actionProps = (options) => Object.assign(options || {}, props, { })
+      const actionProps = (options) => Object.assign(options || {}, { _route: props })
       newProps[action] = (options) => dispatch(actions[action](actionProps(options)))
     }
 

@@ -13,13 +13,13 @@ export default class DataProvider {
   get props () {
     return this._props
   }
-  
+
   operation(options) {
     if (!options || !options.type) {
       // We require a type for each operation
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
-    
+
     // Let's check the type of operation we want to execute
     const type = options.type.toLowerCase()
     var executor = this[`${type.toLowerCase()}`]
@@ -34,6 +34,8 @@ export default class DataProvider {
 
     // Resolve the nodes
     const nodes = (options.nodes ? options.nodes.map(node => (node.charAt(0) === ':' ? (options.props[node.substring(1)] || node): node)) : [])
+
+    delete options.props._route
 
     // We should be able to execute it now
     return executor({ nodes, options: options.options || {}, props: options.props || {} })
