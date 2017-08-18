@@ -13,7 +13,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     if (!props.email || !props.password || !operations.login) {
       // We only support email logins for now
       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+    }
 
     // Let's take a look at the credentials
     const email = props.email
@@ -26,76 +26,64 @@ export default class FirebaseDataProvider extends DataProvider  {
             then((user) => cacheAuth({ user: user.toJSON() }))
   }
 
-  register({ nodes, options, props }) {
-    // Let's see what kind of a login we want to perform
-    const loginType = nodes[0]
+  // register({ nodes, options, props }) {
+  //   // Let's see what kind of a login we want to perform
+  //   const loginType = nodes[0]
+  //
+  //   if (!loginType || loginType.toLowerCase() !== 'email') {
+  //     // We only support email registrations for now
+  //     return Promise.reject(Errors.UNDEFINED_OPERATION())
+  //   }
+  //
+  //   // Let's take a look at the credentials
+  //   const email = props.email
+  //   const password = props.password
+  //
+  //   // return firebase.auth().createUserWithEmailAndPassword(email, password).
+  //   //       then((user) => {
+  //   //         // Let's keep track of the user locally
+  //   //         return cacheAuth({ user })
+  //   //       })
+  // }
 
-    if (!loginType || loginType.toLowerCase() !== 'email') {
-      // We only support email registrations for now
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+  // update({ nodes, options, props }) {
+  //    // Let's see what kind of a resource we want to retrieve
+  //   const resource = nodes[0]
+  //
+  //   if (!resource) {
+  //     // We require a resource to be defined
+  //     return Promise.reject(Errors.UNDEFINED_OPERATION())
+  //   }
+  //
+  //   const args = { ...props.target, node, ...props.targetContent }
+  //   return operations.update(firebase, args)
+  // }
 
-    // Let's take a look at the credentials
-    const email = props.email
-    const password = props.password
-    
-    // return firebase.auth().createUserWithEmailAndPassword(email, password).
-    //       then((user) => {
-    //         // Let's keep track of the user locally
-    //         return cacheAuth({ user })
-    //       })
-  }
+  // add({ nodes, options, props }) {
+  //   // Let's see what kind of a resource we want to add
+  //   const node = nodes[0]
+  //
+  //   if (!node) {
+  //     // We require a resource to be defined
+  //     return Promise.reject(Errors.UNDEFINED_OPERATION())
+  //   }
+  //   const args = { ...props.target, node, ...props.targetContent }
+  //   return operations.add(firebase, args)
+  // }
 
-  update({ nodes, options, props }) {
-     // Let's see what kind of a resource we want to retrieve
-    const resource = nodes[0]
-
-    if (!resource) {
-      // We require a resource to be defined
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
-
-    const args = { ...props.target, node, ...props.targetContent }
-    return operations.update(firebase, args)
-
-    // // Let's see if we have a field we requested
-    // const key = (nodes.length > 1 ? nodes[1] : undefined)
-    // const keyValue = (key ? props[key] : undefined)
-    
-    // if (!key || !keyValue || !props || !props.updates) {
-    //   // We're looking for a specific field, but no value was given
-    //   return Promise.reject(Errors.UNDEFINED_OPERATION())
-    // }
-
-    // // Update the specific fields
-    // return firebase.database().ref(`${resource}/${keyValue}`).update(props.updates)
-  }
-
-  add({ nodes, options, props }) {
-    // Let's see what kind of a resource we want to add
-    const node = nodes[0]
-
-    if (!node) {
-      // We require a resource to be defined
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
-    const args = { ...props.target, node, ...props.targetContent }
-    return operations.add(firebase, args)
-  }
-
-  unsubscribe({ nodes, options, props }) {
-     // Let's see what kind of a resource we want to subscribe to
-    const node = nodes[0]
-
-    if (!node) {
-      // We require a resource to be defined
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
-
-    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
-
-    return operations.unsubscribe(firebase, { key })
-  }
+  // unsubscribe({ nodes, options, props }) {
+  //    // Let's see what kind of a resource we want to subscribe to
+  //   const node = nodes[0]
+  //
+  //   if (!node) {
+  //     // We require a resource to be defined
+  //     return Promise.reject(Errors.UNDEFINED_OPERATION())
+  //   }
+  //
+  //   var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+  //
+  //   return operations.unsubscribe(firebase, { key })
+  // }
 
   subscribe({ nodes, options, props }) {
     // Let's see what kind of a resource we want to subscribe to
@@ -104,11 +92,11 @@ export default class FirebaseDataProvider extends DataProvider  {
     if (!node) {
       // We require a resource to be defined
       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+    }
 
     var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
     var params = { key }
-    
+
     if (options.latest) {
       params.orderBy = "timestamp"
       params.limitToLast = options.latest
@@ -141,7 +129,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     if (!resource) {
       // We require a resource to be defined
       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+    }
 
     const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
     var params = { key }
@@ -155,88 +143,16 @@ export default class FirebaseDataProvider extends DataProvider  {
       params.limitToLast = options.latest
     }
 
-    if (!options.resolve) {
-      // Just a plain retrieval
-      return operations.retrieve(firebase, params)
-    }
+    return operations.retrieve(firebase, params).
+                      then(data => {
+                        if (!options.resolve) {
+                          return data
+                        }
 
-    // Retrieve and resolve
-    return operations.retrieve(firebase, params).then(data => {
-      const id = data._id
-      delete data._id
-
-      console.log(data)
-
-      return Promise.all(Object.keys(data).map(item => operations.retrieve(firebase, Object.assign({}, { key: `${options.resolve}/${item}` })))).
-                     then(all => all.filter(i => { 
-                          console.log(props.before, i.timestamp, i.timestamp < props.before)
-                         return (props.before ? i.timestamp < props.before : i)
-                      })) 
-    })
-
-    // // Let's see if we have a field we requested
-    // const field = (nodes.length > 1 ? nodes[1] : undefined)
-    // const fieldValue = (field ? props[field] : undefined)
-
-    // if (props.key && !field) {
-    //   return firebase.database().ref(resource + "/" + props.key).once('value').then(snapshot => snapshot.val())
-    // }
-
-    // return new Promise((resolve, reject) => {
-    //   const ref = firebase.database().ref(resource)
-
-    //   if (field) {
-    //     if (!fieldValue) {
-    //       // We're looking for a specific field, but no value was given
-    //       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    //     }
-
-    //     ref.orderByChild(field).equalTo(fieldValue).once("child_added", function(snapshot) {
-    //       // Fetch the resource with the specified field
-    //       resolve(snapshot.val())
-    //     })
-    //     return
-
-    //   }
-
-    //   if (options.latest) {
-    //     ref.orderByChild("endDate").limitToLast(1).on("child_added", function(snapshot) {
-    //       // Fetch the latest resource only
-    //       resolve(snapshot.val())
-    //     })
-    //     return
-    //   }
-
-    //   if (options.startAt) {
-    //     const [field, index] = options.startAt.split(":")
-    //     if (field) {
-    //       ref.orderByChild(field).startAt(Number.parseInt(index)).on("value", function(snapshot) {
-    //         // Fetch all the resources, by filter
-    //         var elements = snapshot.val()
-            
-    //         if (Array.isArray(elements)) {
-    //           resolve(elements.filter((item) => item))
-    //           return
-    //         }
-
-    //         var newElements = []
-    //         for(const elementId in elements) {
-    //           if (elements[elementId]) {
-    //             // Make sure we deal with an array
-    //             newElements.push(elements[elementId])
-    //           }
-    //         }
-    //         resolve(newElements)
-
-    //       })
-    //       return
-    //     }
-    //   }
-
-    //   ref.once('value', (snapshot) => {
-    //     // Fetch all the resources
-    //     resolve(snapshot.val())
-    //   })
-    // })
-  }
+                        return Promise.all((Array.isArray(data) ? data : [data]).map(item => {
+                          const path = `${options.resolve}/${item._id}`
+                          console.log("path", path)
+                          return operations.retrieve(firebase,  { key: path })
+                        }))
+                      })}
 }
