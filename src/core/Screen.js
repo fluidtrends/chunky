@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import URL from 'url-parse'
 import { diff } from 'deep-diff'
-import { AllHtmlEntities} from 'html-entities' 
+import { AllHtmlEntities} from 'html-entities'
 
 export default class Screen extends Component {
 
@@ -49,7 +49,7 @@ export default class Screen extends Component {
     const urlRef = new URL(url)
     const protocol = urlRef.protocol
     const link = url.substring(protocol.length + 2)
-    return `${protocol}//${this.props.basicAuth.username}:${this.props.basicAuth.password}@${link}` 
+    return `${protocol}//${this.props.basicAuth.username}:${this.props.basicAuth.password}@${link}`
   }
 
   transition(transition, data) {
@@ -83,7 +83,7 @@ export default class Screen extends Component {
     return this.isVisible
   }
 
-  componentWillReceiveProps(nextProps) {    
+  componentWillReceiveProps(nextProps) {
     if (this.isVisible && this.props.isDataLoading() && nextProps.isDataLoaded()) {
       // Looks like an operation just finished, so let's trigger the callback
       this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError())
@@ -99,11 +99,11 @@ export default class Screen extends Component {
   }
 
   renderDataDefaults() {
-    throw new Error('Chunky says: implement renderDataDefaults in your route.')    
+    throw new Error('Chunky says: implement renderDataDefaults in your route.')
   }
 
   renderData() {
-    throw new Error('Chunky says: implement renderData in your route.')    
+    throw new Error('Chunky says: implement renderData in your route.')
   }
 
   render() {
@@ -116,7 +116,7 @@ export default class Screen extends Component {
       // Looks like there's an error that we need to handle
       return this.renderDataError(this.props.dataError())
     }
-    
+
     if (this.props.hasData && !this.props.hasData()  && this.renderDataDefaults) {
       // This screen does not have any data to render
       return this.renderDataDefaults()
