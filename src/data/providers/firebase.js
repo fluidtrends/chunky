@@ -47,7 +47,8 @@ export default class FirebaseDataProvider extends DataProvider  {
     params.onReceivedData = (data) => {
       if (!options.resolve) {
           // Just a plain retrieval
-          return data
+          props.onReceivedData && props.onReceivedData(data)
+          return
       }
 
       var ops = []
