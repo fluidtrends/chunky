@@ -10,10 +10,15 @@ export default class Screen extends Component {
 
     this.state = { lastTransitionTimestamp: '',  visible: true }
     this._entities = new AllHtmlEntities()
+    this._id = props["@"].id
   }
 
   get entities() {
     return this._entities
+  }
+
+  get id () {
+    return this._id
   }
 
   componentDidMount() {
@@ -61,10 +66,6 @@ export default class Screen extends Component {
     this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, { ...data, transition })
   }
 
-  get isVisible() {
-    return true
-  }
-
   _operationDidFinish(name, data, operation, handler) {
     if ("string" !== typeof operation[handler]) {
       // We only handle simple handlers at the moment
@@ -87,6 +88,11 @@ export default class Screen extends Component {
     }
   }
 
+  isForeignOperation(operation) {
+    const foreign = (this.id !== operation.routeId)
+    return foreign
+  }
+
   operationDidFinish(name, data, error, operation) {
     if (operation && operation.onError && error && error[operation.flavor]) {
       return this._operationDidFinish(name, error[operation.flavor], operation, 'onError')
@@ -99,13 +105,15 @@ export default class Screen extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.isVisible
+    return true
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.isVisible && this.props.isDataLoading() && nextProps.isDataLoaded()) {
+    const operation = this.props[`@${nextProps.action()}`]
+
+    if (this.state.visible && operation && !this.isForeignOperation(operation) && this.props.isDataLoading() && nextProps.isDataLoaded()) {
       // Looks like an operation just finished, so let's trigger the callback
-      this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError(), this.props[`@${nextProps.action()}`])
+      this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError(), operation)
     }
   }
 

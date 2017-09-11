@@ -9,6 +9,12 @@ function mapStateToProps (selectors) {
     var newProps = {}
     for (let name in selectors) {
       const selector = selectors[name]
+
+      if (name === '@') {
+        newProps[name] = { ...selector }
+        continue
+      }
+
       const selectorProps = (options) =>  Object.assign(options || {}, { _route: props })
       const result = (options) => selector(state, selectorProps(options))
       newProps[name] = result

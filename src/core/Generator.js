@@ -17,7 +17,7 @@ export default class Generator {
     return this._props
   }
 
-  generateSelectors(chunk) {
+  generateSelectors(chunk, route, routeName) {
     const hasData = Selectors.common.hasData(chunk.name, 'main')
     const data = Selectors.common.getData(chunk.name)
     const action = Selectors.common.getAction(chunk.name)
@@ -26,7 +26,7 @@ export default class Generator {
     const isDataLoaded = Selectors.common.isDone(chunk.name)
     const isDataLoading = Selectors.common.isInProgress(chunk.name)
 
-    return { hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading, action }
+    return { "@": { id: `${chunk.name}/${routeName}`, route, routeName }, hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading, action }
   }
 
   generateAction(chunk, options) {
@@ -63,7 +63,7 @@ export default class Generator {
     return { type, nodes, options, flavor, provider, chunkName }
   }
 
-  generateActions(chunk, route) {
+  generateActions(chunk, route, routeName) {
     if (!route || !route.operations || Object.keys(route.operations).length === 0) {
       return {}
     }
@@ -81,7 +81,7 @@ export default class Generator {
       }
 
       // Here's our operation now, all parsed
-      const operation = Object.assign({ func: operationName, handlers: operationHandlers }, this.parseOperationFromURI(operationUri, chunk))
+      const operation = Object.assign({ func: operationName, handlers: operationHandlers, routeName, routeId: `${chunk.name}/${routeName}` }, this.parseOperationFromURI(operationUri, chunk))
 
       // Attempt to generate this action
       const generatedAction = this.generateAction(chunk, operation)
@@ -101,9 +101,9 @@ export default class Generator {
     return all
   }
 
-  generateContainer(chunk, route) {
-    const actions = Object.assign({}, this.generateActions(chunk, route))
-    const selectors = Object.assign({}, this.generateSelectors(chunk))
+  generateContainer(chunk, route, routeName) {
+    const actions = Object.assign({}, this.generateActions(chunk, route, routeName))
+    const selectors = Object.assign({}, this.generateSelectors(chunk, route, routeName))
 
     return Container(route.screen, selectors, actions)
   }

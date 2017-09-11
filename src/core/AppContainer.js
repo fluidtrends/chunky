@@ -85,7 +85,7 @@ export default class AppContainer extends Component {
 
           if (route.screen && (route.operations || route.selectors)) {
             // Resolve containers
-            chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route)
+            chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route, routeName)
           }
         }
       }
