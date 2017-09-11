@@ -1,10 +1,10 @@
 import URL                  from 'url-parse'
 import Container            from './Container'
-import { 
-  Actions, 
-  Selectors, 
-  Reducers, 
-  Providers 
+import {
+  Actions,
+  Selectors,
+  Reducers,
+  Providers
 } from '../data'
 
 export default class Generator {
@@ -59,7 +59,7 @@ export default class Generator {
     const options = url.query
     const flavor = url.hash ? url.hash.substring(1) : 'main'
     const chunkName = (provider === 'local' && nodes.length > 0 ? nodes[0] : chunk.name)
-    
+
     return { type, nodes, options, flavor, provider, chunkName }
   }
 
@@ -72,21 +72,30 @@ export default class Generator {
 
     for(const operationName in route.operations) {
       // Parse the action from the URI
-      const operationUri = route.operations[operationName]
-      const operation = Object.assign({ func: operationName }, this.parseOperationFromURI(operationUri, chunk))
+      var operationUri = route.operations[operationName]
+      var operationHandlers = {}
+
+      if (Array.isArray(operationUri) && operationUri.length > 1) {
+        operationHandlers = operationUri[1]
+        operationUri = operationUri[0]
+      }
+
+      // Here's our operation now, all parsed
+      const operation = Object.assign({ func: operationName, handlers: operationHandlers }, this.parseOperationFromURI(operationUri, chunk))
 
       // Attempt to generate this action
       const generatedAction = this.generateAction(chunk, operation)
 
       if (generatedAction) {
         // Keep track of it if it was successfully generated
-        all[operation.func] = generatedAction
+        all[operation.func] = { op: generatedAction, ...operation, ...operationHandlers }
 
         if (Object.keys(all).length === 1) {
           // Let's track this as the initial operation
-          all.startOperation = generatedAction
+          all.startOperation =  { op: generatedAction, ...operation, ...operationHandlers }
         }
       }
+
     }
 
     return all

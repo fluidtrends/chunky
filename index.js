@@ -12,4 +12,3 @@ function extendChunk(original, another) {
 export { Core, Data, Errors, Styles, Config, extendChunk }
 
 export default ({Core, Data, Errors, Styles, Config, extendChunk})
-

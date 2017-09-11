@@ -22,8 +22,13 @@ function mapDispatchToProps (actions) {
   return (dispatch, props) => {
     var newProps = {}
     for (let action in actions) {
+      const operation = actions[action].op
       const actionProps = (options) => Object.assign(options || {}, { _route: props })
-      newProps[action] = (options) => dispatch(actions[action](actionProps(options)))
+      newProps[action] = (options) => dispatch(operation(actionProps(options)))
+
+      if (action !== 'startOperation') {
+        newProps[`@${action}`] = { ...actions[action] }
+      }
     }
 
     return newProps

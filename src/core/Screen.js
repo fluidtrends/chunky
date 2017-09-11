@@ -8,9 +8,6 @@ export default class Screen extends Component {
   constructor(props) {
     super(props)
 
-    this._onRetryRetrieveData = this.onRetryRetrieveData.bind(this)
-    this._onCancelRetrieveData = this.onCancelRetrieveData.bind(this)
-
     this.state = { lastTransitionTimestamp: '',  visible: true }
     this._entities = new AllHtmlEntities()
   }
@@ -66,18 +63,40 @@ export default class Screen extends Component {
 
   get isVisible() {
     return true
-    // return this.state.visible
   }
 
-  onRetryRetrieveData() {
-    this.props.retrieveData && this.props.retrieveData()
+  _operationDidFinish(name, data, operation, handler) {
+    if ("string" !== typeof operation[handler]) {
+      // We only handle simple handlers at the moment
+      return
+    }
+
+    // Let's see what we have as a handler
+    const parts = operation[handler].split(":")
+
+    if (parts && parts.length === 2) {
+      // Perform the transition
+      const transition = `${parts[1].charAt(0).toUpperCase()}${parts[1].substring(1)}`
+      this.transitions[`show${transition}`]()
+      return
+    }
+
+    if (parts && parts.length === 1) {
+      // Execute the specified operation
+      this[operation[handler]] ? this[operation[handler]](data) : (this.props[operation[handler]] && this.props[operation[handler]](data))
+    }
   }
 
-  onCancelRetrieveData() {
-    // TODO: handle cancellation
-  }
+  operationDidFinish(name, data, error, operation) {
+    if (operation && operation.onError && error && error[operation.flavor]) {
+      return this._operationDidFinish(name, error[operation.flavor], operation, 'onError')
+    }
 
-  operationDidFinish(name, data, error) {}
+    if (operation && operation.onSuccess && data && data[operation.flavor] && (!error || !error[operation.flavor])) {
+      // The operation response is successful
+      return this._operationDidFinish(name, data[operation.flavor], operation, 'onSuccess')
+    }
+  }
 
   shouldComponentUpdate(nextProps, nextState) {
     return this.isVisible
@@ -86,7 +105,7 @@ export default class Screen extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.isVisible && this.props.isDataLoading() && nextProps.isDataLoaded()) {
       // Looks like an operation just finished, so let's trigger the callback
-      this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError())
+      this.operationDidFinish(nextProps.action(), nextProps.data(), nextProps.dataError(), this.props[`@${nextProps.action()}`])
     }
   }
 
