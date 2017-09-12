@@ -61,6 +61,11 @@ export default class Screen extends Component {
       return
     }
 
+    // Turn off the progress
+    if (this.state.progress) {
+      this.setState({ progress: false })
+    }
+
     // Timestamp this transition
     this.setState({ lastTransitionTimestamp: Date.now(), visible: false })
     this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, { ...data, transition })
@@ -78,7 +83,7 @@ export default class Screen extends Component {
     if (parts && parts.length === 2) {
       // Perform the transition
       const transition = `${parts[1].charAt(0).toUpperCase()}${parts[1].substring(1)}`
-      this.transitions[`show${transition}`]()
+      this.transitions[`show${transition}`]({ [operation.flavor]: data })
       return
     }
 
