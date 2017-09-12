@@ -5,6 +5,7 @@ import DataStore            from '../data/store'
 import * as Errors          from '../errors'
 import { Providers }        from '../data'
 import Generator            from './Generator'
+import TransitionGroup      from 'react-transition-group/TransitionGroup'
 
 export default class AppContainer extends Component {
 
@@ -87,6 +88,11 @@ export default class AppContainer extends Component {
             // Resolve containers
             chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route, routeName)
           }
+
+          // chunk.routes[routeName].screen = (
+          //   <TransitionGroup>
+          //     { chunk.routes[routeName].screen }
+          //   <TransitionGroup/>)
         }
       }
 

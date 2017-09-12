@@ -38,7 +38,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     const password = props.password
 
     // Attempt to register user
-    return operations.register(firebase, { name, email, password, appAuth: true }).
+    return operations.register(firebase, Object.assign({ appAuth: true }, props))).
 
             // Login immediately
             then(() => operations.login(firebase, { email, password })).

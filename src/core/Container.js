@@ -5,7 +5,7 @@ function mapStateToProps (selectors) {
     if (!props.chunkName || !state[props.chunkName]) {
       return props
     }
-
+  
     var newProps = {}
     for (let name in selectors) {
       const selector = selectors[name]
