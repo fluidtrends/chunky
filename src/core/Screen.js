@@ -10,15 +10,19 @@ export default class Screen extends Component {
 
     this.state = { lastTransitionTimestamp: '',  visible: true }
     this._entities = new AllHtmlEntities()
-    this._id = props["@"].id
+    this._containerId = props["@"] ? props["@"].id : undefined
   }
 
   get entities() {
     return this._entities
   }
 
-  get id () {
-    return this._id
+  get containerId () {
+    return this._containerId
+  }
+
+  get isContainer() {
+    return (this.containerId != undefined)
   }
 
   componentDidMount() {
@@ -94,7 +98,7 @@ export default class Screen extends Component {
   }
 
   isForeignOperation(operation) {
-    const foreign = (this.id !== operation.routeId)
+    const foreign = (this.containerId !== operation.routeId)
     return foreign
   }
 
