@@ -28,7 +28,7 @@ export default class Screen extends Component {
   componentDidMount() {
     // Automatically attempt to retrieve the main data, if possible and if desired
     if (this.props.startOperationsOnMount && this.props.startOperation) {
-      this.props.startOperation()  
+      this.props.startOperation()
     }
   }
 
@@ -145,6 +145,10 @@ export default class Screen extends Component {
   }
 
   render() {
+    if (this.state.progress && this.renderProgress) {
+      return this.renderProgress()
+    }
+
     if (this.props.isDataLoading && this.props.isDataLoading() && this.renderDataLoading) {
       // We're loading the data still
       return this.renderDataLoading()

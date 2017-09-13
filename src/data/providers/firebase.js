@@ -11,6 +11,19 @@ import {
 
 export default class FirebaseDataProvider extends DataProvider  {
 
+  store({ nodes, options, props }) {
+    // Let's see what kind of a resource we want to subscribe to
+    const node = nodes[0]
+
+    if (!node || !props.data) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+    return operations.store(firebase, { key, data: props.data, contentType: options.contentType })
+  }
+
   login({ nodes, options, props }) {
     if (!props.email || !props.password || !operations.login) {
       // We only support email logins for now
@@ -131,6 +144,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     }
 
     var chain = Promise.resolve()
+
 
     if (options.cache) {
       // Check if this was cached
