@@ -4,6 +4,8 @@ import ChunkyError from '../../core/Error'
 import DataProvider from '../../core/DataProvider'
 import { operations } from 'firebaseline'
 import {
+  retrieveCachedItem,
+  cacheItem,
   cacheAuth
 } from '../cache'
 
@@ -128,22 +130,43 @@ export default class FirebaseDataProvider extends DataProvider  {
       params.endAt = props.before
     }
 
-    return operations.retrieve(firebase, params).
-            then(data => {
-              if (!options.resolve) {
-                return data
-              }
+    var chain = Promise.resolve()
 
-              // Make sure we're dealing with a list
-              data = (Array.isArray(data) ? data : [data])
+    if (options.cache) {
+      // Check if this was cached
+      chain = new Promise((resolve, reject) => retrieveCachedItem(`chunky_${params.key}`).
+                  then(data => resolve(data)).
+                  catch(error => resolve()))
+    }
 
-              if (params.orderBy === "timestamp") {
-                data = data.sort((a, b) => (Number.parseInt(b.timestamp) - Number.parseInt(a.timestamp)))
-              }
+    return chain.then((cachedData) => {
+             if (cachedData) {
+               return cachedData
+             }
+             return operations.retrieve(firebase, params).then(data => {
+                if (!options.resolve) {
+                  return data
+                }
 
-              return Promise.all(data.map(item => {
-                const path = `${options.resolve}/${item._id}`
-                return operations.retrieve(firebase,  Object.assign({ key: path }))
-              }))
-            })}
+                // Make sure we're dealing with a list
+                data = (Array.isArray(data) ? data : [data])
+
+                if (params.orderBy === "timestamp") {
+                  data = data.sort((a, b) => (Number.parseInt(b.timestamp) - Number.parseInt(a.timestamp)))
+                }
+
+                return Promise.all(data.map(item => {
+                  const path = `${options.resolve}/${item._id}`
+                  return operations.retrieve(firebase,  Object.assign({ key: path }))
+                }))
+             }).
+             then((dataToBeCached) => {
+               if (!options.cache) {
+                 return dataToBeCached
+               }
+               // Cache this data
+               return cacheItem(`chunky_${params.key}`, dataToBeCached)
+             })
+         })
+   }
 }
