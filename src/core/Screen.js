@@ -27,7 +27,9 @@ export default class Screen extends Component {
 
   componentDidMount() {
     // Automatically attempt to retrieve the main data, if possible and if desired
-    this.props.startOperationsOnMount && this.props.startOperation && this.props.startOperation()
+    if (this.props.startOperationsOnMount && this.props.startOperation) {
+      this.props.startOperation()  
+    }
   }
 
   componentWillMount() {
