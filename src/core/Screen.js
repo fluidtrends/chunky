@@ -32,6 +32,10 @@ export default class Screen extends Component {
     }
   }
 
+  updateProgress(progressTitle) {
+    this.setState({ progressTitle })
+  }
+
   componentWillMount() {
     for(const transitionName in this.props.transitions) {
       // Inject all transitions into this screen
