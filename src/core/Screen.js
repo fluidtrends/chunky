@@ -89,7 +89,7 @@ export default class Screen extends Component {
     if (parts && parts.length === 2) {
       // Perform the transition
       const transition = `${parts[1].charAt(0).toUpperCase()}${parts[1].substring(1)}`
-      this.transitions[`show${transition}`]({ [operation.flavor]: data })
+      this.transitions[`show${transition}`] && this.transitions[`show${transition}`]({ [operation.flavor]: data })
       return
     }
 
@@ -109,9 +109,9 @@ export default class Screen extends Component {
       return this._operationDidFinish(name, error[operation.flavor], operation, 'onError')
     }
 
-    if (operation && operation.onSuccess && data && data[operation.flavor] && (!error || !error[operation.flavor])) {
+    if (operation && operation.onSuccess && (!error || !error[operation.flavor])) {
       // The operation response is successful
-      return this._operationDidFinish(name, data[operation.flavor], operation, 'onSuccess')
+      return this._operationDidFinish(name, data ? data[operation.flavor] || {} : {}, operation, 'onSuccess')
     }
   }
 
