@@ -8,7 +8,7 @@ export default class Screen extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { lastTransitionTimestamp: '',  visible: true }
+    this.state = { lastTransitionTimestamp: '',  visible: true, progress: false }
     this._entities = new AllHtmlEntities()
     this._containerId = props["@"] ? props["@"].id : undefined
   }

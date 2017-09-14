@@ -121,6 +121,23 @@ export default class FirebaseDataProvider extends DataProvider  {
     return operations.add(firebase, params)
   }
 
+  remove({ nodes, options, props }) {
+    // Let's see what kind of a resource we want to remove
+    const resource = nodes[0]
+
+    if (!resource) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    if (!props.ids || props.ids.length === 0) {
+      return Promise.resolve()
+    }
+
+    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+    return Promise.all(props.ids.map(id => operations.remove(firebase, { key:  `${key}/${id}` })))
+  }
+
   retrieve({ nodes, options, props }) {
     // Let's see what kind of a resource we want to retrieve
     const resource = nodes[0]
