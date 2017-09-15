@@ -25,7 +25,7 @@ export default class AppContainer extends Component {
     this._parseChunks()
 
     // Initialize the store with custom app reducers
-    this.state = { store: DataStore(this.reducers, this.props.logging) }
+    this.state = { store: DataStore(this.reducers, { logging: props.env === 'dev' })}
   }
 
   _initializeDataProviders(pool) {
