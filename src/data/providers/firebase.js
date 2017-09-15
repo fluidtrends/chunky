@@ -121,6 +121,16 @@ export default class FirebaseDataProvider extends DataProvider  {
     return operations.add(firebase, params)
   }
 
+  join({ nodes, options, props }) {
+    if (!nodes || nodes.length < 1) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    const params = { ...props }
+    return operations.join(firebase, params)
+  }
+
   remove({ nodes, options, props }) {
     // Let's see what kind of a resource we want to remove
     const resource = nodes[0]
@@ -160,8 +170,12 @@ export default class FirebaseDataProvider extends DataProvider  {
       params.endAt = props.before
     }
 
-    var chain = Promise.resolve()
+    if (options.indexKey && props.indexValue) {
+      params.orderBy = options.indexKey
+      params.equalTo = props.indexValue
+    }
 
+    var chain = Promise.resolve()
 
     if (options.cache) {
       // Check if this was cached
