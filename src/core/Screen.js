@@ -124,7 +124,7 @@ export default class Screen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const operation = this.props[`@${nextProps.action()}`]
+    const operation = (nextProps.action ? this.props[`@${nextProps.action()}`] : undefined)
 
     if (this.state.visible && operation && !this.isForeignOperation(operation) && this.props.isDataLoading() && nextProps.isDataLoaded()) {
       // Looks like an operation just finished, so let's trigger the callback
