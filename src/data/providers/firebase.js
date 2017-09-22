@@ -24,6 +24,19 @@ export default class FirebaseDataProvider extends DataProvider  {
     return operations.store(firebase, { key, data: props.data, contentType: options.contentType })
   }
 
+  create({ nodes, options, props }) {
+    // Let's see what kind of a resource we want to create
+    const node = nodes[0]
+
+    if (!node) {
+      // We require a resource to be defined
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+    return operations.create(firebase, Object.assign({ node }, props ))
+  }
+
   login({ nodes, options, props }) {
     if (!props.email || !props.password || !operations.login) {
       // We only support email logins for now
@@ -122,7 +135,7 @@ export default class FirebaseDataProvider extends DataProvider  {
   }
 
   join({ nodes, options, props }) {
-    if (!nodes || nodes.length < 1) {
+    if (!nodes) {
       // We require a resource to be defined
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
