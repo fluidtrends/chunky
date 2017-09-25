@@ -3,7 +3,7 @@ import * as Errors from '../../errors'
 
 export function retrieveCachedItem(key) {
   return new Promise((resolve, reject) => {
-    localStorage.getItem(key, (error, value) => {
+    storage.getItem(key, (error, value) => {
       if (error || !value || value === undefined) {
         // The item was not found locally
         reject(Errors.COULD_NOT_RETRIEVE_CACHED_ITEM())
@@ -18,7 +18,7 @@ export function retrieveCachedItem(key) {
 
 export function cacheItem(key, value) {
   return new Promise((resolve, reject) => {
-    localStorage.setItem(key, JSON.stringify(value), (error) => {
+    storage.setItem(key, JSON.stringify(value), (error) => {
       if (error) {
         // Something went wrong when saving the item
         reject(Errors.COULD_NOT_CACHE_ITEM())
@@ -33,7 +33,7 @@ export function cacheItem(key, value) {
 
 export function clearCachedItem(key) {
   return new Promise((resolve, reject) => {
-    localStorage.removeItem(key, (error) => {
+    storage.removeItem(key, (error) => {
       if (error) {
         // The item could not be removed
         reject(Errors.COULD_NOT_CLEAR_CACHED_ITEM())

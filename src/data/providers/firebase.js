@@ -201,6 +201,7 @@ export default class FirebaseDataProvider extends DataProvider  {
              if (cachedData) {
                return cachedData
              }
+
              return operations.retrieve(firebase, params).then(data => {
                 if (!options.resolve) {
                   return data
