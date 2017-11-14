@@ -35,7 +35,7 @@ export default class DataProvider {
     // Resolve the nodes
     const nodes = (options.nodes ? options.nodes.map(node => (node.charAt(0) === ':' ? (options.props[node.substring(1)] || node): node)) : [])
 
-    delete options.props._route
+    options.props && delete options.props._route
 
     // We should be able to execute it now
     return executor({ nodes, options: options.options || {}, props: options.props || {} })

@@ -88,11 +88,11 @@ export default class Generator {
 
       if (generatedAction) {
         // Keep track of it if it was successfully generated
-        all[operation.func] = { op: generatedAction, ...operation, ...operationHandlers }
+        all[operation.func] = Object.assign({}, { op: generatedAction }, operation, operationHandlers)
 
         if (Object.keys(all).length === 1) {
           // Let's track this as the initial operation
-          all.startOperation =  { op: generatedAction, ...operation, ...operationHandlers }
+          all.startOperation =  Object.assign({}, { op: generatedAction }, operation, operationHandlers)
         }
       }
 

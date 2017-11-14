@@ -3,7 +3,7 @@ import { Data, Core, Errors } from '../../..'
 
 savor.add("should handle a failed collection retrieval", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.reject(new Error('oopsie'))
 
@@ -16,7 +16,7 @@ savor.add("should handle a failed collection retrieval", (context, done) => {
 
 add("should not retrieve a nodeless collection", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Fetch an operation from the provider
     const operation = provider.operation({ type: 'retrieve' })
 
@@ -26,7 +26,7 @@ add("should not retrieve a nodeless collection", (context, done) => {
 
 add("should retrieve a collection", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.resolve({ json: () => Promise.resolve([{ id: 0 }, { id: 1 }]) })
 
@@ -37,25 +37,25 @@ add("should retrieve a collection", (context, done) => {
     savor.promiseShouldSucceed(operation, done, (response) => context.expect(response.length).to.equal(2))
 }).
 
-add("should handle a timeout", (context, done) => {
-    const provider = new Data.Providers.Rest()
-
-    // Inject a mock adapter
-    global.setTimeout = (callback) => callback()
-
-    // Inject another mock adapter
-    global.fetch = (url, options) => Promise.resolve({ json: () => Promise.resolve([{ id: 0 }, { id: 1 }]) })
-
-    // Fetch an operation from the provider
-    const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
-
-    // Attempt to retrieve
-    savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.TIMEOUT_ERROR().message))
-}).
+// add("should handle a timeout", (context, done) => {
+//     const provider = new Data.Providers.Rest()
+//
+//     // Inject a mock adapter
+//     global.setTimeout = (callback) => callback()
+//
+//     // Inject another mock adapter
+//     global.fetch = (url, options) => Promise.resolve({ json: () => Promise.resolve([{ id: 0 }, { id: 1 }]) })
+//
+//     // Fetch an operation from the provider
+//     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
+//
+//     // Attempt to retrieve
+//     savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.TIMEOUT_ERROR().message))
+// }).
 
 add("should retrieve an empty collection", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.resolve()
 
@@ -68,7 +68,7 @@ add("should retrieve an empty collection", (context, done) => {
 
 add("should retrieve an invalid collection", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.resolve({ json: () => Promise.reject(new Error('oopsie')) })
 
@@ -81,7 +81,7 @@ add("should retrieve an invalid collection", (context, done) => {
 
 add("should create a new node with options", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.resolve({ json: () => Promise.resolve([{ id: 0 }, { id: 1 }]) })
 
@@ -94,7 +94,7 @@ add("should create a new node with options", (context, done) => {
 
 add("should create a new node without any options", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Inject a mock adapter
     global.fetch = (url, options) => Promise.resolve({ json: () => Promise.resolve([{ id: 0 }, { id: 1 }]) })
 
@@ -107,7 +107,7 @@ add("should create a new node without any options", (context, done) => {
 
 add("should note create a new node without a specified node", (context, done) => {
     const provider = new Data.Providers.Rest()
-     
+
     // Fetch an operation from the provider
     const operation = provider.operation({ type: 'create' })
 

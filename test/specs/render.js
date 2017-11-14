@@ -41,7 +41,7 @@ add("should create an app with some properties", (context, done) => {
 
   // Let's make sure the component hierarchy is as expected
   context.expect(container.length).to.equal(1)
-  context.expect(container.childAt(0).name()).to.equal("h1")
+  context.expect(container.childAt(0).name()).to.equal("Provider")
 
   // Make sure the app is actually mounted and the lifecycle is initiated
   context.expect(App.prototype.componentDidMount.calledOnce).to.be.true

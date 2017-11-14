@@ -3,9 +3,9 @@ import { Data, Errors } from '../../..'
 
 savor.add("should create into cache", (context, done) => {
     const provider = new Data.Providers.Cache()
-     
+
     // Inject a mock adapter
-    global.localStorage = { setItem: (key, value, callback) => callback() }
+    global.storage = { setItem: (key, value, callback) => callback() }
 
     // Attempt to create
     savor.promiseShouldSucceed(provider.operation({ type: 'create', nodes: ['test'], props: { hello: 'world' } }), done, () => {})
@@ -13,9 +13,9 @@ savor.add("should create into cache", (context, done) => {
 
 add("should retrieve from cache", (context, done) => {
     const provider = new Data.Providers.Cache()
-     
+
     // Inject a mock adapter
-    global.localStorage = { getItem: (key, callback) => callback(null, JSON.stringify({ test: "test" })) }
+    global.storage = { getItem: (key, callback) => callback(null, JSON.stringify({ test: "test" })) }
 
     // Fetch an operation from the provider
     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
@@ -26,10 +26,10 @@ add("should retrieve from cache", (context, done) => {
 
 add("should update into cache", (context, done) => {
     const provider = new Data.Providers.Cache()
-     
+
     // Inject a mock adapter
-    global.localStorage = { 
-        setItem: (key, value, callback) => callback(),        
+    global.storage = {
+        setItem: (key, value, callback) => callback(),
         removeItem: (key, callback) => callback(),
         getItem: (key, callback) => callback(null, JSON.stringify({ test: "old" })) }
 
@@ -42,9 +42,9 @@ add("should update into cache", (context, done) => {
 
 add("should remove from cache", (context, done) => {
     const provider = new Data.Providers.Cache()
-     
+
     // Inject a mock adapter
-    global.localStorage = { removeItem: (key, callback) => callback() }
+    global.storage = { removeItem: (key, callback) => callback() }
 
     // Fetch an operation from the provider
     const operation = provider.operation({ type: 'delete', nodes: ['test'] })

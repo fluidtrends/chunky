@@ -120,7 +120,7 @@ export default class FirebaseDataProvider extends DataProvider  {
     }
 
     const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
-    const params = { key, ...props }
+    const params = Object.assign({}, { key }, props)
     return operations.update(firebase, params)
   }
 
@@ -130,7 +130,7 @@ export default class FirebaseDataProvider extends DataProvider  {
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
 
-    const params = { ...props,  node: nodes[0] }
+    const params = Object.assign({}, props,  { node: nodes[0] })
     return operations.add(firebase, params)
   }
 
@@ -140,7 +140,7 @@ export default class FirebaseDataProvider extends DataProvider  {
       return Promise.reject(Errors.UNDEFINED_OPERATION())
     }
 
-    const params = { ...props }
+    const params =  Object.assign({}, props )
     return operations.join(firebase, params)
   }
 
@@ -216,7 +216,7 @@ export default class FirebaseDataProvider extends DataProvider  {
 
                 return Promise.all(data.map(item => {
                   const path = `${options.resolve}/${item._id}`
-                  return operations.retrieve(firebase,  Object.assign({ key: path }))
+                  return operations.retrieve(firebase, Object.assign({ key: path }))
                 }))
              }).
              then((dataToBeCached) => {

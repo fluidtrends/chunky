@@ -78,7 +78,7 @@ export default class Screen extends Component {
 
     // Timestamp this transition
     this.setState({ lastTransitionTimestamp: Date.now(), visible: false })
-    this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, { ...data, transition })
+    this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, Object.assign({}, data, { transition }))
   }
 
   _operationDidFinish(name, data, operation, handler) {
