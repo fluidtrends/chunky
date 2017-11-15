@@ -1,4 +1,5 @@
-<h3 align="center"> The Chunky Universal Framework </h3>
+<h3 align="center"> The Chunky   <a href="http://chunky.io/universal">Universal </a>
+Framework </h3>
 
 <p align="center">
     <a href="https://github.com/react-chunky/react-chunky"> <img src="https://img.shields.io/badge/react--chunky-core-blue.svg"> </a>
@@ -16,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="http://chunky.io/universal">Universal</a> |
+  <strong>  <a href="http://chunky.io/universal"> Universal </a> </strong>  |
   <a href="http://chunky.io/mobile">Mobile</a> |
   <a href="http://chunky.io/web">Web</a> |
   <a href="http://chunky.io/cloud">Cloud</a> |
