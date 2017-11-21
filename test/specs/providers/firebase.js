@@ -73,19 +73,23 @@ add("should not retrieve a nodeless collection from firebase", (context, done) =
     savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
 }).
 
-// add("should retrieve a collection from firebase", (context, done) => {
-//     const provider = new Data.Providers.Firebase()
-//
-//     // Inject a mock adapter
-//     global.firebase = { database: () => ({
-//       ref: (resource) => ({ once: (type, callback) => callback({ val: () => [ {id: 0}, {id: 1} ] })})
-//     })}
-//
-//     // Fetch an operation from the provider
-//     const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
-//
-//     // Attempt to mock retrieve
-//     savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.length).to.equal(2))
-// }).
+add("should retrieve a collection from firebase", (context, done) => {
+    const provider = new Data.Providers.Firebase()
+
+    const data = { val: () => [ {id: 0}, {id: 1} ] }
+
+    // Inject a mock adapter
+    global.firebase = { database: () => ({
+      ref: (resource) => ({
+        once: (type, callback) => Promise.resolve(data)
+      })
+    })}
+
+    // Fetch an operation from the provider
+    const operation = provider.operation({ type: 'retrieve', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.length).to.equal(2))
+}).
 
 run ("Firebase Data Provider")

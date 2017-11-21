@@ -1,4 +1,4 @@
-<h3 align="center"> The Chunky  <a href="http://chunky.io/universal">Universal </a>
+<h3 align="center"> The Chunky <a href="http://chunky.io/universal">Universal </a>
 Framework </h3>
 
 <p align="center">

@@ -1,17 +1,30 @@
 import React, { Component } from 'react'
+import { Core } from '../../../../../..'
 
-export default class LoadingScreen extends Component {
+export default class LoadingScreen extends Core.Screen {
 
   constructor(props) {
     super(props)
   }
 
   componentDidMount() {
+    super.componentDidMount()
   }
 
-  render() {
-    return (<div>
-        <h1> Loading </h1>
-    </div>)
+  renderDataError() {
+    return <div/>
   }
+
+  renderDataLoading() {
+    return <div/>
+  }
+
+  renderDataDefaults() {
+    return <div/>
+  }
+
+  renderData() {
+    return <div/>
+  }
+
 }

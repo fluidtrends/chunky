@@ -13,10 +13,11 @@ export default class App extends Component {
     const auth = this.props.chunks.auth
     const loading = auth.routes.loading
     const LoadingScreen = loading.screen
-
+    const screenProps = { chunkName: 'auth' }
+    
     return (<div>
       <h1> App </h1>
-      <LoadingScreen/>
+      <LoadingScreen {...screenProps}/>
       </div>)
   }
 }

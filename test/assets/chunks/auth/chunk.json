@@ -7,5 +7,6 @@
         "getTests": "firebase://retrieve/tests"
       }
     }
-  }
+  },
+  "transitions": ["replace://loading"]
 }
