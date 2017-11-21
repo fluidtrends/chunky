@@ -2,9 +2,11 @@ import { connect } from 'react-redux'
 
 function mapStateToProps (selectors) {
   return (state, props) => {
+
     if (!props.chunkName || !state[props.chunkName]) {
       return props
     }
+
 
     var newProps = {}
     for (let name in selectors) {

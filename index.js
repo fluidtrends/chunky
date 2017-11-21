@@ -6,9 +6,9 @@ import * as Config     from './src/config'
 import merge           from 'deepmerge'
 
 function extendChunk(original, another) {
-     return merge.all([original, another])
+  return merge.all([original, another])
 }
 
 export { Core, Data, Errors, Styles, Config, extendChunk }
 
-export default ({Core, Data, Errors, Styles, Config, extendChunk})
+export default ({ Core, Data, Errors, Styles, Config, extendChunk })

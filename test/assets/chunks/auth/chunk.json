@@ -1,43 +1,11 @@
 {
   "name": "auth",
-  "api": {
-    "login": {
-      "operation": "login",
-      "method": "GET",
-      "endpoint": "/user",
-      "secure": false,
-      "auth": {
-        "type": "Basic",
-        "base64": true
-      }
-    }
-  },
   "routes": {
     "loading": {
-      "actions": {
-        "findToken": {
-          "type": "retrieve",
-          "source": "cache",
-          "key": "chunky/auth_token"
-        }
+      "test": "hello",
+      "operations": {
+        "getTests": "firebase://retrieve/tests"
       }
-    },
-    "login": {
-      "actions": {
-        "login": {
-          "source": "remote",
-          "operation": "login"
-        }
-      }
-    }
-  },
-  "transitions": {
-    "not_authenticated": {
-      "route": "login",
-      "replace": true
-    },
-    "authenticated": {
-      "replace": true
     }
   }
 }

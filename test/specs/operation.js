@@ -117,7 +117,6 @@ savor.add("should create a basic post operation", (context, done) => {
 //   savor.promiseShouldFail(post.start(), done, () => {})
 // }).
 
-
 // add("should handle bodyless failed operations", (context, done) => {
 //   // Create a brand new mock client
 //   global.fetch = (url, options, body) => Promise.reject(new Error('error'))

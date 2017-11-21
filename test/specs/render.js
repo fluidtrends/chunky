@@ -23,20 +23,14 @@ add("should render a simple app without any properties", (context, done) => {
 }).
 
 add("should create an app with some properties", (context, done) => {
-  // Inject a mock adapter
-  global.localStorage = { getItem: (key, callback) => callback(new Error('error')) }
-
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
-
-  // Create some test properties
-  const config = appConfig
 
   // Let's mount the app
   context.spy(App.prototype, 'componentDidMount');
   context.spy(App.prototype, 'render');
-  const container = context.mount(<Core.AppContainer {...config}>
-    <App {...config } />
+  const container = context.mount(<Core.AppContainer {...appConfig}>
+    <App {...appConfig } />
   </Core.AppContainer>)
 
   // Let's make sure the component hierarchy is as expected
@@ -56,18 +50,12 @@ add("should create an app with some properties", (context, done) => {
 }).
 
 add("should create an app with a successful operation", (context, done) => {
-  // Inject a mock adapter
-  global.localStorage = { getItem: (key, callback) => callback(null, JSON.stringify({ token: "token" })) }
-
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
-  // Create some test properties
-  const config = appConfig
-
   // Let's mount the app
-  const container = context.mount(<Core.AppContainer {...config}>
-    <App {...config } />
+  const container = context.mount(<Core.AppContainer {...appConfig}>
+    <App {...appConfig } />
   </Core.AppContainer>)
 
   // And, we're looking good

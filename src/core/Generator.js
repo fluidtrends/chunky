@@ -59,7 +59,7 @@ export default class Generator {
     const options = url.query
     const flavor = url.hash ? url.hash.substring(1) : 'main'
     const chunkName = (provider === 'local' && nodes.length > 0 ? nodes[0] : chunk.name)
-
+    
     return { type, nodes, options, flavor, provider, chunkName }
   }
 
