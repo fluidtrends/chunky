@@ -25,19 +25,13 @@ savor.add("should login to firebase", (context, done) => {
 }).
 
 add("should register to firebase", (context, done) => {
-    const provider = new Data.Providers.Firebase()
-
-    // Inject a mock adapter
-    const user = { toJSON: () => ({ name: 'test' }) }
-    global.storage = { setItem: (key, value, callback) => callback() }
-
-    // Inject another mock adapter
-    global.firebase = { auth: () => ({
-      createUserWithEmailAndPassword: (email, password) => Promise.resolve(user)
-    })}
+    // Let's first mock the operation
+    const response = { test: 'hello' }
+    context.stub(operations, "register", (firebase, options) => Promise.resolve(response))
 
     // Fetch an operation from the provider
-    const operation = provider.operation({ type: 'login', props: { email: 'email', password: 'password', register: true }})
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'register', props: { email: 'email', password: 'password', register: true }})
 
     // Attempt to mock register
     savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.user.name).to.equal('test'))
@@ -94,6 +88,19 @@ add("should retrieve a collection from firebase", (context, done) => {
     savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.length).to.equal(2))
 }).
 
+add("should subscribe to a firebase collection", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "subscribe", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'subscribe', options: { latest: "100" },  nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
 add("should perform a firebase join", (context, done) => {
     // Let's first mock the join operation
     const response = { test: 'hello' }
@@ -105,6 +112,22 @@ add("should perform a firebase join", (context, done) => {
 
     // Attempt to mock retrieve
     savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
+add("should perform a firebase remove", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "remove", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'remove', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => {
+      console.log(data)
+      // context.expect(data.test).to.equal('hello')
+    })
 }).
 
 add("should perform a firebase add", (context, done) => {
