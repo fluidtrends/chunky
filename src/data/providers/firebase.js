@@ -11,18 +11,18 @@ import {
 
 export default class FirebaseDataProvider extends DataProvider  {
 
-  store({ nodes, options, props }) {
-    // Let's see what kind of a resource we want to subscribe to
-    const node = nodes[0]
-
-    if (!node || !props.data) {
-      // We require a resource to be defined
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    }
-
-    var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
-    return operations.store(firebase, { key, data: props.data, contentType: options.contentType })
-  }
+  // store({ nodes, options, props }) {
+  //   // Let's see what kind of a resource we want to subscribe to
+  //   const node = nodes[0]
+  //
+  //   if (!node || !props.data) {
+  //     // We require a resource to be defined
+  //     return Promise.reject(Errors.UNDEFINED_OPERATION())
+  //   }
+  //
+  //   var key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join("/")
+  //   return operations.store(firebase, { key, data: props.data, contentType: options.contentType })
+  // }
 
   create({ nodes, options, props }) {
     // Let's see what kind of a resource we want to create

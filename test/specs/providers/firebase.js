@@ -94,4 +94,56 @@ add("should retrieve a collection from firebase", (context, done) => {
     savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.length).to.equal(2))
 }).
 
+add("should perform a firebase join", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "join", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'join', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
+add("should perform a firebase add", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "add", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'add', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
+add("should perform a firebase update", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "update", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'update', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
+add("should perform a firebase create", (context, done) => {
+    // Let's first mock the join operation
+    const response = { test: 'hello' }
+    context.stub(operations, "create", (firebase, options) => Promise.resolve(response))
+
+    // Fetch an operation from the provider
+    const provider = new Data.Providers.Firebase()
+    const operation = provider.operation({ type: 'create', nodes: ['test'] })
+
+    // Attempt to mock retrieve
+    savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
+}).
+
 run ("Firebase Data Provider")
