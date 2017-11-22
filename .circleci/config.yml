@@ -7,10 +7,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install npm
-          command: npm install
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Test
+          name: install npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
           command: npm test
       - run:
           name: Generate code coverage
@@ -19,9 +28,10 @@ jobs:
           name: Generate code climate
           command: npm run codeclimate
       - store_artifacts:
+          path: test-results.xml
+          prefix: tests
+      - store_artifacts:
           path: coverage
           prefix: coverage
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+      - store_test_results:
+          path: test-results.xml
