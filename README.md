@@ -6,9 +6,7 @@ Framework </h3>
     <a href="https://circleci.com/gh/react-chunky/react-chunky"> <img src="https://circleci.com/gh/react-chunky/react-chunky.svg?style=svg"> </a>
     <a href="https://codeclimate.com/github/react-chunky/react-chunky"> <img src="https://codeclimate.com/github/react-chunky/react-chunky/badges/coverage.svg"> </a>
 </p>
-
 <hr/>
-
 <p align="center">
 <strong>
 <a href="http://chunky.io"> Chunky </a> Is The Full Stack Product Development Platform For Creative Developers. </strong>
