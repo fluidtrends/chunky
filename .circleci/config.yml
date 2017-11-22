@@ -5,19 +5,19 @@ jobs:
     docker:
       - image: circleci/node:6.10
   steps:
-      - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Install npm
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
+    - checkout
+    - run:
+        name: Update npm
+        command: 'sudo npm install -g npm@latest'
+    - restore_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+    - run:
+        name: Install npm
+        command: npm install
+    - save_cache:
+        key: dependency-cache-{{ checksum "package.json" }}
+        paths:
+          - node_modules
   test:
     docker:
       - image: circleci/node:6.10
