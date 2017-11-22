@@ -74,12 +74,13 @@ add("should retrieve a collection from firebase", (context, done) => {
 
     // Fetch an operation from the provider
     const operation = provider.operation({ type: 'retrieve', options: {
+      latest: true
+    }, props: {
       before: "1000"
     },  nodes: ['test'] })
 
     // Attempt to mock
     savor.promiseShouldSucceed(operation, done, (data) => {
-      operations.retrieve.restore()
       context.expect(data.val().length).to.equal(2)
     })
 }).
