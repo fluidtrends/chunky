@@ -22,13 +22,14 @@ add("should render a simple app without any properties", (context, done) => {
   done()
 }).
 
-add("should create an app with some properties", (context, done) => {
+add("should create an app and have a valid lifecyle", (context, done) => {
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
   // Let's mount the app
-  context.spy(App.prototype, 'componentDidMount');
-  context.spy(App.prototype, 'render');
+  context.spy(App.prototype, 'componentDidMount')
+  context.spy(App.prototype, 'render')
+
   const container = context.mount(<Core.AppContainer {...appConfig}>
     <App {...appConfig } />
   </Core.AppContainer>)
@@ -49,7 +50,7 @@ add("should create an app with some properties", (context, done) => {
   done()
 }).
 
-add("should create an app with a successful operation", (context, done) => {
+add("should create an app and mount the appropriate screen", (context, done) => {
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
@@ -57,6 +58,43 @@ add("should create an app with a successful operation", (context, done) => {
   const container = context.mount(<Core.AppContainer {...appConfig}>
     <App {...appConfig } />
   </Core.AppContainer>)
+
+  const provider = container.childAt(0)
+  context.expect(provider.exists()).to.be.true
+
+  const app = provider.childAt(0)
+  context.expect(app.exists()).to.be.true
+
+  const screenContainer = app.childAt(0)
+  context.expect(screenContainer.exists()).to.be.true
+
+  const screenConnector = screenContainer.childAt(1)
+  context.expect(screenConnector.exists()).to.be.true
+
+  const screen = screenConnector.childAt(0)
+  context.expect(screen.exists()).to.be.true
+  context.expect(screen.name()).to.equal("LoadingScreen")
+
+  // And, we're looking good
+  done()
+}).
+
+add("should create a valid screen instance", (context, done) => {
+  // Start off with an empty dom
+  savor.addDom('<!doctype html><html><body></body></html>')
+
+  // Let's mount the app
+  const container = context.mount(<Core.AppContainer {...appConfig}>
+    <App {...appConfig } />
+  </Core.AppContainer>)
+
+  const wrapper = container.childAt(0).childAt(0).childAt(0).childAt(1).childAt(0)
+  const screen = wrapper.instance()
+
+  context.expect(screen.entities).to.exist
+  context.expect(screen.containerId).to.exist
+  context.expect(screen.isContainer).to.be.true
+  context.expect(wrapper.props().startOperation).to.exist
 
   // And, we're looking good
   done()
