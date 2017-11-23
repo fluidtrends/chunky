@@ -14,19 +14,22 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: Run the tests
+          command: npm test
+      - run:
           name: Setup Code Climate test-reporter
           command: |
             curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             chmod +x ./cc-test-reporter
       - run:
-          name: test
-          command: npm test
+          name: Prepare the Code Climate reporting process
+          command: ./cc-test-reporter before-build
       - run:
           name: Generate code coverage
           command: npm run coverage
       - run:
-          name: Generate code climate
-          command: npm run codeclimate
+          name: Send the test report to Code Climate
+          command: ./cc-test-reporter after-build --exit-code $?
       - store_artifacts:
           path: test-results.xml
           prefix: tests
