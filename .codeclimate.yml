@@ -2,7 +2,7 @@ version: "2"
 checks:
   argument-count:
     config:
-      threshold: 5  
+      threshold: 5
   complex-logic:
     config:
       threshold: 5
@@ -27,6 +27,7 @@ checks:
 engines:
   eslint:
     enabled: true
+    channel: "eslint-3"
   csslint:
     enabled: true
   duplication:
