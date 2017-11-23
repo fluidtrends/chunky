@@ -147,6 +147,10 @@ export default class Screen extends Component {
     throw new Error('Chunky says: implement renderData in your route.')
   }
 
+  renderDataChecks () {
+
+  }
+
   render () {
     if (this.state.progress && this.renderProgress) {
       return this.renderProgress()
@@ -170,8 +174,5 @@ export default class Screen extends Component {
     if (this.props.hasData && this.props.hasData() && this.renderData) {
       return this.renderData(this.props.data())
     }
-
-    // This should not happen
-    return this.renderDataError({ main: new Error('Could not render the data') })
   }
 }

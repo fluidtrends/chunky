@@ -1,6 +1,5 @@
 export const asyncReducer = (name) => {
   return (state = {}, action) => {
-
     if (!action || Object.keys(action).length === 0 || !action.type) {
       // We don't tolerate empty actions
       return state
@@ -34,25 +33,26 @@ export const asyncReducer = (name) => {
     var newState = { flavor: action.flavor, timestamp, provider, inProgress: false, done: true, action: actionName }
     var data = Object.assign({}, state.data)
     var error = Object.assign({}, state.error)
-    
+
     switch (actionState.toLowerCase()) {
-      case "start":
+      case 'start':
         return Object.assign({}, newState, { inProgress: true, done: false, data, error })
 
-      case "error":
+      case 'error':
         if (newErrorFlavor) {
           error[flavor[0]] = newErrorFlavor
         }
         return Object.assign({}, newState, Object.keys(error).length > 0 ? { error } : {})
 
-      case "ok":
+      case 'ok':
         if (newDataFlavor) {
           data[flavor[0]] = newDataFlavor
         }
         return Object.assign({}, newState, Object.keys(data).length > 0 ? { data } : {})
 
       default:
-        return state
     }
+
+    return state
   }
 }
