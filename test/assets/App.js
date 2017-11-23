@@ -8,7 +8,11 @@ export default class App extends Component {
     const auth = this.props.chunks.auth
     const loading = auth.routes.loading
     const LoadingScreen = loading.screen
-    const screenProps = { chunkName: 'auth', startOperationsOnMount: true, transitions: [{ name: 'test' }] }
+    const transition = {
+      name: 'test',
+      type: 'push'
+    }
+    const screenProps = { chunkName: 'auth', startOperationsOnMount: true, transitions: [transition] }
 
     return (<div>
       <h1> App </h1>

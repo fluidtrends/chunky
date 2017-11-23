@@ -3,28 +3,32 @@ import { Core } from '../../../../../..'
 
 export default class LoadingScreen extends Core.Screen {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     super.componentDidMount()
   }
 
-  renderDataError() {
-    return <div/>
+  renderDataError () {
+    return <div />
   }
 
-  renderDataLoading() {
-    return <div/>
+  reloadMe () {
+    this.transitions.test()
   }
 
-  renderDataDefaults() {
-    return <div/>
+  renderDataLoading () {
+    return <div />
   }
 
-  renderData() {
-    return <div/>
+  renderDataDefaults () {
+    return <div />
+  }
+
+  renderData () {
+    return <div />
   }
 
 }

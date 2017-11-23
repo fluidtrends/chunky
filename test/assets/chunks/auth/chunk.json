@@ -8,5 +8,5 @@
       }
     }
   },
-  "transitions": ["replace://loading"]
+  "transitions": ["push://loading"]
 }
