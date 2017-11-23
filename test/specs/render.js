@@ -97,6 +97,9 @@ savor.add('should not render an empty app container', (context, done) => {
   context.expect(screen.isContainer).to.be.true
   context.expect(wrapper.props().startOperation).to.exist
 
+  // screen.updateProgress('test')
+  // container.update()
+
   // And, we're looking good
   done()
 })

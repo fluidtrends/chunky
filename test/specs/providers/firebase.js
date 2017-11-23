@@ -69,6 +69,56 @@ savor.add('should login to firebase', (context, done) => {
   savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
 })
 
+.add('should not update a nodeless collection in firebase', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'update' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
+.add('should not remove a nodeless collection from firebase', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'remove' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
+.add('should not add a nodeless collection to firebase', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'add' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
+.add('should not subscribe to a nodeless entry in firebase', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'subscribe' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
+.add('should not create a nodeless entry in firebase', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'create' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
 .add('should retrieve a collection from firebase', (context, done) => {
   const response = { val: () => [ {id: 0}, {id: 1} ] }
   context.stub(operations, 'retrieve', (firebase, options) => Promise.resolve(response))
@@ -90,11 +140,16 @@ savor.add('should login to firebase', (context, done) => {
 .add('should subscribe to a firebase collection', (context, done) => {
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'subscribe', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'subscribe', (firebase, options) => {
+    options.onReceivedData(response)
+    return Promise.resolve(response)
+  })
 
     // Fetch an operation from the provider
   const provider = new Data.Providers.Firebase()
-  const operation = provider.operation({ type: 'subscribe', options: { latest: '100' }, nodes: ['test'] })
+  const operation = provider.operation({ type: 'subscribe',
+    props: { onReceivedData: (data) => true },
+    options: { latest: '100', resolve: true }, nodes: ['test'] })
 
     // Attempt to mock
   savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
