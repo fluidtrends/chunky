@@ -1,7 +1,7 @@
 {
   "name": "react-chunky",
   "version": "0.8.34",
-  "description": "The Full Stack Product Development Platform",
+  "description": "The Chunky Universal Framework",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/react-chunky/react-chunky.git"
@@ -9,8 +9,7 @@
   "scripts": {
     "test": "react-savor test",
     "lint": "react-savor lint",
-    "coverage": "react-savor coverage",
-    "codeclimate": "react-savor codeclimate"
+    "coverage": "react-savor coverage"
   },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",

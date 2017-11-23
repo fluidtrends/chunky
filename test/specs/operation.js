@@ -1,12 +1,14 @@
-import savor from 'react-savor'
-import { Core, Data, Config, Errors, Operations } from '../..'
+/* eslint-disable no-unused-expressions */
 
-savor.add("should create a basic post operation", (context, done) => {
+import savor from 'react-savor'
+// import { Core, Data, Config, Errors, Operations } from '../..'
+
+savor.add('should create a basic post operation', (context, done) => {
   // Create a POST operation
   // const post = new Operations.Default.POST({})
   // context.expect(post.method).to.equal(Config.API_POST_METHOD)
   done()
-}).
+})
 
 // add("should create a basic auth headers", (context, done) => {
 //   // Create a POST operation
@@ -169,4 +171,4 @@ savor.add("should create a basic post operation", (context, done) => {
 //   savor.promiseShouldSucceed(post.start(), done, (data) => {})
 // }).
 
-run("Data Operations")
+.run('Data Operations')

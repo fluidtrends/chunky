@@ -1,12 +1,11 @@
 import * as Errors from '../errors'
 
 export default class DataProvider {
-
-  constructor(props) {
+  constructor (props) {
     this._props = Object.assign({}, this.defaults, props)
   }
 
-  get defaults() {
+  get defaults () {
     return {}
   }
 
@@ -14,7 +13,7 @@ export default class DataProvider {
     return this._props
   }
 
-  operation(options) {
+  operation (options) {
     if (!options || !options.type) {
       // We require a type for each operation
       return Promise.reject(Errors.UNDEFINED_OPERATION())
@@ -33,7 +32,7 @@ export default class DataProvider {
     executor = executor.bind(this)
 
     // Resolve the nodes
-    const nodes = (options.nodes ? options.nodes.map(node => (node.charAt(0) === ':' ? (options.props[node.substring(1)] || node): node)) : [])
+    const nodes = (options.nodes ? options.nodes.map(node => (node.charAt(0) === ':' ? (options.props[node.substring(1)] || node) : node)) : [])
 
     options.props && delete options.props._route
 

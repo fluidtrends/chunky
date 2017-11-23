@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-expressions */
+
 import savor from 'react-savor'
 import { Data, Errors } from '../../..'
 
-savor.add("should remove from local", (context, done) => {
-    const provider = new Data.Providers.Local()
-     
+savor.add('should remove from local', (context, done) => {
+  const provider = new Data.Providers.Local()
+
     // Fetch an operation from the provider
-    const operation = provider.operation({ type: 'delete', nodes: ['test'] })
+  const operation = provider.operation({ type: 'delete', nodes: ['test'] })
 
     // Attempt to delete
-    savor.promiseShouldSucceed(operation, done, () => {})
-}).
+  savor.promiseShouldSucceed(operation, done, () => {})
+})
 
-run ("Local Data Providers")
+.run('Local Data Providers')

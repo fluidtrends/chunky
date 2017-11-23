@@ -1,13 +1,15 @@
+/* eslint-disable no-unused-expressions */
+
 import savor from 'savor'
 import { Data } from '../..'
 
-savor.add("should create a simple User", (context, done) => {
+savor.add('should create a simple User', (context, done) => {
   const user = new Data.Model.User({
-    username: "username",
-    email: "email",
-    firstName: "firstName",
-    lastName: "lastName",
-    phone: "phone"
+    username: 'username',
+    email: 'email',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    phone: 'phone'
   })
 
   context.expect(user).to.exist
@@ -20,14 +22,14 @@ savor.add("should create a simple User", (context, done) => {
   context.expect(user.fullName).to.equal('firstName lastName')
 
   done()
-}).
+})
 
-add("should create a simple Token", (context, done) => {
+.add('should create a simple Token', (context, done) => {
   const token = new Data.Model.Token({
-    access_token: "access_token",
-    token_type: "token_type",
-    expires_in: "expires_in",
-    scope: "scope"
+    access_token: 'access_token',
+    token_type: 'token_type',
+    expires_in: 'expires_in',
+    scope: 'scope'
   })
 
   context.expect(token).to.exist
@@ -38,6 +40,6 @@ add("should create a simple Token", (context, done) => {
   context.expect(token.scope).to.equal('scope')
 
   done()
-}).
+})
 
-run("Data Model")
+.run('Data Model')

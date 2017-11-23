@@ -1,28 +1,29 @@
-import React, { Component } from 'react'
+/* eslint-disable no-unused-expressions */
+
+import React from 'react'
 import savor from 'react-savor'
-import { Provider } from 'react-redux'
 import { Core, Errors } from '../..'
 import App from '../assets/App'
 import appConfig from '../assets/chunky'
 
-savor.add("should not render an empty app container", (context, done) => {
+savor.add('should not render an empty app container', (context, done) => {
   context.expect(() => {
-    const container = context.shallow(<Core.AppContainer/>)
+    context.shallow(<Core.AppContainer />)
   }).to.throw(Errors.UNABLE_TO_LOAD_APP().message)
 
   done()
-}).
+})
 
-add("should render a simple app without any properties", (context, done) => {
+.add('should render a simple app without any properties', (context, done) => {
   context.expect(() => {
-    const container = context.shallow(<Core.AppContainer>
-      <App/>
+    context.shallow(<Core.AppContainer>
+      <App />
     </Core.AppContainer>)
   }).to.throw(Errors.UNABLE_TO_LOAD_CHUNKS().message)
   done()
-}).
+})
 
-add("should create an app and have a valid lifecyle", (context, done) => {
+.add('should create an app and have a valid lifecyle', (context, done) => {
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
@@ -31,12 +32,12 @@ add("should create an app and have a valid lifecyle", (context, done) => {
   context.spy(App.prototype, 'render')
 
   const container = context.mount(<Core.AppContainer {...appConfig}>
-    <App {...appConfig } />
+    <App {...appConfig} />
   </Core.AppContainer>)
 
   // Let's make sure the component hierarchy is as expected
   context.expect(container.length).to.equal(1)
-  context.expect(container.childAt(0).name()).to.equal("Provider")
+  context.expect(container.childAt(0).name()).to.equal('Provider')
 
   // Make sure the app is actually mounted and the lifecycle is initiated
   context.expect(App.prototype.componentDidMount.calledOnce).to.be.true
@@ -48,15 +49,15 @@ add("should create an app and have a valid lifecyle", (context, done) => {
 
   // And, we're looking good
   done()
-}).
+})
 
-add("should create an app and mount the appropriate screen", (context, done) => {
+.add('should create an app and mount the appropriate screen', (context, done) => {
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
   // Let's mount the app
   const container = context.mount(<Core.AppContainer {...appConfig}>
-    <App {...appConfig } />
+    <App {...appConfig} />
   </Core.AppContainer>)
 
   const provider = container.childAt(0)
@@ -73,19 +74,19 @@ add("should create an app and mount the appropriate screen", (context, done) => 
 
   const screen = screenConnector.childAt(0)
   context.expect(screen.exists()).to.be.true
-  context.expect(screen.name()).to.equal("LoadingScreen")
+  context.expect(screen.name()).to.equal('LoadingScreen')
 
   // And, we're looking good
   done()
-}).
+})
 
-add("should create a valid screen instance", (context, done) => {
+.add('should create a valid screen instance', (context, done) => {
   // Start off with an empty dom
   savor.addDom('<!doctype html><html><body></body></html>')
 
   // Let's mount the app
   const container = context.mount(<Core.AppContainer {...appConfig}>
-    <App {...appConfig } />
+    <App {...appConfig} />
   </Core.AppContainer>)
 
   const wrapper = container.childAt(0).childAt(0).childAt(0).childAt(1).childAt(0)
@@ -98,6 +99,6 @@ add("should create a valid screen instance", (context, done) => {
 
   // And, we're looking good
   done()
-}).
+})
 
-run("App Rendering")
+.run('App Rendering')

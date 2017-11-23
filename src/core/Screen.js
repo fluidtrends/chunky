@@ -1,19 +1,18 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import URL from 'url-parse'
-import { diff } from 'deep-diff'
-import { AllHtmlEntities} from 'html-entities'
+import { AllHtmlEntities } from 'html-entities'
+// import { diff } from 'deep-diff'
 
 export default class Screen extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
 
-    this.state = { lastTransitionTimestamp: '',  visible: true, progress: false }
+    this.state = { lastTransitionTimestamp: '', visible: true, progress: false }
     this._entities = new AllHtmlEntities()
-    this._containerId = props["@"] ? props["@"].id : undefined
+    this._containerId = props['@'] ? props['@'].id : undefined
   }
 
-  get entities() {
+  get entities () {
     return this._entities
   }
 
@@ -21,29 +20,29 @@ export default class Screen extends Component {
     return this._containerId
   }
 
-  get isContainer() {
-    return (this.containerId != undefined)
+  get isContainer () {
+    return (this.containerId !== undefined)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // Automatically attempt to retrieve the main data, if possible and if desired
     if (this.props.startOperationsOnMount && this.props.startOperation) {
       this.props.startOperation()
     }
   }
 
-  updateProgress(progressTitle) {
+  updateProgress (progressTitle) {
     this.setState({ progressTitle })
   }
 
-  componentWillMount() {
-    for(const transitionName in this.props.transitions) {
+  componentWillMount () {
+    for (const transitionName in this.props.transitions) {
       // Inject all transitions into this screen
       this.injectTransition(this.props.transitions[transitionName])
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
   }
 
   injectTransition (transition) {
@@ -53,7 +52,7 @@ export default class Screen extends Component {
     }
   }
 
-  injectBasicAuth(url) {
+  injectBasicAuth (url) {
     if (!this.props.basicAuth) {
       return url
     }
@@ -64,7 +63,7 @@ export default class Screen extends Component {
     return `${protocol}//${this.props.basicAuth.username}:${this.props.basicAuth.password}@${link}`
   }
 
-  transition(transition, data) {
+  transition (transition, data) {
     const timeSinceLastTransition = Date.now() - this.state.lastTransitionTimestamp
     if (this.state.lastTransitionTimestamp && timeSinceLastTransition < 500) {
       // Ignore transition
@@ -81,14 +80,14 @@ export default class Screen extends Component {
     this[`${transition.type.toLowerCase()}Transition`] && this[`${transition.type.toLowerCase()}Transition`](transition, Object.assign({}, data, { transition }))
   }
 
-  _operationDidFinish(name, data, operation, handler) {
-    if ("string" !== typeof operation[handler]) {
+  _operationDidFinish (name, data, operation, handler) {
+    if (typeof operation[handler] !== 'string') {
       // We only handle simple handlers at the moment
       return
     }
 
     // Let's see what we have as a handler
-    const parts = operation[handler].split(":")
+    const parts = operation[handler].split(':')
 
     if (parts && parts.length === 2) {
       // Perform the transition
@@ -103,12 +102,12 @@ export default class Screen extends Component {
     }
   }
 
-  isForeignOperation(operation) {
+  isForeignOperation (operation) {
     const foreign = (this.containerId !== operation.routeId)
     return foreign
   }
 
-  operationDidFinish(name, data, error, operation) {
+  operationDidFinish (name, data, error, operation) {
     if (operation && operation.onError && error && error[operation.flavor]) {
       return this._operationDidFinish(name, error[operation.flavor], operation, 'onError')
     }
@@ -119,11 +118,11 @@ export default class Screen extends Component {
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     return true
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const operation = (nextProps.action ? this.props[`@${nextProps.action()}`] : undefined)
 
     if (operation && !this.isForeignOperation(operation) && this.props.isDataLoading() && nextProps.isDataLoaded()) {
@@ -132,23 +131,23 @@ export default class Screen extends Component {
     }
   }
 
-  renderDataError({ main }) {
+  renderDataError ({ main }) {
     throw new Error('Chunky says: implement renderDataError in your route.')
   }
 
-  renderDataLoading() {
+  renderDataLoading () {
     throw new Error('Chunky says: implement renderDataLoading in your route.')
   }
 
-  renderDataDefaults() {
+  renderDataDefaults () {
     throw new Error('Chunky says: implement renderDataDefaults in your route.')
   }
 
-  renderData() {
+  renderData () {
     throw new Error('Chunky says: implement renderData in your route.')
   }
 
-  render() {
+  render () {
     if (this.state.progress && this.renderProgress) {
       return this.renderProgress()
     }
@@ -163,7 +162,7 @@ export default class Screen extends Component {
       return this.renderDataError(this.props.dataError())
     }
 
-    if (this.props.hasData && !this.props.hasData()  && this.renderDataDefaults) {
+    if (this.props.hasData && !this.props.hasData() && this.renderDataDefaults) {
       // This screen does not have any data to render
       return this.renderDataDefaults()
     }

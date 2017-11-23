@@ -1,10 +1,9 @@
 export default class ChunkyError extends Error {
-
-  constructor(message) {
+  constructor (message) {
     super()
 
-    this.message   = `${message}`
-    this.stack     = (new Error()).stack
-    this.name      = 'Chunky'
+    this.message = `${message}`
+    this.stack = (new Error()).stack
+    this.name = 'Chunky'
   }
 }

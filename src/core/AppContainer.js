@@ -1,15 +1,14 @@
-import ErrorStackParser     from 'error-stack-parser'
 import React, { Component } from 'react'
-import { Provider }         from 'react-redux'
-import DataStore            from '../data/store'
-import * as Errors          from '../errors'
-import { Providers }        from '../data'
-import Generator            from './Generator'
-import TransitionGroup      from 'react-transition-group/TransitionGroup'
+import { Provider } from 'react-redux'
+import DataStore from '../data/store'
+import * as Errors from '../errors'
+import { Providers } from '../data'
+import Generator from './Generator'
+// import TransitionGroup from 'react-transition-group/TransitionGroup'
+// import ErrorStackParser from 'error-stack-parser'
 
 export default class AppContainer extends Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     // Setup all the built-in data providers
@@ -19,16 +18,16 @@ export default class AppContainer extends Component {
     this._initializeDataProviders(this.props.providers)
 
     // Create a generator for data injection
-    this._generator = new Generator(Object.assign({ dataProviders: this.dataProviders}, props))
+    this._generator = new Generator(Object.assign({ dataProviders: this.dataProviders }, props))
 
     // Parse all the app chunks
     this._parseChunks()
 
     // Initialize the store with custom app reducers
-    this.state = { store: DataStore(this.reducers, { logging: props.env === 'dev' })}
+    this.state = { store: DataStore(this.reducers, { logging: props.env === 'dev' }) }
   }
 
-  _initializeDataProviders(pool) {
+  _initializeDataProviders (pool) {
     if (!pool) {
       // Ignore empty provider pools
       return
@@ -48,11 +47,11 @@ export default class AppContainer extends Component {
     return this.props.provisioning || {}
   }
 
-  get dataProviders() {
+  get dataProviders () {
     return this._dataProviders
   }
 
-  get generator() {
+  get generator () {
     return this._generator
   }
 
@@ -63,11 +62,11 @@ export default class AppContainer extends Component {
     })
   }
 
-  get chunks() {
+  get chunks () {
     return this._chunks
   }
 
-  _parseChunks() {
+  _parseChunks () {
     this._reducers = {}
 
     if (!this.props.chunks) {
@@ -76,11 +75,10 @@ export default class AppContainer extends Component {
 
     for (let chunkName in this.props.chunks) {
       const chunk = this.props.chunks[chunkName]
-      this._reducers = Object.assign(this._reducers, { [chunk.name]: this.generator.generateReducer(chunk) } )
+      this._reducers = Object.assign(this._reducers, { [chunk.name]: this.generator.generateReducer(chunk) })
 
       if (chunk.routes) {
         for (let routeName in chunk.routes) {
-
           const route = chunk.routes[routeName]
           chunk.routes[routeName].screen = chunk.screens[routeName]
 
@@ -101,26 +99,26 @@ export default class AppContainer extends Component {
     }
   }
 
-  get reducers() {
+  get reducers () {
     return this._reducers
   }
 
-  enableGlobalErrorHandler() {
-    const self = this
-    ErrorUtils.setGlobalHandler((e, isFatal) => {
-      // Extract a meaningful stack trace
-      const stack = ErrorStackParser.parse(e)
-
-      // Notify the app that an error has occured
-      self.setState({ error: e, isErrorFatal: isFatal, errorStack: stack })
-    });
+  enableGlobalErrorHandler () {
+    // const self = this
+    // ErrorUtils.setGlobalHandler((e, isFatal) => {
+    //   // Extract a meaningful stack trace
+    //   const stack = ErrorStackParser.parse(e)
+    //
+    //   // Notify the app that an error has occured
+    //   self.setState({ error: e, isErrorFatal: isFatal, errorStack: stack })
+    // })
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // this.enableGlobalErrorHandler()
   }
 
-  render() {
+  render () {
     if (React.Children.count(this.props.children) !== 1) {
       throw new Errors.UNABLE_TO_LOAD_APP()
     }

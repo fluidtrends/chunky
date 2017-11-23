@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install npm
+          name: install Node dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
@@ -31,10 +31,5 @@ jobs:
           name: Send the test report to Code Climate
           command: ./cc-test-reporter after-build --exit-code $?
       - store_artifacts:
-          path: test-results.xml
-          prefix: tests
-      - store_artifacts:
           path: coverage
           prefix: coverage
-      - store_test_results:
-          path: test-results.xml

@@ -1,15 +1,13 @@
-import URL                  from 'url-parse'
-import Container            from './Container'
+import URL from 'url-parse'
+import Container from './Container'
 import {
   Actions,
   Selectors,
-  Reducers,
-  Providers
+  Reducers
 } from '../data'
 
 export default class Generator {
-
-  constructor(props) {
+  constructor (props) {
     this._props = props
   }
 
@@ -17,7 +15,7 @@ export default class Generator {
     return this._props
   }
 
-  generateSelectors(chunk, route, routeName) {
+  generateSelectors (chunk, route, routeName) {
     const hasData = Selectors.common.hasData(chunk.name, 'main')
     const data = Selectors.common.getData(chunk.name)
     const action = Selectors.common.getAction(chunk.name)
@@ -26,10 +24,10 @@ export default class Generator {
     const isDataLoaded = Selectors.common.isDone(chunk.name)
     const isDataLoading = Selectors.common.isInProgress(chunk.name)
 
-    return { "@": { id: `${chunk.name}/${routeName}`, route, routeName }, hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading, action }
+    return { '@': { id: `${chunk.name}/${routeName}`, route, routeName }, hasData, data, hasDataError, dataError, isDataLoaded, isDataLoading, action }
   }
 
-  generateAction(chunk, options) {
+  generateAction (chunk, options) {
     if (!options || !options.provider || !this.props.dataProviders[options.provider]) {
       // All actions must specify an operation and a data provider
       return
@@ -50,12 +48,12 @@ export default class Generator {
     return (props) => Actions.common.asyncAction(`${options.chunkName}/${options.func}`, () => operation(props), Object.assign({ props }, options))
   }
 
-  parseOperationFromURI(uri, chunk) {
+  parseOperationFromURI (uri, chunk) {
     const url = new URL(uri, true)
 
     const type = url.hostname
     const provider = url.protocol.slice(0, -1).toLowerCase()
-    const nodes = url.pathname.split("/").slice(1)
+    const nodes = url.pathname.split('/').slice(1)
     const options = url.query
     const flavor = url.hash ? url.hash.substring(1) : 'main'
     const chunkName = (provider === 'local' && nodes.length > 0 ? nodes[0] : chunk.name)
@@ -63,14 +61,14 @@ export default class Generator {
     return { type, nodes, options, flavor, provider, chunkName }
   }
 
-  generateActions(chunk, route, routeName) {
+  generateActions (chunk, route, routeName) {
     if (!route || !route.operations || Object.keys(route.operations).length === 0) {
       return {}
     }
 
     var all = {}
 
-    for(const operationName in route.operations) {
+    for (const operationName in route.operations) {
       // Parse the action from the URI
       var operationUri = route.operations[operationName]
       var operationHandlers = {}
@@ -92,23 +90,22 @@ export default class Generator {
 
         if (Object.keys(all).length === 1) {
           // Let's track this as the initial operation
-          all.startOperation =  Object.assign({}, { op: generatedAction }, operation, operationHandlers)
+          all.startOperation = Object.assign({}, { op: generatedAction }, operation, operationHandlers)
         }
       }
-
     }
 
     return all
   }
 
-  generateContainer(chunk, route, routeName) {
+  generateContainer (chunk, route, routeName) {
     const actions = Object.assign({}, this.generateActions(chunk, route, routeName))
     const selectors = Object.assign({}, this.generateSelectors(chunk, route, routeName))
 
     return Container(route.screen, selectors, actions)
   }
 
-  generateReducer(chunk) {
+  generateReducer (chunk) {
     return Reducers.common.asyncReducer(chunk.name)
   }
 }
