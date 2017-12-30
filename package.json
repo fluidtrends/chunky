@@ -9,7 +9,8 @@
   "scripts": {
     "test": "react-savor test",
     "lint": "react-savor lint",
-    "coverage": "react-savor coverage"
+    "coverage": "react-savor coverage",
+    "docs": "react-savor doc"
   },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",

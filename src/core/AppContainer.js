@@ -82,9 +82,10 @@ export default class AppContainer extends Component {
           const route = chunk.routes[routeName]
           chunk.routes[routeName].screen = chunk.screens[routeName]
 
-          if (route.screen && (route.operations || route.selectors)) {
+          if (route.screen) {
             // Resolve containers
-            chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route, routeName)
+            const light = (!route.operations && !route.selectors)
+            chunk.routes[routeName].screen = this.generator.generateContainer(chunk, route, routeName, light)
           }
 
           // chunk.routes[routeName].screen = (

@@ -15,7 +15,11 @@ export default class Generator {
     return this._props
   }
 
-  generateSelectors (chunk, route, routeName) {
+  generateSelectors (chunk, route, routeName, light) {
+    if (light) {
+      return { '@': { id: `${chunk.name}/${routeName}`, route, routeName } }
+    }
+
     const hasData = Selectors.common.hasData(chunk.name, 'main')
     const data = Selectors.common.getData(chunk.name)
     const action = Selectors.common.getAction(chunk.name)
@@ -61,8 +65,8 @@ export default class Generator {
     return { type, nodes, options, flavor, provider, chunkName }
   }
 
-  generateActions (chunk, route, routeName) {
-    if (!route || !route.operations || Object.keys(route.operations).length === 0) {
+  generateActions (chunk, route, routeName, light) {
+    if (light || !route || !route.operations || Object.keys(route.operations).length === 0) {
       return {}
     }
 
@@ -98,9 +102,9 @@ export default class Generator {
     return all
   }
 
-  generateContainer (chunk, route, routeName) {
-    const actions = Object.assign({}, this.generateActions(chunk, route, routeName))
-    const selectors = Object.assign({}, this.generateSelectors(chunk, route, routeName))
+  generateContainer (chunk, route, routeName, light) {
+    const actions = Object.assign({}, this.generateActions(chunk, route, routeName, light))
+    const selectors = Object.assign({}, this.generateSelectors(chunk, route, routeName, light))
 
     return Container(route.screen, selectors, actions)
   }

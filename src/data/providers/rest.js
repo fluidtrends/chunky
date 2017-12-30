@@ -7,9 +7,9 @@ import {
   retrieveAuthToken
 } from '../cache'
 
-export default class RestDataProvider extends DataProvider  {
+export default class RestDataProvider extends DataProvider {
 
-  get defaults() {
+  get defaults () {
     return {
       // Defaults
       timeout: 10000,
@@ -22,14 +22,14 @@ export default class RestDataProvider extends DataProvider  {
     }
   }
 
-  create({ nodes, options, props }) {
+  create ({ nodes, options, props }) {
      // Let's see what kind of a resource we want to create
     const resource = nodes[0]
 
     if (!resource) {
       // We require a resource to be defined
       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+    }
 
     // Construct the endpoint
     const endpoint = nodes.join('/')
@@ -45,14 +45,14 @@ export default class RestDataProvider extends DataProvider  {
     return this._sendRequest(request)
   }
 
-  retrieve({ nodes, options, props }) {
+  retrieve ({ nodes, options, props }) {
      // Let's see what kind of a resource we want to retrieve
     const resource = nodes[0]
 
     if (!resource) {
       // We require a resource to be defined
       return Promise.reject(Errors.UNDEFINED_OPERATION())
-    } 
+    }
 
     // Construct the endpoint
     const endpoint = nodes.join('/')
@@ -82,42 +82,41 @@ export default class RestDataProvider extends DataProvider  {
     return { url, options }
   }
 
-  _parseResponse(response) {
-      return new Promise((resolve, reject) => {
-        if (!response || response === undefined || Object.keys(response).length === 0) {
+  _parseResponse (response) {
+    return new Promise((resolve, reject) => {
+      if (!response || response === undefined || Object.keys(response).length === 0) {
           // If the response does not contain a json payload, we won't fail this
           // response but we'll send it back with a warning
-          resolve({ status: 0, warning: Errors.WARNING_EMPTY_RESPONSE, data: {} })
-          return
-        }
+        resolve({ status: 0, warning: Errors.WARNING_EMPTY_RESPONSE, data: {} })
+        return
+      }
 
         // We do have some json, so let's try to parse it
-        response.json().
+      response.json()
 
             // Looks like the json is valid, the request is good to go now
-            then(json => resolve({ status: response.status, data: json })).
+            .then(json => resolve({ status: response.status, data: json }))
 
             // Sounds like an invalid json; we don't fail the response but we
             // will need to flag it as a warning
-            catch(err => resolve({ status: response.status, warning: Errors.WARNING_INVALID_RESPONSE, data: {} }))
-      })
+            .catch(err => resolve({ status: response.status, warning: Errors.WARNING_INVALID_RESPONSE, data: {} }))
+    })
   }
 
-  _timeout(ms, promise) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-            reject(Errors.TIMEOUT_ERROR())
-        }, ms)
-        promise.then(resolve, reject)
+  _timeout (ms, promise) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        reject(Errors.TIMEOUT_ERROR())
+      }, ms)
+      promise.then(resolve, reject)
     })
   }
 
   _sendRequest (request) {
     const requestParams = this._prepareRequest(request)
-    return this._timeout(request.timeout, fetch(requestParams.url, requestParams.options)).
-            then((response) => this._parseResponse(response)).
-            then((response) => response.data)
+    return this._timeout(request.timeout, fetch(requestParams.url, requestParams.options))
+            .then((response) => this._parseResponse(response))
+            .then((response) => response.data)
   }
 
 }
-

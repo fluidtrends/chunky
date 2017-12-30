@@ -10,6 +10,7 @@ export default class Screen extends Component {
     this.state = { lastTransitionTimestamp: '', visible: true, progress: false }
     this._entities = new AllHtmlEntities()
     this._containerId = props['@'] ? props['@'].id : undefined
+    this._onEvent = this.onEvent.bind(this)
   }
 
   get entities () {
@@ -22,6 +23,51 @@ export default class Screen extends Component {
 
   get isContainer () {
     return (this.containerId !== undefined)
+  }
+
+  onEvent (event) {
+    if (!event || !event.id) {
+      return
+    }
+
+    if (event.data && event.data.handler) {
+      this.handleEvent(event, event.data.handler)
+      return
+    }
+
+    if (!this.props.events || !this.props.events[event.id]) {
+      return
+    }
+
+    const handler = this.props.events[event.id]
+    this.handleEvent(event, handler)
+  }
+
+  handleEvent (event, handler) {
+    const handlerRef = new URL(handler)
+    const handlerHash = handlerRef.hash ? handlerRef.hash.substring(1) : ''
+
+    if (handlerHash) {
+      // This is a function handler
+      this[handlerHash] && this[handlerHash]()
+      return
+    }
+
+    const handlerType = handlerRef.protocol.slice(0, -1).toLowerCase()
+    const fullPath = `${handlerRef.hostname}${handlerRef.pathname ? handlerRef.pathname : ''}`
+
+    switch (handlerType) {
+      case 'local':
+        return this.handleLocalEvent(`/${fullPath}`)
+      default:
+        return this.handleExternalEvent(`${handlerType}://${fullPath}`)
+    }
+  }
+
+  handleLocalEvent (fullPath) {
+  }
+
+  handleExternalEvent (fullPath) {
   }
 
   componentDidMount () {
@@ -51,17 +97,6 @@ export default class Screen extends Component {
       this.transition(transition, data)
     }
   }
-
-  // injectBasicAuth (url) {
-  //   if (!this.props.basicAuth) {
-  //     return url
-  //   }
-  //
-  //   const urlRef = new URL(url)
-  //   const protocol = urlRef.protocol
-  //   const link = url.substring(protocol.length + 2)
-  //   return `${protocol}//${this.props.basicAuth.username}:${this.props.basicAuth.password}@${link}`
-  // }
 
   transition (transition, data) {
     const timeSinceLastTransition = Date.now() - this.state.lastTransitionTimestamp
