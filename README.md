@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/logo.png">
+<img src="https://raw.githubusercontent.com/react-chunky/react-chunky/master/logo.png" width="256px">
 </p>
 
 <h3 align="center"> The Chunky Universal Framework </h3>
