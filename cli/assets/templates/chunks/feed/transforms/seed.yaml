@@ -1,0 +1,44 @@
+chapters:
+- operation: create
+  node: chapters
+  title: Chapter One
+  name: chapter-one
+  order: 1
+- operation: create
+  node: chapters
+  title: Chapter Two
+  name: chapter-two
+  order: 2
+entries:
+- operation: add
+  node: entries
+  title: Vivamus vel imperdiet leo, malesuada finibus dui
+  body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat, nisl at congue pulvinar, sem felis eleifend sem, accumsan venenatis nulla sapien nec sapien. Vestibulum nibh risus, venenatis sed ante ac, fringilla pharetra est. Curabitur at ullamcorper nisl. Integer nec pulvinar eros, id molestie urna. Donec et quam at risus tincidunt lobortis at at mi. Suspendisse et cursus nibh. Cras sed diam arcu. Cras id imperdiet erat, non porta risus. Donec feugiat leo diam, at varius odio feugiat et. Mauris commodo varius neque, elementum dictum massa ultrices eu. Nulla consequat enim nisi, nec convallis ipsum sollicitudin in. Sed ultricies nulla id orci ornare, in pharetra quam maximus. Praesent non augue nunc. Donec ultricies mauris eros, non accumsan elit ornare vel. Vivamus at nulla ac enim tincidunt bibendum."
+  order: 1
+  join:
+    chapters:
+      name: chapter-one
+- operation: add
+  node: entries
+  title: Nunc pretium est eget tristique pellentesque
+  body: "Etiam eu porttitor justo. Aliquam accumsan finibus risus, sit amet faucibus libero sodales vitae. Quisque augue leo, semper a convallis volutpat, cursus non augue. Nulla vitae venenatis nunc. Morbi nunc neque, eleifend vel odio et, hendrerit egestas tortor. Curabitur luctus dui et augue consectetur, vel ultrices elit commodo. Duis sit amet massa ut nulla dapibus pharetra ut a odio. Donec tristique fringilla velit, et ultrices ligula mattis eu. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec ac sapien blandit, placerat lorem eget, laoreet erat. Suspendisse congue magna massa, et congue erat condimentum sit amet. Suspendisse potenti."
+  order: 2
+  join:
+    chapters:
+      name: chapter-one
+- operation: add
+  node: entries
+  title: Pellentesque rhoncus risus elit, id ornare odio rhoncus non
+  body: "Donec quis erat vitae sapien hendrerit sollicitudin in at urna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris a turpis lorem. Cras nibh urna, tincidunt at scelerisque ac, condimentum non eros. Donec lobortis sed ante sed sagittis. Nullam quis fermentum nisl. Sed sit amet eros id sapien congue ornare in id nulla. Etiam at felis in elit vehicula rutrum. Integer in scelerisque metus. Cras convallis quam ac felis facilisis, posuere porttitor mauris faucibus. Phasellus et convallis mi, aliquam vehicula urna. Suspendisse lectus diam, facilisis sed magna a, ultricies interdum sem. Pellentesque egestas eget tortor quis viverra. Proin at augue a magna aliquet mollis vel sed quam. In venenatis sapien est, at pretium nisi mollis non. Etiam ullamcorper ipsum nibh, sit amet ultrices justo tincidunt eu."
+  order: 1
+  join:
+    chapters:
+      name: chapter-two
+- operation: add
+  node: entries
+  title: Suspendisse eu elit varius, porttitor nisl in, euismod sem
+  body: "Aliquam interdum, lorem ac blandit mollis, velit mauris dapibus nisl, eget blandit dolor elit a sem. Sed semper ante ac nibh bibendum, quis pulvinar purus lobortis. Curabitur purus turpis, tempor nec sollicitudin ut, tempor ac arcu. Duis tristique lectus non molestie venenatis. Sed elit arcu, posuere molestie est eget, tincidunt eleifend sapien. Curabitur nibh mi, laoreet non pretium eu, maximus eget risus. Donec non tortor quis nulla molestie vestibulum vel nec sapien. Nullam cursus lectus felis, vitae placerat dui vehicula eget."
+  order: 2
+  join:
+    chapters:
+      name: chapter-two

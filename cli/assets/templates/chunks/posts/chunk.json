@@ -1,0 +1,35 @@
+{
+  "name": "posts",
+  "routes": {
+    "main": {
+      "title": "Platform",
+      "icon": "home",
+      "path": "/platform",
+      "cover": {
+        "backgroundColor": "#546E7A",
+        "navigation": true,
+        "title": "Chunky Platform Capabilities",
+        "type": "simple"
+      },
+      "events": {
+        "features/web": "local://platform/web",
+        "features/mobile": "local://platform/mobile",
+        "features/cloud": "local://platform/cloud",
+        "features/devops": "local://platform/devops",
+        "features/integrations": "local://platform/integrations"
+      }
+    },
+    "post": {
+      "title": "Article",
+      "icon": "home",
+      "path": "/platform",
+      "skipRootVariant": true,
+      "variants": "features",
+      "cover": {
+        "backgroundColor": "#546E7A",
+        "navigation": true,
+        "type": "simple"
+      }
+    }
+  }
+}

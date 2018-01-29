@@ -1,0 +1,14 @@
+[
+  {
+    "path": "intro",
+    "menuTitle": "Introduction",
+    "title": "Introduction",
+    "text": "local://docs/intro"
+  },
+  {
+    "path": "start",
+    "menuTitle": "Start",
+    "title": "Get Started",
+    "text": "local://docs/start"
+  }
+]

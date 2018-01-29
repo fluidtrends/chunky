@@ -1,0 +1,73 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:PassRole",
+                "iam:CreateRole",
+                "iam:DeleteRole",
+                "iam:DetachRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:AttachRolePolicy",
+                "iam:DeleteRolePolicy"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:Describe*",
+                "cloudformation:List*",
+                "cloudformation:Get*",
+                "cloudformation:PreviewStackUpdate",
+                "cloudformation:ValidateTemplate",
+                "cloudformation:UpdateStack",
+                "cloudformation:CreateStack",
+                "cloudformation:DeleteStack"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "lambda:Get*",
+                "lambda:List*",
+                "lambda:CreateFunction",
+                "lambda:AddPermission",
+                "lambda:CreateAlias",
+                "lambda:DeleteFunction",
+                "lambda:InvokeFunction",
+                "lambda:PublishVersion",
+                "lambda:RemovePermission",
+                "lambda:Update*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "apigateway:GET",
+                "apigateway:POST",
+                "apigateway:PUT",
+                "apigateway:DELETE"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

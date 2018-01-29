@@ -1,0 +1,15 @@
+{
+  "name": "<%= name %>",
+  "routes": {
+    "main": {
+      "title": "Account",
+      "icon": "account-circle",
+      "startOperationsOnMount": false,
+      "operations": {
+        "removeCache": "cache://delete/account",
+        "cleanUp": "local://delete"
+      }
+    }
+  },
+  "transitions": ["replace://start"]
+}

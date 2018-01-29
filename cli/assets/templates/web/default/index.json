@@ -1,0 +1,56 @@
+{
+  "layout": {
+    "fixed": true
+  },
+  "footer": {
+    "sections": [
+      {
+      "title": "Platform",
+      "id": "platform",
+      "elements": [
+      {
+          "id": "web",
+          "title": "Web",
+          "link": "local://platform/web"
+        },
+        {
+        "id": "mobile",
+        "title": "Mobile",
+        "link": "local://platform/mobile"
+      }, {
+        "id": "cloud",
+        "title": "Cloud",
+        "link": "local://platform/cloud"
+      }, {
+        "id": "devops",
+        "title": "DevOps",
+        "link": "local://platform/devops"
+      }]},
+      {
+      "title": "Community",
+      "id": "community",
+      "elements": [
+        {
+          "id": "channel",
+          "title": "Support",
+          "link": "http://t.me/chunkydev"
+        },
+        {
+          "id": "feedback",
+          "title": "Feedback",
+          "link": "http://chunky.canny.io"
+        },
+        {
+          "id": "documentation",
+          "title": "Documentation",
+          "link": "local://docs"
+        },
+        {
+          "id": "source",
+          "title": "Source Code",
+          "link": "http://github.com/react-chunky"
+        }
+      ]}
+    ]
+  }
+}
