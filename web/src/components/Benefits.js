@@ -3,11 +3,10 @@ import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
 import Ionicon from 'react-ionicons'
-import {
-  Icon,
-  Button,
-  Typography
-} from 'rmwc'
+
+import { Icon } from 'rmwc/Icon'
+import { Button } from 'rmwc/Button'
+import { Typography } from 'rmwc/Typography'
 
 export default class Benefits extends Component {
 

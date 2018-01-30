@@ -1,12 +1,15 @@
 
 import React, { PureComponent } from 'react'
 import {
+  Drawer,
+  DrawerHeader,
+  DrawerContent
+} from 'rmwc/Drawer'
+
+import {
   ListItem,
-  ListItemText,
-  TemporaryDrawer,
-  TemporaryDrawerHeader,
-  TemporaryDrawerContent
-} from 'rmwc'
+  ListItemText
+} from 'rmwc/List'
 
 /**
  *  This is the Chunky Web Navigation Drawer that is usually used with a navigator
@@ -27,7 +30,7 @@ import {
  *    style={{headerStyle: '#eeeeee'}}
  *    onClose={this._onDrawerClose}/>
  */
-export default class Drawer extends PureComponent {
+export default class DrawerComponent extends PureComponent {
 
  /**
   *  An instance of this class represents a Navigation Drawer element that
@@ -63,14 +66,15 @@ export default class Drawer extends PureComponent {
    *  Renders this drawer
    */
   render () {
-    return (<TemporaryDrawer
+    return (<Drawer
+      temporary
       open={this._open}
       onClose={this._onClosePressed}>
-      <TemporaryDrawerHeader style={this._headerStyle} />
-      <TemporaryDrawerContent>
+      <DrawerHeader style={this._headerStyle} />
+      <DrawerContent>
         { this.renderMenu() }
-      </TemporaryDrawerContent>
-    </TemporaryDrawer>)
+      </DrawerContent>
+    </Drawer>)
   }
 
   /**

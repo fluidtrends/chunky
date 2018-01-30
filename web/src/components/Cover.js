@@ -1,12 +1,10 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import Text from './Text'
-import {
-  Icon,
-  Button,
-  Typography
-} from 'rmwc'
 import Media from './Media'
+import { Icon } from 'rmwc/Icon'
+import { Button } from 'rmwc/Button'
+import { Typography } from 'rmwc/Typography'
 
 export default class Cover extends Component {
 

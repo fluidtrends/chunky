@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
 import {
-  Icon,
   List,
   ListItem,
-  ListItemText,
-  Button,
-  Typography
-} from 'rmwc'
+  ListItemText
+} from 'rmwc/List'
+import { Icon } from 'rmwc/Icon'
+import { Button } from 'rmwc/Button'
+import { Typography } from 'rmwc/Typography'
 
 export default class Footer extends Component {
 

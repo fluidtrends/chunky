@@ -3,20 +3,21 @@ import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
 import {
-  Select,
   MenuAnchor,
-  Button,
-  Menu,
-  MenuItem,
+  SimpleMenu,
+  MenuItem
+} from 'rmwc/Menu'
+import { Button } from 'rmwc/Button'
+import { Icon } from 'rmwc/Icon'
+import {
+  Drawer,
+  DrawerContent
+} from 'rmwc/Drawer'
+import {
   List,
-  Icon,
   ListItem,
-  ListItemStartDetail,
-  ListItemText,
-  ListItemEndDetail,
-  PermanentDrawer,
-  PermanentDrawerContent
-} from 'rmwc'
+  ListItemText
+} from 'rmwc/List'
 
 export default class Reader extends Component {
 
@@ -72,14 +73,14 @@ export default class Reader extends Component {
   }
 
   renderSidebar () {
-    return <PermanentDrawer style={{
+    return <Drawer permanent style={{
       alignSelf: 'stretch',
       paddingLeft: '10px',
       backgroundColor: this.props.sectionsBackgroundColor}}>
-      <PermanentDrawerContent>
+      <DrawerContent>
         { this.renderSections() }
-      </PermanentDrawerContent>
-    </PermanentDrawer>
+      </DrawerContent>
+    </Drawer>
   }
 
   renderSectionBar () {
@@ -106,12 +107,12 @@ export default class Reader extends Component {
           }} />
         </Button>
 
-        <Menu
+        <SimpleMenu
           onSelected={this._onCompactSectionSelect}
           open={this.state.compactMenuIsOpen}
           onClose={evt => this.setState({compactMenuIsOpen: false})}>
           {this.compactSections }
-        </Menu>
+        </SimpleMenu>
       </MenuAnchor>
 
     </div>

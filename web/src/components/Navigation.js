@@ -1,21 +1,12 @@
 import React, { PureComponent } from 'react'
 import { renderResponsive } from '../utils/responsive'
 import {
-  Icon,
-  Theme,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
   Toolbar,
   ToolbarRow,
-  ToolbarIcon,
-  ToolbarTitle,
   ToolbarMenuIcon,
-  ToolbarSection,
-  ToolbarFixedAdjust,
-  Typography
-} from 'rmwc'
+  ToolbarSection
+} from 'rmwc/Toolbar'
+import { Button } from 'rmwc/Button'
 
 export default class Navigation extends PureComponent {
 

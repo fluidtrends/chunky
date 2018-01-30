@@ -4,17 +4,6 @@ import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
 import Ionicon from 'react-ionicons'
 import {
-  Icon,
-  Button,
-  Typography,
-  GridList,
-  Grid,
-  GridCell,
-  GridTile,
-  GridTileTitle,
-  GridTilePrimary,
-  GridTileSecondary,
-  GridTilePrimaryContent,
   Card,
   CardMedia,
   CardPrimary,
@@ -23,7 +12,7 @@ import {
   CardSupportingText,
   CardActions,
   CardAction
-} from 'rmwc'
+} from 'rmwc/Card'
 
 export default class Collection extends Component {
 
