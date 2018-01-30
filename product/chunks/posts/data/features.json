@@ -1,0 +1,53 @@
+[{
+  "name": "web",
+  "title": "Web Development",
+  "image": "web.png",
+  "backgroundColor": "#E1F5FE",
+  "path": "web",
+  "cover": {
+    "title": "Web Development"
+  },
+  "content": {
+    "text": "local://web-details",
+    "textColor": "#37474F"
+  }
+}, {
+  "name": "mobile",
+  "title": "Mobile Development",
+  "image": "mobile.png",
+  "backgroundColor": "#E1F5FE",
+  "path": "mobile",
+  "cover": {
+    "title": "Mobile Development"
+  },
+  "content": {
+    "text":"local://mobile-details",
+    "textColor": "#37474F"
+  }
+}, {
+  "name": "cloud",
+  "title": "Cloud Development",
+  "image": "cloud.png",
+  "backgroundColor": "#E1F5FE",
+  "path": "cloud",
+  "cover": {
+    "title": "Cloud Development"
+  },
+  "content": {
+    "text":"local://cloud-details",
+    "textColor": "#37474F"
+  }
+}, {
+  "name": "devops",
+  "title": "DevOps",
+  "image": "devops.png",
+  "backgroundColor": "#E1F5FE",
+  "path": "devops",
+  "cover": {
+    "title": "DevOps"
+  },
+  "content": {
+    "text":"local://devops-details",
+    "textColor": "#37474F"
+  }
+}]
