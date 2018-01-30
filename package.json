@@ -1,23 +1,23 @@
 {
   "name": "react-chunky",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "The Chunky Universal Framework",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/react-chunky/react-chunky.git"
-  },
   "scripts": {
     "test": "react-savor test",
     "lint": "react-savor lint",
     "coverage": "react-savor coverage",
     "docs": "react-savor doc"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluidtrends/chunky.git"
+  },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-chunky/react-chunky/issues"
+    "url": "https://github.com/fluidtrends/chunky/issues"
   },
-  "homepage": "https://github.com/react-chunky/react-chunky",
+  "homepage": "https://github.com/fluidtrends/chunky",
   "babel": {
     "plugins": [
       "transform-react-jsx"
