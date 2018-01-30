@@ -1,12 +1,8 @@
 {
-  "name": "react-chunky-cli",
-  "version": "0.9.0",
+  "name": "chunky-cli",
+  "version": "0.9.1",
   "description": "The Chunky CLI",
   "preferGlobal": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/react-chunky/react-chunky-cli.git"
-  },
   "scripts": {
     "test": "savor test",
     "lint": "savor lint",
@@ -16,12 +12,16 @@
   "bin": {
     "chunky": "bin/cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluidtrends/chunky.git"
+  },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-chunky/react-chunky-cli/issues"
+    "url": "https://github.com/fluidtrends/chunky/issues"
   },
-  "homepage": "https://github.com/react-chunky/react-chunky-cli",
+  "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
     "aws-sdk": "^2.97.0",
     "browser-sync": "^2.18.13",
