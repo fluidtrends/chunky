@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "The Chunky Web Framework",
   "scripts": {
     "test": "react-savor test",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/react-chunky/react-dom-chunky.git"
+    "url": "git+https://github.com/fluidtrends/chunky.git"
   },
   "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/react-chunky/react-dom-chunky/issues"
+    "url": "https://github.com/fluidtrends/chunky/issues"
   },
-  "homepage": "https://github.com/react-chunky/react-dom-chunky",
+  "homepage": "https://github.com/fluidtrends/chunky",
   "babel": {
     "plugins": [
       "transform-react-jsx"
