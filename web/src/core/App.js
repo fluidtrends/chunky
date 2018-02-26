@@ -116,6 +116,9 @@ export default class App extends PureComponent {
             title: route.menuTitle,
             path: link
           })
+          if (route.extendedMenu) {
+            this._menu = this._menu.concat(route.extendedMenu)
+          }
         }
       } else {
         route.icon = rootRoute.icon

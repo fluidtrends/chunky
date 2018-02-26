@@ -59,6 +59,11 @@ export default class Screen extends Core.Screen {
       return
     }
 
+    if (item.link) {
+      this.triggerRawRedirect(item.link)
+      return
+    }
+
     if (item.path) {
       this.triggerRedirect(item.path)
     }
