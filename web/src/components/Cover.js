@@ -48,7 +48,7 @@ export default class Cover extends Component {
   }
 
   get simpleHeight () {
-    return 200
+    return 300
   }
 
   get menuHeight () {
