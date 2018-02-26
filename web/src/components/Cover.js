@@ -55,11 +55,11 @@ export default class Cover extends Component {
     return 68
   }
 
-  renderSimpleContent (title) {
+  renderSimpleContent (height, title) {
     return (<div style={{
       position: 'absolute',
       width: '100vw',
-      height: `${this.simpleHeight}px`,
+      height: `${height}px`,
       top: 0,
       left: 0,
       display: 'flex',
@@ -121,7 +121,7 @@ export default class Cover extends Component {
       justifyContent: 'center'
     }}>
       { this.renderMedia(coverStyle, coverPlaying) }
-      { this.renderSimpleContent(title) }
+      { this.renderSimpleContent(height, title) }
     </div>)
   }
 
