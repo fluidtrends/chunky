@@ -34,7 +34,7 @@ export default class Screen extends Core.Screen {
       this._load(nextProps)
       return
     }
-    super.componentWillReceiveProps()
+    super.componentWillReceiveProps(nextProps)
   }
 
   handleLocationChange (location) {
@@ -53,7 +53,24 @@ export default class Screen extends Core.Screen {
   }
 
   onMenuItem (item) {
-    this.triggerRedirect(item.path)
+    if (item.action && this[item.action]) {
+      this[item.action](item)
+      return
+    }
+
+    if (item.path) {
+      this.triggerRedirect(item.path)
+    }
+  }
+
+  get menu () {
+    if (!this.isLoggedIn) {
+      return (this.props.menu || [])
+    }
+
+    return [
+      { id: '999-logout', icon: 'home', title: 'Logout', action: 'logout' }
+    ]
   }
 
   get layout () {
@@ -160,7 +177,6 @@ export default class Screen extends Core.Screen {
   }
 
   stopWithError (e) {
-    console.log(e)
     this.setState({ stopError: e, progress: false })
   }
 
@@ -169,7 +185,8 @@ export default class Screen extends Core.Screen {
   }
 
   get _props () {
-    return (this.variant ? merge.all([this.props, this.variant]) : this.props)
+    return Object.assign({}, (this.variant ? merge.all([this.props, this.variant]) : this.props),
+                         {menu: this.menu})
   }
 
   get variant () {
@@ -189,7 +206,7 @@ export default class Screen extends Core.Screen {
   }
 
   get account () {
-    return this.props.account
+    return this.state.account || this.props.account
   }
 
   get isLoggedIn () {
@@ -223,12 +240,12 @@ export default class Screen extends Core.Screen {
     this.props.onUserLogout && this.props.onUserLogout()
   }
 
-  userDidLogin (account) {
-    this.props.onUserLogin && this.props.onUserLogin(account)
-  }
+  // userDidLogin (account) {
+  //   this.props.onUserLogin && this.props.onUserLogin(account)
+  // }
 
   loadCustomComponent () {
-    // TODO: add support for this
+
   }
 
   loadSingleComponent (props) {

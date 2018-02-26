@@ -14,17 +14,16 @@ export default class App extends PureComponent {
     this.state = { loading: true }
     this._menu = []
     this._cache = new Cache()
-    this._userLogin = this.userLogin.bind(this)
     this._userLogout = this.userLogout.bind(this)
   }
 
   componentDidMount () {
     Data.Cache.retrieveAuth().then(account => {
       this._resolve(account)
-      this.setState({ loading: false, account })
-    }).catch(error => {
+      this.setState({ loading: false, account, authstamp: `${Date.now()}` })
+    }).catch(() => {
       this._resolve()
-      this.setState({ loading: false })
+      this.setState({ loading: false, authstamp: `${Date.now()}` })
     })
   }
 
@@ -32,17 +31,10 @@ export default class App extends PureComponent {
     return this._cache
   }
 
-  userLogin (account) {
-    Data.Cache.cacheAuth(account).then(() => {
-      this._resolve(account)
-      this.setState({ account })
-    })
-  }
-
   userLogout () {
     Data.Cache.clearAuth().then(account => {
       this._resolve()
-      this.setState({ account: undefined })
+      this.setState({ account: undefined, authstamp: `${Date.now()}` })
     })
   }
 
@@ -155,7 +147,6 @@ export default class App extends PureComponent {
         cache: this.cache,
         strings: {},
         account: section.account,
-        onUserLogin: this._userLogin,
         onUserLogout: this._userLogout,
         info: this.props.info,
         startOperationsOnMount: true
@@ -205,6 +196,7 @@ export default class App extends PureComponent {
   _resolve (account) {
     this._routes = []
     this._sections = []
+    this._menu = []
 
     for (const sectionName in this.props.sections) {
       // Look through all the app's sections and for each, build defaults if necessary
@@ -231,7 +223,6 @@ export default class App extends PureComponent {
   }
 
   renderStatic () {
-    this._resolve()
     return (
       <StaticRouter location={this.props.route.location} context={this.props.route}>
         <div>

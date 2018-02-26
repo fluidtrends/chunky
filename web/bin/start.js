@@ -5,9 +5,9 @@ let path = require('path')
 let fs = require('fs-extra')
 let webpack = require('webpack')
 let config = require('../packager/config.dev')
-let WebpackDevServer  = require('webpack-dev-server')
+let WebpackDevServer = require('webpack-dev-server')
 
-function start(options) {
+function start (options) {
   return new Promise((resolve, reject) => {
     // Start off fresh
     const dir = path.resolve(options.dir, 'web', 'build')
@@ -15,10 +15,9 @@ function start(options) {
     fs.mkdirSync(dir)
 
     const setup = config(options)
-      process.noDeprecation = true
-      new WebpackDevServer(webpack(setup), setup.devServer).
-      listen(options.port, 'localhost', (error) => {
-
+    process.noDeprecation = true
+    new WebpackDevServer(webpack(setup), setup.devServer)
+      .listen(options.port, 'localhost', (error) => {
         if (error) {
           // Looks like webpack failed with a hard error
           reject(error)

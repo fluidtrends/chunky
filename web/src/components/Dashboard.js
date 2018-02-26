@@ -19,7 +19,7 @@ import {
   ListItemText
 } from 'rmwc/List'
 
-export default class Reader extends Component {
+export default class Dashboard extends Component {
 
   constructor (props) {
     super(props)
@@ -123,7 +123,7 @@ export default class Reader extends Component {
       flex: 1,
       minHeight: '100vh'
     }}>
-      { this.renderText() }
+      { this.renderContentComponent() }
       <style jsx global>{`
         .text h1 {
           text-align: left;
@@ -137,7 +137,7 @@ export default class Reader extends Component {
   }
 
   renderCompactSectionContent () {
-    return this.renderText()
+    return this.renderContentComponent()
   }
 
   get defaultReader () {
@@ -174,6 +174,10 @@ export default class Reader extends Component {
       <Text source={this.props.section.text} style={{
         paddingBottom: '60px'
       }} />)
+  }
+
+  renderContentComponent () {
+    return (this.props.renderContent ? this.props.renderContent() : this.renderText())
   }
 
   renderDefault () {

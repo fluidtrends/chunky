@@ -1,11 +1,11 @@
-import * as Core       from './src/core'
-import * as Data       from './src/data'
-import * as Errors     from './src/errors'
-import * as Styles     from './src/styles'
-import * as Config     from './src/config'
-import merge           from 'deepmerge'
+import * as Core from './src/core'
+import * as Data from './src/data'
+import * as Errors from './src/errors'
+import * as Styles from './src/styles'
+import * as Config from './src/config'
+import merge from 'deepmerge'
 
-function extendChunk(original, another) {
+function extendChunk (original, another) {
   return merge.all([original, another])
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import config from './config'
-// import firebaseConfig from 'web/firebase-config.json'
 import firebase from 'firebase'
+import firebaseConfig from 'web/firebase-config.json'
 
 config.id = 'chunky'
-// config.firebase = firebaseConfig
+config.firebase = firebaseConfig
 
 global.chunky = Object.assign({}, global.chunky, { config })
 global.firebase = firebase
@@ -35,4 +35,7 @@ global.storage = {
   }
 }
 
-// firebase.initializeApp(config.firebase)
+try {
+  firebase.initializeApp(config.firebase)
+} catch (e) {
+}
