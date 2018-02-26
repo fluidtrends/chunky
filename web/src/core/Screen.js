@@ -65,13 +65,13 @@ export default class Screen extends Core.Screen {
   }
 
   get menu () {
-    if (!this.isLoggedIn) {
-      return (this.props.menu || [])
-    }
+    return (this.props.menu || []).concat(this.isLoggedIn ? [
+      { id: '999-logout', icon: 'home', title: 'Logout', action: 'logout', universal: true }
+    ] : [])
+  }
 
-    return [
-      { id: '999-logout', icon: 'home', title: 'Logout', action: 'logout' }
-    ]
+  get sideMenu () {
+    return this.menu
   }
 
   get isSmallScreen () {
@@ -191,7 +191,7 @@ export default class Screen extends Core.Screen {
 
   get _props () {
     return Object.assign({}, (this.variant ? merge.all([this.props, this.variant]) : this.props),
-                         {menu: this.menu})
+                         { menu: this.menu, sideMenu: this.sideMenu })
   }
 
   get variant () {

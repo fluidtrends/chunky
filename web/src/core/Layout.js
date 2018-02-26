@@ -87,7 +87,7 @@ export default class Layout extends PureComponent {
       open={this.state.menuOpened}
       onMenuItem={this._onMenuItem}
       onEvent={this._onEvent}
-      menu={this.props.menu}
+      menu={this.props.sideMenu}
       />)
   }
 

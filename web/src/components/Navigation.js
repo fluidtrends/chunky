@@ -22,10 +22,10 @@ export default class Navigation extends PureComponent {
 
   renderNavigationMenuItem (item, index) {
     // <ToolbarIcon use={item.icon} style={{color: this.props.theme.navigationTintColor}} />,
-    return renderResponsive(`menuItem${index++}`, <div />,
-      <Button onClick={this._onMenuItem(item)} style={{color: this.props.theme.navigationTintColor, marginRight: '20px'}}>
-        { item.title }
-      </Button>)
+    const MenuButton = <Button onClick={this._onMenuItem(item)} style={{color: this.props.theme.navigationTintColor, marginRight: '20px'}}>
+      { item.title }
+    </Button>
+    return renderResponsive(`menuItem${index++}`, <div />, MenuButton)
   }
 
   onMenuOpen () {
