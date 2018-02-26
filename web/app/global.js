@@ -6,12 +6,15 @@ import firebaseConfig from 'web/firebase-config.json'
 config.id = 'chunky'
 config.firebase = firebaseConfig
 
+const appId = `${config.id}-${config.name}-${config.domain || 'chunky.io'}`
 global.chunky = Object.assign({}, global.chunky, { config })
+global.appId = appId
+
 global.firebase = firebase
 global.storage = {
   setItem: function (key, value, callback) {
     try {
-      localStorage.setItem(key, value)
+      localStorage.setItem(`${appId}-${key}`, value)
       callback()
     } catch (e) {
       callback(e)
@@ -19,7 +22,7 @@ global.storage = {
   },
   getItem: function (key, callback) {
     try {
-      const value = localStorage.getItem(key)
+      const value = localStorage.getItem(`${appId}-${key}`)
       callback(null, value)
     } catch (e) {
       callback(e)
@@ -27,7 +30,7 @@ global.storage = {
   },
   removeItem: function (key, callback) {
     try {
-      localStorage.removeItem(key)
+      localStorage.removeItem(`${appId}-${key}`)
       callback()
     } catch (e) {
       callback(e)

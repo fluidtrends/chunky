@@ -1,10 +1,11 @@
 import React from 'react'
 import TransitionGroup from 'react-addons-transition-group'
-import { Core } from 'react-chunky'
+import { Core, Data } from 'react-chunky'
 import { Redirect } from 'react-router'
 import { default as Component } from './Component'
 import * as DefaultComponents from '../components'
 import merge from 'deepmerge'
+import { breakpoints } from '../utils/responsive'
 import { default as Layout } from './Layout'
 import URL from 'url-parse'
 
@@ -71,6 +72,10 @@ export default class Screen extends Core.Screen {
     return [
       { id: '999-logout', icon: 'home', title: 'Logout', action: 'logout' }
     ]
+  }
+
+  get isSmallScreen () {
+    return this.width < breakpoints.main
   }
 
   get layout () {
@@ -240,12 +245,7 @@ export default class Screen extends Core.Screen {
     this.props.onUserLogout && this.props.onUserLogout()
   }
 
-  // userDidLogin (account) {
-  //   this.props.onUserLogin && this.props.onUserLogin(account)
-  // }
-
   loadCustomComponent () {
-
   }
 
   loadSingleComponent (props) {
@@ -286,6 +286,7 @@ export default class Screen extends Core.Screen {
       onEvent: this._onEvent,
       width: this.state.width,
       height: this.state.height,
+      isSmallScreen: this.isSmallScreen,
       smallScreenBreakPoint: this.smallScreenBreakPoint
     }, this.props)
   }
@@ -345,6 +346,10 @@ export default class Screen extends Core.Screen {
       {...this._props}>
       {this.renderComponents()}
     </ScreenLayout>
+  }
+
+  saveAuth (account) {
+    Data.Cache.cacheAuth(account)
   }
 
   renderStopError (e) {
