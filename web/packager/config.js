@@ -19,7 +19,7 @@ module.exports = (options) => {
       libraryTarget: 'umd'
     },
 
-    devtool: 'source-map',
+    // devtool: 'source-map',
 
     resolve: {
       extensions: ['.js', '.json'],

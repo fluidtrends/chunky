@@ -211,7 +211,7 @@ export default class Screen extends Core.Screen {
   }
 
   get account () {
-    return this.state.account || this.props.account
+    return this.props.account
   }
 
   get isLoggedIn () {
@@ -243,6 +243,10 @@ export default class Screen extends Core.Screen {
 
   logout () {
     this.props.onUserLogout && this.props.onUserLogout()
+  }
+
+  loggedIn (account) {
+    this.props.onUserLoggedIn && this.props.onUserLoggedIn(account)
   }
 
   loadCustomComponent () {
@@ -349,7 +353,9 @@ export default class Screen extends Core.Screen {
   }
 
   saveAuth (account) {
-    Data.Cache.cacheAuth(account)
+    return Data.Cache.cacheAuth(account).then(() => {
+      this.loggedIn(account)
+    })
   }
 
   renderStopError (e) {

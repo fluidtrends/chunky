@@ -84,6 +84,10 @@ export default class Dashboard extends Component {
   }
 
   renderSectionBar () {
+    if (this.props.renderContent) {
+      return <div />
+    }
+
     return <div style={{
       alignSelf: 'stretch',
       backgroundColor: this.props.sectionsBackgroundColor,
@@ -162,7 +166,10 @@ export default class Dashboard extends Component {
       justifyContent: 'center'
     }}>
       { this.renderSectionBar() }
-      { this.renderCompactSectionContent() }
+
+      <div style={{ padding: '10px' }}>
+        { this.renderCompactSectionContent() }
+      </div>
     </div>
   }
 

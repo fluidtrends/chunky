@@ -15,15 +15,19 @@ export default class App extends PureComponent {
     this._menu = []
     this._cache = new Cache()
     this._userLogout = this.userLogout.bind(this)
+    this._userLoggedIn = this.userLoggedIn.bind(this)
   }
 
   componentDidMount () {
+    this.checkAuth()
+  }
+
+  checkAuth () {
     Data.Cache.retrieveAuth().then(account => {
       this._resolve(account)
-      this.setState({ loading: false, account, authstamp: `${Date.now()}` })
-    }).catch(() => {
+    })
+    .catch((e) => {
       this._resolve()
-      this.setState({ loading: false, authstamp: `${Date.now()}` })
     })
   }
 
@@ -31,10 +35,13 @@ export default class App extends PureComponent {
     return this._cache
   }
 
+  userLoggedIn () {
+    this.checkAuth()
+  }
+
   userLogout () {
     Data.Cache.clearAuth().then(account => {
       this._resolve()
-      this.setState({ account: undefined, authstamp: `${Date.now()}` })
     })
   }
 
@@ -148,6 +155,7 @@ export default class App extends PureComponent {
         strings: {},
         account: section.account,
         onUserLogout: this._userLogout,
+        onUserLoggedIn: this._userLoggedIn,
         info: this.props.info,
         startOperationsOnMount: true
       }, { theme, transitions, ...route, chunkName, menu: this.menu }, this.props.web)
@@ -186,7 +194,7 @@ export default class App extends PureComponent {
       refresh
       key={`${screenId}${screenPath}`}
       path={screenPath}
-      render={(props) => <Screen {...screenProps} {...props} />} />
+      render={Screen} />
   }
 
   _createSectionNavigator (section) {
@@ -208,6 +216,8 @@ export default class App extends PureComponent {
       this._sections.push(section)
       this._routes = this._routes.concat(section.navigator.routes)
     }
+
+    this.setState({ loading: false, account: account || undefined, authstamp: `${Date.now()}` })
   }
 
   get menu () {

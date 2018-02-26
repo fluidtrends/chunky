@@ -20,7 +20,7 @@ module.exports = (options) => {
       libraryTarget: 'umd'
     },
 
-    devtool: 'eval', // 'inline-source-map',
+    devtool: 'inline-source-map',
     target: 'web',
 
     resolve: {

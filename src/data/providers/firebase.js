@@ -194,7 +194,7 @@ export default class FirebaseDataProvider extends DataProvider {
           return data
         }
 
-                // Make sure we're dealing with a list
+        // Make sure we're dealing with a list
         data = (Array.isArray(data) ? data : [data])
 
         if (params.orderBy === 'timestamp') {
