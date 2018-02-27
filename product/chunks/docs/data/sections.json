@@ -9,6 +9,6 @@
     "path": "start",
     "menuTitle": "Start",
     "title": "Get Started",
-    "text": "local://docs/start"
+    "text": "github://fluidtrends/carmel/master/challenges/hello-chunky/tutorial"
   }
 ]

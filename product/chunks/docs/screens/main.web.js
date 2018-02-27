@@ -45,7 +45,7 @@ export default class MainDocsScreen extends Screen {
 
   components () {
     return [
-      <Components.Reader
+      <Components.Dashboard
         sectionsBackgroundColor='#FAFAFA'
         sectionColor='#B0BEC5'
         sectionSelectedColor='#039BE5'

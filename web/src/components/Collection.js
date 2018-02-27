@@ -10,9 +10,12 @@ import {
   CardTitle,
   CardSubtitle,
   CardSupportingText,
+  CardActionButtons,
+  CardActionIcons,
   CardActions,
   CardAction
 } from 'rmwc/Card'
+import { Typography } from 'rmwc/Typography'
 
 export default class Collection extends Component {
 
@@ -26,6 +29,14 @@ export default class Collection extends Component {
   }
 
   renderCard (item, index) {
+    // <CardPrimary>
+    //   <CardTitle large>{ item.title }</CardTitle>
+    //   <CardSubtitle> {item.details} </CardSubtitle>
+    // </CardPrimary>
+    // <CardSupportingText />
+    // <CardActions style={{justifyContent: 'center'}}>
+    //   <CardAction onClick={this.triggerEvent(item.name || index)}> Learn More </CardAction>
+    // </CardActions>
     return <Card style={{width: '320px'}} key={`item${index}`}>
       <CardMedia style={{
         backgroundColor: item.backgroundColor
@@ -35,13 +46,20 @@ export default class Collection extends Component {
           width: '320px'
         }} />
       </CardMedia>
-      <CardPrimary>
-        <CardTitle large>{ item.title }</CardTitle>
-        <CardSubtitle> {item.details} </CardSubtitle>
-      </CardPrimary>
-      <CardSupportingText />
+      <div style={{padding: '0 1rem 1rem 1rem'}}>
+        <Typography use='title' tag='h2'>{ item.title }</Typography>
+        <Typography
+          use='subheading1'
+          tag='h3'
+          theme='text-secondary-on-background'
+          style={{marginTop: '-1rem'}}>
+          {item.details}
+        </Typography>
+      </div>
       <CardActions style={{justifyContent: 'center'}}>
-        <CardAction onClick={this.triggerEvent(item.name || index)}> Learn More </CardAction>
+        <CardActionButtons>
+          <CardAction onClick={this.triggerEvent(item.name || index)}> Learn More </CardAction>
+        </CardActionButtons>
       </CardActions>
     </Card>
   }
