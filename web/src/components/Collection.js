@@ -29,14 +29,6 @@ export default class Collection extends Component {
   }
 
   renderCard (item, index) {
-    // <CardPrimary>
-    //   <CardTitle large>{ item.title }</CardTitle>
-    //   <CardSubtitle> {item.details} </CardSubtitle>
-    // </CardPrimary>
-    // <CardSupportingText />
-    // <CardActions style={{justifyContent: 'center'}}>
-    //   <CardAction onClick={this.triggerEvent(item.name || index)}> Learn More </CardAction>
-    // </CardActions>
     return <Card style={{width: '320px'}} key={`item${index}`}>
       <CardMedia style={{
         backgroundColor: item.backgroundColor

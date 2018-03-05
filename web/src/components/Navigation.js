@@ -7,6 +7,7 @@ import {
   ToolbarSection
 } from 'rmwc/Toolbar'
 import { Button } from 'rmwc/Button'
+import { Icon } from 'rmwc/Icon'
 
 export default class Navigation extends PureComponent {
 
@@ -21,11 +22,24 @@ export default class Navigation extends PureComponent {
   }
 
   renderNavigationMenuItem (item, index) {
-    // <ToolbarIcon use={item.icon} style={{color: this.props.theme.navigationTintColor}} />,
-    const MenuButton = <Button onClick={this._onMenuItem(item)} style={{color: this.props.theme.navigationTintColor, marginRight: '20px'}}>
+    const MenuIcon = <ToolbarMenuIcon onClick={this._onMenuItem(item)} use={item.icon} style={{
+      color: this.props.theme.navigationTintColor,
+      marginRight: '0px'}} />
+    const MenuButton = <Button onClick={this._onMenuItem(item)}
+      style={{
+        color: this.props.theme.navigationTintColor,
+        marginRight: '0px'}}>
       { item.title }
     </Button>
-    return renderResponsive(`menuItem${index++}`, <div />, MenuButton)
+    const MenuActionButton = <Button raised theme='secondary-bg text-primary-on-secondary'
+      onClick={this._onMenuItem(item)}
+      style={{
+        color: this.props.theme.navigationTintColor,
+        marginRight: '0px'}}>
+      <Icon style={{fontSize: '12px', marginTop: '5px', marginRight: '5px'}} strategy='ligature'>{ item.icon }</Icon>
+      { `${item.title}` }
+    </Button>
+    return renderResponsive(`menuItem${index++}`, <div />, item.alwaysShowIcon ? MenuIcon : (item.action ? MenuActionButton : MenuButton))
   }
 
   onMenuOpen () {
@@ -51,10 +65,22 @@ export default class Navigation extends PureComponent {
     return (<Toolbar waterfall fixed={this.props.layout.fixed} style={{
       backgroundColor: this.props.theme.navigationColor}}>
       <ToolbarRow>
-        <ToolbarSection alignStart>
+        <ToolbarSection alignStart style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'left',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
           { this.renderNavigationLogo() }
         </ToolbarSection>
-        <ToolbarSection alignEnd>
+        <ToolbarSection alignEnd style={{
+          flex: 4,
+          display: 'flex',
+          justifyContent: 'flex-end',
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
           { this.renderNavigationMenu() }
         </ToolbarSection>
       </ToolbarRow>

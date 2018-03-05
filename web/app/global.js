@@ -17,7 +17,6 @@ global.storage = {
       localStorage.setItem(`${appId}-${key}`, value)
       callback()
     } catch (e) {
-      console.log(e)
       callback(e)
     }
   },

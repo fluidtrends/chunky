@@ -8,6 +8,7 @@ import merge from 'deepmerge'
 import { breakpoints } from '../utils/responsive'
 import { default as Layout } from './Layout'
 import URL from 'url-parse'
+import { detect } from 'detect-browser'
 
 export default class Screen extends Core.Screen {
 
@@ -26,6 +27,7 @@ export default class Screen extends Core.Screen {
     window.addEventListener('scroll', this._updateScroll)
     this.unsubscribeFromHistory = this.props.history.listen(this.handleLocationChange.bind(this))
     this._onEvent = this.onEvent.bind(this)
+    this._browser = detect()
     this._load(this.props)
   }
 
@@ -41,6 +43,10 @@ export default class Screen extends Core.Screen {
   handleLocationChange (location) {
     // this.setState({ progress: true })
     // this._load()
+  }
+
+  get browser () {
+    return this._browser
   }
 
   scrollToTop () {
@@ -70,9 +76,7 @@ export default class Screen extends Core.Screen {
   }
 
   get menu () {
-    return (this.props.menu || []).concat(this.isLoggedIn ? [
-      { id: '999-logout', icon: 'home', title: 'Logout', action: 'logout', universal: true }
-    ] : [])
+    return (this.props.menu || []).concat([])
   }
 
   get sideMenu () {
@@ -301,7 +305,14 @@ export default class Screen extends Core.Screen {
   }
 
   renderComponent (OriginalComponent, index) {
+    const props = Object.assign({}, this.defaultComponentProps, { index })
     var ComponentContainer = React.cloneElement(OriginalComponent, Object.assign({}, this.defaultComponentProps, { index }))
+
+    if (typeof OriginalComponent.type === 'string') {
+      return <Component {...props} key={`${index}`} style={{ alignSelf: 'stretch' }}>
+        { OriginalComponent }
+      </Component>
+    }
 
     if (typeof OriginalComponent === 'string') {
       ComponentContainer = this.loadComponent(OriginalComponent, index)
@@ -341,7 +352,11 @@ export default class Screen extends Core.Screen {
   }
 
   triggerRawRedirect (link) {
-    window.location.href = link
+    window.open(link, '_blank')
+  }
+
+  get cover () {
+    return this.props.cover
   }
 
   renderScreenLayout () {
@@ -352,7 +367,8 @@ export default class Screen extends Core.Screen {
       scroll={this.state.scroll}
       width={this.state.width}
       height={this.state.height}
-      {...this._props}>
+      {...this._props}
+      cover={this.cover}>
       {this.renderComponents()}
     </ScreenLayout>
   }

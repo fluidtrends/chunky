@@ -80,7 +80,7 @@ export default class Component extends PureComponent {
   }
 
   renderComponent () {
-    return (<div />)
+    return this.props.children
   }
 
   render () {

@@ -114,6 +114,8 @@ export default class App extends PureComponent {
             id: `${this.menu.length}`,
             icon: route.icon.replace('-', '_'),
             title: route.menuTitle,
+            alwaysShowIcon: route.alwaysShowIcon,
+            action: route.action,
             path: link
           })
           if (route.extendedMenu) {
@@ -189,7 +191,15 @@ export default class App extends PureComponent {
   _makeScreenRoute (screenPath, screenId, route, screenProps) {
     const RouteScreen = route.screen
     const Screen = (props) => {
-      return <RouteScreen {...props} {...screenProps} />
+      var skip = false
+      if (route.skipPaths) {
+        route.skipPaths.forEach(r => {
+          if (r === props.location.pathname.split('/')[1]) {
+            skip = true
+          }
+        })
+      }
+      return (skip ? <div /> : <RouteScreen {...props} {...screenProps} />)
     }
 
     return <Route

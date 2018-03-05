@@ -32,7 +32,8 @@ export default class Cover extends Component {
     }}>
       <Typography use='display2' style={{margin: '20px'}}> {this.props.title} </Typography>
       <Typography use='display1' style={{margin: '20px'}}> {this.props.subtitle} </Typography>
-      <Button onClick={this.triggerEvent()} raised style={{margin: '20px'}}> {this.props.primaryActionTitle} </Button>
+      <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
+        style={{margin: '20px'}}> {this.props.primaryActionTitle} </Button>
       <div style={{
         bottom: '10px',
         position: 'absolute',

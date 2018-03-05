@@ -156,6 +156,7 @@ export default class Layout extends PureComponent {
       <style jsx global>{`{
         :root {
           --mdc-theme-primary: ${this.props.theme.primaryColor};
+          --mdc-theme-secondary: ${this.props.theme.secondaryColor};
         }
 
         html {
