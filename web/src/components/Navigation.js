@@ -36,7 +36,6 @@ export default class Navigation extends PureComponent {
       style={{
         color: this.props.theme.navigationTintColor,
         marginRight: '0px'}}>
-      <Icon style={{fontSize: '12px', marginTop: '5px', marginRight: '5px'}} strategy='ligature'>{ item.icon }</Icon>
       { `${item.title}` }
     </Button>
     return renderResponsive(`menuItem${index++}`, <div />, item.alwaysShowIcon ? MenuIcon : (item.action ? MenuActionButton : MenuButton))

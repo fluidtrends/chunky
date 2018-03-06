@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.12",
+  "version": "0.9.13",
   "description": "The Chunky Web Framework",
   "scripts": {
     "test": "react-savor test",
@@ -100,6 +100,7 @@
     "styled-jsx": "^2.2.1",
     "sw-precache-webpack-plugin": "0.11.3",
     "url-loader": "0.5.9",
+    "video-react": "^0.9.4",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0"
   },
