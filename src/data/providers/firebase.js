@@ -41,6 +41,18 @@ export default class FirebaseDataProvider extends DataProvider {
             .then((user) => cacheAuth({ user: user.toJSON() }))
   }
 
+  reset ({ nodes, options, props }) {
+    if (!props.email) {
+      return Promise.reject(Errors.UNDEFINED_OPERATION())
+    }
+
+    // Let's take a look at the credentials
+    const email = props.email
+
+    // Attempt to reset
+    return operations.reset(firebase, { email })
+  }
+
   register ({ nodes, options, props }) {
     if (!props.email || !props.password || !operations.register) {
       // We only support email for now
