@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.13",
+  "version": "0.9.14",
   "description": "The Chunky Web Framework",
   "scripts": {
     "test": "react-savor test",
@@ -45,6 +45,7 @@
     "copyfiles": "^1.2.0",
     "cross-env": "^3.1.4",
     "css-loader": "^0.28.4",
+    "detect-browser": "^2.1.0",
     "ejs": "^2.5.7",
     "eslint": "3.19.0",
     "eslint-config-react-app": "^1.0.5",
