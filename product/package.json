@@ -9,6 +9,15 @@
     "codeclimate": "react-savor codeclimate",
     "deployweb": "aws s3 sync web/build s3://www.chunky.io --profile chunky"
   },
+  "babel": {
+    "plugins": [
+      "transform-react-jsx"
+    ],
+    "presets": [
+      "react",
+      "env"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fluidtrends/chunky.git"
