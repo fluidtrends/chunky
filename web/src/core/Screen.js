@@ -202,7 +202,7 @@ export default class Screen extends Core.Screen {
     try {
       if (!this.hasVariants) {
         this._loadVariants()
-            .then((vard) => {
+            .then(() => {
               this._updateVariants()
             })
         return
@@ -381,7 +381,7 @@ export default class Screen extends Core.Screen {
   }
 
   get cover () {
-    return this.props.cover
+    return this._props.cover
   }
 
   renderScreenLayout () {

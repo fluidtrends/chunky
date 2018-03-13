@@ -72,6 +72,10 @@ export default class Cover extends Component {
     </div>
   }
 
+  get presentationHeight () {
+    return 500
+  }
+
   get simpleHeight () {
     return 300
   }
@@ -95,6 +99,22 @@ export default class Cover extends Component {
       flexDirection: 'column'
     }}>
       <Typography use='display1' style={{margin: '20px', color: this.props.color}}> {title} </Typography>
+    </div>)
+  }
+
+  renderPresentationContent () {
+    const title = this.props.title
+    return (<div style={{
+      position: 'absolute',
+      width: '100vw',
+      display: 'flex',
+      top: `${this.presentationHeight - this.menuHeight - 20}`,
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'flex-start',
+      flexDirection: 'column'
+    }}>
+      <Typography use='display2' style={{margin: '20px', color: this.props.color}}> {title} </Typography>
     </div>)
   }
 
@@ -151,6 +171,26 @@ export default class Cover extends Component {
     </div>)
   }
 
+  renderPresentation () {
+    const height = this.presentationHeight
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverPlaying = (this.props.scroll < 200)
+
+    return (<div style={{
+      backgroundColor: this.props.backgroundColor,
+      marginTop: `${this.props.offset}px`,
+      height: `${height}px`,
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}>
+      { this.renderMedia(coverStyle, coverPlaying) }
+      { this.renderPresentationContent() }
+    </div>)
+  }
+
   renderMenu () {
     return this.renderSimple(this.menuHeight)
   }
@@ -161,6 +201,8 @@ export default class Cover extends Component {
 
   render () {
     switch (this.type) {
+      case 'presentation':
+        return this.renderPresentation()
       case 'simple':
         return this.renderSimple(this.simpleHeight, this.props.title)
       case 'menu':
