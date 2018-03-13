@@ -30,22 +30,46 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      <Typography use='display2' style={{margin: '20px'}}> {this.props.title} </Typography>
-      <Typography use='display1' style={{margin: '20px'}}> {this.props.subtitle} </Typography>
-      <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
-        style={{margin: '20px'}}> {this.props.primaryActionTitle} </Button>
-      <div style={{
-        bottom: '10px',
-        position: 'absolute',
-        display: 'flex',
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Icon style={{fontSize: '30px'}} use='keyboard_arrow_down' />
-      </div>
+      { this.renderCoverTitle() }
+      { this.renderCoverSubtitle() }
+      { this.renderCoverAction() }
     </div>)
+  }
+
+  renderCoverTitle () {
+    if (!this.props.title) {
+      return <div />
+    }
+    return <Typography use='display2' style={{margin: '20px'}}> {this.props.title} </Typography>
+  }
+
+  renderCoverSubtitle () {
+    if (!this.props.subtitle) {
+      return <div />
+    }
+    return <Typography use='display1' style={{margin: '20px'}}> {this.props.subtitle} </Typography>
+  }
+
+  renderCoverAction () {
+    if (!this.props.primaryActionTitle) {
+      return <div />
+    }
+    return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
+      style={{margin: '20px'}}> {this.props.primaryActionTitle} </Button>
+  }
+
+  renderDownArrow () {
+    return <div style={{
+      bottom: '10px',
+      position: 'absolute',
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <Icon style={{fontSize: '30px'}} use='keyboard_arrow_down' />
+    </div>
   }
 
   get simpleHeight () {
@@ -59,6 +83,7 @@ export default class Cover extends Component {
   renderSimpleContent (height, title) {
     return (<div style={{
       position: 'absolute',
+      backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
       width: '100vw',
       height: `${height}px`,
       top: 0,
@@ -82,15 +107,15 @@ export default class Cover extends Component {
       cache={this.props.cache}
       video={this.props.video}
       image={this.props.image}
+      smallImage={this.props.smallImage}
       playing={playing}
       style={style} />
   }
 
-  renderDefault () {
-    const coverStyle = { width: '100%', height: '100vh', objectFit: 'cover', objectPosition: 'center center' }
-    const coverPlaying = (this.props.scroll < 200)
-    const midY = (this.props.height / 2)
+  renderDefault (title) {
     const height = this.props.height
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{
       backgroundColor: this.props.backgroundColor,
@@ -108,7 +133,7 @@ export default class Cover extends Component {
   }
 
   renderSimple (height, title) {
-    const coverStyle = { width: '100%', height: '100vh', objectFit: 'cover', objectPosition: 'center center' }
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{

@@ -13,16 +13,27 @@ export default class Media extends PureComponent {
     return (<ProgressiveImage src={src} placeholder={placeholder}>
       {(src, loading) => {
         const style = Object.assign({}, this.props.style, {
-          opacity: loading ? 0.5 : 1,
-          height: '100vh',
+          opacity: 0.5,
+          height: this.props.style.height,
           width: '100vw'
         })
+        if (!loading) {
+          return <div style={{backgroundColor: '#000000'}}>
+            <img style={style} src={src} alt={name} /></div>
+        }
         return <img style={style} src={src} alt={name} />
       }}
     </ProgressiveImage>)
   }
 
   renderResponsiveImage (image) {
+    if (!image) {
+      return renderResponsive(
+        'media',
+        this.renderImage('', this.props.smallImage, '/assets/placeholder.jpg'),
+        this.renderImage('', this.props.image, '/assets/placeholder.jpg'))
+    }
+
     return renderResponsive(
       image.id,
       this.renderImage(this.props.image, image.data.images[0].path, image.data.placeholder),
@@ -36,11 +47,16 @@ export default class Media extends PureComponent {
         height='100vh' />)
     }
 
+    if (this.props.image.split('http://').length > 1 ||
+        this.props.image.split('https://').length > 1) {
+      return this.renderResponsiveImage()
+    }
+
     if (!this.props.image || !this.props.cache.image) {
       return <div />
     }
 
-    const i = this.props.cache.image(this.props.image)
+    const i = this.props.cache.image(`${this.props.image}`)
     return this.renderResponsiveImage(i)
   }
 }

@@ -368,6 +368,7 @@ export default class Screen extends Core.Screen {
       width={this.state.width}
       height={this.state.height}
       {...this._props}
+      cache={this.props.cache}
       cover={this.cover}>
       {this.renderComponents()}
     </ScreenLayout>

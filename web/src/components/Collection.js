@@ -28,29 +28,40 @@ export default class Collection extends Component {
     super.componentDidMount()
   }
 
+  renderCardMedia (item) {
+    if (!item.image) {
+      return <div />
+    }
+
+    const parts = item.image.split('http://')
+    const url = (parts.length === 0 ? `/assets${parts[0]}` : item.image)
+
+    return <CardMedia style={{
+      backgroundColor: item.backgroundColor
+    }}>
+      <img src={`${url}`} style={{
+        alignSelf: 'center',
+        width: '320px'
+      }} />
+    </CardMedia>
+  }
+
   renderCard (item, index) {
     return <Card style={{width: '320px'}} key={`item${index}`}>
-      <CardMedia style={{
-        backgroundColor: item.backgroundColor
-      }}>
-        <img src={`/assets/${item.image}`} style={{
-          alignSelf: 'center',
-          width: '320px'
-        }} />
-      </CardMedia>
+      { this.renderCardMedia(item) }
       <div style={{padding: '0 1rem 1rem 1rem'}}>
         <Typography use='title' tag='h2'>{ item.title }</Typography>
         <Typography
           use='subheading1'
           tag='h3'
           theme='text-secondary-on-background'
-          style={{marginTop: '-1rem'}}>
+          style={{marginTop: '1rem'}}>
           {item.details}
         </Typography>
       </div>
-      <CardActions style={{justifyContent: 'center'}}>
+      <CardActions style={{justifyContent: 'center', marginBottom: '1rem'}}>
         <CardActionButtons>
-          <CardAction onClick={this.triggerEvent(item.name || index)}> Learn More </CardAction>
+          <CardAction onClick={this.triggerEvent(item.name || index, item.action)}> { item.actionTitle || 'Learn More'} </CardAction>
         </CardActionButtons>
       </CardActions>
     </Card>
@@ -80,7 +91,7 @@ export default class Collection extends Component {
         flex: 1,
         flexWrap: 'wrap',
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         justifyContent: 'center'
       }}>
       { this.renderItems() }
