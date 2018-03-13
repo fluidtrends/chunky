@@ -29,7 +29,7 @@ export default class Media extends PureComponent {
     if (!image) {
       return renderResponsive(
         'media',
-        this.renderImage('', this.props.smallImage, '/assets/placeholder.jpg'),
+        this.renderImage('', this.props.imageSmall, '/assets/placeholder.jpg'),
         this.renderImage('', this.props.image, '/assets/placeholder.jpg'))
     }
 

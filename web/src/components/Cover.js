@@ -127,7 +127,7 @@ export default class Cover extends Component {
       cache={this.props.cache}
       video={this.props.video}
       image={this.props.image}
-      smallImage={this.props.smallImage}
+      imageSmall={this.props.imageSmall}
       playing={playing}
       innerHeight={innerHeight}
       style={style} />

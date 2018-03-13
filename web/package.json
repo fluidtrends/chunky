@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.18",
+  "version": "0.9.19",
   "description": "The Chunky Web Framework",
   "scripts": {
     "test": "react-savor test",

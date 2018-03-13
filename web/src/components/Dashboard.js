@@ -166,8 +166,6 @@ export default class Dashboard extends Component {
       alignItems: 'center',
       justifyContent: 'center'
     }}>
-      { this.renderSectionBar() }
-
       <div style={{ padding: '10px' }}>
         { this.renderCompactSectionContent() }
       </div>

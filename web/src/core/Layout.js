@@ -108,7 +108,6 @@ export default class Layout extends PureComponent {
     if (!this.hasCover) {
       return
     }
-
     return (<Cover
       index={1}
       {...this.props}
