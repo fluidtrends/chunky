@@ -18,7 +18,7 @@ export default class Feature extends Component {
     super.componentDidMount()
   }
 
-  content (compact) {
+  renderContent (compact) {
     return <div style={{
       display: 'flex',
       flex: 1,
@@ -94,15 +94,19 @@ export default class Feature extends Component {
   renderDefault (compact) {
     return this.renderBlocks([
       this.image(),
-      this.content(compact)
+      this.renderContentComponent(compact)
     ], compact)
   }
 
   renderReversed (compact) {
     return this.renderBlocks([
-      this.content(compact),
+      this.renderContentComponent(compact),
       this.image()
     ], compact)
+  }
+
+  renderContentComponent () {
+    return (this.props.renderContent ? this.props.renderContent() : this.renderContent())
   }
 
   renderComponentCompact () {
