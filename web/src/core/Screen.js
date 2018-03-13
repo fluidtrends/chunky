@@ -119,14 +119,31 @@ export default class Screen extends Core.Screen {
     }
   }
 
+  importRemoteData (url) {
+    return fetch(url).then(response => response.json())
+  }
+
   _loadVariants () {
-    const data = this.importData(this.props.variants)
+    return new Promise((resolve, reject) => {
+      if (this.props.variants.split('http://').length > 1 ||
+        this.props.variants.split('https://').length > 1) {
+        fetch(this.props.variants).then(response => resolve(response.json()))
+        return
+      }
 
-    if (!data || !Array.isArray(data) || data.length === 0) {
-      return
-    }
+      const data = this.importData(this.props.variants)
 
-    this._variants = [].concat(data)
+      if (!data || !Array.isArray(data) || data.length === 0) {
+        resolve([])
+        return
+      }
+
+      resolve(data)
+    })
+    .then(data => {
+      this._variants = [].concat(data)
+      return this.variants
+    })
   }
 
   get variants () {
@@ -146,6 +163,28 @@ export default class Screen extends Core.Screen {
         second === `/${first}/` || second === `${first}/`)
   }
 
+  _updateVariants () {
+    if (!this.hasVariants) {
+      throw new Error('Missing expected variant')
+    }
+
+    const variantPath = this.path.substring(this.props.path.length + 1)
+
+    this.variants.forEach(variant => {
+      if (!this.isSamePath(variant.path, variantPath)) {
+        return
+      }
+      this._variant = Object.assign({}, variant)
+    })
+
+    if (!this.isVariantValid) {
+      throw new Error('Invalid variant')
+    }
+
+    // We've got a valid variant now
+    this.setState({ progress: false })
+  }
+
   _load (props) {
     this.scrollToTop()
     this._path = props.location.pathname
@@ -163,27 +202,13 @@ export default class Screen extends Core.Screen {
     try {
       if (!this.hasVariants) {
         this._loadVariants()
+            .then((vard) => {
+              this._updateVariants()
+            })
+        return
       }
 
-      if (!this.hasVariants) {
-        throw new Error('Missing expected variant')
-      }
-
-      const variantPath = this.path.substring(this.props.path.length + 1)
-
-      this.variants.forEach(variant => {
-        if (!this.isSamePath(variant.path, variantPath)) {
-          return
-        }
-        this._variant = Object.assign({}, variant)
-      })
-
-      if (!this.isVariantValid) {
-        throw new Error('Invalid variant')
-      }
-
-      // We've got a valid variant now
-      this.setState({ progress: false })
+      this._updateVariants()
     } catch (e) {
       // Could not load variant path data
       this.stopWithError(e)
