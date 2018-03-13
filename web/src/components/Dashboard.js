@@ -47,7 +47,8 @@ export default class Dashboard extends Component {
       key={`section${index}`}
       onClick={this._onSectionSelect(section)}
       style={{
-        color: isSelected ? this.props.sectionSelectedColor : this.props.sectionColor
+        fontWeight: section.action ? 800 : 300,
+        color: isSelected ? this.props.sectionSelectedColor : (section.actionColor || this.props.sectionColor)
       }}>
       <ListItemText>{section.title}</ListItemText>
     </ListItem>

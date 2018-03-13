@@ -118,7 +118,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderMedia (style, playing) {
+  renderMedia (style, playing, innerHeight) {
     if (!this.props.image && !this.props.video) {
       return <div />
     }
@@ -129,6 +129,7 @@ export default class Cover extends Component {
       image={this.props.image}
       smallImage={this.props.smallImage}
       playing={playing}
+      innerHeight={innerHeight}
       style={style} />
   }
 
@@ -153,7 +154,12 @@ export default class Cover extends Component {
   }
 
   renderSimple (height, title) {
-    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverStyle = {
+      width: '100%',
+      backgroundColor: this.props.backgroundColor,
+      height: `${height}px`,
+      objectFit: 'cover',
+      objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{
@@ -173,20 +179,25 @@ export default class Cover extends Component {
 
   renderPresentation () {
     const height = this.presentationHeight
-    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverStyle = {
+      width: '100%',
+      height: `${height}px`,
+      backgroundColor: this.props.backgroundColor,
+      objectFit: 'cover',
+      objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{
       backgroundColor: this.props.backgroundColor,
       marginTop: `${this.props.offset}px`,
-      height: `${height}px`,
+      height: `${height + 2}px`,
       display: 'flex',
       flex: 1,
       alignItems: 'center',
       flexDirection: 'column',
       justifyContent: 'center'
     }}>
-      { this.renderMedia(coverStyle, coverPlaying) }
+      { this.renderMedia(coverStyle, coverPlaying, `${height - 100}px`) }
       { this.renderPresentationContent() }
     </div>)
   }

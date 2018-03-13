@@ -13,13 +13,12 @@ export default class Media extends PureComponent {
     return (<ProgressiveImage src={src} placeholder={placeholder}>
       {(src, loading) => {
         const style = Object.assign({}, this.props.style, {
-          opacity: 0.5,
+          opacity: 1,
           height: this.props.style.height,
           width: '100vw'
         })
-        if (!loading) {
-          return <div style={{backgroundColor: '#000000'}}>
-            <img style={style} src={src} alt={name} /></div>
+        if (!loading && this.props.innerHeight) {
+          return <img height={this.props.innerHeight} src={src} alt={name} />
         }
         return <img style={style} src={src} alt={name} />
       }}
