@@ -16,6 +16,8 @@ import {
   CardAction
 } from 'rmwc/Card'
 import { Typography } from 'rmwc/Typography'
+import Media from './Media'
+import { Button } from 'rmwc/Button'
 
 export default class Collection extends Component {
 
@@ -29,26 +31,40 @@ export default class Collection extends Component {
   }
 
   renderCardMedia (item) {
-    if (!item.image) {
+    const image = item.thumbnail || item.imageSmall || item.image
+
+    if (!image) {
       return <div />
     }
 
-    const parts = item.image.split('http://')
-    const url = (parts.length === 0 ? `/assets${parts[0]}` : item.image)
+    const style = {
+      alignSelf: 'center',
+      width: '320px',
+      height: '170px',
+      objectFit: 'cover',
+      objectPosition: 'center center'
+    }
+    const innerWidth = '320px'
+    const props = Object.assign({}, this.props)
+    delete props.video
 
     return <CardMedia style={{
       backgroundColor: item.backgroundColor
     }}>
-      <img src={`${url}`} style={{
-        alignSelf: 'center',
-        width: '320px'
-      }} />
+      <Media
+        cache={this.props.cache}
+        image={image}
+        innerWidth={innerWidth}
+        style={style} />
     </CardMedia>
   }
 
   renderCard (item, index) {
+    const details = item.details.substring(0, 120)
     return <Card style={{width: '320px'}} key={`item${index}`}>
-      { this.renderCardMedia(item) }
+      <Button onClick={this.triggerEvent(item.name || index, item.action)} style={{padding: 0, height: '100%'}}>
+        { this.renderCardMedia(item) }
+      </Button>
       <div style={{padding: '0 1rem 1rem 1rem'}}>
         <Typography use='title' tag='h2'>{ item.title }</Typography>
         <Typography
@@ -56,7 +72,7 @@ export default class Collection extends Component {
           tag='h3'
           theme='text-secondary-on-background'
           style={{marginTop: '1rem'}}>
-          {item.details}
+          {`${details} ...` }
         </Typography>
       </div>
       <CardActions style={{justifyContent: 'center', marginBottom: '1rem'}}>

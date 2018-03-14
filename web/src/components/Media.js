@@ -15,10 +15,13 @@ export default class Media extends PureComponent {
         const style = Object.assign({}, this.props.style, {
           opacity: 1,
           height: this.props.style.height,
-          width: '100vw'
+          width: this.props.innerWidth || '100vw'
         })
         if (!loading && this.props.innerHeight) {
           return <img height={this.props.innerHeight} src={src} alt={name} />
+        }
+        if (!loading && this.props.innerWidth) {
+          return <img width={this.props.innerWidth} src={src} alt={name} />
         }
         return <img style={style} src={src} alt={name} />
       }}
