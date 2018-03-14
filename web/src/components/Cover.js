@@ -17,6 +17,10 @@ export default class Cover extends Component {
   }
 
   renderDefaultContent () {
+    if (this.props.video) {
+      return <div />
+    }
+
     return (<div style={{
       position: 'absolute',
       backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
