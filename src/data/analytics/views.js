@@ -5,6 +5,5 @@ export function view (path) {
   if (!isInitialized || !isGoogle || !path) {
     return
   }
-
   ReactGA.pageview(path)
 }

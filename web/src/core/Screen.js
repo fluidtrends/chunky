@@ -30,23 +30,13 @@ export default class Screen extends Core.Screen {
     this._browser = detect()
     this._load(this.props)
 
+    this.triggerAnalyticsView(this.props.location.pathname)
+    const account = this.isLoggedIn ? this.account.email : 'guest'
+
     this.triggerAnalyticsEvent({
-      category: 'views',
-      label: 'New View',
-      variable: 'path',
-      value: this.props.path
-    })
-    this.triggerAnalyticsEvent({
-      category: 'views',
-      label: 'New View',
-      variable: 'account',
-      value: this.account
-    })
-    this.triggerAnalyticsEvent({
-      category: 'views',
-      label: 'New View',
-      variable: 'browser',
-      value: this.browser
+      category: `${this.constructor.name}`,
+      action: `${this.props.location.pathname}`,
+      label: account
     })
   }
 

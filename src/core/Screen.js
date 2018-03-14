@@ -75,7 +75,7 @@ export default class Screen extends Component {
   }
 
   triggerAnalyticsEvent (event) {
-    this.props.analytics.view(event)
+    this.props.analytics.event(event)
   }
 
   triggerAnalyticsError (error) {
