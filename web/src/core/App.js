@@ -159,6 +159,7 @@ export default class App extends PureComponent {
         cache: this.cache,
         strings: {},
         account: section.account,
+        analytics: this.props.analytics,
         onUserLogout: this._userLogout,
         onUserLoggedIn: this._userLoggedIn,
         info: this.props.info,

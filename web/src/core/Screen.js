@@ -29,6 +29,25 @@ export default class Screen extends Core.Screen {
     this._onEvent = this.onEvent.bind(this)
     this._browser = detect()
     this._load(this.props)
+
+    this.triggerAnalyticsEvent({
+      category: 'views',
+      label: 'New View',
+      variable: 'path',
+      value: this.props.path
+    })
+    this.triggerAnalyticsEvent({
+      category: 'views',
+      label: 'New View',
+      variable: 'account',
+      value: this.account
+    })
+    this.triggerAnalyticsEvent({
+      category: 'views',
+      label: 'New View',
+      variable: 'browser',
+      value: this.browser
+    })
   }
 
   componentWillReceiveProps (nextProps) {

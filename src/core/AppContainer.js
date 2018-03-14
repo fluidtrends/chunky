@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import DataStore from '../data/store'
 import * as Errors from '../errors'
-import { Providers } from '../data'
+import { Providers, Analytics } from '../data'
 import Generator from './Generator'
 // import TransitionGroup from 'react-transition-group/TransitionGroup'
 // import ErrorStackParser from 'error-stack-parser'
@@ -25,6 +25,14 @@ export default class AppContainer extends Component {
 
     // Initialize the store with custom app reducers
     this.state = { store: DataStore(this.reducers, { logging: props.env === 'dev' }) }
+
+    // Initialize the analytics engine
+    this._initializeAnalytics()
+  }
+
+  _initializeAnalytics () {
+    // Initialize with the given props
+    Analytics.initialize(this.props.info.analytics)
   }
 
   _initializeDataProviders (pool) {
@@ -43,6 +51,14 @@ export default class AppContainer extends Component {
     })
   }
 
+  get analytics () {
+    if (!Analytics.isInitialized) {
+      return
+    }
+
+    return Analytics
+  }
+
   get provisioning () {
     return this.props.provisioning || {}
   }
@@ -58,6 +74,7 @@ export default class AppContainer extends Component {
   get app () {
     return React.cloneElement(this.props.children, {
       chunks: this.chunks,
+      analytics: this.analytics,
       strings: this.props.strings
     })
   }

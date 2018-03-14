@@ -70,6 +70,18 @@ export default class Screen extends Component {
   handleExternalEvent (fullPath) {
   }
 
+  triggerAnalyticsView () {
+    this.props.analytics.view(this.props.path)
+  }
+
+  triggerAnalyticsEvent (event) {
+    this.props.analytics.view(event)
+  }
+
+  triggerAnalyticsError (error) {
+    this.props.analytics.error(error)
+  }
+
   componentDidMount () {
     // Automatically attempt to retrieve the main data, if possible and if desired
     if (this.props.startOperationsOnMount && this.props.startOperation) {
