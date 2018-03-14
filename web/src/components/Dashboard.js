@@ -25,7 +25,7 @@ export default class Dashboard extends Component {
     super(props)
     this.state = { ...this.state }
     this._onSectionSelect = (section) => this.onSectionSelect.bind(this, section)
-    this._onSectionNavigate = ( direction) => this.onSectionNavigate.bind(this, direction)
+    this._onSectionNavigate = (direction) => this.onSectionNavigate.bind(this, direction)
     this._onCompactSectionSelect = this.onCompactSectionSelect.bind(this)
   }
 
@@ -37,7 +37,7 @@ export default class Dashboard extends Component {
     this.props.onSectionSelect && this.props.onSectionSelect(section)
   }
 
-  onSectionNavigate ( direction) {
+  onSectionNavigate (direction) {
     this.props.onSectionNavigate && this.props.onSectionNavigate(direction)
   }
 
@@ -153,11 +153,11 @@ export default class Dashboard extends Component {
       marginBottom: 40,
       justifyContent: 'space-around'
     }}>
-      <Icon onClick={this.props.onSectionNavigate.bind(this, -1)}  use='navigate_before' style={{ fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor}} />    
-      <Icon onClick={this.props.onSectionNavigate.bind(this, 1)}  use='navigate_next' style={{ fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor}} />    
-      </div>
+      <Icon onClick={this._onSectionNavigate(-1)} use='navigate_before' style={{ fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor}} />
+      <Icon onClick={this._onSectionNavigate(1)} use='navigate_next' style={{ fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor}} />
+    </div>
   }
-  
+
   renderCompactSectionContent () {
     return <div>
       {this.renderContentComponent()}
