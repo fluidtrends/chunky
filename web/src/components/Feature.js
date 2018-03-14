@@ -46,7 +46,7 @@ export default class Feature extends Component {
   }
 
   button () {
-    return <Button onClick={this.triggerEvent()} raised> {this.props.actionTitle} </Button>
+    return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'> {this.props.actionTitle} </Button>
   }
 
   image () {
