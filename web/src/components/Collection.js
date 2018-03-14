@@ -15,9 +15,19 @@ import {
   CardActions,
   CardAction
 } from 'rmwc/Card'
+import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip';
+import {Fab} from 'rmwc/Fab'
 import { Typography } from 'rmwc/Typography'
 import Media from './Media'
 import { Button } from 'rmwc/Button'
+
+const colors = {
+  'Beginner': '#65bb6a',
+  'Entry': '#F57C00',
+  'Intermediate': '#FDD835',
+  'Advanced': '#E64A19',
+  'Expert': '#1565C0'
+}
 
 export default class Collection extends Component {
 
@@ -83,16 +93,80 @@ export default class Collection extends Component {
     </Card>
   }
 
+  renderChallenge (item, index) {
+    const details = item.details.substring(0, 50)
+    return <Card style={{width: '320px'}} key={`item${index}`}>
+      { this.renderCardMedia(item) }
+      <div style={{padding: '0 1rem 1rem 1rem'}}>
+        <Typography use='title' tag='h2'>{ item.title }</Typography>
+        <Typography
+          use='subheading1'
+          tag='h3'
+          theme='text-secondary-on-background'
+          style={{marginTop: '1rem'}}>
+          {details}...
+        </Typography>
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <ChipSet style={{flex: 2}}>
+            <Chip style={{background: colors[item.category], color: 'white'}}>
+              <ChipText>
+                <Typography
+                  use='caption'
+                >
+                  {item.category}
+                </Typography>
+              </ChipText>
+            </Chip>
+            <Chip style={{background: '#90A4AE', color: 'white'}}>
+              <ChipText>
+                <Typography
+                  use='caption'
+                >
+                  {item.label}
+              </Typography>
+            </ChipText>
+          </Chip>
+          </ChipSet>
+          <Fab mini>star</Fab>
+          <Typography
+            use='title'
+            style={{marginLeft: 5}}
+          >
+            {item.xp}
+          </Typography>
+        </div>
+      </div>
+      <CardActions style={{justifyContent: 'center', marginBottom: '1rem'}}>
+        <CardActionButtons>
+          <CardAction onClick={this.triggerEvent(item.name || index, item.action)}> { item.actionTitle || 'Learn More'} </CardAction>
+        </CardActionButtons>
+      </CardActions>
+    </Card>
+  }
+
   renderItem (item, index) {
     return <div key={`item-${index}`} style={{
       padding: '20px'
     }}>
-      { this.renderCard(item, index) }
+      { this.renderItemType(item, index) }
     </div>
+  }
+
+  renderItemType (item, index) {
+    switch (this.type) {
+      case 'challenges':
+        return this.renderChallenge(item, index)
+      default:
+        return this.renderCard(item, index)
+    }
   }
 
   get categories () {
     return this.props.categories || []
+  }
+
+  get type () {
+    return this.props.type || 'default'
   }
 
   renderItems () {
