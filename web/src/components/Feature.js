@@ -25,7 +25,7 @@ export default class Feature extends Component {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      paddingBottom: `${compact ? 50 : 0}px`
+      paddingBottom: `${compact ? 100 : 0}px`
     }}>
       { this.text()}
       { this.button()}
@@ -36,7 +36,7 @@ export default class Feature extends Component {
     return renderResponsive('text',
       <Text source={this.props.text} style={{
         width: `90vw`,
-        marginBottom: '60px',
+        marginBottom: '20px',
         color: this.props.textColor
       }} />,
       <Text source={this.props.text} style={{
@@ -46,7 +46,14 @@ export default class Feature extends Component {
   }
 
   button () {
-    return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'> {this.props.actionTitle} </Button>
+    return <Button style={{
+      marginBottom: '30px'
+    }}
+      onClick={this.triggerEvent()}
+      raised
+      theme='secondary-bg text-primary-on-secondary'>
+      {this.props.actionTitle}
+    </Button>
   }
 
   image () {
