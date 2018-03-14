@@ -182,7 +182,7 @@ export default class Layout extends PureComponent {
 
         h1 {
           font-weight: 300;
-          font-size: 48px;
+          font-size: 40px;
           text-align: center;
         }
 
@@ -194,12 +194,12 @@ export default class Layout extends PureComponent {
 
         h3 {
           font-weight: 300;
-          font-size: 26px;
+          font-size: 24px;
           text-align: left;
         }
 
         p {
-          font-size: 22px;
+          font-size: 20px;
           text-align: left;
         }
 
