@@ -81,13 +81,11 @@ export default class Timer extends Component {
   }
 
   onComplete () {
-    console.log('DONE')
     this._clockRenderer = this.clockRenderer.bind(this)
     this.refreshPeriods()
   }
 
   clockTick () {
-    console.log('CLOCK TiCK')
     // this.refreshPeriods()
   }
 
