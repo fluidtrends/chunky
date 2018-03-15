@@ -161,7 +161,7 @@ export default class Dashboard extends Component {
   renderCompactSectionContent () {
     return <div>
       {this.renderContentComponent()}
-      {this.renderNav()}
+      {this.props.nav && this.renderNav()}
     </div>
   }
 
