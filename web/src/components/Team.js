@@ -64,12 +64,12 @@ export default class Team extends Component {
 
     const style = {
       alignSelf: 'center',
-      width: '220px',
-      height: '70px',
       objectFit: 'cover',
+      width: 220,
+      height: 220,
+      borderRadius: '50%',
       objectPosition: 'center center'
     }
-    const innerWidth = '220px'
     const props = Object.assign({}, this.props)
     delete props.video
 
@@ -79,12 +79,7 @@ export default class Team extends Component {
           backgroundColor: item.backgroundColor
         }}
       >
-        <Media
-          cache={this.props.cache}
-          image={image}
-          innerWidth={innerWidth}
-          style={style}
-        />
+        <Media cache={this.props.cache} image={image} style={style} />
       </CardMedia>
     )
   }
@@ -94,40 +89,56 @@ export default class Team extends Component {
   }
 
   renderCard(item, index) {
-    const { linkedIn, github } = item
+    const { linkedIn, github, website } = item
 
     return (
-      <Card style={{ width: '220px', margin: 20 }} key={`item${index}`}>
+      <Card
+        style={{ width: '220px', height: '440px', margin: 20 }}
+        key={`item${index}`}
+      >
         {this.renderCardMedia(item)}
         <div style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}>
-          <Typography use="title" tag="h2">
-            {item.name}
-          </Typography>
-          <Typography
-            style={{ textAlign: 'center', minHeight: 70 }}
-            use="title"
-            tag="h3"
+          <div
+            style={{
+              height: 140
+            }}
           >
-            {item.title}
-          </Typography>
+            <Typography use="title" tag="h2" style={{ textAlign: 'center' }}>
+              {item.name}
+            </Typography>
+            <Typography use="title" tag="h3" style={{ textAlign: 'center' }}>
+              {item.title}
+            </Typography>
+          </div>
           <div style={{ textAlign: 'center' }}>
             {github && (
-              <Button
+              <ButtonIcon
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   this.onLinkClick(item.github)
                 }}
               >
                 <img src={this.props.githubIcon} />
-              </Button>
+              </ButtonIcon>
             )}
             {linkedIn && (
-              <Button
+              <ButtonIcon
+                style={{ cursor: 'pointer' }}
                 onClick={() => {
                   this.onLinkClick(item.linkedIn)
                 }}
               >
                 <img src={this.props.linkedinIcon} />
-              </Button>
+              </ButtonIcon>
+            )}
+            {website && (
+              <ButtonIcon
+                style={{ cursor: 'pointer' }}
+                use="more_horiz"
+                onClick={() => {
+                  this.onLinkClick(item.website)
+                }}
+              />
             )}
           </div>
         </div>
@@ -135,33 +146,69 @@ export default class Team extends Component {
     )
   }
 
-  renderTeamMemebers() {
+  renderTeamMemebers(members) {
     var index = 0
-    return this.props.members.map(member => this.renderCard(member, index++))
+
+    if (!members || members.length == 0) {
+      return
+    }
+
+    return members.map(member => this.renderCard(member, index++))
   }
 
-  renderTeam() {
+  renderSection(section, index) {
+    return (
+      <div
+        key={'section' + index}
+        style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}
+      >
+        <Typography use="display1" tag="h1">
+          {section.title}
+        </Typography>
+        <div
+          style={{
+            display: 'flex',
+            flex: 1,
+            flexWrap: 'wrap',
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {this.renderTeamMemebers(section.members)}
+        </div>
+      </div>
+    )
+  }
+
+  renderTeamSections() {
+    var index = 0
+    return this.props.sections.map((section, index) =>
+      this.renderSection(section, index)
+    )
+  }
+
+  renderSections() {
     return (
       <div
         style={{
           display: 'flex',
           flex: 1,
           flexWrap: 'wrap',
-          flexDirection: 'row',
-          alignItems: 'flex-start',
+          flexDirection: 'column',
+          alignItems: 'center',
           justifyContent: 'center'
         }}
       >
-        {this.renderTeamMemebers()}
+        {this.renderTeamSections()}
       </div>
     )
   }
 
   renderComponent() {
-    if (!this.props.members) {
+    if (!this.props.sections) {
       return <div />
     }
-
     return (
       <div
         style={{
@@ -177,8 +224,7 @@ export default class Team extends Component {
           justifyContent: 'center'
         }}
       >
-        {this.renderText()}
-        {this.renderTeam()}
+        {this.renderSections()}
       </div>
     )
   }
