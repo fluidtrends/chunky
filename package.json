@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "The Chunky Universal Framework",
   "scripts": {
     "test": "react-savor test",
@@ -54,7 +54,8 @@
     "remote-redux-devtools-on-debugger": "^0.7.1",
     "reselect": "^2.5.4",
     "url-parse": "^1.1.9",
-    "validator": "^8.1.0"
+    "validator": "^8.1.0",
+    "mailchimp-v3": "^1.0.5"
   },
   "devDependencies": {
     "chokidar": "^2.0.2",
