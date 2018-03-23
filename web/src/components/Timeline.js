@@ -3,9 +3,7 @@ import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
 import { Typography } from 'rmwc/Typography'
-import { Elevation } from 'rmwc/Elevation'
 import { Icon } from 'rmwc/Icon'
-import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip'
 import { Button, ButtonIcon } from 'rmwc/Button'
 import { LinearProgress } from 'rmwc/LinearProgress'
 import moment from 'moment'
@@ -61,10 +59,15 @@ export default class Timeline extends Component {
     )
   }
 
+  triggerRawRedirect(url) {
+    window.open(url, '_blank')
+  }
+
   renderMilestone(item, index) {
     let iconBackground = moment().isAfter(item.until)
       ? this.props.pastColor
       : this.props.inProgressColor
+    console.log(this)
     return (
       <VerticalTimelineElement
         key={index}
@@ -81,7 +84,12 @@ export default class Timeline extends Component {
       >
         <h3 className="vertical-timeline-element-title">{item.title}</h3>
         <h4 className="vertical-timeline-element-subtitle">{item.subtitle}</h4>
-        <p>{item.text}</p>
+        <p className="vertical-timeline-element-subtitle">{item.text}</p>
+        <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+          <Button onClick={() => this.triggerRawRedirect(item.link)}>
+            More...
+          </Button>
+        </div>
       </VerticalTimelineElement>
     )
   }
