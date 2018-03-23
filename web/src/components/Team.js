@@ -65,21 +65,20 @@ export default class Team extends Component {
     const style = {
       alignSelf: 'center',
       objectFit: 'cover',
-      width: 220,
       height: 220,
+      width: 220,
       borderRadius: '50%',
       objectPosition: 'center center'
     }
     const props = Object.assign({}, this.props)
     delete props.video
-
     return (
       <CardMedia
         style={{
           backgroundColor: item.backgroundColor
         }}
       >
-        <Media cache={this.props.cache} image={image} style={style} />
+        <Media cache={this.props.cache} roundImg image={image} style={style} />
       </CardMedia>
     )
   }
