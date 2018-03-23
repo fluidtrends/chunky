@@ -133,11 +133,12 @@ export default class Team extends Component {
             {website && (
               <ButtonIcon
                 style={{ cursor: 'pointer' }}
-                use="more_horiz"
                 onClick={() => {
-                  this.onLinkClick(item.website)
+                  this.onLinkClick(item.web)
                 }}
-              />
+              >
+                <img src={this.props.webIcon} />
+              </ButtonIcon>
             )}
           </div>
         </div>
