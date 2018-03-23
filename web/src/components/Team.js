@@ -23,12 +23,23 @@ import {
   CardSupportingText,
   CardHorizontalBlock
 } from 'rmwc/Card'
+import {
+  Dialog,
+  DefaultDialogTemplate,
+  DialogSurface,
+  DialogHeader,
+  DialogHeaderTitle,
+  DialogBody,
+  DialogFooter,
+  DialogFooterButton,
+  DialogBackdrop
+} from 'rmwc/Dialog'
 import Media from './Media'
 
 export default class Team extends Component {
   constructor(props) {
     super(props)
-    this.state = { ...this.state }
+    this.state = { ...this.state, detailDialogOpen: false, item: null }
   }
 
   componentDidMount() {
@@ -88,11 +99,11 @@ export default class Team extends Component {
   }
 
   renderCard(item, index) {
-    const { linkedIn, github, website } = item
+    const { linkedIn, github, website, text } = item
 
     return (
       <Card
-        style={{ width: '220px', height: '440px', margin: 20 }}
+        style={{ width: '220px', height: '470px', margin: 20 }}
         key={`item${index}`}
       >
         {this.renderCardMedia(item)}
@@ -110,40 +121,69 @@ export default class Team extends Component {
             </Typography>
           </div>
           <div style={{ textAlign: 'center' }}>
-            {github && (
-              <ButtonIcon
-                style={{ cursor: 'pointer' }}
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {github && (
+                <ButtonIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    this.onLinkClick(item.github)
+                  }}
+                >
+                  <img src={this.props.githubIcon} />
+                </ButtonIcon>
+              )}
+              {linkedIn && (
+                <ButtonIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    this.onLinkClick(item.linkedIn)
+                  }}
+                >
+                  <img src={this.props.linkedinIcon} />
+                </ButtonIcon>
+              )}
+              {website && (
+                <ButtonIcon
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    this.onLinkClick(item.website)
+                  }}
+                >
+                  <img src={this.props.webIcon} />
+                </ButtonIcon>
+              )}
+            </div>
+            {text && (
+              <Button
+                style={{ marginTop: 10 }}
                 onClick={() => {
-                  this.onLinkClick(item.github)
+                  this.setState({ detailDialogOpen: true, item })
                 }}
               >
-                <img src={this.props.githubIcon} />
-              </ButtonIcon>
-            )}
-            {linkedIn && (
-              <ButtonIcon
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  this.onLinkClick(item.linkedIn)
-                }}
-              >
-                <img src={this.props.linkedinIcon} />
-              </ButtonIcon>
-            )}
-            {website && (
-              <ButtonIcon
-                style={{ cursor: 'pointer' }}
-                onClick={() => {
-                  this.onLinkClick(item.website)
-                }}
-              >
-                <img src={this.props.webIcon} />
-              </ButtonIcon>
+                See bio
+              </Button>
             )}
           </div>
         </div>
       </Card>
     )
+  }
+
+  renderDetails() {
+    const { item } = this.state
+    if (!item) {
+      return
+    }
+    return <Text source={item.text} style={{ width: `90%`, padding: '10px' }} />
+  }
+
+  renderDetailsTitle() {
+    const { item } = this.state
+    if (!item) {
+      return
+    }
+
+    return this.renderCardMedia(item)
   }
 
   renderTeamMemebers(members) {
@@ -225,6 +265,23 @@ export default class Team extends Component {
         }}
       >
         {this.renderSections()}
+        <Dialog
+          open={this.state.detailDialogOpen}
+          onClose={evt =>
+            this.setState({ detailDialogOpen: false, item: null })
+          }
+        >
+          <DialogSurface>
+            <DialogHeader>
+              <DialogHeaderTitle>{this.renderDetailsTitle()}</DialogHeaderTitle>
+            </DialogHeader>
+            <DialogBody>{this.renderDetails()}</DialogBody>
+            <DialogFooter>
+              <DialogFooterButton cancel>Back</DialogFooterButton>
+            </DialogFooter>
+          </DialogSurface>
+          <DialogBackdrop />
+        </Dialog>
       </div>
     )
   }
