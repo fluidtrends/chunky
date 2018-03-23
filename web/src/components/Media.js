@@ -4,31 +4,36 @@ import ReactPlayer from 'react-player'
 import { renderResponsive } from '../utils/responsive'
 
 export default class Media extends PureComponent {
-
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  renderImage (name, src, placeholder) {
-    return (<ProgressiveImage src={src} placeholder={placeholder}>
-      {(src, loading) => {
-        const style = Object.assign({}, this.props.style, {
-          opacity: 1,
-          height: this.props.style.height,
-          width: this.props.innerWidth || '100vw'
-        })
-        if (!loading && this.props.innerHeight) {
-          return <img height={this.props.innerHeight} src={src} alt={name} />
-        }
-        if (!loading && this.props.innerWidth) {
-          return <img width={this.props.innerWidth} src={src} alt={name} />
-        }
-        return <img style={style} src={src} alt={name} />
-      }}
-    </ProgressiveImage>)
+  renderImage(name, src, placeholder) {
+    return (
+      <ProgressiveImage src={src} placeholder={placeholder}>
+        {(src, loading) => {
+          const { innerHeight, innerWidth } = this.props
+          const style = Object.assign({}, this.props.style, {
+            opacity: 1,
+            height: this.props.style.height,
+            width: innerWidth || '100vw'
+          })
+          if (!loading && innerHeight) {
+            return <img height={innerHeight} src={src} alt={name} />
+          }
+          if (this.props.roundImg) {
+            return <img style={this.props.style} src={src} alt={name} />
+          }
+          if (!loading && innerWidth) {
+            return <img width={innerWidth} src={src} alt={name} />
+          }
+          return <img style={style} src={src} alt={name} />
+        }}
+      </ProgressiveImage>
+    )
   }
 
-  renderResponsiveImage (image) {
+  renderResponsiveImage(image) {
     if (!image) {
       return renderResponsive(
         'media',
@@ -38,19 +43,38 @@ export default class Media extends PureComponent {
 
     return renderResponsive(
       image.id,
-      this.renderImage(this.props.image, image.data.images[0].path, image.data.placeholder),
-      this.renderImage(this.props.image, image.data.images[1].path, image.data.placeholder))
+      this.renderImage(
+        this.props.image,
+        image.data.images[0].path,
+        image.data.placeholder
+      ),
+      this.renderImage(
+        this.props.image,
+        image.data.images[1].path,
+        image.data.placeholder
+      )
+    )
   }
 
-  render () {
+  render() {
     if (this.props.video) {
-      return (<ReactPlayer ref={(player) => { this.coverPlayer = player }} url={this.props.video} playing={this.props.playing}
-        width='100vw'
-        height='100vh' />)
+      return (
+        <ReactPlayer
+          ref={player => {
+            this.coverPlayer = player
+          }}
+          url={this.props.video}
+          playing={this.props.playing}
+          width="100vw"
+          height="100vh"
+        />
+      )
     }
 
-    if (this.props.image.split('http://').length > 1 ||
-        this.props.image.split('https://').length > 1) {
+    if (
+      this.props.image.split('http://').length > 1 ||
+      this.props.image.split('https://').length > 1
+    ) {
       return this.renderResponsiveImage()
     }
 
