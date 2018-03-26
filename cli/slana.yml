@@ -44,6 +44,10 @@ commands:
     description: Use a custom web packager port
     default: 8082
     type: string
+  - name: desktop-packager-port
+    description: Use a custom desktop packager port
+    default: 8083
+    type: string
   examples:
   - command: start
     description: Start all the packagers, using the default ports
