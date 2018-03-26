@@ -1,8 +1,10 @@
 {
   "name": "react-chunky",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "The Chunky Universal Framework",
+  "main": "lib/index.js",
   "scripts": {
+    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "test": "react-savor test",
     "lint": "react-savor lint",
     "coverage": "react-savor coverage",
