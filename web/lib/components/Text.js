@@ -28,8 +28,6 @@ var _marked = require('marked');
 
 var _marked2 = _interopRequireDefault(_marked);
 
-require('react-placeholder/lib/reactPlaceholder.css');
-
 var _urlParse = require('url-parse');
 
 var _urlParse2 = _interopRequireDefault(_urlParse);
