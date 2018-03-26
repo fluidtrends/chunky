@@ -46,20 +46,18 @@ export default class Team extends Component {
     super.componentDidMount()
   }
 
-  renderText() {
+  renderText(text) {
     return renderResponsive(
       'text',
       <Text
-        source={this.props.text}
+        source={text}
         style={{
-          width: `90vw`,
           padding: '10px'
         }}
       />,
       <Text
-        source={this.props.text}
+        source={text}
         style={{
-          width: `70vw`,
           paddingBottom: '10px'
         }}
       />
@@ -75,6 +73,7 @@ export default class Team extends Component {
 
     const style = {
       alignSelf: 'center',
+      marginTop: '20px',
       objectFit: 'cover',
       height: 220,
       width: 220,
@@ -103,7 +102,12 @@ export default class Team extends Component {
 
     return (
       <Card
-        style={{ width: '220px', height: '470px', margin: 20 }}
+        style={{
+          width: '320px',
+          height: '540px',
+          margin: 20,
+          textAlign: 'center'
+        }}
         key={`item${index}`}
       >
         {this.renderCardMedia(item)}
@@ -113,7 +117,11 @@ export default class Team extends Component {
               height: 140
             }}
           >
-            <Typography use="title" tag="h2" style={{ textAlign: 'center' }}>
+            <Typography
+              use="headline"
+              tag="h2"
+              style={{ textAlign: 'center', fontWeight: 700 }}
+            >
               {item.name}
             </Typography>
             <Typography use="title" tag="h3" style={{ textAlign: 'center' }}>
@@ -160,7 +168,7 @@ export default class Team extends Component {
                   this.setState({ detailDialogOpen: true, item })
                 }}
               >
-                See bio
+                See More
               </Button>
             )}
           </div>
@@ -174,7 +182,7 @@ export default class Team extends Component {
     if (!item) {
       return
     }
-    return <Text source={item.text} style={{ width: `90%`, padding: '10px' }} />
+    return this.renderText(item.text)
   }
 
   renderDetailsTitle() {
@@ -271,12 +279,22 @@ export default class Team extends Component {
             this.setState({ detailDialogOpen: false, item: null })
           }
         >
-          <DialogSurface>
+          <DialogSurface style={{ maxHeight: '90vh' }}>
             <DialogHeader>
               <DialogHeaderTitle>{this.renderDetailsTitle()}</DialogHeaderTitle>
             </DialogHeader>
-            <DialogBody>{this.renderDetails()}</DialogBody>
-            <DialogFooter>
+
+            <DialogBody
+              style={{
+                overflow: 'scroll',
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                maxHeight: '60vh'
+              }}
+            >
+              {this.renderDetails()}
+            </DialogBody>
+            <DialogFooter style={{ display: 'flex', justifyContent: 'center' }}>
               <DialogFooterButton cancel>Back</DialogFooterButton>
             </DialogFooter>
           </DialogSurface>
