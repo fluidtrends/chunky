@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.30",
+  "version": "0.9.31",
   "description": "The Chunky Web Framework",
   "scripts": {
     "test": "react-savor test",
@@ -20,13 +20,8 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "babel": {
-    "plugins": [
-      "transform-react-jsx"
-    ],
-    "presets": [
-      "react",
-      "env"
-    ]
+    "plugins": ["transform-react-jsx"],
+    "presets": ["react", "env"]
   },
   "dependencies": {
     "autoprefixer": "7.1.1",
