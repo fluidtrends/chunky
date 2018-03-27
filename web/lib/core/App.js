@@ -317,6 +317,18 @@ var App = function (_PureComponent) {
         return _react2.default.createElement('div', null);
       }
 
+      if (this.prop.desktop) {
+        return _react2.default.createElement(
+          _reactRouterDom.HashRouter,
+          null,
+          _react2.default.createElement(
+            'div',
+            null,
+            this.renderRoutes()
+          )
+        );
+      }
+
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
         null,

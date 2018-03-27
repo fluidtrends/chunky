@@ -8,6 +8,10 @@ exports.renderResponsiveLarge = renderResponsiveLarge;
 exports.renderResponsiveSmall = renderResponsiveSmall;
 exports.renderResponsive = renderResponsive;
 
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
 var _reactResponsive = require('react-responsive');
 
 var _reactResponsive2 = _interopRequireDefault(_reactResponsive);
@@ -19,7 +23,7 @@ var breakpoints = exports.breakpoints = {
 };
 
 function renderResponsiveLarge(component) {
-  return React.createElement(
+  return _react2.default.createElement(
     _reactResponsive2.default,
     { minDeviceWidth: breakpoints.main },
     component
@@ -27,7 +31,7 @@ function renderResponsiveLarge(component) {
 }
 
 function renderResponsiveSmall(component) {
-  return React.createElement(
+  return _react2.default.createElement(
     _reactResponsive2.default,
     { maxDeviceWidth: breakpoints.main },
     component
@@ -35,7 +39,7 @@ function renderResponsiveSmall(component) {
 }
 
 function renderResponsive(key, small, large) {
-  return React.createElement(
+  return _react2.default.createElement(
     'div',
     { key: key },
     renderResponsiveSmall(small),

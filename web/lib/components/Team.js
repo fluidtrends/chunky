@@ -73,17 +73,15 @@ var Team = function (_Component) {
     }
   }, {
     key: 'renderText',
-    value: function renderText() {
+    value: function renderText(text) {
       return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, {
-        source: this.props.text,
+        source: text,
         style: {
-          width: '90vw',
           padding: '10px'
         }
       }), _react2.default.createElement(_Text2.default, {
-        source: this.props.text,
+        source: text,
         style: {
-          width: '70vw',
           paddingBottom: '10px'
         }
       }));
@@ -137,7 +135,12 @@ var Team = function (_Component) {
       return _react2.default.createElement(
         _Card.Card,
         {
-          style: { width: '320px', height: '540px', margin: 20, textAlign: 'center' },
+          style: {
+            width: '320px',
+            height: '540px',
+            margin: 20,
+            textAlign: 'center'
+          },
           key: 'item' + index
         },
         this.renderCardMedia(item),
@@ -153,7 +156,11 @@ var Team = function (_Component) {
             },
             _react2.default.createElement(
               _Typography.Typography,
-              { use: 'headline', tag: 'h2', style: { textAlign: 'center', fontWeight: 700 } },
+              {
+                use: 'headline',
+                tag: 'h2',
+                style: { textAlign: 'center', fontWeight: 700 }
+              },
               item.name
             ),
             _react2.default.createElement(
@@ -221,7 +228,7 @@ var Team = function (_Component) {
       if (!item) {
         return;
       }
-      return _react2.default.createElement(_Text2.default, { source: item.text, style: { width: '90%', padding: '10px' } });
+      return this.renderText(item.text);
     }
   }, {
     key: 'renderDetailsTitle',
@@ -342,7 +349,7 @@ var Team = function (_Component) {
           },
           _react2.default.createElement(
             _Dialog.DialogSurface,
-            null,
+            { style: { maxHeight: '90vh' } },
             _react2.default.createElement(
               _Dialog.DialogHeader,
               null,
@@ -354,12 +361,19 @@ var Team = function (_Component) {
             ),
             _react2.default.createElement(
               _Dialog.DialogBody,
-              null,
+              {
+                style: {
+                  overflow: 'scroll',
+                  overflowX: 'hidden',
+                  overflowY: 'auto',
+                  maxHeight: '60vh'
+                }
+              },
               this.renderDetails()
             ),
             _react2.default.createElement(
               _Dialog.DialogFooter,
-              null,
+              { style: { display: 'flex', justifyContent: 'center' } },
               _react2.default.createElement(
                 _Dialog.DialogFooterButton,
                 { cancel: true },
