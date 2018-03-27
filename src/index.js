@@ -1,8 +1,8 @@
-import * as Core from './src/core'
-import * as Data from './src/data'
-import * as Errors from './src/errors'
-import * as Styles from './src/styles'
-import * as Config from './src/config'
+import * as Core from './core'
+import * as Data from './data'
+import * as Errors from './errors'
+import * as Styles from './styles'
+import * as Config from './config'
 import merge from 'deepmerge'
 
 function extendChunk (original, another) {

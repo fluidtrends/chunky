@@ -49,7 +49,6 @@ function add (src) {
   }
 
   fs.copySync(src, target)
-  console.log('Added', target)
 }
 
 function update (src, remove) {
@@ -62,8 +61,6 @@ function update (src, remove) {
   remove ? fs.removeSync(target) : fs.copySync(src, target)
   console.log(remove ? 'Removed' : 'Moved', src, remove ? 'from' : 'to', target)
 }
-
-watcher.on('all', (type, src) => console.log(type, src))
 
 watcher
   .on('add', src => add(src))
