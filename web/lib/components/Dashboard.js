@@ -206,14 +206,13 @@ var Dashboard = function (_Component) {
         { style: {
             flex: 1,
             minHeight: '100vh'
-          }, className: 'jsx-3157557023'
+          }, className: 'jsx-3157557023' + ' ' + 'jsx-3157557023'
         },
         this.renderContentComponent(),
-        _react2.default.createElement(
-          'style',
-          { jsx: true, global: true },
-          '\n        .text h1 {\n          text-align: left;\n        }\n        .text h2 {\n          text-align: left;\n        }\n   '
-        )
+        _react2.default.createElement(_style2.default, {
+          styleId: '3157557023',
+          css: '.text h1{text-align:left;}.text h2{text-align:left;}'
+        })
       );
     }
   }, {

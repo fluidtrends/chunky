@@ -169,18 +169,18 @@ var Layout = function (_PureComponent) {
         'div',
         { style: this.styles.container, ref: function ref(c) {
             _this3.container = c;
-          }, className: _style2.default.dynamic([['3979917035', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]])
+          }, className: _style2.default.dynamic([['3979917035', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['3979917035', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
         },
         this.renderDrawer(),
         this.renderNavigation(),
         this.renderCover(),
         this.renderComponents(),
         this.renderFooter(),
-        _react2.default.createElement(
-          'style',
-          { jsx: true, global: true },
-          '{\n        :root {\n          --mdc-theme-primary: ' + this.props.theme.primaryColor + ';\n          --mdc-theme-secondary: ' + this.props.theme.secondaryColor + ';\n        }\n\n        html {\n          font-weight: 300;\n          font-family: Roboto Condensed, sans-serif;\n          color: #ffffff;\n        }\n\n        pre {\n          background-color: #F5F5F5;\n          color: #455A64;\n          text-align: left;\n          padding: 20px;\n          width: 90%;\n        }\n\n        .text {\n          text-align: left;\n        }\n\n        a {\n          text-decoration: none;\n        }\n\n        h1 {\n          font-weight: 300;\n          font-size: 40px;\n          text-align: center;\n        }\n\n        h2 {\n          font-weight: 300;\n          font-size: 32px;\n          text-align: center;\n        }\n\n        h3 {\n          font-weight: 300;\n          font-size: 24px;\n          text-align: left;\n        }\n\n        p {\n          font-size: 20px;\n          text-align: left;\n        }\n\n        .animation-fadeIn-appear {\n          opacity: 0.01;\n        }\n\n        .animation-fadeIn-appear.animation-fadeIn-appear-active {\n          opacity: 1;\n          transition: opacity .5s ease-in;\n        }\n      }'
-        )
+        _react2.default.createElement(_style2.default, {
+          styleId: '3979917035',
+          css: ':root{--mdc-theme-primary:' + this.props.theme.primaryColor + ';--mdc-theme-secondary:' + this.props.theme.secondaryColor + ';}html{font-weight:300;font-family:Roboto Condensed,sans-serif;color:#ffffff;}pre{background-color:#F5F5F5;color:#455A64;text-align:left;padding:20px;width:90%;}.text{text-align:left;}a{text-decoration:none;}h1{font-weight:300;font-size:40px;text-align:center;}h2{font-weight:300;font-size:32px;text-align:center;}h3{font-weight:300;font-size:24px;text-align:left;}p{font-size:20px;text-align:left;}.animation-fadeIn-appear{opacity:0.01;}.animation-fadeIn-appear.animation-fadeIn-appear-active{opacity:1;-webkit-transition:opacity .5s ease-in;transition:opacity .5s ease-in;}',
+          dynamic: [this.props.theme.primaryColor, this.props.theme.secondaryColor]
+        })
       );
     }
   }, {

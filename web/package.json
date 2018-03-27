@@ -4,7 +4,7 @@
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
-    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel",
     "test": "react-savor test",
     "lint": "react-savor lint",
     "coverage": "react-savor coverage",

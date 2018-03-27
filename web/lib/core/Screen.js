@@ -488,14 +488,14 @@ var Screen = function (_Core$Screen) {
 
       return _react2.default.createElement(
         "div",
-        { style: { height: height, width: "100vw", position: "relative" }, className: _style2.default.dynamic([["3734241191", [this.props.backgroundColor]]])
+        { style: { height: height, width: "100vw", position: "relative" }, className: _style2.default.dynamic([["3734241191", [this.props.backgroundColor]]]) + " " + (_style2.default.dynamic([["3734241191", [this.props.backgroundColor]]]) || "")
         },
         this.renderScreenLayout(),
-        _react2.default.createElement(
-          "style",
-          { jsx: true },
-          "{\n        :global(body){\n            background-color: " + this.props.backgroundColor + ";\n            margin: 0;\n            padding: 0;\n        }"
-        )
+        _react2.default.createElement(_style2.default, {
+          styleId: "3734241191",
+          css: "body{background-color:" + this.props.backgroundColor + ";margin:0;padding:0;}",
+          dynamic: [this.props.backgroundColor]
+        })
       );
     }
   }, {
