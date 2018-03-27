@@ -35,11 +35,17 @@ var Cache = function () {
     key: 'cacheImage',
     value: function cacheImage(id) {
       var name = './' + id;
+      var timestamp = Date.now();
+
+      if (!this._imagesContext) {
+        this._images[id] = { id: id, timestamp: timestamp, small: name, large: name, placeholder: name };
+        return;
+      }
+
       var data = this._imagesContext(name, true);
       var placeholder = data.placeholder;
       var small = data.images[0].path;
       var large = data.images[1].path;
-      var timestamp = Date.now();
       this._images[id] = { data: data, id: id, timestamp: timestamp, small: small, large: large, placeholder: placeholder };
     }
   }, {
