@@ -268,7 +268,7 @@ export default class App extends PureComponent {
       return (<div />)
     }
 
-    if (this.prop.desktop) {
+    if (this.props.desktop) {
       return (<HashRouter>
         <div>
           { this.renderRoutes() }
