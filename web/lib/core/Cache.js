@@ -20,7 +20,14 @@ var Cache = function () {
   _createClass(Cache, [{
     key: '_loadContext',
     value: function _loadContext() {
-      if (typeof window === 'undefined' || typeof document === 'undefined' || !require.context) {
+      if (typeof window === 'undefined' || typeof document === 'undefined') {
+        return;
+      }
+
+      if (!require.context) {
+        this._imagesContext = function (name) {
+          return { placeholder: './' + name, images: [{ path: './' + name }, { path: './' + name }] };
+        };
         return;
       }
 
@@ -36,12 +43,6 @@ var Cache = function () {
     value: function cacheImage(id) {
       var name = './' + id;
       var timestamp = Date.now();
-
-      if (!this._imagesContext) {
-        this._images[id] = { id: id, timestamp: timestamp, small: name, large: name, placeholder: name };
-        return;
-      }
-
       var data = this._imagesContext(name, true);
       var placeholder = data.placeholder;
       var small = data.images[0].path;
