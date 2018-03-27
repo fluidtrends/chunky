@@ -20,9 +20,10 @@ var Cache = function () {
   _createClass(Cache, [{
     key: '_loadContext',
     value: function _loadContext() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
+      if (typeof window === 'undefined' || typeof document === 'undefined' || !require.context) {
         return;
       }
+
       this._imagesContext = require.context('assets', false, /\.(png|jpe?g|svg)$/);
     }
   }, {

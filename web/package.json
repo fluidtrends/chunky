@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.37",
+  "version": "0.9.38",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
