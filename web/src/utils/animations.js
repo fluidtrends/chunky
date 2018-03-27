@@ -1,3 +1,4 @@
+import React from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 export function fadeIn (Component, name) {

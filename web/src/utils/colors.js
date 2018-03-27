@@ -1,3 +1,5 @@
+import React from 'react'
+
 export function isColorLight (c) {
   var c = c.substring(1)
   const rgb = parseInt(c, 16)

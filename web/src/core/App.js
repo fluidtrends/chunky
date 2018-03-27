@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { StaticRouter, BrowserRouter, Route } from 'react-router-dom'
+import { StaticRouter, BrowserRouter, HashRouter, Route } from 'react-router-dom'
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
 import { createSectionRoutes } from './Router'
@@ -266,6 +266,14 @@ export default class App extends PureComponent {
 
     if (!this.routes || this.routes.length === 0) {
       return (<div />)
+    }
+
+    if (this.prop.desktop) {
+      return (<HashRouter>
+        <div>
+          { this.renderRoutes() }
+        </div>
+      </HashRouter>)
     }
 
     return (<BrowserRouter>
