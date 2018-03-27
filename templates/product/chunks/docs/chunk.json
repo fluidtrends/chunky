@@ -1,0 +1,18 @@
+{
+  "name": "intro",
+  "routes": {
+    "main": {
+      "title": "Docs",
+      "icon": "home",
+      "path": "/docs",
+      "variants": "sections",
+      "cover": {
+        "backgroundColor": "#546E7A",
+        "navigation": true,
+        "title": "Chunky Documentation",
+        "type": "simple"
+      }
+    }
+
+  }
+}

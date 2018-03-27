@@ -1,0 +1,89 @@
+{
+  "name": "intro",
+  "routes": {
+    "main": {
+      "title": "Welcome",
+      "icon": "home",
+      "path": "/",
+      "events": {
+        "cover": "local://docs",
+        "feature-web": "local://platform/web",
+        "feature-mobile": "local://platform/mobile",
+        "feature-cloud": "local://platform/cloud",
+        "feature-devops": "local://platform/devops",
+        "feature-integrations": "local://platform/integrations"
+      },
+      "cover": {
+        "image": "castle.jpg",
+        "backgroundColor": "#ffffff",
+        "align": "bottom",
+        "opacity": 0.5,
+        "navigation": true,
+        "title": "Your Code Monkey Days Are Over.",
+        "subtitle": "Imagine A World Beyond The Code And Start Creating.",
+        "type": "default",
+        "primaryActionTitle": "Get Started",
+        "primaryActionLink": "/start"
+      },
+      "components": {
+        "intro" : {
+          "source": "summary",
+          "text": "local://intro",
+          "image": "logo.gif",
+          "textColor": "#37474F"
+        },
+        "pillars": {
+          "source": "benefits",
+          "benefits": [
+            {"text": "local://product", "image": "product.png"},
+            {"text": "local://fullstack", "image": "fullstack.png"},
+            {"text": "local://lowcode", "image": "lowcode.png"}
+          ],
+          "textColor": "#37474F",
+          "backgroundColor": "#FAFAFA"
+        },
+        "features": [
+          {
+            "id": "feature-web",
+            "source": "feature",
+            "text":"local://web",
+            "image":"web.png",
+            "actionTitle":"Learn More",
+            "backgroundColor":"#ffffff",
+            "textColor":"#0686d8"
+          },
+          {
+            "id": "feature-mobile",
+            "source": "feature",
+            "text":"local://mobile",
+            "image":"mobile.png",
+            "reversed": true,
+            "actionTitle":"Learn More",
+            "backgroundColor":"#E1F5FE",
+            "textColor":"#0686d8"
+          },
+          {
+            "id": "feature-cloud",
+            "source": "feature",
+            "text":"local://cloud",
+            "image":"cloud.png",
+            "actionTitle":"Learn More",
+            "backgroundColor":"#ffffff",
+            "textColor":"#0686d8"
+          },
+          {
+            "id": "feature-devops",
+            "source": "feature",
+            "text":"local://devops",
+            "image":"devops.png",
+            "reversed": true,
+            "actionTitle":"Learn More",
+            "backgroundColor":"#E1F5FE",
+            "textColor":"#0686d8"
+          }
+        ]
+      }
+    }
+
+  }
+}
