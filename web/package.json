@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.46",
+  "version": "0.9.47",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -26,7 +26,8 @@
       "transform-react-jsx",
       "transform-es2015-destructuring",
       "transform-object-rest-spread",
-      "css-modules-transform"
+      "css-modules-transform",
+      "styled-jsx/babel"
     ],
     "presets": [
       "react",

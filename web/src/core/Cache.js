@@ -12,7 +12,7 @@ export default class Cache {
     }
 
     if (!require.context) {
-      this._imagesContext = (name) => ({ placeholder: `./${name}`, images: [{ path: `./${name}` }, { path: `./${name}` }] })
+      this._imagesContext = (name) => ({ placeholder: `../../assets/${name}`, images: [{ path: `../../assets/${name}` }, { path: `../../assets/${name}` }] })
       return
     }
 
