@@ -32,6 +32,10 @@ export default class AppContainer extends Component {
 
   _initializeAnalytics () {
     // Initialize with the given props
+    if (!this.props.info.analytics) {
+      return
+    }
+
     Analytics.initialize(this.props.info.analytics)
   }
 
