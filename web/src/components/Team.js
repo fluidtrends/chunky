@@ -37,36 +37,34 @@ import {
 import Media from './Media'
 
 export default class Team extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { ...this.state, detailDialogOpen: false, item: null }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     super.componentDidMount()
   }
 
-  renderText () {
+  renderText(text) {
     return renderResponsive(
       'text',
       <Text
-        source={this.props.text}
+        source={text}
         style={{
-          width: `90vw`,
           padding: '10px'
         }}
       />,
       <Text
-        source={this.props.text}
+        source={text}
         style={{
-          width: `70vw`,
           paddingBottom: '10px'
         }}
       />
     )
   }
 
-  renderCardMedia (item) {
+  renderCardMedia(item) {
     const image = item.image
 
     if (!image) {
@@ -95,16 +93,21 @@ export default class Team extends Component {
     )
   }
 
-  onLinkClick (url) {
+  onLinkClick(url) {
     window.open(url, '_blank')
   }
 
-  renderCard (item, index) {
+  renderCard(item, index) {
     const { linkedIn, github, website, text } = item
 
     return (
       <Card
-        style={{ width: '320px', height: '540px', margin: 20, textAlign: 'center' }}
+        style={{
+          width: '320px',
+          height: '540px',
+          margin: 20,
+          textAlign: 'center'
+        }}
         key={`item${index}`}
       >
         {this.renderCardMedia(item)}
@@ -114,10 +117,14 @@ export default class Team extends Component {
               height: 140
             }}
           >
-            <Typography use='headline' tag='h2' style={{ textAlign: 'center', fontWeight: 700 }}>
+            <Typography
+              use="headline"
+              tag="h2"
+              style={{ textAlign: 'center', fontWeight: 700 }}
+            >
               {item.name}
             </Typography>
-            <Typography use='title' tag='h3' style={{ textAlign: 'center' }}>
+            <Typography use="title" tag="h3" style={{ textAlign: 'center' }}>
               {item.title}
             </Typography>
           </div>
@@ -170,15 +177,15 @@ export default class Team extends Component {
     )
   }
 
-  renderDetails () {
+  renderDetails() {
     const { item } = this.state
     if (!item) {
       return
     }
-    return <Text source={item.text} style={{ width: `90%`, padding: '10px' }} />
+    return this.renderText(item.text)
   }
 
-  renderDetailsTitle () {
+  renderDetailsTitle() {
     const { item } = this.state
     if (!item) {
       return
@@ -187,7 +194,7 @@ export default class Team extends Component {
     return this.renderCardMedia(item)
   }
 
-  renderTeamMemebers (members) {
+  renderTeamMemebers(members) {
     var index = 0
 
     if (!members || members.length == 0) {
@@ -197,13 +204,13 @@ export default class Team extends Component {
     return members.map(member => this.renderCard(member, index++))
   }
 
-  renderSection (section, index) {
+  renderSection(section, index) {
     return (
       <div
         key={'section' + index}
         style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}
       >
-        <Typography use='display1' tag='h1'>
+        <Typography use="display1" tag="h1">
           {section.title}
         </Typography>
         <div
@@ -222,14 +229,14 @@ export default class Team extends Component {
     )
   }
 
-  renderTeamSections () {
+  renderTeamSections() {
     var index = 0
     return this.props.sections.map((section, index) =>
       this.renderSection(section, index)
     )
   }
 
-  renderSections () {
+  renderSections() {
     return (
       <div
         style={{
@@ -246,7 +253,7 @@ export default class Team extends Component {
     )
   }
 
-  renderComponent () {
+  renderComponent() {
     if (!this.props.sections) {
       return <div />
     }
@@ -272,12 +279,22 @@ export default class Team extends Component {
             this.setState({ detailDialogOpen: false, item: null })
           }
         >
-          <DialogSurface>
+          <DialogSurface style={{ maxHeight: '90vh' }}>
             <DialogHeader>
               <DialogHeaderTitle>{this.renderDetailsTitle()}</DialogHeaderTitle>
             </DialogHeader>
-            <DialogBody>{this.renderDetails()}</DialogBody>
-            <DialogFooter>
+
+            <DialogBody
+              style={{
+                overflow: 'scroll',
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                maxHeight: '60vh'
+              }}
+            >
+              {this.renderDetails()}
+            </DialogBody>
+            <DialogFooter style={{ display: 'flex', justifyContent: 'center' }}>
               <DialogFooterButton cancel>Back</DialogFooterButton>
             </DialogFooter>
           </DialogSurface>
