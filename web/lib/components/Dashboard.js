@@ -10,6 +10,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
+var _style = require('styled-jsx/style');
+
+var _style2 = _interopRequireDefault(_style);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -202,7 +206,8 @@ var Dashboard = function (_Component) {
         { style: {
             flex: 1,
             minHeight: '100vh'
-          } },
+          }, className: 'jsx-3157557023'
+        },
         this.renderContentComponent(),
         _react2.default.createElement(
           'style',
@@ -221,7 +226,8 @@ var Dashboard = function (_Component) {
             flex: 1,
             marginBottom: 40,
             justifyContent: 'space-around'
-          } },
+          }, className: 'jsx-3157557023'
+        },
         _react2.default.createElement(_Icon.Icon, { onClick: this._onSectionNavigate(-1), use: 'navigate_before', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } }),
         _react2.default.createElement(_Icon.Icon, { onClick: this._onSectionNavigate(1), use: 'navigate_next', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } })
       );
@@ -231,7 +237,9 @@ var Dashboard = function (_Component) {
     value: function renderCompactSectionContent() {
       return _react2.default.createElement(
         'div',
-        null,
+        {
+          className: 'jsx-3157557023'
+        },
         this.renderContentComponent(),
         this.props.nav && this.renderNav()
       );
@@ -254,7 +262,9 @@ var Dashboard = function (_Component) {
     key: 'renderDefault',
     value: function renderDefault() {
       if (!this.props.section) {
-        return _react2.default.createElement('div', null);
+        return _react2.default.createElement('div', {
+          className: 'jsx-3157557023'
+        });
       }
 
       return (0, _responsive.renderResponsive)('reader', this.compactReader, this.defaultReader);
@@ -285,7 +295,8 @@ var Dashboard = function (_Component) {
             flexDirection: 'row',
             alignItems: 'flex-start',
             justifyContent: 'center'
-          } },
+          }, className: 'jsx-3157557023'
+        },
         this.renderSidebar(),
         this.renderSectionContent()
       );
@@ -301,10 +312,12 @@ var Dashboard = function (_Component) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center'
-          } },
+          }, className: 'jsx-3157557023'
+        },
         _react2.default.createElement(
           'div',
-          { style: { padding: '10px' } },
+          { style: { padding: '10px' }, className: 'jsx-3157557023'
+          },
           this.renderCompactSectionContent()
         )
       );

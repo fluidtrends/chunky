@@ -12,6 +12,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
+var _style = require("styled-jsx/style");
+
+var _style2 = _interopRequireDefault(_style);
+
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
@@ -484,7 +488,8 @@ var Screen = function (_Core$Screen) {
 
       return _react2.default.createElement(
         "div",
-        { style: { height: height, width: "100vw", position: "relative" } },
+        { style: { height: height, width: "100vw", position: "relative" }, className: _style2.default.dynamic([["3734241191", [this.props.backgroundColor]]])
+        },
         this.renderScreenLayout(),
         _react2.default.createElement(
           "style",

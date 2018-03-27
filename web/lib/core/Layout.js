@@ -8,6 +8,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _style = require('styled-jsx/style');
+
+var _style2 = _interopRequireDefault(_style);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -165,7 +169,8 @@ var Layout = function (_PureComponent) {
         'div',
         { style: this.styles.container, ref: function ref(c) {
             _this3.container = c;
-          } },
+          }, className: _style2.default.dynamic([['3979917035', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]])
+        },
         this.renderDrawer(),
         this.renderNavigation(),
         this.renderCover(),

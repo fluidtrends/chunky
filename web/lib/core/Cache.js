@@ -26,7 +26,7 @@ var Cache = function () {
 
       if (!require.context) {
         this._imagesContext = function (name) {
-          return { placeholder: './' + name, images: [{ path: './' + name }, { path: './' + name }] };
+          return { placeholder: '../../assets/' + name, images: [{ path: '../../assets/' + name }, { path: '../../assets/' + name }] };
         };
         return;
       }
