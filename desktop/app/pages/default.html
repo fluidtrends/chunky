@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#ffffff">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css" rel="stylesheet">
+  <link href="https://unpkg.com/material-components-web@0.31.0/dist/material-components-web.css" rel="stylesheet">
+</head>
+<body style="overflow: scroll; background-color: rgba(0,0,0,0); margin: 0">
+  <div id="chunky"></div>
+
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react-transition-group/dist/react-transition-group.min.js"></script>
+  <script src="https://unpkg.com/react-media/umd/react-media.min.js"></script>
+  <script src="https://unpkg.com/react-router/umd/react-router.min.js"></script>
+  <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+  <script src="https://unpkg.com/material-components-web@0.31.0/dist/material-components-web.min.js"></script>
+  <script src="https://unpkg.com/react-progressive-image@0.1.0/umd/react-progressive-image.min.js"></script>
+
+  <script type="text/jsx">
+
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+    import { AppContainer } from 'react-hot-loader'
+    import { App } from 'react-dom-chunky'
+    import { Core } from 'react-chunky'
+    import './lib/core/global'
+
+    const render = () => {
+      ReactDOM.render(
+        <AppContainer>
+        <Core.AppContainer {...chunky.config}>
+          <App {...chunky.config}/>
+        </Core.AppContainer>
+       </AppContainer>,
+      document.getElementById('chunky'))
+    }
+
+    render()
+
+    if (module.hot) {
+      module.hot.accept(render)
+    }
+
+  </script>
+  </body>
+</html>

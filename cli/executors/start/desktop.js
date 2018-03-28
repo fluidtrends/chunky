@@ -17,6 +17,7 @@ module.exports = function (port) {
   } catch (e) {
     coreutils.logger.skip(`This product is not provisioned. Continuing anyways.`)
   }
+
   start({ port, dir: process.cwd(), config, secure, chunks }).then(result => {
     coreutils.logger.info(`Your desktop app is now ready.`)
   }).catch(e => {

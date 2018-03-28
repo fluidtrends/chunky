@@ -5,7 +5,7 @@ const URL = require('url-parse')
 const xml2json = require('xml2json')
 const parsers = require('./parsers')
 
-function _loadXmlAsJsonFile(file) {
+function _loadXmlAsJsonFile (file) {
   if (!fs.existsSync(file)) {
     throw new Error('Wordpress export file does not exist')
   }
@@ -26,244 +26,242 @@ function _loadXmlAsJsonFile(file) {
   return {}
 }
 
-function _loadChunkArtifactAsXmlToJson(chunk, type, artifact) {
-  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + ".xml")
+function _loadChunkArtifactAsXmlToJson (chunk, type, artifact) {
+  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + '.xml')
 
   if (!fs.existsSync(artifactFile)) {
-      return
+    return
   }
 
   return _loadXmlAsJsonFile(artifactFile)
 }
 
-function _loadYamlAsJsonFile(file) {
+function _loadYamlAsJsonFile (file) {
   if (!fs.existsSync(file)) {
     throw new Error('Yaml file does not exist')
   }
 
   try {
-    return yaml.safeLoad(fs.readFileSync(file, 'utf8'));
+    return yaml.safeLoad(fs.readFileSync(file, 'utf8'))
   } catch (e) {
   }
   return {}
 }
 
-function _loadChunkArtifactAsYamlToJson(chunk, type, artifact) {
-  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + ".yaml")
+function _loadChunkArtifactAsYamlToJson (chunk, type, artifact) {
+  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + '.yaml')
 
   if (!fs.existsSync(artifactFile)) {
-      return
+    return
   }
   return _loadYamlAsJsonFile(artifactFile)
 }
 
-function _loadChunkArtifactAsYaml(chunk, type, artifact) {
-    const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + ".yaml")
+function _loadChunkArtifactAsYaml (chunk, type, artifact) {
+  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + '.yaml')
 
-    if (!fs.existsSync(artifactFile)) {
-        return
-    }
+  if (!fs.existsSync(artifactFile)) {
+    return
+  }
 
     // Load all data as Yaml
-    const data = yaml.safeLoad(fs.readFileSync(artifactFile, 'utf8'));
+  const data = yaml.safeLoad(fs.readFileSync(artifactFile, 'utf8'))
 
-    if (!data || Object.keys(data).length === 0) {
-        return
+  if (!data || Object.keys(data).length === 0) {
+    return
+  }
+
+  return data
+}
+
+function _loadChunkArtifactAsFilePath (chunk, type, artifact, ext) {
+  const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + '.' + ext)
+
+  return (fs.existsSync(artifactFile) ? artifactFile : undefined)
+}
+
+function _findChunkArtifacts (chunk, type, artifacts) {
+  try {
+        // Look up the config file for this chunk
+    var config = loadChunkConfig(chunk)
+    var dependencies = {}
+
+    if (type === 'functions') {
+      config = config.service
+      dependencies = config.dependencies
     }
 
-    return data
-}
-
-function _loadChunkArtifactAsFilePath(chunk, type, artifact, ext) {
-    const artifactFile = path.resolve(process.cwd(), 'chunks', chunk, type, artifact.name + "." + ext)
-
-    return (fs.existsSync(artifactFile) ? artifactFile : undefined)
-}
-
-function _findChunkArtifacts(chunk, type, artifacts) {
-     try {
-        // Look up the config file for this chunk
-        var config = loadChunkConfig(chunk)
-        var dependencies = {}
-
-        if (type === 'functions') {
-            config = config.service
-            dependencies = config.dependencies
-        }
-
-        if (!config[type] || config[type].length === 0) {
+    if (!config[type] || config[type].length === 0) {
             // No artifacts defined
-            return []
-        }
+      return []
+    }
 
         // Look up the artifacts dir
-        const artifactsDir = path.resolve(process.cwd(), 'chunks', chunk, type)
+    const artifactsDir = path.resolve(process.cwd(), 'chunks', chunk, type)
 
-        if (!fs.existsSync(artifactsDir)) {
+    if (!fs.existsSync(artifactsDir)) {
             // This chunk has no artifacts, even if it declared some
-            return []
-        }
+      return []
+    }
 
-        if (!artifacts || artifacts.length === 0) {
+    if (!artifacts || artifacts.length === 0) {
             // We want all the artifacts in this chunk
-            artifacts = config[type]
-        } else {
-            artifacts = config[type].filter(a => {
-                var found = false
-                const aConfig = new URL(a, true)
-                artifacts.forEach(a2 => {
-                    if (a2.toLowerCase() === aConfig.hostname.toLowerCase()) {
-                        found = true
-                        return
-                    }
-                })
-                return found
-            })
-        }
-
-       return artifacts.map(artifact => {
-            const url = new URL(artifact, true)
-            const path = url.hostname + url.pathname
-            const name = url.hash.slice(1) || path
-            return { chunk,
-                     name,
-                     source: url.protocol.slice(0, -1),
-                     dependencies,
-                     path,
-                     options: Object.assign({ priority: 99999 }, url.query )}
-        }).sort((a, b) => (Number.parseInt(a.options.priority) - Number.parseInt(b.options.priority)))
-
-    } catch (e) {
-        return []
-    }
-}
-
-function _loadChunkReports(providers, chunk, reports) {
-    const all = _findChunkArtifacts(chunk, "reports", reports)
-    // Look up all valid reports and load them up
-    return Promise.all(all.map(report => {
-        var data = _loadChunkArtifactAsYaml(chunk, "reports", report)
-        data = Object.assign({}, report, (data ? { data } : {}))
-        return Promise.resolve(data)
-    }))
-}
-
-function _loadChunkTransforms(providers, chunk, transforms) {
-    const all = _findChunkArtifacts(chunk, "transforms", transforms)
-
-    // Look up all valid transforms and load them up
-    return Promise.all(all.map(transform => {
-        var data = _loadChunkArtifactAsYaml(chunk, "transforms", transform)
-
-        if (data.import) {
-          data = data.import
-          const type = data.type
-          delete data.type
-          var local = {}
-
-          switch (type) {
-            case "wordpress":
-              local = _loadChunkArtifactAsXmlToJson(chunk, "transforms", transform)
-              break;
-            case "report":
-              local = _loadChunkArtifactAsYamlToJson(chunk, "reports", { name: `${data.report}.report` })
-              delete data.report
-              break;
-            default:
+      artifacts = config[type]
+    } else {
+      artifacts = config[type].filter(a => {
+        var found = false
+        const aConfig = new URL(a, true)
+        artifacts.forEach(a2 => {
+          if (a2.toLowerCase() === aConfig.hostname.toLowerCase()) {
+            found = true
+            return
           }
+        })
+        return found
+      })
+    }
 
-
-          return parsers.parseImportAsTransforms({ type, data, local, providers }).
-                then(d => Object.assign({}, transform, (d ? { data: d } : {})))
-        }
-
-        data = Object.assign({}, transform, (data ? { data } : {}))
-        return Promise.resolve(data)
-    }))
+    return artifacts.map(artifact => {
+      const url = new URL(artifact, true)
+      const path = url.hostname + url.pathname
+      const name = url.hash.slice(1) || path
+      return { chunk,
+        name,
+        source: url.protocol.slice(0, -1),
+        dependencies,
+        path,
+        options: Object.assign({ priority: 99999 }, url.query)}
+    }).sort((a, b) => (Number.parseInt(a.options.priority) - Number.parseInt(b.options.priority)))
+  } catch (e) {
+    return []
+  }
 }
 
-function _loadChunkFunctions(providers, chunk) {
-    const functions = _findChunkArtifacts(chunk, "functions")
+function _loadChunkReports (providers, chunk, reports) {
+  const all = _findChunkArtifacts(chunk, 'reports', reports)
+    // Look up all valid reports and load them up
+  return Promise.all(all.map(report => {
+    var data = _loadChunkArtifactAsYaml(chunk, 'reports', report)
+    data = Object.assign({}, report, (data ? { data } : {}))
+    return Promise.resolve(data)
+  }))
+}
+
+function _loadChunkTransforms (providers, chunk, transforms) {
+  const all = _findChunkArtifacts(chunk, 'transforms', transforms)
 
     // Look up all valid transforms and load them up
-    return Promise.resolve(functions.map(f => {
-      const data = _loadChunkArtifactAsFilePath(chunk, "functions", f, "js")
-      return Object.assign({}, f, (data ? { data } : {}))
-    }))
+  return Promise.all(all.map(transform => {
+    var data = _loadChunkArtifactAsYaml(chunk, 'transforms', transform)
+
+    if (data.import) {
+      data = data.import
+      const type = data.type
+      delete data.type
+      var local = {}
+
+      switch (type) {
+        case 'wordpress':
+          local = _loadChunkArtifactAsXmlToJson(chunk, 'transforms', transform)
+          break
+        case 'report':
+          local = _loadChunkArtifactAsYamlToJson(chunk, 'reports', { name: `${data.report}.report` })
+          delete data.report
+          break
+        default:
+      }
+
+      return parsers.parseImportAsTransforms({ type, data, local, providers })
+                .then(d => Object.assign({}, transform, (d ? { data: d } : {})))
+    }
+
+    data = Object.assign({}, transform, (data ? { data } : {}))
+    return Promise.resolve(data)
+  }))
 }
 
-function _load(providers, chunks, loader, artifacts) {
-    // Figure out the chunks we need to look into
-    if (chunks.length === 0) {
-        chunks = fs.readdirSync(path.resolve(process.cwd(), "chunks")).filter(dir => (dir && dir !== 'index.js' && dir !== 'index.web.js' && dir !== '.DS_Store'))
-    }
-    return Promise.all(chunks.map(chunk => loader(providers, chunk, artifacts))).
+function _loadChunkFunctions (providers, chunk) {
+  const functions = _findChunkArtifacts(chunk, 'functions')
 
-    then(all => {
+    // Look up all valid transforms and load them up
+  return Promise.resolve(functions.map(f => {
+    const data = _loadChunkArtifactAsFilePath(chunk, 'functions', f, 'js')
+    return Object.assign({}, f, (data ? { data } : {}))
+  }))
+}
+
+function _load (providers, chunks, loader, artifacts) {
+    // Figure out the chunks we need to look into
+  if (chunks.length === 0) {
+    chunks = fs.readdirSync(path.resolve(process.cwd(), 'chunks')).filter(dir => (dir && dir !== 'index.js' && dir !== 'index.web.js' && dir !== 'index.desktop.js' && dir !== '.DS_Store'))
+  }
+  return Promise.all(chunks.map(chunk => loader(providers, chunk, artifacts)))
+
+    .then(all => {
       var merged = []
       all.map(a => { merged = merged.concat(a) })
       return merged.sort((a, b) => (Number.parseInt(a.options.priority) - Number.parseInt(b.options.priority)))
     })
 }
 
-function loadTransforms(providers, chunks, transforms) {
-    return _load(providers, chunks, _loadChunkTransforms, transforms)
+function loadTransforms (providers, chunks, transforms) {
+  return _load(providers, chunks, _loadChunkTransforms, transforms)
 }
 
-function loadReports(providers, chunks, reports) {
-    return _load(providers, chunks, _loadChunkReports, reports)
+function loadReports (providers, chunks, reports) {
+  return _load(providers, chunks, _loadChunkReports, reports)
 }
 
-function loadFunctions(providers, chunks) {
-    return _load(providers, chunks, _loadChunkFunctions)
+function loadFunctions (providers, chunks) {
+  return _load(providers, chunks, _loadChunkFunctions)
 }
 
-function _loadJsonFile(filepath) {
+function _loadJsonFile (filepath) {
     // The project directory
-    const dir = path.resolve(process.cwd())
+  const dir = path.resolve(process.cwd())
 
     // Look for the file
-    const file = path.resolve(dir, filepath)
+  const file = path.resolve(dir, filepath)
 
-    if (!fs.existsSync(file)) {
+  if (!fs.existsSync(file)) {
         // We can't continue without this file
-        throw new Error('The file is missing')
-    }
+    throw new Error('The file is missing')
+  }
 
     // Load the content
-    var config = fs.readFileSync(file, 'utf8')
+  var config = fs.readFileSync(file, 'utf8')
 
-    if (!config) {
-        throw new Error('The file is invalid')
-    }
+  if (!config) {
+    throw new Error('The file is invalid')
+  }
 
     // Parse the json content
-    config = JSON.parse(config)
+  config = JSON.parse(config)
 
-    if (!config) {
-      throw new Error('The file is invalid')
-    }
+  if (!config) {
+    throw new Error('The file is invalid')
+  }
 
-    return config
+  return config
 }
 
-function loadMainConfig() {
-  const main = _loadJsonFile("chunky.json")
-  const web = _loadJsonFile("web/index.json")
+function loadMainConfig () {
+  const main = _loadJsonFile('chunky.json')
+  const web = _loadJsonFile('web/index.json')
 
   return Object.assign({}, main, { web })
 }
 
-function loadChunkConfig(chunk) {
+function loadChunkConfig (chunk) {
   return _loadJsonFile(`chunks/${chunk}/chunk.json`)
 }
 
-function loadSecureConfig() {
-  return _loadJsonFile(".chunky.json")
+function loadSecureConfig () {
+  return _loadJsonFile('.chunky.json')
 }
 
-function loadChunkConfigs() {
-  const chunks = fs.readdirSync(path.resolve(process.cwd(), "chunks")).filter(dir => (dir && dir !== 'index.js' && dir !== 'index.web.js' && dir !== '.DS_Store'))
+function loadChunkConfigs () {
+  const chunks = fs.readdirSync(path.resolve(process.cwd(), 'chunks')).filter(dir => (dir && dir !== 'index.js' && dir !== 'index.desktop.js' && dir !== 'index.web.js' && dir !== '.DS_Store'))
 
   if (!chunks || chunks.length === 0) {
     return
@@ -273,11 +271,11 @@ function loadChunkConfigs() {
 }
 
 module.exports = {
-    loadSecureConfig,
-    loadMainConfig,
-    loadChunkConfig,
-    loadFunctions,
-    loadChunkConfigs,
-    loadTransforms,
-    loadReports
+  loadSecureConfig,
+  loadMainConfig,
+  loadChunkConfig,
+  loadFunctions,
+  loadChunkConfigs,
+  loadTransforms,
+  loadReports
 }

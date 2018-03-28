@@ -2,6 +2,7 @@ const chokidar = require('chokidar')
 const fs = require('fs-extra')
 const path = require('path')
 const babel = require('babel-core')
+require('babel-polyfill')
 
 const watcher = chokidar.watch('.', {
   ignored: /node_modules|coverage|cli|dev|.git|.DS_Store/,
@@ -43,7 +44,7 @@ function findTarget (src) {
 function transpile (src, target) {
   const code = babel.transformFileSync(path.resolve(src), {
     sourceRoot: path.join(process.cwd(), 'node_modules'),
-    plugins: ['styled-jsx/babel', 'transform-react-jsx', 'transform-es2015-destructuring', 'transform-object-rest-spread'],
+    plugins: ['styled-jsx/babel', 'babel-polyfill', 'transform-react-jsx', 'transform-es2015-destructuring', 'transform-object-rest-spread'],
     presets: ['react', 'env']
   }).code
 
