@@ -1,7 +1,7 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "The Chunky Desktop Framework",
   "main": "src/index.js",
   "scripts": {
@@ -58,9 +58,7 @@
     "electron-squirrel-startup": "^1.0.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-hot-loader": "^3.0.0-beta.6"
-  },
-  "devDependencies": {
+    "react-hot-loader": "^3.0.0-beta.6",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.6.1",
@@ -71,6 +69,10 @@
     "eslint-config-airbnb": "^15",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^5",
-    "eslint-plugin-react": "^7"
+    "eslint-plugin-react": "^7",
+    "react-dom-chunky": "0.9.x"
+  },
+  "devDependencies": {
+    "electron-prebuilt-compile": "1.8.4"
   }
 }
