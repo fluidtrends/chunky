@@ -26,30 +26,7 @@
   <script src="https://unpkg.com/react-progressive-image@0.1.0/umd/react-progressive-image.min.js"></script>
 
   <script type="text/jsx">
-
-    import React from 'react'
-    import ReactDOM from 'react-dom'
-    import { AppContainer } from 'react-hot-loader'
-    import { App } from 'react-dom-chunky'
-    import { Core } from 'react-chunky'
-    import './lib/core/global'
-
-    const render = () => {
-      ReactDOM.render(
-        <AppContainer>
-        <Core.AppContainer {...chunky.config}>
-          <App {...chunky.config}/>
-        </Core.AppContainer>
-       </AppContainer>,
-      document.getElementById('chunky'))
-    }
-
-    render()
-
-    if (module.hot) {
-      module.hot.accept(render)
-    }
-
+    require('../../lib/core')
   </script>
   </body>
 </html>
