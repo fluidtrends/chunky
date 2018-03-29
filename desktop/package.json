@@ -1,7 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "productName": "chunky",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "description": "The Chunky Desktop Framework",
   "main": "src/index.js",
   "scripts": {
@@ -22,38 +21,6 @@
     "url": "https://github.com/fluidtrends/chunky/issues"
   },
   "homepage": "https://github.com/fluidtrends/chunky",
-  "config": {
-    "forge": {
-      "make_targets": {
-        "win32": [
-          "squirrel"
-        ],
-        "darwin": [
-          "zip"
-        ],
-        "linux": [
-          "deb",
-          "rpm"
-        ]
-      },
-      "electronPackagerConfig": {
-        "packageManager": "yarn"
-      },
-      "electronWinstallerConfig": {
-        "name": "desktop"
-      },
-      "electronInstallerDebian": {},
-      "electronInstallerRedhat": {},
-      "github_repository": {
-        "owner": "",
-        "name": ""
-      },
-      "windowsStoreConfig": {
-        "packageName": "",
-        "name": "desktop"
-      }
-    }
-  },
   "dependencies": {
     "autoprefixer": "7.1.1",
     "babel-cli": "^6.26.0",
@@ -90,8 +57,5 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "recursive-copy": "^2.0.9",
     "require-context": "^1.1.0"
-  },
-  "devDependencies": {
-    "electron-prebuilt-compile": "1.8.4"
   }
 }

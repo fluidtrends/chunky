@@ -8,8 +8,8 @@ process.env.CPPFLAGS = '-I/usr/local/opt/openssl/include'
 process.env.LDFLAGS = '-L/usr/local/opt/openssl/lib'
 
 function start (options) {
-  const dir = path.resolve('node_modules', 'react-electron-chunky')
-  const appPath = path.join('lib')
+  const dir = path.resolve('.')
+  const appPath = path.join('node_modules', 'react-electron-chunky', 'lib')
 
   return forgeStart({
     dir,
