@@ -1,7 +1,7 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "0.9.8",
+  "version": "0.9.10",
   "description": "The Chunky Desktop Framework",
   "main": "src/index.js",
   "scripts": {
@@ -83,6 +83,7 @@
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^5",
     "eslint-plugin-react": "^7",
+    "fs-extra": "^5.0.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-dom-chunky": "0.9.x",
