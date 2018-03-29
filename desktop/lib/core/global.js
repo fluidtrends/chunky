@@ -20,6 +20,8 @@ var _electronMainFetch = require('electron-main-fetch');
 
 var _electronMainFetch2 = _interopRequireDefault(_electronMainFetch);
 
+require('require-context/register');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _config2.default.id = 'chunky';
