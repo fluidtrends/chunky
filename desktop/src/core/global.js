@@ -3,6 +3,7 @@ import config from './config'
 import firebase from 'firebase'
 import firebaseConfig from '../../../../desktop/firebase-config.json'
 import fetch from 'electron-main-fetch'
+import 'require-context/register'
 
 config.id = 'chunky'
 config.firebase = firebaseConfig

@@ -1,7 +1,7 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "description": "The Chunky Desktop Framework",
   "main": "src/index.js",
   "scripts": {
@@ -87,7 +87,8 @@
     "react-dom": "^15.4.1",
     "react-dom-chunky": "0.9.x",
     "react-hot-loader": "^3.0.0-beta.6",
-    "recursive-copy": "^2.0.9"
+    "recursive-copy": "^2.0.9",
+    "require-context": "^1.1.0"
   },
   "devDependencies": {
     "electron-prebuilt-compile": "1.8.4"
