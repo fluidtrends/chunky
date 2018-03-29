@@ -1,6 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "version": "0.9.11",
+  "version": "0.9.12",
   "description": "The Chunky Desktop Framework",
   "main": "src/index.js",
   "scripts": {
@@ -8,8 +8,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "lint": "eslint --cache --color --ext .jsx,.js src",
-    "postinstall": "node bin/install.js"
+    "lint": "eslint --cache --color --ext .jsx,.js src"
   },
   "repository": {
     "type": "git",
