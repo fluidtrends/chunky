@@ -13,7 +13,7 @@ function start (options) {
 
   return forgeStart({
     dir,
-    interactive: false,
+    interactive: true,
     enableLogging: true,
     appPath
   })

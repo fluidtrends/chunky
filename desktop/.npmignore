@@ -3,3 +3,4 @@ node_modules
 coverage
 .circleci
 .DS_Store
+src
