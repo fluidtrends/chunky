@@ -42,21 +42,29 @@ export default class Timer extends Component {
 
   refreshPeriods () {
     let period
-    this.props.periods.forEach(p => {
-      if (period || !p.until || !p.text || moment().isAfter(p.until)) {
-        return
+
+    const { periods } = this.props
+
+    for(let i = 0; i < periods.length; i++) {
+      if (!periods[i].until || !periods[i].text) {
+        break
+      }
+      if ( i + 1 === periods.length ) {
+        period = periods[ i ]
+        break
       }
 
-      if (moment().isBefore(p.until)) {
-        period = p
+      if (moment().isBefore(periods[ i ].until)) {
+        period = periods[i]
+        break
       }
-    })
+    }
 
     if (!period) {
       this.setState({ loading: false })
       return
     }
-
+    
     this.setState({ period, loading: false })
   }
 
@@ -90,9 +98,6 @@ export default class Timer extends Component {
   }
 
   clockRenderer ({ days, hours, minutes, seconds, completed }) {
-    if (completed) {
-      return <div />
-    }
 
     const size = this.props.isSmallScreen ? 'title' : 'display1'
     const margin = this.props.isSmallScreen ? '5' : '20'
