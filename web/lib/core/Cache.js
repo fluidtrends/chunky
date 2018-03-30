@@ -44,7 +44,7 @@ var Cache = function () {
     value: function cacheImage(id) {
       var name = './' + id;
       var timestamp = Date.now();
-      var data = this._imagesContext(name, true);
+      var data = this.context(name, true);
       var placeholder = data.placeholder;
       var small = data.images[0].path;
       var large = data.images[1].path;
