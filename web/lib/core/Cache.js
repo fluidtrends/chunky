@@ -22,7 +22,7 @@ var Cache = function () {
     key: 'loadDesktopContext',
     value: function loadDesktopContext() {
       this._context = function (name) {
-        return { placeholder: '../../assets/' + name, images: [{ path: '../../assets/' + name }, { path: '../../assets/' + name }] };
+        return { placeholder: '../../../../assets/' + name, images: [{ path: '../../../../assets/' + name }, { path: '../../../../assets/' + name }] };
       };
     }
   }, {

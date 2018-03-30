@@ -56,7 +56,7 @@ export default class Navigation extends PureComponent {
 
     return renderResponsive('logo',
       <ToolbarMenuIcon use='menu' style={{color: this.props.theme.navigationTintColor}} onClick={this._onMenuOpen} />,
-      <img src={`${this.props.layout.root || '/'}assets/${image}`} style={{height: `${height}px`, marginLeft: '20px'}} />
+      <img src={`${this.props.desktop ? '../../../../' : '/'}assets/${image}`} style={{height: `${height}px`, marginLeft: '20px'}} />
       )
   }
 

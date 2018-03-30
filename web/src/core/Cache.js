@@ -24,7 +24,7 @@ export default class Cache {
   }
 
   loadDesktopContext () {
-    this._context = (name) => ({ placeholder: `../../assets/${name}`, images: [{ path: `../../assets/${name}` }, { path: `../../assets/${name}` }] })
+    this._context = (name) => ({ placeholder: `../../../../assets/${name}`, images: [{ path: `../../../../assets/${name}` }, { path: `../../../../assets/${name}` }] })
   }
 
   loadContext () {

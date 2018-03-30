@@ -92,7 +92,7 @@ var Navigation = function (_PureComponent) {
       var image = this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage;
       var height = this.props.navigationUncover ? 64 : 64;
 
-      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_Toolbar.ToolbarMenuIcon, { use: 'menu', style: { color: this.props.theme.navigationTintColor }, onClick: this._onMenuOpen }), _react2.default.createElement('img', { src: (this.props.layout.root || '/') + 'assets/' + image, style: { height: height + 'px', marginLeft: '20px' } }));
+      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_Toolbar.ToolbarMenuIcon, { use: 'menu', style: { color: this.props.theme.navigationTintColor }, onClick: this._onMenuOpen }), _react2.default.createElement('img', { src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image, style: { height: height + 'px', marginLeft: '20px' } }));
     }
   }, {
     key: 'renderDefault',
