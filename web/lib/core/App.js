@@ -335,7 +335,7 @@ var App = function (_PureComponent) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(
-          _reactRouter.Switch,
+          'div',
           null,
           this.renderRoutes()
         )

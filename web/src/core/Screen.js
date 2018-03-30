@@ -78,7 +78,6 @@ export default class Screen extends Core.Screen {
   }
 
   onMenuItem (item) {
-    console.log(item)
     if (item.action && this[item.action]) {
       this[item.action](item)
       return

@@ -136,7 +136,6 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'onMenuItem',
     value: function onMenuItem(item) {
-      console.log(item);
       if (item.action && this[item.action]) {
         this[item.action](item);
         return;

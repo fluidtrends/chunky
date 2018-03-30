@@ -280,9 +280,9 @@ export default class App extends PureComponent {
     }
 
     return (<BrowserRouter>
-      <Switch>
+      <div>
         { this.renderRoutes() }
-      </Switch>
+      </div>
     </BrowserRouter>)
   }
 }
