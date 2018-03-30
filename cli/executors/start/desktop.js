@@ -3,9 +3,7 @@ const path = require('path')
 const loaders = require('../../src/loaders')
 
 module.exports = function (port) {
-  // const file = path.resolve(process.cwd(), 'node_modules', 'react-electron-chunky', 'bin', 'start.js')
-  // const file = path.resolve(path.dirname(process.cwd()), 'chunky', 'desktop', 'bin', 'start.js')
-  const file = path.resolve(process.cwd(), 'desktop', 'bin', 'start.js')
+  const file = path.resolve(process.cwd(), 'node_modules', 'react-electron-chunky', 'bin', 'start.js')
   const start = require(file)
 
   coreutils.logger.info(`Starting the desktop packager ...`)

@@ -24,12 +24,6 @@ var Cache = function () {
         return;
       }
 
-      // TODO: fix this for the desktop
-      // if (!require.context) {
-      //   this._imagesContext = (name) => ({ placeholder: `../../assets/${name}`, images: [{ path: `../../assets/${name}` }, { path: `../../assets/${name}` }] })
-      //   return
-      // }
-
       this._imagesContext = require.context('assets', false, /\.(png|jpe?g|svg)$/);
     }
   }, {

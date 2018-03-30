@@ -77,15 +77,24 @@ var Timer = function (_Component) {
     key: 'refreshPeriods',
     value: function refreshPeriods() {
       var period = void 0;
-      this.props.periods.forEach(function (p) {
-        if (period || !p.until || !p.text || (0, _moment2.default)().isAfter(p.until)) {
-          return;
+
+      var periods = this.props.periods;
+
+
+      for (var i = 0; i < periods.length; i++) {
+        if (!periods[i].until || !periods[i].text) {
+          break;
+        }
+        if (i + 1 === periods.length) {
+          period = periods[i];
+          break;
         }
 
-        if ((0, _moment2.default)().isBefore(p.until)) {
-          period = p;
+        if ((0, _moment2.default)().isBefore(periods[i].until)) {
+          period = periods[i];
+          break;
         }
-      });
+      }
 
       if (!period) {
         this.setState({ loading: false });
@@ -138,9 +147,6 @@ var Timer = function (_Component) {
           seconds = _ref.seconds,
           completed = _ref.completed;
 
-      if (completed) {
-        return _react2.default.createElement('div', null);
-      }
 
       var size = this.props.isSmallScreen ? 'title' : 'display1';
       var margin = this.props.isSmallScreen ? '5' : '20';

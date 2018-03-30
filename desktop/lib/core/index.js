@@ -8,6 +8,8 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+require('require-context/register');
+
 var _reactHotLoader = require('react-hot-loader');
 
 var _reactDomChunky = require('react-dom-chunky');

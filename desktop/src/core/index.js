@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import 'require-context/register'
 import { AppContainer } from 'react-hot-loader'
 import { App } from 'react-dom-chunky'
 import { Core } from 'react-chunky'
