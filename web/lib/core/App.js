@@ -14,6 +14,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
 var _reactRouterDom = require('react-router-dom');
 
 var _urlParse = require('url-parse');
@@ -23,8 +25,6 @@ var _urlParse2 = _interopRequireDefault(_urlParse);
 var _reactChunky = require('react-chunky');
 
 var _Router = require('./Router');
-
-var _reactRouter = require('react-router');
 
 var _uuid = require('uuid');
 
@@ -170,7 +170,7 @@ var App = function (_PureComponent) {
               action: route.action,
               path: link
             });
-            if (route.extendedMenu) {
+            if (route.extendedMenu && !(route.skipExtendedMenuOnDesktop && this.props.desktop)) {
               this._menu = this._menu.concat(route.extendedMenu);
             }
           }
@@ -210,6 +210,7 @@ var App = function (_PureComponent) {
           // Defaults
           cache: this.cache,
           strings: {},
+          desktop: this.props.desktop,
           account: section.account,
           analytics: this.props.analytics,
           onUserLogout: this._userLogout,
@@ -253,6 +254,7 @@ var App = function (_PureComponent) {
             }
           });
         }
+
         return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, _extends({}, props, screenProps));
       };
 
@@ -322,7 +324,7 @@ var App = function (_PureComponent) {
           _reactRouterDom.HashRouter,
           null,
           _react2.default.createElement(
-            'div',
+            _reactRouter.Switch,
             null,
             this.renderRoutes()
           )
@@ -333,7 +335,7 @@ var App = function (_PureComponent) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(
-          'div',
+          _reactRouter.Switch,
           null,
           this.renderRoutes()
         )

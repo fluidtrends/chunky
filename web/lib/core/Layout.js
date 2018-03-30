@@ -106,6 +106,7 @@ var Layout = function (_PureComponent) {
         navigationUncover: this.navigationUncover,
         onEvent: this._onEvent,
         theme: this.theme,
+        desktop: this.props.desktop,
         menu: this.props.menu
       });
     }
