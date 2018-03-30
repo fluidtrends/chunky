@@ -52,7 +52,7 @@ var App = function (_PureComponent) {
 
     _this.state = { loading: true };
     _this._menu = [];
-    _this._cache = new _Cache2.default();
+    _this._cache = new _Cache2.default(props);
     _this._userLogout = _this.userLogout.bind(_this);
     _this._userLoggedIn = _this.userLoggedIn.bind(_this);
     return _this;

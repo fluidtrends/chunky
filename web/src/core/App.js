@@ -13,7 +13,7 @@ export default class App extends PureComponent {
     super(props)
     this.state = { loading: true }
     this._menu = []
-    this._cache = new Cache()
+    this._cache = new Cache(props)
     this._userLogout = this.userLogout.bind(this)
     this._userLoggedIn = this.userLoggedIn.bind(this)
   }

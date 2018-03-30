@@ -3,15 +3,36 @@ export default class Cache {
   constructor (props) {
     this._images = {}
     this._timestamp = Date.now()
-    this._loadContext()
+    this._props = Object.assign({}, props)
+    this.loadContext()
   }
 
-  _loadContext () {
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      return
+  get props () {
+    return this._props
+  }
+
+  get isDesktop () {
+    return this.props.desktop
+  }
+
+  get isRuntime () {
+    return (typeof window !== 'undefined' && typeof document !== 'undefined')
+  }
+
+  get context () {
+    return this._context
+  }
+
+  loadDesktopContext () {
+    this._context = (name) => ({ placeholder: `../../assets/${name}`, images: [{ path: `../../assets/${name}` }, { path: `../../assets/${name}` }] })
+  }
+
+  loadContext () {
+    if (this.isDesktop) {
+      return this.loadDesktopContext()
     }
 
-    this._imagesContext = require.context('assets', false, /\.(png|jpe?g|svg)$/)
+    this._context = require.context('assets', false, /\.(png|jpe?g|svg)$/)
   }
 
   get images () {

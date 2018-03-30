@@ -14,17 +14,25 @@ var Cache = function () {
 
     this._images = {};
     this._timestamp = Date.now();
-    this._loadContext();
+    this._props = Object.assign({}, props);
+    this.loadContext();
   }
 
   _createClass(Cache, [{
-    key: '_loadContext',
-    value: function _loadContext() {
-      if (typeof window === 'undefined' || typeof document === 'undefined') {
-        return;
+    key: 'loadDesktopContext',
+    value: function loadDesktopContext() {
+      this._context = function (name) {
+        return { placeholder: '../../assets/' + name, images: [{ path: '../../assets/' + name }, { path: '../../assets/' + name }] };
+      };
+    }
+  }, {
+    key: 'loadContext',
+    value: function loadContext() {
+      if (this.isDesktop) {
+        return this.loadDesktopContext();
       }
 
-      this._imagesContext = require.context('assets', false, /\.(png|jpe?g|svg)$/);
+      this._context = require.context('assets', false, /\.(png|jpe?g|svg)$/);
     }
   }, {
     key: 'hasImage',
@@ -50,6 +58,26 @@ var Cache = function () {
       }
 
       return this.images[name];
+    }
+  }, {
+    key: 'props',
+    get: function get() {
+      return this._props;
+    }
+  }, {
+    key: 'isDesktop',
+    get: function get() {
+      return this.props.desktop;
+    }
+  }, {
+    key: 'isRuntime',
+    get: function get() {
+      return typeof window !== 'undefined' && typeof document !== 'undefined';
+    }
+  }, {
+    key: 'context',
+    get: function get() {
+      return this._context;
     }
   }, {
     key: 'images',
