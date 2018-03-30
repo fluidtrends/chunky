@@ -46,7 +46,7 @@ export default class Cache {
   cacheImage (id) {
     const name = `./${id}`
     const timestamp = Date.now()
-    const data = this._imagesContext(name, true)
+    const data = this.context(name, true)
     const placeholder = data.placeholder
     const small = data.images[0].path
     const large = data.images[1].path
