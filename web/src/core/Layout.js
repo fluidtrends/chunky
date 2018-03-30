@@ -100,6 +100,7 @@ export default class Layout extends PureComponent {
       navigationUncover={this.navigationUncover}
       onEvent={this._onEvent}
       theme={this.theme}
+      desktop={this.props.desktop}
       menu={this.props.menu}
       />)
   }

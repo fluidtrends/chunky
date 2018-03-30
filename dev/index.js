@@ -44,7 +44,7 @@ function findTarget (src) {
 function transpile (src, target) {
   const code = babel.transformFileSync(path.resolve(src), {
     sourceRoot: path.join(process.cwd(), 'node_modules'),
-    plugins: ['styled-jsx/babel', 'babel-polyfill', 'transform-react-jsx', 'transform-es2015-destructuring', 'transform-object-rest-spread'],
+    plugins: ['styled-jsx/babel', 'transform-react-jsx', 'transform-es2015-destructuring', 'transform-object-rest-spread'],
     presets: ['react', 'env']
   }).code
 
@@ -75,7 +75,7 @@ function add (src) {
 
 function update (src, remove) {
   const { target, compile } = findTarget(src)
-
+  console.log(src, remove)
   if (!target) {
     return
   }

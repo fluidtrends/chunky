@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { StaticRouter, BrowserRouter, HashRouter, Route } from 'react-router-dom'
+import { Switch } from 'react-router'
+import { StaticRouter, HashRouter, BrowserRouter, Route } from 'react-router-dom'
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
 import { createSectionRoutes } from './Router'
@@ -118,7 +119,7 @@ export default class App extends PureComponent {
             action: route.action,
             path: link
           })
-          if (route.extendedMenu) {
+          if (route.extendedMenu && !(route.skipExtendedMenuOnDesktop && this.props.desktop)) {
             this._menu = this._menu.concat(route.extendedMenu)
           }
         }
@@ -158,6 +159,7 @@ export default class App extends PureComponent {
         // Defaults
         cache: this.cache,
         strings: {},
+        desktop: this.props.desktop,
         account: section.account,
         analytics: this.props.analytics,
         onUserLogout: this._userLogout,
@@ -200,6 +202,7 @@ export default class App extends PureComponent {
           }
         })
       }
+
       return (skip ? <div /> : <RouteScreen {...props} {...screenProps} />)
     }
 
@@ -270,16 +273,16 @@ export default class App extends PureComponent {
 
     if (this.props.desktop) {
       return (<HashRouter>
-        <div>
+        <Switch>
           { this.renderRoutes() }
-        </div>
+        </Switch>
       </HashRouter>)
     }
 
     return (<BrowserRouter>
-      <div>
+      <Switch>
         { this.renderRoutes() }
-      </div>
+      </Switch>
     </BrowserRouter>)
   }
 }

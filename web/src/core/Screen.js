@@ -1,18 +1,18 @@
-import React from "react";
-import TransitionGroup from "react-addons-transition-group";
-import { Core, Data } from "react-chunky";
-import { Redirect } from "react-router";
-import { default as Component } from "./Component";
-import * as DefaultComponents from "../components";
-import merge from "deepmerge";
-import { breakpoints } from "../utils/responsive";
-import { default as Layout } from "./Layout";
-import URL from "url-parse";
-import { detect } from "detect-browser";
+import React from 'react'
+import TransitionGroup from 'react-addons-transition-group'
+import { Core, Data } from 'react-chunky'
+import { Redirect } from 'react-router'
+import { default as Component } from './Component'
+import * as DefaultComponents from '../components'
+import merge from 'deepmerge'
+import { breakpoints } from '../utils/responsive'
+import { default as Layout } from './Layout'
+import URL from 'url-parse'
+import { detect } from 'detect-browser'
 
 export default class Screen extends Core.Screen {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     this.state = {
       ...this.state,
       progress: true,
@@ -20,333 +20,335 @@ export default class Screen extends Core.Screen {
       height: 0,
       width: 0,
       scroll: 0
-    };
-    this._updateScroll = this.updateScroll.bind(this);
-    this._updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this._onMenuItem = this.onMenuItem.bind(this);
+    }
+
+    this._updateScroll = this.updateScroll.bind(this)
+    this._updateWindowDimensions = this.updateWindowDimensions.bind(this)
+    this._onMenuItem = this.onMenuItem.bind(this)
   }
 
-  componentDidMount() {
-    super.componentDidMount();
-    this._updateWindowDimensions();
-    window.addEventListener("resize", this._updateWindowDimensions);
-    window.addEventListener("scroll", this._updateScroll);
+  componentDidMount () {
+    super.componentDidMount()
+    this._updateWindowDimensions()
+    window.addEventListener('resize', this._updateWindowDimensions)
+    window.addEventListener('scroll', this._updateScroll)
     this.unsubscribeFromHistory = this.props.history.listen(
       this.handleLocationChange.bind(this)
-    );
-    this._onEvent = this.onEvent.bind(this);
-    this._browser = detect();
-    this._load(this.props);
+    )
+    this._onEvent = this.onEvent.bind(this)
+    this._browser = detect()
+    this._load(this.props)
 
-    this.triggerAnalyticsView(this.props.location.pathname);
-    const account = this.isLoggedIn ? this.account.email : "guest";
+    this.triggerAnalyticsView(this.props.location.pathname)
+    const account = this.isLoggedIn ? this.account.email : 'guest'
 
     this.triggerAnalyticsEvent({
       category: `${this.constructor.name}`,
       action: `${this.props.location.pathname}`,
       label: account
-    });
+    })
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (this.props.match.url !== nextProps.match.url) {
       // this.setState({ progress: true })
-      this._load(nextProps);
-      return;
+      this._load(nextProps)
+      return
     }
-    super.componentWillReceiveProps(nextProps);
+    super.componentWillReceiveProps(nextProps)
   }
 
-  handleLocationChange(location) {
+  handleLocationChange (location) {
     // this.setState({ progress: true })
     // this._load()
   }
 
-  get browser() {
-    return this._browser;
+  get browser () {
+    return this._browser
   }
 
-  scrollToTop() {
-    window.scrollTo(0, 0);
+  scrollToTop () {
+    window.scrollTo(0, 0)
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("resize", this._updateWindowDimensions);
-    window.removeEventListener("scroll", this._updateScroll);
-    this.unsubscribeFromHistory();
+  componentWillUnmount () {
+    window.removeEventListener('resize', this._updateWindowDimensions)
+    window.removeEventListener('scroll', this._updateScroll)
+    this.unsubscribeFromHistory()
   }
 
-  onMenuItem(item) {
+  onMenuItem (item) {
+    console.log(item)
     if (item.action && this[item.action]) {
-      this[item.action](item);
-      return;
+      this[item.action](item)
+      return
     }
 
     if (item.link) {
-      this.triggerRawRedirect(item.link);
-      return;
+      this.triggerRawRedirect(item.link)
+      return
     }
 
     if (item.path) {
-      this.triggerRedirect(item.path);
+      this.triggerRedirect(item.path)
     }
   }
 
-  get menu() {
-    return (this.props.menu || []).concat([]);
+  get menu () {
+    return (this.props.menu || []).concat([])
   }
 
-  get sideMenu() {
-    return this.menu;
+  get sideMenu () {
+    return this.menu
   }
 
-  get isSmallScreen() {
-    return this.width < breakpoints.main;
+  get isSmallScreen () {
+    return this.width < breakpoints.main
   }
 
-  get layout() {
-    return Layout;
+  get layout () {
+    return Layout
   }
 
-  get expectsVariants() {
-    return this.props.variants !== undefined;
+  get expectsVariants () {
+    return this.props.variants !== undefined
   }
 
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  updateWindowDimensions () {
+    this.setState({ width: window.innerWidth, height: window.innerHeight })
   }
 
-  updateScroll() {
-    const scroll = window.scrollY;
-    this.setState({ scroll });
+  updateScroll () {
+    const scroll = window.scrollY
+    this.setState({ scroll })
   }
 
-  handleLocalEvent(fullPath) {
-    this.triggerRedirect(fullPath);
+  handleLocalEvent (fullPath) {
+    this.triggerRedirect(fullPath)
   }
 
-  handleExternalEvent(fullPath) {
-    this.triggerRawRedirect(fullPath);
+  handleExternalEvent (fullPath) {
+    this.triggerRawRedirect(fullPath)
   }
 
-  importData(name) {
+  importData (name) {
     try {
-      return require(`chunks/${this.props.chunkName}/data/${name}.json`);
+      return require(`chunks/${this.props.chunkName}/data/${name}.json`)
     } catch (e) {}
   }
 
-  importRemoteData(url) {
-    return fetch(url).then(response => response.json());
+  importRemoteData (url) {
+    return fetch(url).then(response => response.json())
   }
 
-  _loadVariants() {
+  _loadVariants () {
     return new Promise((resolve, reject) => {
       if (
-        this.props.variants.split("http://").length > 1 ||
-        this.props.variants.split("https://").length > 1
+        this.props.variants.split('http://').length > 1 ||
+        this.props.variants.split('https://').length > 1
       ) {
-        fetch(this.props.variants).then(response => resolve(response.json()));
-        return;
+        fetch(this.props.variants).then(response => resolve(response.json()))
+        return
       }
 
-      const data = this.importData(this.props.variants);
+      const data = this.importData(this.props.variants)
 
       if (!data || !Array.isArray(data) || data.length === 0) {
-        resolve([]);
-        return;
+        resolve([])
+        return
       }
 
-      resolve(data);
+      resolve(data)
     }).then(data => {
-      this._variants = [].concat(data);
-      return this.variants;
-    });
+      this._variants = [].concat(data)
+      return this.variants
+    })
   }
 
-  get variants() {
-    return this._variants;
+  get variants () {
+    return this._variants
   }
 
-  get hasVariants() {
-    return this._variants !== undefined;
+  get hasVariants () {
+    return this._variants !== undefined
   }
 
-  get isRootPath() {
-    return this.isSamePath(this.path, this.props.path);
+  get isRootPath () {
+    return this.isSamePath(this.path, this.props.path)
   }
 
-  isSamePath(first, second) {
+  isSamePath (first, second) {
     return (
       first === second ||
       second === `/${first}` ||
       second === `/${first}/` ||
       second === `${first}/`
-    );
+    )
   }
 
-  _updateVariants() {
+  _updateVariants () {
     if (!this.hasVariants) {
-      throw new Error("Missing expected variant");
+      throw new Error('Missing expected variant')
     }
 
-    const variantPath = this.path.substring(this.props.path.length + 1);
+    const variantPath = this.path.substring(this.props.path.length + 1)
 
     this.variants.forEach(variant => {
       if (!this.isSamePath(variant.path, variantPath)) {
-        return;
+        return
       }
-      this._variant = Object.assign({}, variant);
-    });
+      this._variant = Object.assign({}, variant)
+    })
 
     if (!this.isVariantValid) {
-      throw new Error("Invalid variant");
+      throw new Error('Invalid variant')
     }
 
     // We've got a valid variant now
-    this.setState({ progress: false });
+    this.setState({ progress: false })
   }
 
-  _load(props) {
-    this.scrollToTop();
-    this._path = props.location.pathname;
+  _load (props) {
+    this.scrollToTop()
+    this._path = props.location.pathname
 
     if (this.props.skipRootVariant && this.expectsVariants && this.isRootPath) {
-      this.setState({ progress: false, skip: true });
-      return;
+      this.setState({ progress: false, skip: true })
+      return
     }
 
     if (!this.expectsVariants || this.isRootPath) {
-      this.setState({ progress: false });
-      return;
+      this.setState({ progress: false })
+      return
     }
 
     try {
       if (!this.hasVariants) {
         this._loadVariants().then(() => {
-          this._updateVariants();
-        });
-        return;
+          this._updateVariants()
+        })
+        return
       }
 
-      this._updateVariants();
+      this._updateVariants()
     } catch (e) {
       // Could not load variant path data
-      this.stopWithError(e);
+      this.stopWithError(e)
     }
   }
 
-  stopWithError(e) {
-    this.setState({ stopError: e, progress: false });
+  stopWithError (e) {
+    this.setState({ stopError: e, progress: false })
   }
 
-  get isVariantValid() {
-    return this.expectsVariants && this.variant;
+  get isVariantValid () {
+    return this.expectsVariants && this.variant
   }
 
-  get _props() {
+  get _props () {
     return Object.assign(
       {},
       this.variant ? merge.all([this.props, this.variant]) : this.props,
       { menu: this.menu, sideMenu: this.sideMenu }
-    );
+    )
   }
 
-  get variant() {
-    return this._variant;
+  get variant () {
+    return this._variant
   }
 
-  pushTransition(transition, data) {
+  pushTransition (transition, data) {
     var pathname =
-      transition.data.path.charAt(0) === ":"
+      transition.data.path.charAt(0) === ':'
         ? data[transition.data.path.substring(1)] || transition.data.path
-        : transition.data.path;
+        : transition.data.path
 
-    this.setState({ redirect: { transition, data, push: true, pathname } });
+    this.setState({ redirect: { transition, data, push: true, pathname } })
   }
 
-  replaceTransition(transition, data) {
+  replaceTransition (transition, data) {
     var pathname =
-      transition.data.path.charAt(0) === ":"
+      transition.data.path.charAt(0) === ':'
         ? data[transition.data.path.substring(1)] || transition.data.path
-        : transition.data.path;
+        : transition.data.path
 
-    this.setState({ redirect: { transition, data, push: false, pathname } });
+    this.setState({ redirect: { transition, data, push: false, pathname } })
   }
 
-  get account() {
-    return this.props.account;
+  get account () {
+    return this.props.account
   }
 
-  get isLoggedIn() {
-    return this.account;
+  get isLoggedIn () {
+    return this.account
   }
 
-  get width() {
-    return this.state.width;
+  get width () {
+    return this.state.width
   }
 
-  get height() {
-    return this.state.height;
+  get height () {
+    return this.state.height
   }
 
-  get scroll() {
-    return this.state.scroll;
+  get scroll () {
+    return this.state.scroll
   }
 
-  get path() {
-    return this._path;
+  get path () {
+    return this._path
   }
 
-  components() {
+  components () {
     if (this.props.components) {
-      return Object.keys(this.props.components);
+      return Object.keys(this.props.components)
     }
-    return [];
+    return []
   }
 
-  logout() {
-    this.props.onUserLogout && this.props.onUserLogout();
+  logout () {
+    this.props.onUserLogout && this.props.onUserLogout()
   }
 
-  loggedIn(account) {
-    this.props.onUserLoggedIn && this.props.onUserLoggedIn(account);
+  loggedIn (account) {
+    this.props.onUserLoggedIn && this.props.onUserLoggedIn(account)
   }
 
-  loadCustomComponent() {}
+  loadCustomComponent () {}
 
-  loadSingleComponent(props) {
+  loadSingleComponent (props) {
     const source = `${props.source
       .charAt(0)
-      .toUpperCase()}${props.source.toLowerCase().slice(1)}`;
-    var Component = DefaultComponents[source];
+      .toUpperCase()}${props.source.toLowerCase().slice(1)}`
+    var Component = DefaultComponents[source]
 
     if (!Component) {
-      Component = this.loadCustomComponent();
+      Component = this.loadCustomComponent()
     }
 
     if (!Component) {
-      return <div />;
+      return <div />
     }
 
-    return <Component {...this.defaultComponentProps} {...props} />;
+    return <Component {...this.defaultComponentProps} {...props} />
   }
 
-  loadComponent(name, index) {
+  loadComponent (name, index) {
     if (
       !this.props.components ||
       !this.props.components[name] ||
-      !(typeof this.props.components[name] === "object")
+      !(typeof this.props.components[name] === 'object')
     ) {
-      return <div />;
+      return <div />
     }
 
     if (!Array.isArray(this.props.components[name])) {
       return this.loadSingleComponent(
         Object.assign({}, this.props.components[name], { index })
-      );
+      )
     }
 
-    var subIndex = 0;
+    var subIndex = 0
     return (
       <div>
         {this.props.components[name].map(props => {
@@ -355,13 +357,13 @@ export default class Screen extends Core.Screen {
               key: `component.${subIndex++}`,
               index: `${index}.${subIndex}`
             })
-          );
+          )
         })}
       </div>
-    );
+    )
   }
 
-  get defaultComponentProps() {
+  get defaultComponentProps () {
     return Object.assign(
       {},
       {
@@ -373,48 +375,48 @@ export default class Screen extends Core.Screen {
         smallScreenBreakPoint: this.smallScreenBreakPoint
       },
       this.props
-    );
+    )
   }
 
-  renderComponent(OriginalComponent, index) {
-    const props = Object.assign({}, this.defaultComponentProps, { index });
+  renderComponent (OriginalComponent, index) {
+    const props = Object.assign({}, this.defaultComponentProps, { index })
     var ComponentContainer = React.cloneElement(
       OriginalComponent,
       Object.assign({}, this.defaultComponentProps, { index })
-    );
+    )
 
-    if (typeof OriginalComponent.type === "string") {
+    if (typeof OriginalComponent.type === 'string') {
       return (
-        <Component {...props} key={`${index}`} style={{ alignSelf: "stretch" }}>
+        <Component {...props} key={`${index}`} style={{ alignSelf: 'stretch' }}>
           {OriginalComponent}
         </Component>
-      );
+      )
     }
 
-    if (typeof OriginalComponent === "string") {
-      ComponentContainer = this.loadComponent(OriginalComponent, index);
+    if (typeof OriginalComponent === 'string') {
+      ComponentContainer = this.loadComponent(OriginalComponent, index)
     }
 
     return (
-      <TransitionGroup key={`${index}`} style={{ alignSelf: "stretch" }}>
+      <TransitionGroup key={`${index}`} style={{ alignSelf: 'stretch' }}>
         {ComponentContainer}
       </TransitionGroup>
-    );
+    )
   }
 
-  renderComponents() {
+  renderComponents () {
     if (!this.components() || this.components().length === 0) {
-      return;
+      return
     }
 
-    var index = 1;
+    var index = 1
     return this.components().map(component => {
-      index = index + 1;
-      return this.renderComponent(component, index);
-    });
+      index = index + 1
+      return this.renderComponent(component, index)
+    })
   }
 
-  redirect(pathname) {
+  redirect (pathname) {
     return (
       <Redirect
         exact
@@ -423,27 +425,27 @@ export default class Screen extends Core.Screen {
           pathname
         }}
       />
-    );
+    )
   }
 
-  triggerRedirect(link) {
+  triggerRedirect (link) {
     if (this.isSamePath(this.path, link)) {
-      return;
+      return
     }
 
-    this.setState({ redirect: { push: true, pathname: link } });
+    this.setState({ redirect: { push: true, pathname: link } })
   }
 
-  triggerRawRedirect(link) {
-    window.open(link, "_blank");
+  triggerRawRedirect (link) {
+    window.open(link, '_blank')
   }
 
-  get cover() {
-    return this._props.cover;
+  get cover () {
+    return this._props.cover
   }
 
-  renderScreenLayout() {
-    const ScreenLayout = this.layout;
+  renderScreenLayout () {
+    const ScreenLayout = this.layout
     return (
       <ScreenLayout
         onMenuItem={this._onMenuItem}
@@ -457,51 +459,51 @@ export default class Screen extends Core.Screen {
       >
         {this.renderComponents()}
       </ScreenLayout>
-    );
+    )
   }
 
-  saveAuth(account) {
+  saveAuth (account) {
     return Data.Cache.cacheAuth(account).then(() => {
-      this.loggedIn(account);
-    });
+      this.loggedIn(account)
+    })
   }
 
-  renderStopError(e) {
-    return <div />;
+  renderStopError (e) {
+    return <div />
   }
 
-  renderProgress() {
-    return <div />;
+  renderProgress () {
+    return <div />
   }
 
-  render() {
+  render () {
     if (this.state.skip) {
-      return <div />;
+      return <div />
     }
 
     if (this.state.progress) {
-      return this.renderProgress();
+      return this.renderProgress()
     }
 
     if (this.state.stopError) {
-      return this.renderStopError(this.state.stopError);
+      return this.renderStopError(this.state.stopError)
     }
 
     if (this.state.height === 0) {
-      return <div />;
+      return <div />
     }
 
     if (this.state.redirect) {
-      const { pathname, push } = this.state.redirect;
+      const { pathname, push } = this.state.redirect
       if (!this.isSamePath(this.path, pathname)) {
-        return this.redirect(pathname, push);
+        return this.redirect(pathname, push)
       }
     }
 
-    var height = `${this.height}px`;
+    var height = `${this.height}px`
 
     return (
-      <div style={{ height, width: "100vw", position: "relative" }}>
+      <div style={{ height, width: '100vw', position: 'relative' }}>
         {this.renderScreenLayout()}
         <style jsx>
           {`{
@@ -512,6 +514,6 @@ export default class Screen extends Core.Screen {
         }`}
         </style>
       </div>
-    );
+    )
   }
 }
