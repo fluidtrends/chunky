@@ -8,7 +8,7 @@ process.env.CPPFLAGS = '-I/usr/local/opt/openssl/include'
 process.env.LDFLAGS = '-L/usr/local/opt/openssl/lib'
 
 function build (options) {
-  const dir = path.resolve('.')
+  const dir = path.resolve(options.dir)
   const platform = process.platform
   const arch = process.arch
   const outDir = path.resolve(options.dir, 'desktop', 'build')
@@ -17,6 +17,7 @@ function build (options) {
 
   return forgePackage({
     dir,
+    interactive: true,
     platform,
     arch,
     outDir
