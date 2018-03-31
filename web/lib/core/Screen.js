@@ -109,7 +109,6 @@ var Screen = function (_Core$Screen) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.match.url !== nextProps.match.url) {
-        // this.setState({ progress: true })
         this._load(nextProps);
         return;
       }
@@ -117,10 +116,7 @@ var Screen = function (_Core$Screen) {
     }
   }, {
     key: 'handleLocationChange',
-    value: function handleLocationChange(location) {
-      // this.setState({ progress: true })
-      // this._load()
-    }
+    value: function handleLocationChange(location) {}
   }, {
     key: 'scrollToTop',
     value: function scrollToTop() {
@@ -175,6 +171,9 @@ var Screen = function (_Core$Screen) {
     key: 'importData',
     value: function importData(name) {
       try {
+        if (this.props.desktop) {
+          return require('../../../../chunks/' + this.props.chunkName + '/data/' + name + '.json');
+        }
         return require('chunks/' + this.props.chunkName + '/data/' + name + '.json');
       } catch (e) {}
     }

@@ -67,7 +67,7 @@ var Text = function (_Component) {
 
       switch (type) {
         case 'local':
-          return '/assets/text/' + fullPath + '.md';
+          return (this.isDesktop ? '../../../../' : '/') + 'assets/text/' + fullPath + '.md';
         case 'github':
           return 'https://raw.githubusercontent.com/' + fullPath + '.md';
         case 'dropbox':
