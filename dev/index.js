@@ -24,21 +24,26 @@ function findTarget (src) {
   const compile = (!fs.lstatSync(path.resolve(src)).isDirectory() && path.extname(src) === '.js' && source && source === 'src')
 
   var target = path.resolve(dest)
+  var targetSrc = path.resolve(dest)
   switch (type) {
     case 'desktop':
-      target = path.join(target, 'node_modules', 'react-electron-chunky', compile ? 'lib' : (source || ''), original)
+      target = path.join(dest, 'node_modules', 'react-electron-chunky', compile ? 'lib' : (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-electron-chunky', (source || ''), original)
       break
     case 'web':
-      target = path.join(target, 'node_modules', 'react-dom-chunky', compile ? 'lib' : (source || ''), original)
+      target = path.join(dest, 'node_modules', 'react-dom-chunky', compile ? 'lib' : (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-dom-chunky', (source || ''), original)
       break
     case 'mobile':
-      target = path.join(target, 'node_modules', 'react-native-chunky', compile ? 'lib' : (source || ''), original)
+      target = path.join(dest, 'node_modules', 'react-native-chunky', compile ? 'lib' : (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-native-chunky', (source || ''), original)
       break
     default:
-      target = path.join(target, 'node_modules', 'react-chunky', src)
+      target = path.join(dest, 'node_modules', 'react-chunky', src)
+      targetSrc = path.join(dest, 'node_modules', 'react-chunky', src)
   }
 
-  return ({ target, compile })
+  return ({ target, targetSrc, compile })
 }
 
 function transpile (src, target) {
@@ -60,7 +65,7 @@ function transpile (src, target) {
 }
 
 function add (src) {
-  const { target, compile } = findTarget(src)
+  const { target, targetSrc, compile } = findTarget(src)
 
   if (!target) {
     return
@@ -70,18 +75,30 @@ function add (src) {
     return
   }
 
-  compile ? transpile(src, target) : fs.copySync(src, target)
+  if (compile) {
+    transpile(src, target)
+  }
+
+  fs.copySync(src, targetSrc)
 }
 
 function update (src, remove) {
-  const { target, compile } = findTarget(src)
-  console.log(src, remove)
+  const { target, targetSrc, compile } = findTarget(src)
   if (!target) {
     return
   }
+  if (remove) {
+    fs.removeSync(target)
+    console.log('Removed', src, 'from', target)
+    return
+  }
 
-  remove ? fs.removeSync(target) : (compile ? transpile(src, target) : fs.copySync(src, target))
-  console.log(remove ? 'Removed' : (compile ? 'Transpiled' : 'Moved'), src, remove ? 'from' : 'to', target)
+  if (compile) {
+    transpile(src, target)
+  }
+
+  fs.copySync(src, targetSrc)
+  console.log(compile ? 'Transpiled' : 'Moved', src, 'to', target)
 }
 
 watcher

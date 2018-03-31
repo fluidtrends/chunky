@@ -51,7 +51,6 @@ export default class Screen extends Core.Screen {
 
   componentWillReceiveProps (nextProps) {
     if (this.props.match.url !== nextProps.match.url) {
-      // this.setState({ progress: true })
       this._load(nextProps)
       return
     }
@@ -59,8 +58,6 @@ export default class Screen extends Core.Screen {
   }
 
   handleLocationChange (location) {
-    // this.setState({ progress: true })
-    // this._load()
   }
 
   get browser () {
@@ -132,8 +129,12 @@ export default class Screen extends Core.Screen {
 
   importData (name) {
     try {
+      if (this.props.desktop) {
+        return require(`../../../../chunks/${this.props.chunkName}/data/${name}.json`)
+      }
       return require(`chunks/${this.props.chunkName}/data/${name}.json`)
-    } catch (e) {}
+    } catch (e) {
+    }
   }
 
   importRemoteData (url) {

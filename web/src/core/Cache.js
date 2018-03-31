@@ -28,6 +28,7 @@ export default class Cache {
   }
 
   loadContext () {
+    console.log('??>?', this.isDesktop)
     if (this.isDesktop) {
       return this.loadDesktopContext()
     }
