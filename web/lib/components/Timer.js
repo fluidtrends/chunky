@@ -123,7 +123,7 @@ var Timer = function (_Component) {
         _react2.default.createElement(
           _Typography.Typography,
           { use: 'headline', style: { margin: '10px' } },
-          'Buy Tokens Now'
+          this.props.actionTitle
         )
       );
     }
@@ -146,7 +146,6 @@ var Timer = function (_Component) {
           minutes = _ref.minutes,
           seconds = _ref.seconds,
           completed = _ref.completed;
-
 
       var size = this.props.isSmallScreen ? 'title' : 'display1';
       var margin = this.props.isSmallScreen ? '5' : '20';

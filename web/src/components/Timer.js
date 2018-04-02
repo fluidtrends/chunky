@@ -45,11 +45,11 @@ export default class Timer extends Component {
 
     const { periods } = this.props
 
-    for(let i = 0; i < periods.length; i++) {
+    for (let i = 0; i < periods.length; i++) {
       if (!periods[i].until || !periods[i].text) {
         break
       }
-      if ( i + 1 === periods.length ) {
+      if (i + 1 === periods.length) {
         period = periods[ i ]
         break
       }
@@ -64,7 +64,7 @@ export default class Timer extends Component {
       this.setState({ loading: false })
       return
     }
-    
+
     this.setState({ period, loading: false })
   }
 
@@ -83,7 +83,7 @@ export default class Timer extends Component {
   renderAction () {
     return <Button onClick={this.triggerEvent()} raised style={{height: '64px'}} theme='secondary-bg text-primary-on-secondary'>
       <Typography use='headline' style={{margin: '10px'}}>
-      Buy Tokens Now
+        { this.props.actionTitle }
       </Typography>
     </Button>
   }
@@ -98,7 +98,6 @@ export default class Timer extends Component {
   }
 
   clockRenderer ({ days, hours, minutes, seconds, completed }) {
-
     const size = this.props.isSmallScreen ? 'title' : 'display1'
     const margin = this.props.isSmallScreen ? '5' : '20'
 

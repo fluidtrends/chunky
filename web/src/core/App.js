@@ -17,8 +17,6 @@ export default class App extends PureComponent {
     this._cache = new Cache(props)
     this._userLogout = this.userLogout.bind(this)
     this._userLoggedIn = this.userLoggedIn.bind(this)
-
-    console.log('AMMMMPPP')
   }
 
   componentDidMount () {
@@ -266,8 +264,6 @@ export default class App extends PureComponent {
   }
 
   render () {
-    console.log('!!!!!')
-
     if (this.props.route && !this.props.redirect) {
       return this.renderStatic()
     }

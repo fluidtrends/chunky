@@ -55,8 +55,6 @@ var App = function (_PureComponent) {
     _this._cache = new _Cache2.default(props);
     _this._userLogout = _this.userLogout.bind(_this);
     _this._userLoggedIn = _this.userLoggedIn.bind(_this);
-
-    console.log('AMMMMPPP');
     return _this;
   }
 
@@ -314,8 +312,6 @@ var App = function (_PureComponent) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('!!!!!');
-
       if (this.props.route && !this.props.redirect) {
         return this.renderStatic();
       }
