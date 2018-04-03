@@ -3,3 +3,7 @@ node_modules
 *.log
 coverage
 build
+
+/templates/profile/node_modules
+
+/templates/store/node_modules
