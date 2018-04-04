@@ -35,15 +35,19 @@ var EOS = function () {
   }
 
   _createClass(EOS, [{
-    key: 'balance',
-    value: function balance(address) {
+    key: 'getBalance',
+    value: function getBalance() {
       var contract = this.tokenContract;
 
       if (!contract) {
         return Promise.reject(new Error('Missing EOS Token Contract'));
       }
 
-      return contract.methods.balanceOf(address).call();
+      if (!this.ethereum.account) {
+        return Promise.reject(new Error('Missing Ethereum account'));
+      }
+
+      return contract.methods.balanceOf(this.ethereum.account).call();
     }
   }, {
     key: 'props',

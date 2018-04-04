@@ -28,7 +28,7 @@ var Infura = function () {
         return;
       }
 
-      return new _web2.default(new _web2.default.providers.HttpProvider(url));
+      return new _web2.default.providers.HttpProvider(url);
     }
   }, {
     key: 'props',
