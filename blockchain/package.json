@@ -1,0 +1,63 @@
+{
+  "name": "react-blockchin-chunky",
+  "version": "0.9.0",
+  "description": "The Chunky Blockchain Framework",
+  "main": "lib/index.js",
+  "scripts": {
+    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "test": "react-savor test",
+    "lint": "react-savor lint",
+    "coverage": "react-savor coverage",
+    "codeclimate": "react-savor codeclimate",
+    "docs": "react-savor docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluidtrends/chunky.git"
+  },
+  "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fluidtrends/chunky/issues"
+  },
+  "homepage": "https://github.com/fluidtrends/chunky",
+  "babel": {
+    "plugins": [
+      "transform-react-jsx",
+      "transform-es2015-destructuring",
+      "transform-object-rest-spread",
+      "css-modules-transform",
+      "styled-jsx/babel"
+    ],
+    "presets": [
+      "react",
+      "env"
+    ]
+  },
+  "dependencies": {
+    "eosjs": "^4.0.2",
+    "eth-lightwallet": "^3.0.0",
+    "ethereumjs-testrpc": "^6.0.3",
+    "ethereumjs-tx": "^1.3.3",
+    "ethereumjs-util": "^5.1.2",
+    "ethjs-contract": "^0.1.9",
+    "ethjs-provider-signer": "^0.1.4",
+    "ethjs-query": "^0.3.1",
+    "keytar": "^4.0.5",
+    "web3": "^1.0.0-beta.26",
+    "web3-provider-engine": "^13.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-css-modules-transform": "^1.5.0",
+    "babel-plugin-react-css-modules": "^3.2.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-core": "^6.22.1",
+    "react-savor": "0.x"
+  }
+}
