@@ -28,7 +28,6 @@ var Cache = function () {
   }, {
     key: 'loadContext',
     value: function loadContext() {
-      console.log('??>?', this.isDesktop);
       if (this.isDesktop) {
         return this.loadDesktopContext();
       }

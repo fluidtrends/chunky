@@ -197,7 +197,7 @@ var Screen = function (_Core$Screen) {
           return;
         }
 
-        var data = _this2.importData(_this2.props.variants);
+        var data = _this2.importData('' + _this2.props.variants + (_this2.props.desktop ? '.desktop' : ''));
 
         if (!data || !Array.isArray(data) || data.length === 0) {
           resolve([]);

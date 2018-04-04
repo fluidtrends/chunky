@@ -26,6 +26,10 @@ function findTarget (src) {
   var target = path.resolve(dest)
   var targetSrc = path.resolve(dest)
   switch (type) {
+    case 'blockchain':
+      target = path.join(dest, 'node_modules', 'react-blockchain-chunky', compile ? 'lib' : (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-blockchain-chunky', (source || ''), original)
+      break
     case 'desktop':
       target = path.join(dest, 'node_modules', 'react-electron-chunky', compile ? 'lib' : (source || ''), original)
       targetSrc = path.join(dest, 'node_modules', 'react-electron-chunky', (source || ''), original)
