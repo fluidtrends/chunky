@@ -151,7 +151,7 @@ export default class Screen extends Core.Screen {
         return
       }
 
-      const data = this.importData(this.props.variants)
+      const data = this.importData(`${this.props.variants}${this.props.desktop ? '.desktop' : ''}`)
 
       if (!data || !Array.isArray(data) || data.length === 0) {
         resolve([])
