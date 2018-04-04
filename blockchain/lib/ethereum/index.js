@@ -6,17 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _web = require('web3');
+var _eos = require('./eos');
 
-var _web2 = _interopRequireDefault(_web);
+var _eos2 = _interopRequireDefault(_eos);
 
 var _infura = require('./infura');
 
 var _infura2 = _interopRequireDefault(_infura);
-
-var _eos = require('./eos');
-
-var _eos2 = _interopRequireDefault(_eos);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29,11 +25,21 @@ var Ethereum = function () {
     this._accounts = [];
     this._props = props || {};
     this._infura = new _infura2.default(props.infura);
-    this._provider = new _web2.default(this.props.provider || this.infura.provider);
-    this._eos = new _eos2.default({ ethereum: this });
+    this._load();
   }
 
   _createClass(Ethereum, [{
+    key: '_load',
+    value: function _load() {
+      try {
+        var Web3 = require('web3').default;
+        this._provider = new Web3(this.props.provider || new Web3.providers.HttpProvider(this.infura.provider));
+        this._eos = new _eos2.default({ ethereum: this });
+      } catch (e) {
+        console.log(e);
+      }
+    }
+  }, {
     key: 'contract',
     value: function contract(abi, address) {
       if (!abi || !address || !this.provider) {

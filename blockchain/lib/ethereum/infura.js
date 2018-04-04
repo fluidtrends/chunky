@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,42 +6,36 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _web = require('web3');
-
-var _web2 = _interopRequireDefault(_web);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Infura = function () {
-  function Infura(props) {
-    _classCallCheck(this, Infura);
+var InfuraFactory = function () {
+  function InfuraFactory(props) {
+    _classCallCheck(this, InfuraFactory);
 
     this._props = props;
   }
 
-  _createClass(Infura, [{
-    key: 'makeProvider',
+  _createClass(InfuraFactory, [{
+    key: "makeProvider",
     value: function makeProvider(url) {
       if (!url) {
         return;
       }
 
-      return new _web2.default.providers.HttpProvider(url);
+      return url;
     }
   }, {
-    key: 'props',
+    key: "props",
     get: function get() {
       return this._props;
     }
   }, {
-    key: 'hasKey',
+    key: "hasKey",
     get: function get() {
       return this.props && this.props.key;
     }
   }, {
-    key: 'key',
+    key: "key",
     get: function get() {
       if (!this.hasKey) {
         return;
@@ -50,7 +44,7 @@ var Infura = function () {
       return this.props.key;
     }
   }, {
-    key: 'provider',
+    key: "provider",
     get: function get() {
       if (!this.props || !this.hasKey) {
         return;
@@ -63,38 +57,38 @@ var Infura = function () {
       return this.mainNet;
     }
   }, {
-    key: 'mainNet',
+    key: "mainNet",
     get: function get() {
-      return this.makeProvider('https://mainnet.infura.io/' + this.key);
+      return this.makeProvider("https://mainnet.infura.io/" + this.key);
     }
   }, {
-    key: 'ropsten',
+    key: "ropsten",
     get: function get() {
-      return this.makeProvider('https://ropsten.infura.io/' + this.key);
+      return this.makeProvider("https://ropsten.infura.io/" + this.key);
     }
   }, {
-    key: 'infuraNet',
+    key: "infuraNet",
     get: function get() {
-      return this.makeProvider('https://infuranet.infura.io/' + this.key);
+      return this.makeProvider("https://infuranet.infura.io/" + this.key);
     }
   }, {
-    key: 'kovan',
+    key: "kovan",
     get: function get() {
-      return this.makeProvider('https://kovan.infura.io/' + this.key);
+      return this.makeProvider("https://kovan.infura.io/" + this.key);
     }
   }, {
-    key: 'rinkeby',
+    key: "rinkeby",
     get: function get() {
-      return this.makeProvider('https://rinkeby.infura.io/' + this.key);
+      return this.makeProvider("https://rinkeby.infura.io/" + this.key);
     }
   }, {
-    key: 'ipfs',
+    key: "ipfs",
     get: function get() {
-      return this.makeProvider('https://ipfs.infura.io');
+      return this.makeProvider("https://ipfs.infura.io");
     }
   }]);
 
-  return Infura;
+  return InfuraFactory;
 }();
 
-exports.default = Infura;
+exports.default = InfuraFactory;
