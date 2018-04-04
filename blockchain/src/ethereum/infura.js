@@ -1,6 +1,4 @@
-import Web3 from 'web3'
-
-export default class Infura {
+export default class InfuraFactory {
 
   constructor (props) {
     this._props = props
@@ -11,7 +9,7 @@ export default class Infura {
       return
     }
 
-    return new Web3.providers.HttpProvider(url)
+    return url
   }
 
   get props () {

@@ -1,14 +1,22 @@
-import Web3 from 'web3'
-import Infura from './infura'
 import EOS from './eos'
+import InfuraFactory from './infura'
 
 export default class Ethereum {
   constructor (props) {
     this._accounts = []
     this._props = props || {}
-    this._infura = new Infura(props.infura)
-    this._provider = new Web3(this.props.provider || this.infura.provider)
-    this._eos = new EOS({ ethereum: this })
+    this._infura = new InfuraFactory(props.infura)
+    this._load()
+  }
+
+  _load () {
+    try {
+      const Web3 = require('web3').default
+      this._provider = new Web3(this.props.provider || new Web3.providers.HttpProvider(this.infura.provider))
+      this._eos = new EOS({ ethereum: this })
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   get infura () {
