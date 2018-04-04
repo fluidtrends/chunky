@@ -11,7 +11,7 @@ export default class Infura {
       return
     }
 
-    return new Web3(new Web3.providers.HttpProvider(url))
+    return new Web3.providers.HttpProvider(url)
   }
 
   get props () {

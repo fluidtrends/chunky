@@ -36,13 +36,17 @@ export default class EOS {
     return this.ethereum.contract(EOS_TOKEN_ABI, EOS_TOKEN_ETH_ADDRESS)
   }
 
-  balance (address) {
+  getBalance () {
     const contract = this.tokenContract
 
     if (!contract) {
       return Promise.reject(new Error('Missing EOS Token Contract'))
     }
 
-    return contract.methods.balanceOf(address).call()
+    if (!this.ethereum.account) {
+      return Promise.reject(new Error('Missing Ethereum account'))
+    }
+
+    return contract.methods.balanceOf(this.ethereum.account).call()
   }
 }
