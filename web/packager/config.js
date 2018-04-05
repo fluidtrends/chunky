@@ -5,6 +5,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const StaticPlugin = require('./staticPlugin')
 const pages = require('./pages')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const JavaScriptObfuscator = require('webpack-obfuscator')
 
 module.exports = (options) => {
   return {
@@ -14,7 +16,7 @@ module.exports = (options) => {
 
     output: {
       filename: 'chunky.js',
-      path: path.resolve(options.dir, 'web', 'build'),
+      path: path.resolve(options.dir, '.chunky', 'web'),
       publicPath: '/',
       libraryTarget: 'umd'
     },
@@ -108,10 +110,12 @@ module.exports = (options) => {
         { from: { glob: path.resolve(options.dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
       ])
     ].concat(pages(options)).concat([new StaticPlugin(Object.assign({}, options)),
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        comments: false,
-        beautify: true
+      new UglifyJsPlugin({
+        extractComments: true
+      }),
+      new JavaScriptObfuscator({
+        compact: true,
+        rotateUnicodeArray: true
       })
     ])
   }

@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.69",
+  "version": "0.9.70",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -111,10 +111,12 @@
     "style-loader": "^0.18.2",
     "styled-jsx": "^2.2.1",
     "sw-precache-webpack-plugin": "0.11.3",
+    "uglifyjs-webpack-plugin": "^1.2.4",
     "url-loader": "0.5.9",
     "video-react": "^0.9.4",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "webpack-dev-server": "^2.2.0",
+    "webpack-obfuscator": "^0.15.0"
   },
   "devDependencies": {
     "react-savor": "0.x"

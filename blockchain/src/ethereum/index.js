@@ -11,7 +11,7 @@ export default class Ethereum {
 
   _load () {
     try {
-      const Web3 = require('web3').default
+      const Web3 = require('web3')
       this._provider = new Web3(this.props.provider || new Web3.providers.HttpProvider(this.infura.provider))
       this._eos = new EOS({ ethereum: this })
     } catch (e) {
@@ -60,7 +60,7 @@ export default class Ethereum {
 
       this.provider.eth.getAccounts((error, accounts) => {
         if (error || !accounts || accounts.length < 1) {
-          reject(new Error('No Ethereum accounts available'))
+          resolve([])
           return
         }
         this._accounts = [].concat(accounts)
