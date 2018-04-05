@@ -14,7 +14,10 @@ function build (options) {
     fs.mkdirSync(dir)
 
     const setup = config(options)
+
     process.noDeprecation = true
+    process.env.NODE_ENV = 'production'
+
     webpack(setup, (error, stats) => {
       if (error) {
           // Looks like webpack failed with a hard error

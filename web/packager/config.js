@@ -10,9 +10,9 @@ const JavaScriptObfuscator = require('webpack-obfuscator')
 
 module.exports = (options) => {
   return {
-    entry: [
-      path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.js')
-    ],
+    entry: {
+      app: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.js')
+    },
 
     output: {
       filename: 'chunky.js',
@@ -29,6 +29,21 @@ module.exports = (options) => {
         path.resolve(options.dir),
         'node_modules'
       ]
+    },
+
+    externals: {
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+      }
     },
 
     module: {
@@ -103,6 +118,9 @@ module.exports = (options) => {
     },
 
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+      }),
       new ExtractTextPlugin('chunky.css'),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new CopyWebpackPlugin([

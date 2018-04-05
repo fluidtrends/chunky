@@ -54,7 +54,7 @@ export default class Ethereum {
   refreshAccounts () {
     return new Promise((resolve, reject) => {
       if (!this.provider) {
-        reject(new Error('Unknown Ethereum provider'))
+        resolve([])
         return
       }
 
