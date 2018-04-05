@@ -32,7 +32,7 @@ var Ethereum = function () {
     key: '_load',
     value: function _load() {
       try {
-        var Web3 = require('web3').default;
+        var Web3 = require('web3');
         this._provider = new Web3(this.props.provider || new Web3.providers.HttpProvider(this.infura.provider));
         this._eos = new _eos2.default({ ethereum: this });
       } catch (e) {
@@ -55,13 +55,13 @@ var Ethereum = function () {
 
       return new Promise(function (resolve, reject) {
         if (!_this.provider) {
-          reject(new Error('Unknown Ethereum provider'));
+          resolve([]);
           return;
         }
 
         _this.provider.eth.getAccounts(function (error, accounts) {
           if (error || !accounts || accounts.length < 1) {
-            reject(new Error('No Ethereum accounts available'));
+            resolve([]);
             return;
           }
           _this._accounts = [].concat(accounts);

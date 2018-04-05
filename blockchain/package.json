@@ -1,6 +1,6 @@
 {
   "name": "react-blockchain-chunky",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "The Chunky Blockchain Framework",
   "main": "lib/index.js",
   "scripts": {
