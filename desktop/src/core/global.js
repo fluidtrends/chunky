@@ -2,7 +2,6 @@ import React from 'react'
 import config from './config'
 import firebase from 'firebase'
 import firebaseConfig from '../../../../desktop/firebase-config.json'
-import fetch from 'electron-main-fetch'
 
 config.id = 'chunky'
 config.firebase = firebaseConfig
@@ -10,7 +9,6 @@ config.firebase = firebaseConfig
 const appId = `${config.id}-${config.name}-${config.domain || 'chunky.io'}`
 global.chunky = Object.assign({}, global.chunky, { config })
 global.appId = appId
-global.fetch = fetch
 
 global.firebase = firebase
 global.storage = {

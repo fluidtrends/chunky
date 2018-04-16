@@ -16,10 +16,6 @@ var _firebaseConfig = require('../../../../desktop/firebase-config.json');
 
 var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
 
-var _electronMainFetch = require('electron-main-fetch');
-
-var _electronMainFetch2 = _interopRequireDefault(_electronMainFetch);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _config2.default.id = 'chunky';
@@ -28,7 +24,6 @@ _config2.default.firebase = _firebaseConfig2.default;
 var appId = _config2.default.id + '-' + _config2.default.name + '-' + (_config2.default.domain || 'chunky.io');
 global.chunky = Object.assign({}, global.chunky, { config: _config2.default });
 global.appId = appId;
-global.fetch = _electronMainFetch2.default;
 
 global.firebase = _firebase2.default;
 global.storage = {

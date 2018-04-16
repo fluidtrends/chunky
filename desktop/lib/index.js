@@ -18,12 +18,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
 var mainWindow = void 0;
+var deepLink = void 0;
+
+var processDeepLink = function processDeepLink() {
+  console.log(deepLink);
+};
+
+// Setup the custom Carmel protocol
+_electron.protocol.registerStandardSchemes(['carmel']);
 
 var isDevMode = process.execPath.match(/[\\/]electron/);
-
 if (isDevMode) (0, _electronCompile.enableLiveReload)({ strategy: 'react-hmr' });
 
 var createWindow = function () {
@@ -35,16 +40,16 @@ var createWindow = function () {
           case 0:
             // Create the browser window.
             mainWindow = new _electron.BrowserWindow({
-              width: 800,
+              width: 1024,
               height: 600
             });
 
-            // and load the index.html of the app.
+            // The main html entry point
             entryFile = _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'default.html');
 
-            mainWindow.loadURL('file://' + entryFile);
+            // Load the main entry point
 
-            // Open the DevTools.
+            mainWindow.loadURL('file://' + entryFile);
 
             if (!isDevMode) {
               _context.next = 7;
@@ -59,11 +64,7 @@ var createWindow = function () {
 
           case 7:
 
-            // Emitted when the window is closed.
             mainWindow.on('closed', function () {
-              // Dereference the window object, usually you would store windows
-              // in an array if your app supports multi windows, this is the time
-              // when you should delete the corresponding element.
               mainWindow = null;
             });
 
@@ -80,27 +81,43 @@ var createWindow = function () {
   };
 }();
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+var shouldQuit = _electron.app.makeSingleInstance(function (argv, workingDirectory) {
+  if (process.platform === 'win32') {
+    deepLink = argv.slice(1);
+  }
+
+  processDeepLink(deepLink);
+
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+});
+
+if (shouldQuit) {
+  _electron.app.quit();
+}
+
 _electron.app.on('ready', createWindow);
 
-// Quit when all windows are closed.
 _electron.app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     _electron.app.quit();
   }
 });
 
 _electron.app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
     createWindow();
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+_electron.app.setAsDefaultProtocolClient('carmel');
+
+_electron.app.on('will-finish-launching', function () {
+  _electron.app.on('open-url', function (event, url) {
+    event.preventDefault();
+    deepLink = url;
+    processDeepLink(deepLink);
+  });
+});

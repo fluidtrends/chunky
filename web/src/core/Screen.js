@@ -370,6 +370,7 @@ export default class Screen extends Core.Screen {
         cache: this.cache,
         onEvent: this._onEvent,
         width: this.state.width,
+        importRemoteData: this.importRemoteData,
         height: this.state.height,
         isSmallScreen: this.isSmallScreen,
         smallScreenBreakPoint: this.smallScreenBreakPoint
