@@ -103,6 +103,7 @@ var Collection = function (_Component) {
         _react2.default.createElement(_Media2.default, {
           cache: this.props.cache,
           image: image,
+          desktop: this.props.desktop,
           innerWidth: innerWidth,
           style: style })
       );

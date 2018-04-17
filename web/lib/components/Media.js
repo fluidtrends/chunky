@@ -71,8 +71,10 @@ var Media = function (_PureComponent) {
   }, {
     key: 'renderResponsiveImage',
     value: function renderResponsiveImage(image) {
+      var placeholderImage = (this.props.desktop ? '../../../../' : '/') + 'assets/placeholder.jpg';
+
       if (!image) {
-        return (0, _responsive.renderResponsive)('media', this.renderImage('', this.props.imageSmall ? this.props.imageSmall : this.props.image, '/assets/placeholder.jpg'), this.renderImage('', this.props.image, '/assets/placeholder.jpg'));
+        return (0, _responsive.renderResponsive)('media', this.renderImage('', this.props.imageSmall ? this.props.imageSmall : this.props.image, placeholderImage), this.renderImage('', this.props.image, placeholderImage));
       }
 
       return (0, _responsive.renderResponsive)(image.id, this.renderImage(this.props.image, image.data.images[0].path, image.data.placeholder), this.renderImage(this.props.image, image.data.images[1].path, image.data.placeholder));

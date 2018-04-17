@@ -20,11 +20,13 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 600
+    width: 1280,
+    height: 800,
+    show: false,
+    backgroundColor: '#0bbcd4'
   })
 
-  // The main html entry point
+  // The html entry points
   const entryFile = path.join(path.dirname(__dirname), 'app', 'pages', 'default.html')
 
   // Load the main entry point
@@ -34,6 +36,13 @@ const createWindow = async () => {
     await installExtension(REACT_DEVELOPER_TOOLS)
     mainWindow.webContents.openDevTools()
   }
+
+  mainWindow.setTitle(app.getName())
+  mainWindow.show()
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.setTitle(app.getName())
+  })
 
   mainWindow.on('closed', () => {
     mainWindow = null

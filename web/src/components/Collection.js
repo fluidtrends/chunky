@@ -64,6 +64,7 @@ export default class Collection extends Component {
       <Media
         cache={this.props.cache}
         image={image}
+        desktop={this.props.desktop}
         innerWidth={innerWidth}
         style={style} />
     </CardMedia>

@@ -40,11 +40,13 @@ var createWindow = function () {
           case 0:
             // Create the browser window.
             mainWindow = new _electron.BrowserWindow({
-              width: 1024,
-              height: 600
+              width: 1280,
+              height: 800,
+              show: false,
+              backgroundColor: '#0bbcd4'
             });
 
-            // The main html entry point
+            // The html entry points
             entryFile = _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'default.html');
 
             // Load the main entry point
@@ -64,11 +66,18 @@ var createWindow = function () {
 
           case 7:
 
+            mainWindow.setTitle(_electron.app.getName());
+            mainWindow.show();
+
+            mainWindow.webContents.on('did-finish-load', function () {
+              mainWindow.setTitle(_electron.app.getName());
+            });
+
             mainWindow.on('closed', function () {
               mainWindow = null;
             });
 
-          case 8:
+          case 11:
           case 'end':
             return _context.stop();
         }
