@@ -1,6 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "version": "0.9.18",
+  "version": "0.9.19",
   "description": "The Chunky Desktop Framework",
   "scripts": {
     "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel"
@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
+    "adm-zip": "^0.4.7",
     "autoprefixer": "7.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.22.1",
@@ -45,11 +46,14 @@
     "eslint-plugin-jsx-a11y": "^5",
     "eslint-plugin-react": "^7",
     "fs-extra": "^5.0.0",
+    "lali": "^0.2.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-dom-chunky": "0.9.x",
     "react-hot-loader": "^3.0.0-beta.6",
     "recursive-copy": "^2.0.9",
-    "require-context": "^1.1.0"
+    "request-progress": "^3.0.0",
+    "require-context": "^1.1.0",
+    "shelljs": "^0.8.1"
   }
 }

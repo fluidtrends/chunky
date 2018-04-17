@@ -59,9 +59,14 @@ export default class Screen extends Component {
     switch (handlerType) {
       case 'local':
         return this.handleLocalEvent(`/${fullPath}`)
+      case 'system':
+        return this.handleSystemEvent(`/${fullPath}`)
       default:
         return this.handleExternalEvent(`${handlerType}://${fullPath}`)
     }
+  }
+
+  handleSystemEvent (fullPath) {
   }
 
   handleLocalEvent (fullPath) {

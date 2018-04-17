@@ -15,7 +15,7 @@ import {
   CardActions,
   CardAction
 } from 'rmwc/Card'
-import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip';
+import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip'
 import {Fab} from 'rmwc/Fab'
 import { Typography } from 'rmwc/Typography'
 import Media from './Media'
@@ -85,12 +85,53 @@ export default class Collection extends Component {
           {`${details} ...` }
         </Typography>
       </div>
+      { this.renderCardTags(item) }
       <CardActions style={{justifyContent: 'center', marginBottom: '1rem'}}>
-        <CardActionButtons>
-          <CardAction onClick={this.triggerEvent(item.name || index, item.action)}> { item.actionTitle || 'Learn More'} </CardAction>
-        </CardActionButtons>
+        { this.renderCardButtons(item, index) }
       </CardActions>
     </Card>
+  }
+
+  renderCardButtons (item, index) {
+    if (this.props.renderCardButtons) {
+      return this.props.renderCardButtons(item, index)
+    }
+
+    return <CardActionButtons>
+      <CardAction onClick={this.triggerEvent(item.name || index, Object.assign({}, item.action, { primary: true }))}> { item.actionTitle || 'Learn More'} </CardAction>
+      { this.renderSecondaryCardButton(item, index) }
+    </CardActionButtons>
+  }
+
+  renderCardTag (tag) {
+    return <Chip style={{background: 'red', color: 'white'}}>
+      <ChipText>
+        <Typography
+          use='caption'>
+           sdfasd
+        </Typography>
+      </ChipText>
+    </Chip>
+  }
+
+  renderCardTags (item) {
+    if (!item.tags) {
+      return <div />
+    }
+
+    return <div style={{display: 'flex', alignItems: 'center'}}>
+      <ChipSet style={{flex: 2}}>
+        { item.tags.map(t => this.renderCardTag(t)) }
+      </ChipSet>
+    </div>
+  }
+
+  renderSecondaryCardButton (item, index) {
+    if (!item.actionTitleSecondary) {
+      return <div />
+    }
+
+    return <CardAction onClick={this.triggerEvent(item.name || index, Object.assign({}, item.action, { secondary: true }))}> { item.actionTitleSecondary || 'Learn More'} </CardAction>
   }
 
   renderChallenge (item, index) {
@@ -123,9 +164,9 @@ export default class Collection extends Component {
                   use='caption'
                 >
                   {item.label}
-              </Typography>
-            </ChipText>
-          </Chip>
+                </Typography>
+              </ChipText>
+            </Chip>
           </ChipSet>
           <Fab mini>star</Fab>
           <Typography

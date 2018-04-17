@@ -137,21 +137,86 @@ var Collection = function (_Component) {
             details + ' ...'
           )
         ),
+        this.renderCardTags(item),
         _react2.default.createElement(
           _Card.CardActions,
           { style: { justifyContent: 'center', marginBottom: '1rem' } },
+          this.renderCardButtons(item, index)
+        )
+      );
+    }
+  }, {
+    key: 'renderCardButtons',
+    value: function renderCardButtons(item, index) {
+      if (this.props.renderCardButtons) {
+        return this.props.renderCardButtons(item, index);
+      }
+
+      return _react2.default.createElement(
+        _Card.CardActionButtons,
+        null,
+        _react2.default.createElement(
+          _Card.CardAction,
+          { onClick: this.triggerEvent(item.name || index, Object.assign({}, item.action, { primary: true })) },
+          ' ',
+          item.actionTitle || 'Learn More',
+          ' '
+        ),
+        this.renderSecondaryCardButton(item, index)
+      );
+    }
+  }, {
+    key: 'renderCardTag',
+    value: function renderCardTag(tag) {
+      return _react2.default.createElement(
+        _Chip.Chip,
+        { style: { background: 'red', color: 'white' } },
+        _react2.default.createElement(
+          _Chip.ChipText,
+          null,
           _react2.default.createElement(
-            _Card.CardActionButtons,
-            null,
-            _react2.default.createElement(
-              _Card.CardAction,
-              { onClick: this.triggerEvent(item.name || index, item.action) },
-              ' ',
-              item.actionTitle || 'Learn More',
-              ' '
-            )
+            _Typography.Typography,
+            {
+              use: 'caption' },
+            'sdfasd'
           )
         )
+      );
+    }
+  }, {
+    key: 'renderCardTags',
+    value: function renderCardTags(item) {
+      var _this2 = this;
+
+      if (!item.tags) {
+        return _react2.default.createElement('div', null);
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { style: { display: 'flex', alignItems: 'center' } },
+        _react2.default.createElement(
+          _Chip.ChipSet,
+          { style: { flex: 2 } },
+          item.tags.map(function (t) {
+            return _this2.renderCardTag(t);
+          })
+        )
+      );
+    }
+  }, {
+    key: 'renderSecondaryCardButton',
+    value: function renderSecondaryCardButton(item, index) {
+      if (!item.actionTitleSecondary) {
+        return _react2.default.createElement('div', null);
+      }
+
+      return _react2.default.createElement(
+        _Card.CardAction,
+        { onClick: this.triggerEvent(item.name || index, Object.assign({}, item.action, { secondary: true })) },
+        ' ',
+        item.actionTitleSecondary || 'Learn More',
+        ' '
       );
     }
   }, {
@@ -273,11 +338,11 @@ var Collection = function (_Component) {
   }, {
     key: 'renderItems',
     value: function renderItems() {
-      var _this2 = this;
+      var _this3 = this;
 
       var index = 0;
       return this.categories.map(function (item) {
-        return _this2.renderItem(item, index++);
+        return _this3.renderItem(item, index++);
       });
     }
   }, {
