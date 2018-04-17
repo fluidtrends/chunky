@@ -1,6 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "version": "0.9.21",
+  "version": "0.9.23",
   "description": "The Chunky Desktop Framework",
   "scripts": {
     "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel"
@@ -33,6 +33,7 @@
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "command-exists": "^1.2.6",
     "cpy": "^6.0.0",
     "electron-compile": "^6.4.2",
     "electron-devtools-installer": "^2.1.0",
