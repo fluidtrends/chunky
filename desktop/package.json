@@ -1,6 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "version": "0.9.23",
+  "version": "0.9.24",
   "description": "The Chunky Desktop Framework",
   "scripts": {
     "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel"
@@ -48,6 +48,7 @@
     "eslint-plugin-react": "^7",
     "fs-extra": "^5.0.0",
     "lali": "^0.2.0",
+    "node-cmd": "^3.0.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-dom-chunky": "0.9.x",

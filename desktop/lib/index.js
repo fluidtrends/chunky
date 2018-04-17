@@ -42,6 +42,8 @@ var createWindow = function () {
             mainWindow = new _electron.BrowserWindow({
               width: 1280,
               height: 800,
+              minWidth: 1024,
+              minHeight: 600,
               show: false,
               backgroundColor: '#0bbcd4'
             });
