@@ -14,9 +14,19 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _blockchain = require('../../../blockchain');
+
+var _blockchain2 = _interopRequireDefault(_blockchain);
+
+var _nodeCmd = require('node-cmd');
+
+var _nodeCmd2 = _interopRequireDefault(_nodeCmd);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+require('fix-path')();
 
 var mainWindow = void 0;
 var deepLink = void 0;
@@ -68,6 +78,19 @@ var createWindow = function () {
 
           case 7:
 
+            _electron.ipcMain.on('shell', function (event, arg) {
+              _nodeCmd2.default.get(arg.command, function (error, data, stderr) {
+                event.sender.send(arg.callId, { error: error, data: data });
+              });
+            });
+
+            _electron.ipcMain.on('which', function (event, arg) {
+              _nodeCmd2.default.get(arg.command + ' --help', function (error, data, stderr) {
+                event.sender.send(arg.callId, { error: error, data: data });
+              });
+            });
+
+            _blockchain2.default && (0, _blockchain2.default)();
             mainWindow.setTitle(_electron.app.getName());
             mainWindow.show();
 
@@ -79,7 +102,7 @@ var createWindow = function () {
               mainWindow = null;
             });
 
-          case 11:
+          case 14:
           case 'end':
             return _context.stop();
         }

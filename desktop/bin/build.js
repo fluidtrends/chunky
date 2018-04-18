@@ -2,7 +2,7 @@
 
 let path = require('path')
 let fs = require('fs-extra')
-let forgePackage = require('electron-forge/dist/api/make').default
+let forgePackage = require('electron-forge/dist/api/package').default
 
 process.env.CPPFLAGS = '-I/usr/local/opt/openssl/include'
 process.env.LDFLAGS = '-L/usr/local/opt/openssl/lib'

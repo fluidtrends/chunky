@@ -1,8 +1,11 @@
-import { app, BrowserWindow, protocol } from 'electron'
+import { app, BrowserWindow, protocol, ipcMain } from 'electron'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
 import path from 'path'
+import { default as startApp } from '../../../blockchain'
+import { default as cmd } from 'node-cmd'
+require('fix-path')()
 
 let mainWindow
 let deepLink
@@ -39,6 +42,19 @@ const createWindow = async () => {
     mainWindow.webContents.openDevTools()
   }
 
+  ipcMain.on('shell', (event, arg) => {
+    cmd.get(arg.command, (error, data, stderr) => {
+      event.sender.send(arg.callId, { error, data })
+    })
+  })
+
+  ipcMain.on('which', (event, arg) => {
+    cmd.get(`${arg.command} --help`, (error, data, stderr) => {
+      event.sender.send(arg.callId, { error, data })
+    })
+  })
+
+  startApp && startApp()
   mainWindow.setTitle(app.getName())
   mainWindow.show()
 
