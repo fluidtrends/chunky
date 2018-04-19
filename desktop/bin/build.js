@@ -4,9 +4,6 @@ let path = require('path')
 let fs = require('fs-extra')
 let forgePackage = require('electron-forge/dist/api/make').default
 
-process.env.CPPFLAGS = '-I/usr/local/opt/openssl/include'
-process.env.LDFLAGS = '-L/usr/local/opt/openssl/lib'
-
 function buildForPlatform (dir, outDir, platform) {
   const parts = (platform ? platform.split('/') : [process.platform, process.arch])
 
@@ -22,6 +19,9 @@ function buildForPlatform (dir, outDir, platform) {
 function build (options) {
   const dir = path.resolve(options.dir)
   const outDir = path.resolve(options.dir, 'desktop', 'build')
+
+  const includePath = path.resolve(options.dir, 'node_modules', 'react-electron-chunky', 'include')
+  process.env.CPPFLAGS = `-I${path.resolve(includePath)}`
 
   if (fs.existsSync(outDir)) { fs.removeSync(outDir) }
 
