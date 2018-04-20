@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.9.16",
+  "version": "0.9.17",
   "description": "The Chunky Universal Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -59,8 +59,6 @@
     "redux-logger": "^2.7.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.1.0",
-    "remote-redux-devtools": "^0.5.0",
-    "remote-redux-devtools-on-debugger": "^0.7.1",
     "reselect": "^2.5.4",
     "shortid": "^2.2.8",
     "styled-jsx": "^2.2.6",
