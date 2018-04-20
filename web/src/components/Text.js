@@ -76,7 +76,9 @@ export default class Text extends Component {
   renderComponent () {
     return (<div style={Object.assign({}, {
       textAlign: 'center',
-      padding: '20px'
+      padding: '20px',
+      maxWidth: '90vw',
+      overflow: 'hidden'
     }, this.props.style)}>
       <ReactPlaceholder
         showLoadingAnimation

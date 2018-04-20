@@ -49,6 +49,7 @@
     "marked": "^0.3.6",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.14",
+    "randomstring": "^1.1.5",
     "react": "^16.1.1",
     "react-countdown-now": "git://github.com/fluidtrends/react-countdown.git",
     "react-ga": "^2.4.1",

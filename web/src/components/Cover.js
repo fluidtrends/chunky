@@ -118,7 +118,7 @@ export default class Cover extends Component {
       alignItems: 'flex-start',
       flexDirection: 'column'
     }}>
-      <Typography use='display2' style={{margin: '20px', color: this.props.color}}> {title} </Typography>
+      <Typography use='display2' style={{margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color}}> {title} </Typography>
     </div>)
   }
 
@@ -196,6 +196,7 @@ export default class Cover extends Component {
       marginTop: `${this.props.offset}px`,
       height: `${height + 2}px`,
       display: 'flex',
+      overflow: 'hidden',      
       flex: 1,
       alignItems: 'center',
       flexDirection: 'column',
