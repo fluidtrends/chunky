@@ -1,5 +1,6 @@
 import React from 'react'
-import TransitionGroup from 'react-addons-transition-group'
+import TransitionGroup from 'react-transition-group/TransitionGroup'
+
 import { Core, Data } from 'react-chunky'
 import { Redirect } from 'react-router'
 import { default as Component } from './Component'

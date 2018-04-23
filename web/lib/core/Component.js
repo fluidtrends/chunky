@@ -16,6 +16,8 @@ var _uuid2 = _interopRequireDefault(_uuid);
 
 var _responsive = require('../utils/responsive');
 
+var _reactTransitionGroup = require('react-transition-group');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56,16 +58,16 @@ var Component = function (_PureComponent) {
       });
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {}
-  }, {
-    key: 'componentWillAppear',
-    value: function componentWillAppear(callback) {
+    key: 'componentWillEnter',
+    value: function componentWillEnter(callback) {
       callback();
     }
   }, {
-    key: 'componentDidAppear',
-    value: function componentDidAppear() {}
+    key: 'componentWillLeave',
+    value: function componentWillLeave(callback) {}
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {}
   }, {
     key: 'componentDidEnter',
     value: function componentDidEnter() {}
@@ -76,21 +78,29 @@ var Component = function (_PureComponent) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {}
   }, {
-    key: 'componentWillEnter',
-    value: function componentWillEnter(callback) {
-      var el = this.container;
-      TweenMax.fromTo(el, 0.3, { y: 100, opacity: 0 }, { y: 0, opacity: 1, onComplete: callback });
+    key: 'componentWillAppear',
+    value: function componentWillAppear(callback) {
+      callback();
     }
   }, {
-    key: 'componentWillLeave',
-    value: function componentWillLeave(callback) {
-      var el = this.container;
-      TweenMax.fromTo(el, 0.3, { y: 0, opacity: 1 }, { y: -100, opacity: 0, onComplete: callback });
-    }
+    key: 'componentDidAppear',
+    value: function componentDidAppear() {}
   }, {
     key: 'renderComponentCompact',
     value: function renderComponentCompact() {
       return this.renderComponent();
+    }
+  }, {
+    key: 'renderFade',
+    value: function renderFade() {
+      return _react2.default.createElement(
+        _reactTransitionGroup.CSSTransition,
+        {
+          timeout: 500,
+          classNames: 'fade'
+        },
+        this.props.children
+      );
     }
   }, {
     key: 'renderComponent',

@@ -117,7 +117,8 @@ var Layout = function (_PureComponent) {
         return;
       }
       return _react2.default.createElement(_Cover2.default, _extends({
-        index: 1
+        index: 1,
+        color: '#ffffff'
       }, this.props, this.props.cover, {
         id: 'cover',
         onEvent: this._onEvent,

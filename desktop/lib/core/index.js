@@ -8,8 +8,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactHotLoader = require('react-hot-loader');
-
 var _reactDomChunky = require('react-dom-chunky');
 
 var _reactChunky = require('react-chunky');
@@ -20,13 +18,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var render = function render() {
   _reactDom2.default.render(_react2.default.createElement(
-    _reactHotLoader.AppContainer,
-    null,
-    _react2.default.createElement(
-      _reactChunky.Core.AppContainer,
-      chunky.config,
-      _react2.default.createElement(_reactDomChunky.App, chunky.config)
-    )
+    _reactChunky.Core.AppContainer,
+    chunky.config,
+    _react2.default.createElement(_reactDomChunky.App, chunky.config)
   ), document.getElementById('chunky'));
 };
 

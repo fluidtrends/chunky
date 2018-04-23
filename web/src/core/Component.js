@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import uuid from 'uuid'
 import { renderResponsive } from '../utils/responsive'
+import { CSSTransition } from 'react-transition-group'
 
 export default class Component extends PureComponent {
 
@@ -46,14 +47,14 @@ export default class Component extends PureComponent {
     return this.props.height
   }
 
-  componentDidMount () {
-  }
-
-  componentWillAppear (callback) {
+  componentWillEnter (callback) {
     callback()
   }
 
-  componentDidAppear () {
+  componentWillLeave (callback) {
+  }
+
+  componentDidMount () {
   }
 
   componentDidEnter () {
@@ -65,18 +66,24 @@ export default class Component extends PureComponent {
   componentWillUnmount () {
   }
 
-  componentWillEnter (callback) {
-    const el = this.container
-    TweenMax.fromTo(el, 0.3, {y: 100, opacity: 0}, {y: 0, opacity: 1, onComplete: callback})
+  componentWillAppear (callback) {
+    callback()
   }
 
-  componentWillLeave (callback) {
-    const el = this.container
-    TweenMax.fromTo(el, 0.3, {y: 0, opacity: 1}, {y: -100, opacity: 0, onComplete: callback})
+  componentDidAppear () {
   }
 
   renderComponentCompact () {
     return this.renderComponent()
+  }
+
+  renderFade () {
+    return <CSSTransition
+      timeout={500}
+      classNames={`fade`}
+      >
+      { this.props.children }
+    </CSSTransition>
   }
 
   renderComponent () {

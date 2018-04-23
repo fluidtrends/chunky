@@ -111,6 +111,7 @@ export default class Layout extends PureComponent {
     }
     return (<Cover
       index={1}
+      color='#ffffff'
       {...this.props}
       {...this.props.cover}
       id='cover'

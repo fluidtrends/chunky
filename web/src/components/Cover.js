@@ -44,14 +44,14 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='display2' style={{margin: '20px'}}> {this.props.title} </Typography>
+    return <Typography use='display2' style={{margin: '20px', color: this.props.color}}> {this.props.title} </Typography>
   }
 
   renderCoverSubtitle () {
     if (!this.props.subtitle) {
       return <div />
     }
-    return <Typography use='display1' style={{margin: '20px'}}> {this.props.subtitle} </Typography>
+    return <Typography use='display1' style={{margin: '20px', color: this.props.color}}> {this.props.subtitle} </Typography>
   }
 
   renderCoverAction () {

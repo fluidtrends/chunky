@@ -1,17 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
 import { App } from 'react-dom-chunky'
 import { Core } from 'react-chunky'
 import './global'
 
 const render = () => {
   ReactDOM.render(
-    <AppContainer>
-      <Core.AppContainer {...chunky.config}>
-        <App {...chunky.config} />
-      </Core.AppContainer>
-    </AppContainer>,
+    <Core.AppContainer {...chunky.config}>
+      <App {...chunky.config} />
+    </Core.AppContainer>,
   document.getElementById('chunky'))
 }
 

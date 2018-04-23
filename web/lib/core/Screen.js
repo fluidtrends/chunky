@@ -20,9 +20,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsTransitionGroup = require('react-addons-transition-group');
+var _TransitionGroup = require('react-transition-group/TransitionGroup');
 
-var _reactAddonsTransitionGroup2 = _interopRequireDefault(_reactAddonsTransitionGroup);
+var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
 
 var _reactChunky = require('react-chunky');
 
@@ -372,7 +372,7 @@ var Screen = function (_Core$Screen) {
       }
 
       return _react2.default.createElement(
-        _reactAddonsTransitionGroup2.default,
+        _TransitionGroup2.default,
         { key: '' + index, style: { alignSelf: 'stretch' } },
         ComponentContainer
       );

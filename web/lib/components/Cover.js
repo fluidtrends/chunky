@@ -87,7 +87,7 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _Typography.Typography,
-        { use: 'display2', style: { margin: '20px' } },
+        { use: 'display2', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
         ' '
@@ -101,7 +101,7 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _Typography.Typography,
-        { use: 'display1', style: { margin: '20px' } },
+        { use: 'display1', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.subtitle,
         ' '
