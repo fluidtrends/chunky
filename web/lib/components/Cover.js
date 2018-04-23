@@ -184,7 +184,7 @@ var Cover = function (_Component) {
           } },
         _react2.default.createElement(
           _Typography.Typography,
-          { use: 'display2', style: { margin: '20px', color: this.props.color } },
+          { use: 'display2', style: { margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color } },
           ' ',
           title,
           ' '
@@ -276,6 +276,7 @@ var Cover = function (_Component) {
             marginTop: this.props.offset + 'px',
             height: height + 2 + 'px',
             display: 'flex',
+            overflow: 'hidden',
             flex: 1,
             alignItems: 'center',
             flexDirection: 'column',

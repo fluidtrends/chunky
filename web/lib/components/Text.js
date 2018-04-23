@@ -28,6 +28,8 @@ var _marked = require('marked');
 
 var _marked2 = _interopRequireDefault(_marked);
 
+require('react-placeholder/lib/reactPlaceholder.css');
+
 var _urlParse = require('url-parse');
 
 var _urlParse2 = _interopRequireDefault(_urlParse);
@@ -124,7 +126,9 @@ var Text = function (_Component) {
         'div',
         { style: Object.assign({}, {
             textAlign: 'center',
-            padding: '20px'
+            padding: '20px',
+            maxWidth: '90vw',
+            overflow: 'hidden'
           }, this.props.style) },
         _react2.default.createElement(
           _reactPlaceholder2.default,

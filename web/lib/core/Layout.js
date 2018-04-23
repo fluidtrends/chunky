@@ -16,6 +16,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+require('node_modules/material-components-web/dist/material-components-web.css');
+
 var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
 
 var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
