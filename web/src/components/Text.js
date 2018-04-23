@@ -3,7 +3,6 @@ import Component from '../core/Component'
 import ReactPlaceholder from 'react-placeholder'
 import { TextBlock, MediaBlock, TextRow, RectShape, RoundShape } from 'react-placeholder/lib/placeholders'
 import marked from 'marked'
-import 'react-placeholder/lib/reactPlaceholder.css'
 import URL from 'url-parse'
 
 export default class Text extends Component {
