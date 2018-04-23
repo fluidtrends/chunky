@@ -38,8 +38,6 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _reactVerticalTimelineComponent = require('react-vertical-timeline-component');
 
-require('react-vertical-timeline-component/style.min.css');
-
 var _Card = require('rmwc/Card');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
