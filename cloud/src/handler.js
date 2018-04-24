@@ -1,4 +1,4 @@
-const chunky = require('react-cloud-chunky')
+const loader = require('./loader')
 const path = require('path')
 
 function validate (event, chunk, config, filename) {
@@ -22,8 +22,8 @@ function initialize (context) {
     try {
       context.callbackWaitsForEmptyEventLoop = false
 
-      const chunk = chunky.loader.loadChunk()
-      const config = chunky.loader.loadSecureCloudConfig()
+      const chunk = loader.loadChunk()
+      const config = loader.loadSecureCloudConfig()
 
       resolve({ chunk, config })
     } catch (error) {
