@@ -1,7 +1,7 @@
 'use strict'
 
 const loader = require('./loader')
-const firebase = require('../../firebase')
+const firebase = require('./firebase')
 
 function validate (event, chunk) {
   // Look up the required fields for this function
