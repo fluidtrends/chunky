@@ -34,6 +34,10 @@ function findTarget (src) {
       target = path.join(dest, 'node_modules', 'react-electron-chunky', compile ? 'lib' : (source || ''), original)
       targetSrc = path.join(dest, 'node_modules', 'react-electron-chunky', (source || ''), original)
       break
+    case 'cloud':
+      target = path.join(dest, 'node_modules', 'react-cloud-chunky', compile ? 'lib' : (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-cloud-chunky', (source || ''), original)
+      break
     case 'web':
       target = path.join(dest, 'node_modules', 'react-dom-chunky', compile ? 'lib' : (source || ''), original)
       targetSrc = path.join(dest, 'node_modules', 'react-dom-chunky', (source || ''), original)
