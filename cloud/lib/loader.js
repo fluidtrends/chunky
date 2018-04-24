@@ -17,7 +17,7 @@ function loadSecureCloudConfig() {
 }
 
 function loadInfo() {
-  var parts = process.env.AWS_LAMBDA_FUNCTION_NAME.split("-");
+  var parts = process.env.AWS_LAMBDA_FUNCTION_NAME.split('-');
   if (!parts || parts.length !== 3) {
     return;
   }
@@ -30,10 +30,10 @@ function loadInfo() {
 }
 
 function loadChunk() {
-  var chunk = loadFile("chunk.json");
+  var chunk = loadFile('chunk.json');
 
   if (!chunk || !chunk.service) {
-    throw new Error("Missing chunk manifest");
+    throw new Error('Missing chunk manifest');
   }
 
   return chunk;

@@ -1,23 +1,21 @@
-'use strict'
-
-function loadFile(file) {
+function loadFile (file) {
   return require(`${process.cwd()}/${file}`)
 }
 
-function loadManifest() {
+function loadManifest () {
   return loadFile('chunky.json')
 }
 
-function loadSecureConfig() {
+function loadSecureConfig () {
   return loadFile('.chunky.json')
 }
 
-function loadSecureCloudConfig() {
-    return loadSecureConfig().cloud[loadEnv()]
+function loadSecureCloudConfig () {
+  return loadSecureConfig().cloud[loadEnv()]
 }
 
-function loadInfo() {
-  const parts = process.env.AWS_LAMBDA_FUNCTION_NAME.split("-")
+function loadInfo () {
+  const parts = process.env.AWS_LAMBDA_FUNCTION_NAME.split('-')
   if (!parts || parts.length !== 3) {
     return
   }
@@ -29,17 +27,17 @@ function loadInfo() {
   }
 }
 
-function loadChunk() {
-  const chunk = loadFile("chunk.json")
+function loadChunk () {
+  const chunk = loadFile('chunk.json')
 
-   if (!chunk || !chunk.service) {
-    throw new Error("Missing chunk manifest")
+  if (!chunk || !chunk.service) {
+    throw new Error('Missing chunk manifest')
   }
 
   return chunk
 }
 
-function loadRequiredFields(chunk) {
+function loadRequiredFields (chunk) {
   const info = loadInfo()
 
   if (!info || !info.function || !chunk || !chunk.service ||
@@ -50,8 +48,8 @@ function loadRequiredFields(chunk) {
   return chunk.service.requiredFields[info.function]
 }
 
-function loadEnv() {
-    return (process.env.CHUNKY_ENV || 'dev')
+function loadEnv () {
+  return (process.env.CHUNKY_ENV || 'dev')
 }
 
 module.exports = {

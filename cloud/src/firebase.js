@@ -1,5 +1,3 @@
-'use strict'
-
 const firebase = require('firebase-admin')
 const firebaseline = require('firebaseline')
 

@@ -1,9 +1,9 @@
-'use strict'
-
-const aws = require('./aws')
+const loader = require('./loader')
+const handler = require('./handler')
 const firebase = require('./firebase')
 
 module.exports = {
-    aws,
-    firebase
+  loader,
+  handler,
+  firebase
 }

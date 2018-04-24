@@ -1,9 +1,11 @@
 'use strict';
 
-var aws = require('./aws');
+var loader = require('./loader');
+var handler = require('./handler');
 var firebase = require('./firebase');
 
 module.exports = {
-    aws: aws,
-    firebase: firebase
+  loader: loader,
+  handler: handler,
+  firebase: firebase
 };
