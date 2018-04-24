@@ -1,7 +1,11 @@
 'use strict';
 
-var firebase = require("firebase-admin");
-var firebaseline = require("firebaseline");
+var firebase = require('firebase-admin');
+var firebaseline = require('firebaseline');
+
+function operation(name, args) {
+  return firebaseline.operations[name](firebase, args);
+}
 
 function initialize(config) {
   if (firebase.apps.length > 0) {
@@ -12,7 +16,7 @@ function initialize(config) {
   // Initialize for the first time
   firebase.initializeApp({
     credential: firebase.credential.cert(config.serviceAccount),
-    databaseURL: "https://" + config.serviceAccount.project_id + ".firebaseio.com"
+    databaseURL: 'https://' + config.serviceAccount.project_id + '.firebaseio.com'
   });
 }
 
@@ -31,5 +35,6 @@ function save(data) {
 
 module.exports = {
   initialize: initialize,
+  operation: operation,
   save: save
 };
