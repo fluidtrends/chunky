@@ -1,58 +1,42 @@
-'use strict'
+const chunky = require('react-cloud-chunky')
+const path = require('path')
 
-const loader = require('./loader')
-const firebase = require('./firebase')
+function validate (event, chunk, config, filename) {
+  return new Promise((resolve, reject) => {
+    // Look up the required fields for the given function
+    const functionName = path.basename(filename, '.js')
+    const fields = chunk.service.requiredFields[functionName]
 
-function validate (event, chunk) {
-  // Look up the required fields for this function
-  const fields = loader.loadRequiredFields(chunk)
+    fields.forEach(field => {
+      if (!event.body[field]) {
+        reject(new Error(`Missing required field: ${field}`))
+      }
+    })
 
-  fields.forEach(req => {
-    if (!event.body[req]) {
-      throw new Error(`${req} field required`)
+    resolve({ chunk, config })
+  })
+}
+
+function initialize (context) {
+  return new Promise((resolve, reject) => {
+    try {
+      context.callbackWaitsForEmptyEventLoop = false
+
+      const chunk = chunky.loader.loadChunk()
+      const config = chunky.loader.loadSecureCloudConfig()
+
+      resolve({ chunk, config })
+    } catch (error) {
+      reject(error)
     }
   })
 }
 
-function done (callback, data) {
-  callback(null, data)
+function main (execute, filename) {
+  return (event, context) => initialize(context)
+                              .then(({ chunk, config }) => validate(event, chunk, config, filename))
+                              .then(({ chunk, config }) => execute(event, chunk, config))
+                              .catch(error => ({ error: error.message }))
 }
 
-function doneWithError (callback, error) {
-  callback(error)
-}
-
-function handleEvent (handler) {
-  return (event, context, callback) => {
-    try {
-      // Make sure we wait until the event is processed
-      context.callbackWaitsForEmptyEventLoop = false
-
-      // Look up the service chunk
-      const chunk = loader.loadChunk()
-
-      // Load the configuration
-      const config = loader.loadSecureCloudConfig()
-
-      // Validate the event first
-      validate(event, chunk)
-
-      // Handle the event
-      handler(event, chunk, config)
-
-      // The event finished successfully
-      .then(data => done(callback, data))
-
-      // The event finished with an error
-      .catch(error => { throw error })
-    } catch (e) {
-      // Something failed, either at validation,
-      // before the handler could complete or during execution
-      doneWithError(callback, e)
-    }
-  }
-}
-
-module.exports = {
-  handleEvent
-}
+module.exports = main

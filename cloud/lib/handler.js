@@ -1,62 +1,53 @@
 'use strict';
 
-var loader = require('./loader');
-var firebase = require('./firebase');
+var chunky = require('react-cloud-chunky');
+var path = require('path');
 
-function validate(event, chunk) {
-  // Look up the required fields for this function
-  var fields = loader.loadRequiredFields(chunk);
+function validate(event, chunk, config, filename) {
+  return new Promise(function (resolve, reject) {
+    // Look up the required fields for the given function
+    var functionName = path.basename(filename, '.js');
+    var fields = chunk.service.requiredFields[functionName];
 
-  fields.forEach(function (req) {
-    if (!event.body[req]) {
-      throw new Error(req + ' field required');
+    fields.forEach(function (field) {
+      if (!event.body[field]) {
+        reject(new Error('Missing required field: ' + field));
+      }
+    });
+
+    resolve({ chunk: chunk, config: config });
+  });
+}
+
+function initialize(context) {
+  return new Promise(function (resolve, reject) {
+    try {
+      context.callbackWaitsForEmptyEventLoop = false;
+
+      var chunk = chunky.loader.loadChunk();
+      var config = chunky.loader.loadSecureCloudConfig();
+
+      resolve({ chunk: chunk, config: config });
+    } catch (error) {
+      reject(error);
     }
   });
 }
 
-function done(callback, data) {
-  callback(null, data);
-}
-
-function doneWithError(callback, error) {
-  callback(error);
-}
-
-function handleEvent(handler) {
-  return function (event, context, callback) {
-    try {
-      // Make sure we wait until the event is processed
-      context.callbackWaitsForEmptyEventLoop = false;
-
-      // Look up the service chunk
-      var chunk = loader.loadChunk();
-
-      // Load the configuration
-      var config = loader.loadSecureCloudConfig();
-
-      // Validate the event first
-      validate(event, chunk);
-
-      // Handle the event
-      handler(event, chunk, config)
-
-      // The event finished successfully
-      .then(function (data) {
-        return done(callback, data);
-      })
-
-      // The event finished with an error
-      .catch(function (error) {
-        throw error;
-      });
-    } catch (e) {
-      // Something failed, either at validation,
-      // before the handler could complete or during execution
-      doneWithError(callback, e);
-    }
+function main(execute, filename) {
+  return function (event, context) {
+    return initialize(context).then(function (_ref) {
+      var chunk = _ref.chunk,
+          config = _ref.config;
+      return validate(event, chunk, config, filename);
+    }).then(function (_ref2) {
+      var chunk = _ref2.chunk,
+          config = _ref2.config;
+      return execute(event, chunk, config);
+    }).catch(function (error) {
+      return { error: error.message };
+    });
   };
 }
 
-module.exports = {
-  handleEvent: handleEvent
-};
+module.exports = main;

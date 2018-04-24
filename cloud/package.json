@@ -1,6 +1,6 @@
 {
   "name": "react-cloud-chunky",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "description": "The Chunky Cloud Framework",
   "main": "lib/index.js",
   "scripts": {
