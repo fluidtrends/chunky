@@ -14,8 +14,8 @@ function validate(event, chunk) {
   });
 }
 
-function done(callback, logs) {
-  callback(null, { logs: logs });
+function done(callback, data) {
+  callback(null, data);
 }
 
 function doneWithError(callback, error) {
@@ -38,15 +38,15 @@ function handleEvent(handler) {
       validate(event, chunk);
 
       // Handle the event
-      handler(event, chunk, config).
+      handler(event, chunk, config)
 
       // The event finished successfully
-      then(function (data) {
+      .then(function (data) {
         return done(callback, data);
-      }).
+      })
 
       // The event finished with an error
-      catch(function (error) {
+      .catch(function (error) {
         throw error;
       });
     } catch (e) {

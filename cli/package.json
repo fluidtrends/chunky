@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "The Chunky CLI",
   "preferGlobal": true,
   "scripts": {
@@ -46,7 +46,7 @@
     "opn": "^5.1.0",
     "os": "^0.1.1",
     "recursive-readdir": "^2.2.1",
-    "serverless": "^1.18.1",
+    "serverless": "^1.26.1",
     "slana": "^0.x",
     "url-parse": "^1.1.9",
     "wpapi": "^1.1.2",

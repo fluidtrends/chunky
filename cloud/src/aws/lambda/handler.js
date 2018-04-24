@@ -3,7 +3,7 @@
 const loader = require('./loader')
 const firebase = require('../../firebase')
 
-function validate(event, chunk) {
+function validate (event, chunk) {
   // Look up the required fields for this function
   const fields = loader.loadRequiredFields(chunk)
 
@@ -14,19 +14,19 @@ function validate(event, chunk) {
   })
 }
 
-function done(callback, logs) {
-  callback(null, { logs })
+function done (callback, data) {
+  callback(null, data)
 }
 
-function doneWithError(callback, error) {
+function doneWithError (callback, error) {
   callback(error)
 }
 
-function handleEvent(handler) {
+function handleEvent (handler) {
   return (event, context, callback) => {
     try {
       // Make sure we wait until the event is processed
-      context.callbackWaitsForEmptyEventLoop = false;
+      context.callbackWaitsForEmptyEventLoop = false
 
       // Look up the service chunk
       const chunk = loader.loadChunk()
@@ -38,13 +38,13 @@ function handleEvent(handler) {
       validate(event, chunk)
 
       // Handle the event
-      handler(event, chunk, config).
+      handler(event, chunk, config)
 
       // The event finished successfully
-      then(data => done(callback, data)).
+      .then(data => done(callback, data))
 
       // The event finished with an error
-      catch(error => { throw error })
+      .catch(error => { throw error })
     } catch (e) {
       // Something failed, either at validation,
       // before the handler could complete or during execution

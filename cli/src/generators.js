@@ -22,40 +22,40 @@ function generateServerlessPackage (service, deployment) {
     main: 'service.js',
     scripts: {},
     author: '',
-    dependencies: service.dependencies
+    dependencies: Object.assign({}, {
+      'react-cloud-chunky': 'latest',
+      'serverless-domain-manager': 'latest'
+    }, service.dependencies)
   }
 }
 
 function generateServerlessManifest (service, deployment) {
+  const basePath = `${service.name}`
   var base = {
-    service: service.name,
+    service: `${deployment.apiName}-${service.name}`,
     provider: {
       name: 'aws',
-      runtime: 'nodejs6.10',
+      runtime: 'nodejs8.10',
       stage: deployment.env,
       timeout: 60,
       environment: {
         CHUNKY_ENV: deployment.env
       }
     },
+    plugins: ['serverless-domain-manager'],
+    custom: {
+      customDomain: {
+        domainName: deployment.apiDomain,
+        certificateName: deployment.apiDomain,
+        stage: deployment.env,
+        basePath,
+        createRoute53Record: false,
+        endpointType: 'edge'
+      }
+    },
     package: {
       exclude: ['.git/**']
     }
-        // resources: {
-        //     Resources: {
-        //         pathmapping: {
-        //             Type: "AWS::ApiGateway::BasePathMapping",
-        //             Properties: {
-        //                 BasePath: "",
-        //                 DomainName: deployment.apiDomain,
-        //                 RestApiId: {
-        //                     Ref: "ApiGatewayRestApi"
-        //                 },
-        //                 Stage: deployment.env
-        //             }
-        //         }
-        //     }
-        // }
   }
 
   base.functions = {}
