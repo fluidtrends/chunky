@@ -70,14 +70,14 @@ function main(execute, filename) {
       return execute({ event: event, chunk: chunk, config: config, log: log });
     }).then(function (data, log) {
       var executedAt = Date.now();
-      var executedIn = executedAt - log.validatedAt;
-      var finishIn = executedAt - log.startedAt;
+      // const executedIn = (executedAt - log.validatedAt)
+      // const finishIn = (executedAt - log.startedAt)
 
       return Object.assign({}, { data: data }, log, {
         ok: true,
-        executedAt: executedAt,
-        executedIn: executedIn,
-        finishIn: finishIn
+        executedAt: executedAt
+        // executedIn,
+        // finishIn
       });
     }).catch(function (error) {
       return { error: error.message };

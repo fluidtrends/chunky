@@ -52,14 +52,14 @@ function main (execute, filename) {
                               .then(({ chunk, config, log }) => execute({ event, chunk, config, log }))
                               .then((data, log) => {
                                 const executedAt = Date.now()
-                                const executedIn = (executedAt - log.validatedAt)
-                                const finishIn = (executedAt - log.startedAt)
+                                // const executedIn = (executedAt - log.validatedAt)
+                                // const finishIn = (executedAt - log.startedAt)
 
                                 return Object.assign({}, { data }, log, {
                                   ok: true,
-                                  executedAt,
-                                  executedIn,
-                                  finishIn
+                                  executedAt
+                                  // executedIn,
+                                  // finishIn
                                 })
                               })
                               .catch(error => ({ error: error.message }))
