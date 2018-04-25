@@ -5,7 +5,6 @@ var path = require('path');
 
 function validate(event, chunk, config, filename) {
   return new Promise(function (resolve, reject) {
-    // Look up the required fields for the given function
     var functionName = path.basename(filename, '.js');
     var fields = chunk.service.requiredFields[functionName];
 
@@ -35,6 +34,7 @@ function initialize(context) {
 }
 
 function main(execute, filename) {
+  var startedAt = Date.now();
   return function (event, context) {
     return initialize(context).then(function (_ref) {
       var chunk = _ref.chunk,
@@ -44,6 +44,10 @@ function main(execute, filename) {
       var chunk = _ref2.chunk,
           config = _ref2.config;
       return execute(event, chunk, config);
+    }).then(function (result) {
+      return Object.assign({}, result, { log: {
+          duration: Date.now() - startedAt
+        } });
     }).catch(function (error) {
       return { error: error.message };
     });

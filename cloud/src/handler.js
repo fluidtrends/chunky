@@ -3,7 +3,6 @@ const path = require('path')
 
 function validate (event, chunk, config, filename) {
   return new Promise((resolve, reject) => {
-    // Look up the required fields for the given function
     const functionName = path.basename(filename, '.js')
     const fields = chunk.service.requiredFields[functionName]
 
@@ -33,9 +32,13 @@ function initialize (context) {
 }
 
 function main (execute, filename) {
+  const startedAt = Date.now()
   return (event, context) => initialize(context)
                               .then(({ chunk, config }) => validate(event, chunk, config, filename))
                               .then(({ chunk, config }) => execute(event, chunk, config))
+                              .then((result) => Object.assign({}, result, { log: {
+                                duration: (Date.now() - startedAt)
+                              }}))
                               .catch(error => ({ error: error.message }))
 }
 
