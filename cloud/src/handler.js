@@ -1,7 +1,7 @@
 const loader = require('./loader')
 const path = require('path')
 
-function validate ({ event, chunk, config, filename, log }) {
+function validate ({ event, chunk, config, filename }) {
   return new Promise((resolve, reject) => {
     const functionName = path.basename(filename, '.js')
     const fields = chunk.service.requiredFields[functionName]
@@ -12,7 +12,7 @@ function validate ({ event, chunk, config, filename, log }) {
       }
     })
 
-    resolve({ chunk, config, log })
+    resolve({ chunk, config })
   })
 }
 
@@ -21,14 +21,10 @@ function initialize ({ context }) {
     try {
       context.callbackWaitsForEmptyEventLoop = false
 
-      var log = {
-        startedAt: Date.now()
-      }
-
       const chunk = loader.loadChunk()
       const config = loader.loadSecureCloudConfig()
 
-      resolve({ chunk, config, log })
+      resolve({ chunk, config })
     } catch (error) {
       reject(error)
     }
@@ -37,16 +33,12 @@ function initialize ({ context }) {
 
 function main (execute, filename) {
   return (event, context) => initialize({ context })
-                              .then(({ chunk, config, log }) => validate({ event, chunk, config, filename, log }))
-                              .then(({ chunk, config, log }) => execute({ event, chunk, config, log }))
-                              .then((data, log) => {
-                                const executedAt = Date.now()
-                                const executedIn = (executedAt - log.startedAt)
-
-                                return Object.assign({}, { data }, log, {
+                              .then(({ chunk, config }) => validate({ event, chunk, config, filename }))
+                              .then(({ chunk, config }) => execute({ event, chunk, config }))
+                              .then((data) => {
+                                return Object.assign({}, { data }, {
                                   ok: true,
-                                  executedAt,
-                                  executedIn
+                                  timestamp: Date.now()
                                 })
                               })
                               .catch(error => ({ error: error.message }))
