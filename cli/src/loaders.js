@@ -85,12 +85,12 @@ function _findChunkArtifacts (chunk, type, artifacts) {
         // Look up the config file for this chunk
     var config = loadChunkConfig(chunk)
     var dependencies = {}
-    var permissions = []
+    var permissions = {}
 
     if (type === 'functions') {
       config = config.service
       dependencies = config.dependencies
-      permissions = config.permissions
+      permissions = Object.assign({}, permissions, config.permissions)
     }
 
     if (!config[type] || config[type].length === 0) {
@@ -102,12 +102,12 @@ function _findChunkArtifacts (chunk, type, artifacts) {
     const artifactsDir = path.resolve(process.cwd(), 'chunks', chunk, type)
 
     if (!fs.existsSync(artifactsDir)) {
-            // This chunk has no artifacts, even if it declared some
+      // This chunk has no artifacts, even if it declared some
       return []
     }
 
     if (!artifacts || artifacts.length === 0) {
-            // We want all the artifacts in this chunk
+      // We want all the artifacts in this chunk
       artifacts = config[type]
     } else {
       artifacts = config[type].filter(a => {
