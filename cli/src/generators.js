@@ -24,7 +24,8 @@ function generateServerlessPackage (service, deployment) {
     author: '',
     dependencies: Object.assign({}, {
       'react-cloud-chunky': 'latest',
-      'serverless-domain-manager': 'latest'
+      'serverless-domain-manager': 'latest',
+      'serverless-iam-roles-per-function': 'latest'
     }, service.dependencies)
   }
 }
@@ -42,7 +43,12 @@ function generateServerlessManifest (service, deployment) {
         CHUNKY_ENV: deployment.env
       }
     },
-    plugins: ['serverless-domain-manager'],
+    iamRoleStatements: [{
+      Effect: 'Allow',
+      Action: deployment.apiPermissions,
+      Resource: '*'
+    }],
+    plugins: ['serverless-domain-manager', 'serverless-iam-roles-per-function'],
     custom: {
       customDomain: {
         domainName: deployment.apiDomain,
@@ -70,6 +76,14 @@ function generateServerlessManifest (service, deployment) {
           cors: true,
           integration: 'lambda'
         }
+      }]
+    }
+
+    if (f.permissions && f.permissions.length > 0) {
+      base.functions[f.name].iamRoleStatements = [{
+        Effect: 'Allow',
+        Action: f.permissions,
+        Resource: '*'
       }]
     }
   })

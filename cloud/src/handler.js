@@ -12,15 +12,7 @@ function validate ({ event, chunk, config, filename, log }) {
       }
     })
 
-    const validatedAt = Date.now()
-    const validatedIn = (validatedAt - log.initializedAt)
-
-    var newLog = Object.assign({}, log, {
-      validatedAt,
-      validatedIn
-    })
-
-    resolve({ chunk, config, log: newLog })
+    resolve({ chunk, config, log })
   })
 }
 
@@ -36,9 +28,6 @@ function initialize ({ context }) {
       const chunk = loader.loadChunk()
       const config = loader.loadSecureCloudConfig()
 
-      log.initializedAt = Date.now()
-      log.initializedIn = (log.initializedAt - log.startedAt)
-
       resolve({ chunk, config, log })
     } catch (error) {
       reject(error)
@@ -52,14 +41,12 @@ function main (execute, filename) {
                               .then(({ chunk, config, log }) => execute({ event, chunk, config, log }))
                               .then((data, log) => {
                                 const executedAt = Date.now()
-                                // const executedIn = (executedAt - log.validatedAt)
-                                // const finishIn = (executedAt - log.startedAt)
+                                const executedIn = (executedAt - log.startedAt)
 
                                 return Object.assign({}, { data }, log, {
                                   ok: true,
-                                  executedAt
-                                  // executedIn,
-                                  // finishIn
+                                  executedAt,
+                                  executedIn
                                 })
                               })
                               .catch(error => ({ error: error.message }))

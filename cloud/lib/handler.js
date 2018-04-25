@@ -20,15 +20,7 @@ function validate(_ref) {
       }
     });
 
-    var validatedAt = Date.now();
-    var validatedIn = validatedAt - log.initializedAt;
-
-    var newLog = Object.assign({}, log, {
-      validatedAt: validatedAt,
-      validatedIn: validatedIn
-    });
-
-    resolve({ chunk: chunk, config: config, log: newLog });
+    resolve({ chunk: chunk, config: config, log: log });
   });
 }
 
@@ -45,9 +37,6 @@ function initialize(_ref2) {
 
       var chunk = loader.loadChunk();
       var config = loader.loadSecureCloudConfig();
-
-      log.initializedAt = Date.now();
-      log.initializedIn = log.initializedAt - log.startedAt;
 
       resolve({ chunk: chunk, config: config, log: log });
     } catch (error) {
@@ -70,14 +59,12 @@ function main(execute, filename) {
       return execute({ event: event, chunk: chunk, config: config, log: log });
     }).then(function (data, log) {
       var executedAt = Date.now();
-      // const executedIn = (executedAt - log.validatedAt)
-      // const finishIn = (executedAt - log.startedAt)
+      var executedIn = executedAt - log.startedAt;
 
       return Object.assign({}, { data: data }, log, {
         ok: true,
-        executedAt: executedAt
-        // executedIn,
-        // finishIn
+        executedAt: executedAt,
+        executedIn: executedIn
       });
     }).catch(function (error) {
       return { error: error.message };

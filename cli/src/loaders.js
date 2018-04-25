@@ -85,10 +85,12 @@ function _findChunkArtifacts (chunk, type, artifacts) {
         // Look up the config file for this chunk
     var config = loadChunkConfig(chunk)
     var dependencies = {}
+    var permissions = []
 
     if (type === 'functions') {
       config = config.service
       dependencies = config.dependencies
+      permissions = config.permissions
     }
 
     if (!config[type] || config[type].length === 0) {
@@ -129,6 +131,7 @@ function _findChunkArtifacts (chunk, type, artifacts) {
         name,
         source: url.protocol.slice(0, -1),
         dependencies,
+        permissions: permissions[name],
         path,
         options: Object.assign({ priority: 99999 }, url.query)}
     }).sort((a, b) => (Number.parseInt(a.options.priority) - Number.parseInt(b.options.priority)))

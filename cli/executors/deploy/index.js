@@ -15,6 +15,7 @@ function initialize (providers, command) {
   const apiVersion = providers.aws.options.apiVersion
   const apiName = providers.aws.options.apiName
   const apiKeyId = providers.aws.options.apiKeyId
+  const apiPermissions = providers.aws.options.apiPermissions
   const apiKeySecret = providers.aws.options.apiKeySecret
 
   const deployPath = path.resolve(process.cwd(), '.chunky', 'deployments', id)
@@ -28,6 +29,7 @@ function initialize (providers, command) {
     date,
     timestamp,
     apiName,
+    apiPermissions,
     apiDomain,
     apiVersion,
     apiKeyId,
