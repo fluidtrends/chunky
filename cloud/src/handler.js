@@ -36,9 +36,10 @@ function main (execute, filename) {
   return (event, context) => initialize(context)
                               .then(({ chunk, config }) => validate(event, chunk, config, filename))
                               .then(({ chunk, config }) => execute(event, chunk, config))
-                              .then((result) => Object.assign({}, result, { log: {
+                              .then((data) => Object.assign({}, { data }, {
+                                ok: true,
                                 duration: (Date.now() - startedAt)
-                              }}))
+                              }))
                               .catch(error => ({ error: error.message }))
 }
 

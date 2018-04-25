@@ -44,10 +44,11 @@ function main(execute, filename) {
       var chunk = _ref2.chunk,
           config = _ref2.config;
       return execute(event, chunk, config);
-    }).then(function (result) {
-      return Object.assign({}, result, { log: {
-          duration: Date.now() - startedAt
-        } });
+    }).then(function (data) {
+      return Object.assign({}, { data: data }, {
+        ok: true,
+        duration: Date.now() - startedAt
+      });
     }).catch(function (error) {
       return { error: error.message };
     });
