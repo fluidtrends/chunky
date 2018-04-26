@@ -9,8 +9,9 @@ var api = function api(apiKey, data) {
     return key + '=' + data[key];
   }).join('&');
   var url = 'http://api.etherscan.io/api?apikey=' + apiKey + '&tag=latest&' + args;
-  return Promise.resolve(url);
-  // return fetch(url).then(res => res.json())
+  return fetch(url).then(function (res) {
+    return res.json();
+  });
 };
 
 var transactions = function transactions(apiKey, _ref) {
@@ -29,11 +30,13 @@ var transactions = function transactions(apiKey, _ref) {
 };
 
 var balance = function balance(apiKey, _ref2) {
-  var addresses = _ref2.addresses;
+  var addresses = _ref2.addresses,
+      address = _ref2.address;
   return api(apiKey, {
     module: 'account',
     action: 'balance',
-    addresses: addresses.join(',')
+    addresses: addresses ? addresses.join(',') : undefined,
+    address: address
   });
 };
 
