@@ -3,8 +3,7 @@ const fetch = require('node-fetch')
 const api = (apiKey, data) => {
   const args = Object.keys(data).filter(key => data[key]).map(key => `${key}=${data[key]}`).join('&')
   const url = `http://api.etherscan.io/api?apikey=${apiKey}&tag=latest&${args}`
-  return Promise.resolve(url)
-  // return fetch(url).then(res => res.json()).then(json => json.result)
+  return fetch(url).then(res => res.json()).then(json => json.result)
 }
 
 const transactions = (apiKey, { address, total, contract }) => api(apiKey, {
@@ -19,10 +18,9 @@ const transactions = (apiKey, { address, total, contract }) => api(apiKey, {
 
 const balance = (apiKey, { addresses, address, contract }) => api(apiKey, {
   module: 'account',
-  action: 'balance',
+  action: (contract ? 'tokenbalance' : (addresses ? 'balancemulti' : 'balance')),
   contractaddress: contract,
-  addresses: (addresses ? addresses.join(',') : undefined),
-  address
+  address: (addresses ? addresses.join(',') : address)
 })
 
 module.exports = {
