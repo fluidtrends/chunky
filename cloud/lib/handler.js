@@ -20,8 +20,13 @@ function validate(_ref) {
       filename = _ref.filename;
 
   return new Promise(function (resolve, reject) {
+    if (!chunk.service.requiredFields) {
+      resolve({ chunk: chunk, config: config });
+      return;
+    }
+
     var functionName = path.basename(filename, '.js');
-    var fields = chunk.service.requiredFields[functionName];
+    var fields = chunk.service.requiredFields[functionName] || [];
 
     fields.forEach(function (field) {
       if (!event.body[field]) {

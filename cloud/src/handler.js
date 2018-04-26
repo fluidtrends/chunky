@@ -13,8 +13,13 @@ var _context = {
 
 function validate ({ event, chunk, config, filename }) {
   return new Promise((resolve, reject) => {
+    if (!chunk.service.requiredFields) {
+      resolve({ chunk, config })
+      return
+    }
+
     const functionName = path.basename(filename, '.js')
-    const fields = chunk.service.requiredFields[functionName]
+    const fields = chunk.service.requiredFields[functionName] || []
 
     fields.forEach(field => {
       if (!event.body[field]) {
