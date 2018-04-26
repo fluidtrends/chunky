@@ -1,6 +1,6 @@
 {
   "name": "react-cloud-chunky",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "description": "The Chunky Cloud Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "firebase-admin": "^5.1.0",
-    "firebaseline": "0.x"
+    "firebaseline": "0.x",
+    "react-blockchain-chunky": "0.x"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
