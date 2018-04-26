@@ -60,7 +60,7 @@ function authorize(_ref2) {
     _context.burst = _context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0;
 
     if (auth && auth.limit && _context.burst < auth.limit) {
-      reject(new Error('Request limit reached'));
+      reject(new Error('Request limit reached - burst: ' + _context.burst + ' / sinceLastUpdate: ' + _context.sinceLastUpdate + ' / sinceStart: ' + _context.sinceStart + ' '));
     }
 
     context.callbackWaitsForEmptyEventLoop = false;
