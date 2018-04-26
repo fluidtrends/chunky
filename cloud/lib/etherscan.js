@@ -9,11 +9,8 @@ var api = function api(apiKey, data) {
     return key + '=' + data[key];
   }).join('&');
   var url = 'http://api.etherscan.io/api?apikey=' + apiKey + '&tag=latest&' + args;
-  return fetch(url).then(function (res) {
-    return res.json();
-  }).then(function (json) {
-    return json.result;
-  });
+  return Promise.resolve(url);
+  // return fetch(url).then(res => res.json()).then(json => json.result)
 };
 
 var transactions = function transactions(apiKey, _ref) {

@@ -3,7 +3,8 @@ const fetch = require('node-fetch')
 const api = (apiKey, data) => {
   const args = Object.keys(data).filter(key => data[key]).map(key => `${key}=${data[key]}`).join('&')
   const url = `http://api.etherscan.io/api?apikey=${apiKey}&tag=latest&${args}`
-  return fetch(url).then(res => res.json()).then(json => json.result)
+  return Promise.resolve(url)
+  // return fetch(url).then(res => res.json()).then(json => json.result)
 }
 
 const transactions = (apiKey, { address, total, contract }) => api(apiKey, {
