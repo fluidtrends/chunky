@@ -42,7 +42,7 @@ function initialize () {
 function authorize ({ context, auth }) {
   return new Promise((resolve, reject) => {
     const update = Date.now()
-    const burstRate = 10000
+    const burstRate = 1000
 
     _context.sinceLastUpdate = (update - _context.lastUpdate)
     _context.sinceStart = (update - _context.start)
@@ -50,7 +50,7 @@ function authorize ({ context, auth }) {
     _context.burst = (_context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0)
 
     if (auth && auth.limit && _context.burst > auth.limit) {
-      reject(new Error(`Request limit reached - burst: ${_context.burst} / sinceLastUpdate: ${_context.sinceLastUpdate} / sinceStart: ${_context.sinceStart} `))
+      reject(new Error(`Request limit reached`))
     }
 
     context.callbackWaitsForEmptyEventLoop = false

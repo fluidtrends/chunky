@@ -52,7 +52,7 @@ function authorize(_ref2) {
 
   return new Promise(function (resolve, reject) {
     var update = Date.now();
-    var burstRate = 10000;
+    var burstRate = 1000;
 
     _context.sinceLastUpdate = update - _context.lastUpdate;
     _context.sinceStart = update - _context.start;
@@ -60,7 +60,7 @@ function authorize(_ref2) {
     _context.burst = _context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0;
 
     if (auth && auth.limit && _context.burst > auth.limit) {
-      reject(new Error('Request limit reached - burst: ' + _context.burst + ' / sinceLastUpdate: ' + _context.sinceLastUpdate + ' / sinceStart: ' + _context.sinceStart + ' '));
+      reject(new Error('Request limit reached'));
     }
 
     context.callbackWaitsForEmptyEventLoop = false;
