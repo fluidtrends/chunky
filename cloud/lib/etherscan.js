@@ -8,9 +8,9 @@ var api = function api(apiKey, data) {
   }).map(function (key) {
     return key + '=' + data[key];
   }).join('&');
-  return fetch('http://api.etherscan.io/api?apikey=' + apiKey + '&tag=latest&' + args).then(function (res) {
-    return res.json();
-  });
+  var url = 'http://api.etherscan.io/api?apikey=' + apiKey + '&tag=latest&' + args;
+  return Promise.resolve(url);
+  // return fetch(url).then(res => res.json())
 };
 
 var transactions = function transactions(apiKey, _ref) {

@@ -86,6 +86,16 @@ function generateServerlessManifest (service, deployment) {
         Resource: '*'
       }]
     }
+
+    if (f.schedule) {
+      base.functions[f.name].events.push({
+        schedule: {
+          rate: `rate ${f.schedule.rate}`,
+          enabled: f.schedule.enabled,
+          input: Object.assign({}, { stage: deployment.env }, f.schedule.args)
+        }
+      })
+    }
   })
 
   return base

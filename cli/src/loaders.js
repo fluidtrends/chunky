@@ -86,11 +86,13 @@ function _findChunkArtifacts (chunk, type, artifacts) {
     var config = loadChunkConfig(chunk)
     var dependencies = {}
     var permissions = {}
+    var schedule = {}
 
     if (type === 'functions') {
       config = config.service
       dependencies = config.dependencies
       permissions = Object.assign({}, permissions, config.permissions)
+      schedule = Object.assign({}, schedule, config.schedule)
     }
 
     if (!config[type] || config[type].length === 0) {
@@ -132,6 +134,7 @@ function _findChunkArtifacts (chunk, type, artifacts) {
         source: url.protocol.slice(0, -1),
         dependencies,
         permissions: permissions[name],
+        schedule: schedule[name],
         path,
         options: Object.assign({ priority: 99999 }, url.query)}
     }).sort((a, b) => (Number.parseInt(a.options.priority) - Number.parseInt(b.options.priority)))

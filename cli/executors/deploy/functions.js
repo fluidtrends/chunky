@@ -83,10 +83,6 @@ module.exports = function(providers, deployment) {
           services[f.chunk].dependencies = Object.assign({}, services[f.chunk].dependencies || {}, f.dependencies)
           services[f.chunk].functions = services[f.chunk].functions || []
           services[f.chunk].functions.push(f)
-          // console.log(services[f.chunk])
-          // if (f.permissions) {
-          //   services[f.chunk].permissions = f.permissions
-          // }
       })
 
       return batchServices(services, deployment).
