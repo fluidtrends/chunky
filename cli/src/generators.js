@@ -80,7 +80,7 @@ function generateServerlessManifest (service, deployment) {
     }
 
     if (f.schedule) {
-      base.functions[f.name].events = [{
+      base.functions[f.name].events.push({
         schedule: {
           rate: `rate(${f.schedule.rate})`,
           enabled: f.schedule.enabled,
@@ -90,7 +90,7 @@ function generateServerlessManifest (service, deployment) {
             }
           }, f.schedule.args)
         }
-      }]
+      })
     }
 
     if (f.permissions && f.permissions.length > 0) {
