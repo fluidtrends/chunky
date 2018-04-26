@@ -5,13 +5,13 @@ var handler = require('./handler');
 var firebase = require('./firebase');
 var aws = require('./aws');
 var emailer = require('./emailer');
-var ethereum = require('./ethereum');
+var etherscan = require('./etherscan');
 
 module.exports = {
   loader: loader,
   handler: handler,
   firebase: firebase,
-  ethereum: ethereum,
+  etherscan: etherscan,
   emailer: emailer,
   aws: aws
 };

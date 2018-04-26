@@ -37,7 +37,7 @@
   "dependencies": {
     "firebase-admin": "^5.1.0",
     "firebaseline": "0.x",
-    "react-blockchain-chunky": "0.x"
+    "node-fetch": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

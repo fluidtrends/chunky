@@ -3,13 +3,13 @@ const handler = require('./handler')
 const firebase = require('./firebase')
 const aws = require('./aws')
 const emailer = require('./emailer')
-const ethereum = require('./ethereum')
+const etherscan = require('./etherscan')
 
 module.exports = {
   loader,
   handler,
   firebase,
-  ethereum,
+  etherscan,
   emailer,
   aws
 }
