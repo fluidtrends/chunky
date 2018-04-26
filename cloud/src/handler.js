@@ -8,7 +8,7 @@ var _context = {
   lastUpdate: now,
   sinceLastUpdate: 0,
   sinceStart: 0,
-  counter: 0
+  burst: 0
 }
 
 function validate ({ event, chunk, config, filename }) {
@@ -26,11 +26,9 @@ function validate ({ event, chunk, config, filename }) {
   })
 }
 
-function initialize ({ context }) {
+function initialize () {
   return new Promise((resolve, reject) => {
     try {
-      context.callbackWaitsForEmptyEventLoop = false
-
       const chunk = loader.loadChunk()
       const config = loader.loadSecureCloudConfig()
 
@@ -41,26 +39,28 @@ function initialize ({ context }) {
   })
 }
 
-function authorize (auth) {
+function authorize ({ context, auth }) {
   return new Promise((resolve, reject) => {
     const update = Date.now()
+    const burstRate = 10000
 
     _context.sinceLastUpdate = (update - _context.lastUpdate)
     _context.sinceStart = (update - _context.start)
     _context.lastUpdate = update
-    _context.counter = (_context.counter + 1)
+    _context.burst = (_context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0)
 
-    if (!auth || !auth.limit) {
-      resolve()
+    if (auth && auth.limit && _context.burst < auth.limit) {
+      reject(new Error('Request limit reached'))
     }
 
-    reject(new Error('Request limit reached'))
+    context.callbackWaitsForEmptyEventLoop = false
+    resolve()
   })
 }
 
 function main ({ executor, filename, auth }) {
-  return (event, context) => authorize(auth)
-                              .then(() => initialize({ context }))
+  return (event, context) => authorize({ auth, context })
+                              .then(() => initialize())
                               .then(({ chunk, config }) => validate({ event, chunk, config, filename }))
                               .then(({ chunk, config }) => executor({ event, chunk, config }))
                               .then((data) => {

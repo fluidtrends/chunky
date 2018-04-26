@@ -10,7 +10,7 @@ var _context = {
   lastUpdate: now,
   sinceLastUpdate: 0,
   sinceStart: 0,
-  counter: 0
+  burst: 0
 };
 
 function validate(_ref) {
@@ -33,13 +33,9 @@ function validate(_ref) {
   });
 }
 
-function initialize(_ref2) {
-  var context = _ref2.context;
-
+function initialize() {
   return new Promise(function (resolve, reject) {
     try {
-      context.callbackWaitsForEmptyEventLoop = false;
-
       var chunk = loader.loadChunk();
       var config = loader.loadSecureCloudConfig();
 
@@ -50,20 +46,25 @@ function initialize(_ref2) {
   });
 }
 
-function authorize(auth) {
+function authorize(_ref2) {
+  var context = _ref2.context,
+      auth = _ref2.auth;
+
   return new Promise(function (resolve, reject) {
     var update = Date.now();
+    var burstRate = 10000;
 
     _context.sinceLastUpdate = update - _context.lastUpdate;
     _context.sinceStart = update - _context.start;
     _context.lastUpdate = update;
-    _context.counter = _context.counter + 1;
+    _context.burst = _context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0;
 
-    if (!auth || !auth.limit) {
-      resolve();
+    if (auth && auth.limit && _context.burst < auth.limit) {
+      reject(new Error('Request limit reached'));
     }
 
-    reject(new Error('Request limit reached'));
+    context.callbackWaitsForEmptyEventLoop = false;
+    resolve();
   });
 }
 
@@ -73,8 +74,8 @@ function main(_ref3) {
       auth = _ref3.auth;
 
   return function (event, context) {
-    return authorize(auth).then(function () {
-      return initialize({ context: context });
+    return authorize({ auth: auth, context: context }).then(function () {
+      return initialize();
     }).then(function (_ref4) {
       var chunk = _ref4.chunk,
           config = _ref4.config;
