@@ -90,9 +90,13 @@ function generateServerlessManifest (service, deployment) {
     if (f.schedule) {
       base.functions[f.name].events.push({
         schedule: {
-          rate: `rate (${f.schedule.rate})`,
+          rate: `rate(${f.schedule.rate})`,
           enabled: f.schedule.enabled,
-          input: Object.assign({}, { stage: deployment.env }, f.schedule.args)
+          input: Object.assign({}, {
+            stageParams: {
+              stage: deployment.env
+            }
+          }, f.schedule.args)
         }
       })
     }

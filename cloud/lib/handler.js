@@ -3,6 +3,16 @@
 var loader = require('./loader');
 var path = require('path');
 
+var now = Date.now();
+
+var _context = {
+  start: now,
+  lastUpdate: now,
+  sinceLastUpdate: 0,
+  sinceStart: 0,
+  counter: 0
+};
+
 function validate(_ref) {
   var event = _ref.event,
       chunk = _ref.chunk,
@@ -41,6 +51,12 @@ function initialize(_ref2) {
 }
 
 function main(execute, filename) {
+  var update = Date.now();
+
+  _context.sinceLastUpdate = update - _context.lastUpdate;
+  _context.sinceStart = update - _context.start;
+  _context.lastUpdate = update;
+
   return function (event, context) {
     return initialize({ context: context }).then(function (_ref3) {
       var chunk = _ref3.chunk,
@@ -49,7 +65,7 @@ function main(execute, filename) {
     }).then(function (_ref4) {
       var chunk = _ref4.chunk,
           config = _ref4.config;
-      return execute({ event: event, chunk: chunk, config: config });
+      return execute({ event: event, chunk: chunk, config: config, context: _context });
     }).then(function (data) {
       return Object.assign({}, { data: data }, {
         ok: true,

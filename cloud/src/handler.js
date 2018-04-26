@@ -1,6 +1,16 @@
 const loader = require('./loader')
 const path = require('path')
 
+const now = Date.now()
+
+var _context = {
+  start: now,
+  lastUpdate: now,
+  sinceLastUpdate: 0,
+  sinceStart: 0,
+  counter: 0
+}
+
 function validate ({ event, chunk, config, filename }) {
   return new Promise((resolve, reject) => {
     const functionName = path.basename(filename, '.js')
@@ -32,9 +42,15 @@ function initialize ({ context }) {
 }
 
 function main (execute, filename) {
+  const update = Date.now()
+
+  _context.sinceLastUpdate = (update - _context.lastUpdate)
+  _context.sinceStart = (update - _context.start)
+  _context.lastUpdate = update
+
   return (event, context) => initialize({ context })
                               .then(({ chunk, config }) => validate({ event, chunk, config, filename }))
-                              .then(({ chunk, config }) => execute({ event, chunk, config }))
+                              .then(({ chunk, config }) => execute({ event, chunk, config, context: _context }))
                               .then((data) => {
                                 return Object.assign({}, { data }, {
                                   ok: true,
