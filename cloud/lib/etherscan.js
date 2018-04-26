@@ -11,6 +11,8 @@ var api = function api(apiKey, data) {
   var url = 'http://api.etherscan.io/api?apikey=' + apiKey + '&tag=latest&' + args;
   return fetch(url).then(function (res) {
     return res.json();
+  }).then(function (json) {
+    return json.result;
   });
 };
 
