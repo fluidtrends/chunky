@@ -50,22 +50,39 @@ function initialize(_ref2) {
   });
 }
 
-function main(execute, filename) {
-  var update = Date.now();
+function authorize(auth) {
+  return new Promise(function (resolve, reject) {
+    var update = Date.now();
 
-  _context.sinceLastUpdate = update - _context.lastUpdate;
-  _context.sinceStart = update - _context.start;
-  _context.lastUpdate = update;
+    _context.sinceLastUpdate = update - _context.lastUpdate;
+    _context.sinceStart = update - _context.start;
+    _context.lastUpdate = update;
+    _context.counter = _context.counter + 1;
+
+    if (!auth || !auth.limit) {
+      resolve();
+    }
+
+    reject(new Error('Request limit reached'));
+  });
+}
+
+function main(_ref3) {
+  var executor = _ref3.executor,
+      filename = _ref3.filename,
+      auth = _ref3.auth;
 
   return function (event, context) {
-    return initialize({ context: context }).then(function (_ref3) {
-      var chunk = _ref3.chunk,
-          config = _ref3.config;
-      return validate({ event: event, chunk: chunk, config: config, filename: filename });
+    return authorize(auth).then(function () {
+      return initialize({ context: context });
     }).then(function (_ref4) {
       var chunk = _ref4.chunk,
           config = _ref4.config;
-      return execute({ event: event, chunk: chunk, config: config, context: _context });
+      return validate({ event: event, chunk: chunk, config: config, filename: filename });
+    }).then(function (_ref5) {
+      var chunk = _ref5.chunk,
+          config = _ref5.config;
+      return executor({ event: event, chunk: chunk, config: config });
     }).then(function (data) {
       return Object.assign({}, { data: data }, {
         ok: true,

@@ -79,16 +79,8 @@ function generateServerlessManifest (service, deployment) {
       }]
     }
 
-    if (f.permissions && f.permissions.length > 0) {
-      base.functions[f.name].iamRoleStatements = [{
-        Effect: 'Allow',
-        Action: f.permissions,
-        Resource: '*'
-      }]
-    }
-
     if (f.schedule) {
-      base.functions[f.name].events.push({
+      base.functions[f.name].events = [{
         schedule: {
           rate: `rate(${f.schedule.rate})`,
           enabled: f.schedule.enabled,
@@ -98,7 +90,15 @@ function generateServerlessManifest (service, deployment) {
             }
           }, f.schedule.args)
         }
-      })
+      }]
+    }
+
+    if (f.permissions && f.permissions.length > 0) {
+      base.functions[f.name].iamRoleStatements = [{
+        Effect: 'Allow',
+        Action: f.permissions,
+        Resource: '*'
+      }]
     }
   })
 

@@ -41,16 +41,28 @@ function initialize ({ context }) {
   })
 }
 
-function main (execute, filename) {
-  const update = Date.now()
+function authorize (auth) {
+  return new Promise((resolve, reject) => {
+    const update = Date.now()
 
-  _context.sinceLastUpdate = (update - _context.lastUpdate)
-  _context.sinceStart = (update - _context.start)
-  _context.lastUpdate = update
+    _context.sinceLastUpdate = (update - _context.lastUpdate)
+    _context.sinceStart = (update - _context.start)
+    _context.lastUpdate = update
+    _context.counter = (_context.counter + 1)
 
-  return (event, context) => initialize({ context })
+    if (!auth || !auth.limit) {
+      resolve()
+    }
+
+    reject(new Error('Request limit reached'))
+  })
+}
+
+function main ({ executor, filename, auth }) {
+  return (event, context) => authorize(auth)
+                              .then(() => initialize({ context }))
                               .then(({ chunk, config }) => validate({ event, chunk, config, filename }))
-                              .then(({ chunk, config }) => execute({ event, chunk, config, context: _context }))
+                              .then(({ chunk, config }) => executor({ event, chunk, config }))
                               .then((data) => {
                                 return Object.assign({}, { data }, {
                                   ok: true,
