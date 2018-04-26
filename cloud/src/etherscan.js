@@ -16,9 +16,10 @@ const transactions = (apiKey, { address, total, contract }) => api(apiKey, {
   contract
 })
 
-const balance = (apiKey, { addresses, address }) => api(apiKey, {
+const balance = (apiKey, { addresses, address, contract }) => api(apiKey, {
   module: 'account',
   action: 'balance',
+  contractaddress: contract,
   addresses: (addresses ? addresses.join(',') : undefined),
   address
 })

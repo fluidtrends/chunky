@@ -33,10 +33,12 @@ var transactions = function transactions(apiKey, _ref) {
 
 var balance = function balance(apiKey, _ref2) {
   var addresses = _ref2.addresses,
-      address = _ref2.address;
+      address = _ref2.address,
+      contract = _ref2.contract;
   return api(apiKey, {
     module: 'account',
     action: 'balance',
+    contractaddress: contract,
     addresses: addresses ? addresses.join(',') : undefined,
     address: address
   });
