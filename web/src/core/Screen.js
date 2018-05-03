@@ -49,9 +49,13 @@ export default class Screen extends Core.Screen {
       label: account
     })
 
-    if (this.props.restrict && !this.isLoggedIn) {
-      this.triggerRedirect(this.props.restrict)
+    if (this.props.private && !this.isLoggedIn) {
+      this.triggerRedirect(this.props.permissions.publicRedirect)
       return
+    }
+
+    if (!this.props.private && this.isLoggedIn && this.props.guestOnly) {
+      this.triggerRedirect(this.props.privateRedirect || this.props.permissions.privateRedirect)
     }
 
     this._load(this.props)
@@ -193,7 +197,7 @@ export default class Screen extends Core.Screen {
     return this.isSamePath(this.path, this.props.path)
   }
 
-  isSamePath (first, second) {
+  isSamePath (first = '', second = '') {
     const firstClean = first.replace(/^\/|\/$/g, '')
     const secondClean = second.replace(/^\/|\/$/g, '')
     return (firstClean === secondClean)
@@ -355,7 +359,7 @@ export default class Screen extends Core.Screen {
     this.props.onUserLogout && this.props.onUserLogout()
   }
 
-  loggedIn (account) {
+  login (account) {
     this.props.onUserLoggedIn && this.props.onUserLoggedIn(account)
   }
 

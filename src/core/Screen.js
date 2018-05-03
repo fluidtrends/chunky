@@ -174,7 +174,29 @@ export default class Screen extends Component {
     return true
   }
 
+  didLogout () {
+    if (!this.props.permissions || !this.props.permissions.publicRedirect) {
+      return
+    }
+
+    this.triggerRedirect(this.props.permissions.publicRedirect)
+  }
+
+  didLogin () {
+    if (!this.props.permissions || !this.props.permissions.privateRedirect) {
+      return
+    }
+
+    this.triggerRedirect(this.props.permissions.privateRedirect)
+  }
+
   componentWillReceiveProps (nextProps) {
+    if (this.props.account && !nextProps.account) {
+      this.didLogout()
+    } else if (!this.props.account && nextProps.account) {
+      this.didLogin()
+    }
+
     const operation = (nextProps.action ? this.props[`@${nextProps.action()}`] : undefined)
 
     if (operation && !this.isForeignOperation(operation) && this.props.isDataLoading() && nextProps.isDataLoaded()) {

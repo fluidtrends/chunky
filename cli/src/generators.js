@@ -31,7 +31,7 @@ function generateServerlessPackage (service, deployment) {
 }
 
 function generateServerlessManifest (service, deployment) {
-  const basePath = `${service.name}/${deployment.apiVersion}`
+  const basePath = `${deployment.env}-${service.name}`
   var base = {
     service: `${deployment.apiName}-${service.name}`,
     provider: {

@@ -69,16 +69,20 @@ var App = function (_PureComponent) {
     value: function checkAuth() {
       var _this2 = this;
 
-      _reactChunky.Data.Cache.retrieveAuth().then(function (account) {
-        _this2._resolve(account);
-      }).catch(function (e) {
-        _this2._resolve();
+      return new Promise(function (resolve, reject) {
+        _reactChunky.Data.Cache.retrieveAuth().then(function (account) {
+          _this2._resolve(account);
+          resolve();
+        }).catch(function (e) {
+          _this2._resolve();
+          resolve();
+        });
       });
     }
   }, {
     key: 'userLoggedIn',
     value: function userLoggedIn() {
-      this.checkAuth();
+      return this.checkAuth();
     }
   }, {
     key: 'userLogout',

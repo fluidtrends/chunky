@@ -25,11 +25,16 @@ export default class App extends PureComponent {
   }
 
   checkAuth () {
-    Data.Cache.retrieveAuth().then(account => {
-      this._resolve(account)
-    })
-    .catch((e) => {
-      this._resolve()
+    return new Promise((resolve, reject) => {
+      Data.Cache.retrieveAuth()
+      .then(account => {
+        this._resolve(account)
+        resolve()
+      })
+      .catch((e) => {
+        this._resolve()
+        resolve()
+      })
     })
   }
 
@@ -38,7 +43,7 @@ export default class App extends PureComponent {
   }
 
   userLoggedIn () {
-    this.checkAuth()
+    return this.checkAuth()
   }
 
   userLogout () {

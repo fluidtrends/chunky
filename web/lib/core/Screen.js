@@ -102,9 +102,13 @@ var Screen = function (_Core$Screen) {
         label: account
       });
 
-      if (this.props.restrict && !this.isLoggedIn) {
-        this.triggerRedirect(this.props.restrict);
+      if (this.props.private && !this.isLoggedIn) {
+        this.triggerRedirect(this.props.permissions.publicRedirect);
         return;
+      }
+
+      if (!this.props.private && this.isLoggedIn && this.props.guestOnly) {
+        this.triggerRedirect(this.props.privateRedirect || this.props.permissions.privateRedirect);
       }
 
       this._load(this.props);
@@ -220,7 +224,10 @@ var Screen = function (_Core$Screen) {
     }
   }, {
     key: 'isSamePath',
-    value: function isSamePath(first, second) {
+    value: function isSamePath() {
+      var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
       var firstClean = first.replace(/^\/|\/$/g, '');
       var secondClean = second.replace(/^\/|\/$/g, '');
       return firstClean === secondClean;
@@ -351,8 +358,8 @@ var Screen = function (_Core$Screen) {
       this.props.onUserLogout && this.props.onUserLogout();
     }
   }, {
-    key: 'loggedIn',
-    value: function loggedIn(account) {
+    key: 'login',
+    value: function login(account) {
       this.props.onUserLoggedIn && this.props.onUserLoggedIn(account);
     }
   }, {
