@@ -3,12 +3,12 @@ import config from './config'
 import firebase from 'firebase'
 import firebaseConfig from 'web/firebase-config.json'
 
-config.id = 'chunky'
-config.firebase = firebaseConfig
-
 const appId = `${config.id}-${config.name}-${config.domain || 'chunky.io'}`
 global.chunky = Object.assign({}, global.chunky, { config })
 global.appId = appId
+
+config.id = 'chunky'
+config.firebase = firebaseConfig[config.env]
 
 global.firebase = firebase
 global.storage = {

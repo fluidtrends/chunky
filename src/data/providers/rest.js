@@ -15,8 +15,7 @@ export default class RestDataProvider extends DataProvider {
       timeout: 10000,
       headers: {
         'Content-Type': Config.API_JSON_CONTENT_TYPE,
-        'Accept': Config.API_JSON_CONTENT_TYPE,
-        'Cache-Control': Config.API_DEFAULT_CACHE
+        'Accept': Config.API_JSON_CONTENT_TYPE
       },
       url: Config.API_DEFAULT_SERVER_URL
     }
@@ -82,27 +81,6 @@ export default class RestDataProvider extends DataProvider {
     return { url, options }
   }
 
-  _parseResponse (response) {
-    return new Promise((resolve, reject) => {
-      if (!response || response === undefined || Object.keys(response).length === 0) {
-          // If the response does not contain a json payload, we won't fail this
-          // response but we'll send it back with a warning
-        resolve({ status: 0, warning: Errors.WARNING_EMPTY_RESPONSE, data: {} })
-        return
-      }
-
-        // We do have some json, so let's try to parse it
-      response.json()
-
-            // Looks like the json is valid, the request is good to go now
-            .then(json => resolve({ status: response.status, data: json }))
-
-            // Sounds like an invalid json; we don't fail the response but we
-            // will need to flag it as a warning
-            .catch(err => resolve({ status: response.status, warning: Errors.WARNING_INVALID_RESPONSE, data: {} }))
-    })
-  }
-
   _timeout (ms, promise) {
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
@@ -115,8 +93,7 @@ export default class RestDataProvider extends DataProvider {
   _sendRequest (request) {
     const requestParams = this._prepareRequest(request)
     return this._timeout(request.timeout, fetch(requestParams.url, requestParams.options))
-            .then((response) => this._parseResponse(response))
-            .then((response) => response.data)
+                .then((response) => response.json())
   }
 
 }

@@ -1,4 +1,4 @@
-function createSectionRoutes(section, generator) {
+function createSectionRoutes (section, generator) {
   if (!section || !section.stack) {
     // We don't even consider stackless sections
     return
@@ -15,7 +15,7 @@ function createSectionRoutes(section, generator) {
     if (element && typeof element === 'string') {
       // The first kind of element in the stack is a plain string, that signifies a chunk
       elementRoutes = elementRoutes.concat(generator(element, section))
-    } else if (element &&  Array.isArray(element) && element.length > 0) {
+    } else if (element && Array.isArray(element) && element.length > 0) {
       // Another type of element in the sack is a list of strings, that each signifies a chunk
       var composedRoutes = []
       element.forEach(subElement => { composedRoutes = composedRoutes.concat(generator(subElement, section)) })

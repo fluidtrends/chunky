@@ -14,6 +14,7 @@ export default class App extends PureComponent {
     super(props)
     this.state = { loading: true }
     this._menu = []
+    this._sidebar = []
     this._cache = new Cache(props)
     this._userLogout = this.userLogout.bind(this)
     this._userLoggedIn = this.userLoggedIn.bind(this)
@@ -103,17 +104,40 @@ export default class App extends PureComponent {
         continue
       }
 
+      if (route.private !== section.private) {
+        continue
+      }
+
+      const screenId = `${chunkName}/${routeName}`
+      const screenPath = route.path || `/${routeName}`
+      const routeKey = `${screenId}${screenPath}`
+      const routeMenuTitle = ((this.props.desktop && route.desktopTitle) ? route.desktopTitle : route.title)
+
+      if (section.private && route.private) {
+        route.sidebarIndex = this.sidebar.length
+        this._sidebar.push({
+          routeKey,
+          id: `${this.sidebar.length}`,
+          icon: route.icon.replace('-', '_'),
+          title: routeMenuTitle,
+          alwaysShowIcon: route.alwaysShowIcon,
+          action: route.action,
+          path: route.path
+        })
+      }
+
       if (Object.keys(rootRoute).length === 0) {
         route.root = true
-        route.menuTitle = ((this.props.desktop && route.desktopTitle) ? route.desktopTitle : route.title)
+        route.menuTitle = routeMenuTitle
 
         rootRoute = Object.assign({}, route)
 
         // Construct a menu
-        if (!route.skipMenu) {
+        if (!route.skipMenu && !route.private && !section.private) {
           var link = `${this.menu.length === 0 ? '/' : route.path}`
           this._menu.push({
             id: `${this.menu.length}`,
+            routeKey,
             icon: route.icon.replace('-', '_'),
             title: route.menuTitle,
             alwaysShowIcon: route.alwaysShowIcon,
@@ -167,7 +191,16 @@ export default class App extends PureComponent {
         onUserLoggedIn: this._userLoggedIn,
         info: this.props.info,
         startOperationsOnMount: true
-      }, { theme, transitions, ...route, chunkName, menu: this.menu }, this.props.web)
+      }, {
+        theme,
+        transitions,
+        ...route,
+        chunkName,
+        menu: this.menu,
+        sidebar: this.sidebar,
+        private: route.private,
+        sidebarIndex: route.sidebarIndex
+      }, this.props.web)
 
       // Resolve strings
       var resolvedStrings = {}
@@ -175,9 +208,6 @@ export default class App extends PureComponent {
         resolvedStrings[string] = this.props.strings[screenProps.strings[string]] || `??${screenProps.strings[string]}??`
       }
       screenProps.strings = Object.assign({}, this.props.strings, resolvedStrings)
-
-      const screenPath = route.path || `/${routeName}`
-      const screenId = `${chunkName}/${routeName}`
 
       const ScreenRoute = this._makeScreenRoute(screenPath, screenId, route, screenProps)
       routes.push(ScreenRoute)
@@ -207,10 +237,12 @@ export default class App extends PureComponent {
       return (skip ? <div /> : <RouteScreen {...props} {...screenProps} />)
     }
 
+    const routeKey = `${screenId}${screenPath}`
+
     return <Route
       exact
       refresh
-      key={`${screenId}${screenPath}`}
+      key={routeKey}
       path={screenPath}
       render={Screen} />
   }
@@ -223,6 +255,7 @@ export default class App extends PureComponent {
     this._routes = []
     this._sections = []
     this._menu = []
+    this._sidebar = []
 
     for (const sectionName in this.props.sections) {
       // Look through all the app's sections and for each, build defaults if necessary
@@ -244,6 +277,10 @@ export default class App extends PureComponent {
 
   get routes () {
     return this._routes || []
+  }
+
+  get sidebar () {
+    return this._sidebar || []
   }
 
   get sections () {

@@ -16,10 +16,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
 var _Cover = require('../components/Cover');
 
 var _Cover2 = _interopRequireDefault(_Cover);
@@ -36,6 +32,8 @@ var _Navigation = require('../components/Navigation');
 
 var _Navigation2 = _interopRequireDefault(_Navigation);
 
+var _antd = require('antd');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44,26 +42,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var Header = _antd.Layout.Header,
+    Content = _antd.Layout.Content,
+    Sider = _antd.Layout.Sider,
+    Footer = _antd.Layout.Footer;
+
 /**
  *
  */
-var Layout = function (_PureComponent) {
-  _inherits(Layout, _PureComponent);
 
-  function Layout(props) {
-    _classCallCheck(this, Layout);
+var DefaultLayout = function (_PureComponent) {
+  _inherits(DefaultLayout, _PureComponent);
 
-    var _this = _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).call(this, props));
+  function DefaultLayout(props) {
+    _classCallCheck(this, DefaultLayout);
+
+    var _this = _possibleConstructorReturn(this, (DefaultLayout.__proto__ || Object.getPrototypeOf(DefaultLayout)).call(this, props));
 
     _this.state = { menuOpened: false, fixed: false };
     _this._onMenuItem = _this.onMenuItem.bind(_this);
     _this._onMenuOpen = _this.onMenuOpen.bind(_this);
     _this._onMenuClose = _this.onMenuClose.bind(_this);
     _this._onEvent = _this.onEvent.bind(_this);
+    _this._sidebarMenuSelected = _this.sidebarMenuSelected.bind(_this);
     return _this;
   }
 
-  _createClass(Layout, [{
+  _createClass(DefaultLayout, [{
     key: 'onMenuItem',
     value: function onMenuItem(item) {
       this.props.onMenuItem && this.props.onMenuItem(item);
@@ -144,6 +149,107 @@ var Layout = function (_PureComponent) {
       );
     }
   }, {
+    key: 'renderPrimary',
+    value: function renderPrimary() {
+      if (this.props.sidebar && this.props.private) {
+        return this.renderWithSidebar();
+      }
+
+      return this.renderWithoutSidebar();
+    }
+  }, {
+    key: 'sidebarMenuSelected',
+    value: function sidebarMenuSelected(selection) {
+      var item = this.props.sidebar[selection.key];
+      this.props.onSidebarMenuSelected && this.props.onSidebarMenuSelected(item);
+    }
+  }, {
+    key: 'renderWithSidebar',
+    value: function renderWithSidebar() {
+      var index = 0;
+      return _react2.default.createElement(
+        _antd.Layout,
+        null,
+        _react2.default.createElement(
+          Sider,
+          {
+            breakpoint: 'lg',
+            collapsedWidth: '28',
+            collapsed: this.props.isSmallScreen },
+          _react2.default.createElement(
+            _antd.Menu,
+            {
+              theme: 'light',
+              mode: 'inline',
+              onClick: this._sidebarMenuSelected,
+              defaultSelectedKeys: ['' + this.sidebarIndex],
+              style: {
+                backgroundColor: '#FAFAFA',
+                minHeight: '100%',
+                color: '#90A4AE'
+              } },
+            this.props.sidebar.map(function (item) {
+              return _react2.default.createElement(
+                _antd.Menu.Item,
+                { key: index++ },
+                _react2.default.createElement(_antd.Icon, { type: item.icon }),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'nav-text' },
+                  ' ',
+                  item.title
+                )
+              );
+            })
+          )
+        ),
+        _react2.default.createElement(
+          _antd.Layout,
+          { style: {
+              backgroundColor: '#ffffff'
+            } },
+          _react2.default.createElement(
+            Content,
+            { style: {
+                margin: '0',
+                minHeight: '100vh'
+              } },
+            _react2.default.createElement(
+              'div',
+              { style: {
+                  marginLeft: 56,
+                  backgroundColor: '#ffffff',
+                  minHeight: 360,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 1,
+                  display: 'flex'
+                } },
+              this.renderComponents()
+            )
+          )
+        )
+      );
+    }
+  }, {
+    key: 'renderWithoutSidebar',
+    value: function renderWithoutSidebar() {
+      return _react2.default.createElement(
+        _antd.Layout,
+        null,
+        _react2.default.createElement(
+          Content,
+          { style: { margin: '0' } },
+          _react2.default.createElement(
+            'div',
+            { style: { padding: 0, background: '#ffffff', minHeight: 360 } },
+            this.renderComponents()
+          )
+        ),
+        this.renderFooter()
+      );
+    }
+  }, {
     key: 'renderComponents',
     value: function renderComponents() {
       var _this2 = this;
@@ -176,8 +282,7 @@ var Layout = function (_PureComponent) {
         this.renderDrawer(),
         this.renderNavigation(),
         this.renderCover(),
-        this.renderComponents(),
-        this.renderFooter(),
+        this.renderPrimary(),
         _react2.default.createElement(_style2.default, {
           styleId: '3979917035',
           css: ':root{--mdc-theme-primary:' + this.props.theme.primaryColor + ';--mdc-theme-secondary:' + this.props.theme.secondaryColor + ';}html{font-weight:300;font-family:Roboto Condensed,sans-serif;color:#ffffff;}pre{background-color:#F5F5F5;color:#455A64;text-align:left;padding:20px;width:90%;}.text{text-align:left;}a{-webkit-text-decoration:none;text-decoration:none;}h1{font-weight:300;font-size:40px;text-align:center;}h2{font-weight:300;font-size:32px;text-align:center;}h3{font-weight:300;font-size:24px;text-align:left;}p{font-size:20px;text-align:left;}.animation-fadeIn-appear{opacity:0.01;}.animation-fadeIn-appear.animation-fadeIn-appear-active{opacity:1;-webkit-transition:opacity .5s ease-in;transition:opacity .5s ease-in;}',
@@ -237,12 +342,21 @@ var Layout = function (_PureComponent) {
         navigationColor: navigationColor, navigationTintColor: navigationTintColor
       });
     }
+  }, {
+    key: 'sidebarIndex',
+    get: function get() {
+      if (!this.props.sidebar || this.props.sidebar.length === 0) {
+        return 0;
+      }
+
+      return this.props.sidebarIndex;
+    }
   }]);
 
-  return Layout;
+  return DefaultLayout;
 }(_react.PureComponent);
 
-exports.default = Layout;
+exports.default = DefaultLayout;
 
 
 var styles = {

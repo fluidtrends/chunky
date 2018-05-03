@@ -1,15 +1,16 @@
 import React, { PureComponent } from 'react'
 import 'node_modules/material-components-web/dist/material-components-web.css'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Cover from '../components/Cover'
 import Drawer from '../components/Drawer'
-import Footer from '../components/Footer'
+import LargeFooter from '../components/Footer'
 import Navigation from '../components/Navigation'
+import { Layout, Menu, Icon } from 'antd'
+const { Header, Content, Sider, Footer } = Layout
 
 /**
  *
  */
-export default class Layout extends PureComponent {
+export default class DefaultLayout extends PureComponent {
   constructor (props) {
     super(props)
     this.state = { menuOpened: false, fixed: false }
@@ -17,6 +18,7 @@ export default class Layout extends PureComponent {
     this._onMenuOpen = this.onMenuOpen.bind(this)
     this._onMenuClose = this.onMenuClose.bind(this)
     this._onEvent = this.onEvent.bind(this)
+    this._sidebarMenuSelected = this.sidebarMenuSelected.bind(this)
   }
 
   get styles () {
@@ -121,7 +123,7 @@ export default class Layout extends PureComponent {
   }
 
   renderFooter () {
-    return <Footer
+    return <LargeFooter
       index={9999}
       id='footer'
       {...this.props}
@@ -132,6 +134,87 @@ export default class Layout extends PureComponent {
     return (<div key={`component${index}`} style={this.styles.component}>
       { component }
     </div>)
+  }
+
+  renderPrimary () {
+    if (this.props.sidebar && this.props.private) {
+      return this.renderWithSidebar()
+    }
+
+    return this.renderWithoutSidebar()
+  }
+
+  sidebarMenuSelected (selection) {
+    const item = this.props.sidebar[selection.key]
+    this.props.onSidebarMenuSelected && this.props.onSidebarMenuSelected(item)
+  }
+
+  get sidebarIndex () {
+    if (!this.props.sidebar || this.props.sidebar.length === 0) {
+      return 0
+    }
+
+    return this.props.sidebarIndex
+  }
+
+  renderWithSidebar () {
+    var index = 0
+    return <Layout>
+      <Sider
+        breakpoint='lg'
+        collapsedWidth='28'
+        collapsed={this.props.isSmallScreen}>
+        <Menu
+          theme='light'
+          mode='inline'
+          onClick={this._sidebarMenuSelected}
+          defaultSelectedKeys={[`${this.sidebarIndex}`]}
+          style={{
+            backgroundColor: '#FAFAFA',
+            minHeight: '100%',
+            color: '#90A4AE'
+          }}>
+          {
+          this.props.sidebar.map(item => (
+            <Menu.Item key={index++}>
+              <Icon type={item.icon} />
+              <span className='nav-text'> {item.title}</span>
+            </Menu.Item>
+        ))}
+        </Menu>
+      </Sider>
+      <Layout style={{
+        backgroundColor: '#ffffff'
+      }}>
+        <Content style={{
+          margin: '0',
+          minHeight: '100vh'
+        }}>
+          <div style={{
+            marginLeft: 56,
+            backgroundColor: '#ffffff',
+            minHeight: 360,
+            alignItems: 'center',
+            justifyContent: 'center',
+            flex: 1,
+            display: 'flex'
+          }}>
+            { this.renderComponents() }
+          </div>
+        </Content>
+      </Layout>
+    </Layout>
+  }
+
+  renderWithoutSidebar () {
+    return <Layout>
+      <Content style={{ margin: '0' }}>
+        <div style={{ padding: 0, background: '#ffffff', minHeight: 360 }}>
+          { this.renderComponents() }
+        </div>
+      </Content>
+      { this.renderFooter() }
+    </Layout>
   }
 
   renderComponents () {
@@ -148,11 +231,11 @@ export default class Layout extends PureComponent {
 
   render () {
     return (<div style={this.styles.container} ref={c => { this.container = c }}>
+
       { this.renderDrawer() }
       { this.renderNavigation() }
       { this.renderCover() }
-      { this.renderComponents() }
-      { this.renderFooter() }
+      { this.renderPrimary() }
 
       <style jsx global>{`{
         :root {
@@ -221,7 +304,6 @@ export default class Layout extends PureComponent {
 
 const styles = {
   container: {
-
   },
   component: {
     backgroundColor: '#FFFFFF',

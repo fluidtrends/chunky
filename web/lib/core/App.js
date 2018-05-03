@@ -52,6 +52,7 @@ var App = function (_PureComponent) {
 
     _this.state = { loading: true };
     _this._menu = [];
+    _this._sidebar = [];
     _this._cache = new _Cache2.default(props);
     _this._userLogout = _this.userLogout.bind(_this);
     _this._userLoggedIn = _this.userLoggedIn.bind(_this);
@@ -154,17 +155,40 @@ var App = function (_PureComponent) {
           continue;
         }
 
+        if (route.private !== section.private) {
+          continue;
+        }
+
+        var screenId = chunkName + '/' + routeName;
+        var screenPath = route.path || '/' + routeName;
+        var routeKey = '' + screenId + screenPath;
+        var routeMenuTitle = this.props.desktop && route.desktopTitle ? route.desktopTitle : route.title;
+
+        if (section.private && route.private) {
+          route.sidebarIndex = this.sidebar.length;
+          this._sidebar.push({
+            routeKey: routeKey,
+            id: '' + this.sidebar.length,
+            icon: route.icon.replace('-', '_'),
+            title: routeMenuTitle,
+            alwaysShowIcon: route.alwaysShowIcon,
+            action: route.action,
+            path: route.path
+          });
+        }
+
         if (Object.keys(rootRoute).length === 0) {
           route.root = true;
-          route.menuTitle = this.props.desktop && route.desktopTitle ? route.desktopTitle : route.title;
+          route.menuTitle = routeMenuTitle;
 
           rootRoute = Object.assign({}, route);
 
           // Construct a menu
-          if (!route.skipMenu) {
+          if (!route.skipMenu && !route.private && !section.private) {
             var link = '' + (this.menu.length === 0 ? '/' : route.path);
             this._menu.push({
               id: '' + this.menu.length,
+              routeKey: routeKey,
               icon: route.icon.replace('-', '_'),
               title: route.menuTitle,
               alwaysShowIcon: route.alwaysShowIcon,
@@ -218,7 +242,16 @@ var App = function (_PureComponent) {
           onUserLoggedIn: this._userLoggedIn,
           info: this.props.info,
           startOperationsOnMount: true
-        }, _extends({ theme: theme, transitions: transitions }, route, { chunkName: chunkName, menu: this.menu }), this.props.web);
+        }, _extends({
+          theme: theme,
+          transitions: transitions
+        }, route, {
+          chunkName: chunkName,
+          menu: this.menu,
+          sidebar: this.sidebar,
+          private: route.private,
+          sidebarIndex: route.sidebarIndex
+        }), this.props.web);
 
         // Resolve strings
         var resolvedStrings = {};
@@ -226,9 +259,6 @@ var App = function (_PureComponent) {
           resolvedStrings[string] = this.props.strings[screenProps.strings[string]] || '??' + screenProps.strings[string] + '??';
         }
         screenProps.strings = Object.assign({}, this.props.strings, resolvedStrings);
-
-        var screenPath = route.path || '/' + routeName;
-        var screenId = chunkName + '/' + routeName;
 
         var ScreenRoute = this._makeScreenRoute(screenPath, screenId, route, screenProps);
         routes.push(ScreenRoute);
@@ -259,10 +289,12 @@ var App = function (_PureComponent) {
         return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, _extends({}, props, screenProps));
       };
 
+      var routeKey = '' + screenId + screenPath;
+
       return _react2.default.createElement(_reactRouterDom.Route, {
         exact: true,
         refresh: true,
-        key: '' + screenId + screenPath,
+        key: routeKey,
         path: screenPath,
         render: Screen });
     }
@@ -277,6 +309,7 @@ var App = function (_PureComponent) {
       this._routes = [];
       this._sections = [];
       this._menu = [];
+      this._sidebar = [];
 
       for (var sectionName in this.props.sections) {
         // Look through all the app's sections and for each, build defaults if necessary
@@ -356,6 +389,11 @@ var App = function (_PureComponent) {
     key: 'routes',
     get: function get() {
       return this._routes || [];
+    }
+  }, {
+    key: 'sidebar',
+    get: function get() {
+      return this._sidebar || [];
     }
   }, {
     key: 'sections',

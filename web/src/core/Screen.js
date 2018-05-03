@@ -8,7 +8,6 @@ import * as DefaultComponents from '../components'
 import merge from 'deepmerge'
 import { breakpoints } from '../utils/responsive'
 import { default as Layout } from './Layout'
-import URL from 'url-parse'
 import { detect } from 'detect-browser'
 
 export default class Screen extends Core.Screen {
@@ -16,8 +15,7 @@ export default class Screen extends Core.Screen {
     super(props)
     this.state = {
       ...this.state,
-      progress: true,
-      progressTitle: this.progressTitle,
+      loading: true,
       height: 0,
       width: 0,
       scroll: 0
@@ -26,11 +24,14 @@ export default class Screen extends Core.Screen {
     this._updateScroll = this.updateScroll.bind(this)
     this._updateWindowDimensions = this.updateWindowDimensions.bind(this)
     this._onMenuItem = this.onMenuItem.bind(this)
+    this._sidebarMenuSelected = this.sidebarMenuSelected.bind(this)
   }
 
   componentDidMount () {
     super.componentDidMount()
     this._updateWindowDimensions()
+    this._sideMenu = [].concat(this.menu)
+
     window.addEventListener('resize', this._updateWindowDimensions)
     window.addEventListener('scroll', this._updateScroll)
     this.unsubscribeFromHistory = this.props.history.listen(
@@ -38,16 +39,26 @@ export default class Screen extends Core.Screen {
     )
     this._onEvent = this.onEvent.bind(this)
     this._browser = detect()
-    this._load(this.props)
 
     this.triggerAnalyticsView(this.props.location.pathname)
-    const account = this.isLoggedIn ? this.account.email : 'guest'
+    const account = this.isLoggedIn ? 'member' : 'guest'
 
     this.triggerAnalyticsEvent({
       category: `${this.constructor.name}`,
       action: `${this.props.location.pathname}`,
       label: account
     })
+
+    if (this.props.restrict && !this.isLoggedIn) {
+      this.triggerRedirect(this.props.restrict)
+      return
+    }
+
+    this._load(this.props)
+  }
+
+  get sections () {
+    return this._sections
   }
 
   componentWillReceiveProps (nextProps) {
@@ -96,7 +107,7 @@ export default class Screen extends Core.Screen {
   }
 
   get sideMenu () {
-    return this.menu
+    return this._sideMenu
   }
 
   get isSmallScreen () {
@@ -130,10 +141,14 @@ export default class Screen extends Core.Screen {
 
   importData (name) {
     try {
+      const parts = name.split('/')
+      const chunkName = (parts.length > 1 ? parts[0] : this.props.chunkName)
+      const filename = (parts.length > 1 ? parts[1] : name)
+
       if (this.props.desktop) {
-        return require(`../../../../chunks/${this.props.chunkName}/data/${name}.json`)
+        return require(`../../../../chunks/${chunkName}/data/${filename}.json`)
       }
-      return require(`chunks/${this.props.chunkName}/data/${name}.json`)
+      return require(`chunks/${chunkName}/data/${filename}.json`)
     } catch (e) {
     }
   }
@@ -179,12 +194,9 @@ export default class Screen extends Core.Screen {
   }
 
   isSamePath (first, second) {
-    return (
-      first === second ||
-      second === `/${first}` ||
-      second === `/${first}/` ||
-      second === `${first}/`
-    )
+    const firstClean = first.replace(/^\/|\/$/g, '')
+    const secondClean = second.replace(/^\/|\/$/g, '')
+    return (firstClean === secondClean)
   }
 
   _updateVariants () {
@@ -204,22 +216,52 @@ export default class Screen extends Core.Screen {
     if (!this.isVariantValid) {
       throw new Error('Invalid variant')
     }
+  }
 
-    // We've got a valid variant now
-    this.setState({ progress: false })
+  _loadSections () {
+    if (!this.props.sections || this.props.sections.length === 0) {
+      return
+    }
+
+    this._sections = this.importData('sections')
+    this._sideMenu = [].concat(this.menu)
+  }
+
+  _loadSection () {
+    if (!this.sections || this.sections.length === 0) {
+      return
+    }
+
+    var section = this.sections[0]
+
+    if (this.isRootPath) {
+      return section
+    }
+
+    this.sections.forEach(s => {
+      if (!this.isSamePath(this.path, `${s.path}`)) {
+        return
+      }
+      section = Object.assign({}, s)
+    })
+
+    return section
   }
 
   _load (props) {
     this.scrollToTop()
     this._path = props.location.pathname
 
+    this._loadSections()
+    const section = this._loadSection()
+
     if (this.props.skipRootVariant && this.expectsVariants && this.isRootPath) {
-      this.setState({ progress: false, skip: true })
+      this.setState({ loading: false, skip: true, section })
       return
     }
 
     if (!this.expectsVariants || this.isRootPath) {
-      this.setState({ progress: false })
+      this.setState({ loading: false, section })
       return
     }
 
@@ -227,11 +269,13 @@ export default class Screen extends Core.Screen {
       if (!this.hasVariants) {
         this._loadVariants().then(() => {
           this._updateVariants()
+          this.setState({ loading: false, section })
         })
         return
       }
 
       this._updateVariants()
+      this.setState({ loading: false, section })
     } catch (e) {
       // Could not load variant path data
       this.stopWithError(e)
@@ -239,7 +283,7 @@ export default class Screen extends Core.Screen {
   }
 
   stopWithError (e) {
-    this.setState({ stopError: e, progress: false })
+    this.setState({ stopError: e, loading: false })
   }
 
   get isVariantValid () {
@@ -450,18 +494,32 @@ export default class Screen extends Core.Screen {
     const ScreenLayout = this.layout
     return (
       <ScreenLayout
+        section={this.state.section}
         onMenuItem={this._onMenuItem}
         onEvent={this._onEvent}
         scroll={this.state.scroll}
         width={this.state.width}
         height={this.state.height}
+        onSidebarMenuSelected={this._sidebarMenuSelected}
+        isSmallScreen={this.isSmallScreen}
         {...this._props}
         cache={this.props.cache}
-        cover={this.cover}
-      >
-        {this.renderComponents()}
+        sidebar={this.props.sidebar}
+        sidebarIndex={this.props.sidebarIndex}
+        private={this.props.private}
+        cover={this.cover}>
+        { this.renderComponents() }
       </ScreenLayout>
     )
+  }
+
+  sidebarMenuSelected (item) {
+    if (item.action && this[item.action]) {
+      this[item.action]()
+      return
+    }
+
+    this.triggerRedirect(`${item.path}`)
   }
 
   saveAuth (account) {
@@ -474,17 +532,15 @@ export default class Screen extends Core.Screen {
     return <div />
   }
 
-  renderProgress () {
-    return <div />
+  renderLoading () {
+    return <div style={{ }}>
+      <DefaultComponents.Loading message={this.state.loadingMessage || 'Loading, just a sec please ...'} />
+    </div>
   }
 
   render () {
     if (this.state.skip) {
       return <div />
-    }
-
-    if (this.state.progress) {
-      return this.renderProgress()
     }
 
     if (this.state.stopError) {

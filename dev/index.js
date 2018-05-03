@@ -21,10 +21,11 @@ function findTarget (src) {
   const type = paths.shift()
   const source = paths.shift()
   const original = paths.join('/')
-  const compile = (!fs.lstatSync(path.resolve(src)).isDirectory() && path.extname(src) === '.js' && source && source === 'src')
+  let compile = (!fs.lstatSync(path.resolve(src)).isDirectory() && path.extname(src) === '.js' && source && (type === 'src' || source === 'src'))
 
   var target = path.resolve(dest)
   var targetSrc = path.resolve(dest)
+
   switch (type) {
     case 'blockchain':
       target = path.join(dest, 'node_modules', 'react-blockchain-chunky', compile ? 'lib' : (source || ''), original)
@@ -45,6 +46,10 @@ function findTarget (src) {
     case 'mobile':
       target = path.join(dest, 'node_modules', 'react-native-chunky', compile ? 'lib' : (source || ''), original)
       targetSrc = path.join(dest, 'node_modules', 'react-native-chunky', (source || ''), original)
+      break
+    case 'src':
+      target = path.join(dest, 'node_modules', 'react-chunky', 'lib', (source || ''), original)
+      targetSrc = path.join(dest, 'node_modules', 'react-chunky', (source || ''), original)
       break
     default:
       target = path.join(dest, 'node_modules', 'react-chunky', src)

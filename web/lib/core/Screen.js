@@ -46,10 +46,6 @@ var _Layout = require('./Layout');
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _urlParse = require('url-parse');
-
-var _urlParse2 = _interopRequireDefault(_urlParse);
-
 var _detectBrowser = require('detect-browser');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -71,8 +67,7 @@ var Screen = function (_Core$Screen) {
     var _this = _possibleConstructorReturn(this, (Screen.__proto__ || Object.getPrototypeOf(Screen)).call(this, props));
 
     _this.state = _extends({}, _this.state, {
-      progress: true,
-      progressTitle: _this.progressTitle,
+      loading: true,
       height: 0,
       width: 0,
       scroll: 0
@@ -81,6 +76,7 @@ var Screen = function (_Core$Screen) {
     _this._updateScroll = _this.updateScroll.bind(_this);
     _this._updateWindowDimensions = _this.updateWindowDimensions.bind(_this);
     _this._onMenuItem = _this.onMenuItem.bind(_this);
+    _this._sidebarMenuSelected = _this.sidebarMenuSelected.bind(_this);
     return _this;
   }
 
@@ -89,21 +85,29 @@ var Screen = function (_Core$Screen) {
     value: function componentDidMount() {
       _get(Screen.prototype.__proto__ || Object.getPrototypeOf(Screen.prototype), 'componentDidMount', this).call(this);
       this._updateWindowDimensions();
+      this._sideMenu = [].concat(this.menu);
+
       window.addEventListener('resize', this._updateWindowDimensions);
       window.addEventListener('scroll', this._updateScroll);
       this.unsubscribeFromHistory = this.props.history.listen(this.handleLocationChange.bind(this));
       this._onEvent = this.onEvent.bind(this);
       this._browser = (0, _detectBrowser.detect)();
-      this._load(this.props);
 
       this.triggerAnalyticsView(this.props.location.pathname);
-      var account = this.isLoggedIn ? this.account.email : 'guest';
+      var account = this.isLoggedIn ? 'member' : 'guest';
 
       this.triggerAnalyticsEvent({
         category: '' + this.constructor.name,
         action: '' + this.props.location.pathname,
         label: account
       });
+
+      if (this.props.restrict && !this.isLoggedIn) {
+        this.triggerRedirect(this.props.restrict);
+        return;
+      }
+
+      this._load(this.props);
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -171,10 +175,14 @@ var Screen = function (_Core$Screen) {
     key: 'importData',
     value: function importData(name) {
       try {
+        var parts = name.split('/');
+        var chunkName = parts.length > 1 ? parts[0] : this.props.chunkName;
+        var filename = parts.length > 1 ? parts[1] : name;
+
         if (this.props.desktop) {
-          return require('../../../../chunks/' + this.props.chunkName + '/data/' + name + '.json');
+          return require('../../../../chunks/' + chunkName + '/data/' + filename + '.json');
         }
-        return require('chunks/' + this.props.chunkName + '/data/' + name + '.json');
+        return require('chunks/' + chunkName + '/data/' + filename + '.json');
       } catch (e) {}
     }
   }, {
@@ -213,7 +221,9 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'isSamePath',
     value: function isSamePath(first, second) {
-      return first === second || second === '/' + first || second === '/' + first + '/' || second === first + '/';
+      var firstClean = first.replace(/^\/|\/$/g, '');
+      var secondClean = second.replace(/^\/|\/$/g, '');
+      return firstClean === secondClean;
     }
   }, {
     key: '_updateVariants',
@@ -236,37 +246,73 @@ var Screen = function (_Core$Screen) {
       if (!this.isVariantValid) {
         throw new Error('Invalid variant');
       }
+    }
+  }, {
+    key: '_loadSections',
+    value: function _loadSections() {
+      if (!this.props.sections || this.props.sections.length === 0) {
+        return;
+      }
 
-      // We've got a valid variant now
-      this.setState({ progress: false });
+      this._sections = this.importData('sections');
+      this._sideMenu = [].concat(this.menu);
+    }
+  }, {
+    key: '_loadSection',
+    value: function _loadSection() {
+      var _this4 = this;
+
+      if (!this.sections || this.sections.length === 0) {
+        return;
+      }
+
+      var section = this.sections[0];
+
+      if (this.isRootPath) {
+        return section;
+      }
+
+      this.sections.forEach(function (s) {
+        if (!_this4.isSamePath(_this4.path, '' + s.path)) {
+          return;
+        }
+        section = Object.assign({}, s);
+      });
+
+      return section;
     }
   }, {
     key: '_load',
     value: function _load(props) {
-      var _this4 = this;
+      var _this5 = this;
 
       this.scrollToTop();
       this._path = props.location.pathname;
 
+      this._loadSections();
+      var section = this._loadSection();
+
       if (this.props.skipRootVariant && this.expectsVariants && this.isRootPath) {
-        this.setState({ progress: false, skip: true });
+        this.setState({ loading: false, skip: true, section: section });
         return;
       }
 
       if (!this.expectsVariants || this.isRootPath) {
-        this.setState({ progress: false });
+        this.setState({ loading: false, section: section });
         return;
       }
 
       try {
         if (!this.hasVariants) {
           this._loadVariants().then(function () {
-            _this4._updateVariants();
+            _this5._updateVariants();
+            _this5.setState({ loading: false, section: section });
           });
           return;
         }
 
         this._updateVariants();
+        this.setState({ loading: false, section: section });
       } catch (e) {
         // Could not load variant path data
         this.stopWithError(e);
@@ -275,7 +321,7 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'stopWithError',
     value: function stopWithError(e) {
-      this.setState({ stopError: e, progress: false });
+      this.setState({ stopError: e, loading: false });
     }
   }, {
     key: 'pushTransition',
@@ -331,7 +377,7 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'loadComponent',
     value: function loadComponent(name, index) {
-      var _this5 = this;
+      var _this6 = this;
 
       if (!this.props.components || !this.props.components[name] || !(_typeof(this.props.components[name]) === 'object')) {
         return _react2.default.createElement('div', null);
@@ -346,7 +392,7 @@ var Screen = function (_Core$Screen) {
         'div',
         null,
         this.props.components[name].map(function (props) {
-          return _this5.loadSingleComponent(Object.assign({}, props, {
+          return _this6.loadSingleComponent(Object.assign({}, props, {
             key: 'component.' + subIndex++,
             index: index + '.' + subIndex
           }));
@@ -380,7 +426,7 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'renderComponents',
     value: function renderComponents() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.components() || this.components().length === 0) {
         return;
@@ -389,7 +435,7 @@ var Screen = function (_Core$Screen) {
       var index = 1;
       return this.components().map(function (component) {
         index = index + 1;
-        return _this6.renderComponent(component, index);
+        return _this7.renderComponent(component, index);
       });
     }
   }, {
@@ -424,25 +470,40 @@ var Screen = function (_Core$Screen) {
       return _react2.default.createElement(
         ScreenLayout,
         _extends({
+          section: this.state.section,
           onMenuItem: this._onMenuItem,
           onEvent: this._onEvent,
           scroll: this.state.scroll,
           width: this.state.width,
-          height: this.state.height
+          height: this.state.height,
+          onSidebarMenuSelected: this._sidebarMenuSelected,
+          isSmallScreen: this.isSmallScreen
         }, this._props, {
           cache: this.props.cache,
-          cover: this.cover
-        }),
+          sidebar: this.props.sidebar,
+          sidebarIndex: this.props.sidebarIndex,
+          'private': this.props.private,
+          cover: this.cover }),
         this.renderComponents()
       );
     }
   }, {
+    key: 'sidebarMenuSelected',
+    value: function sidebarMenuSelected(item) {
+      if (item.action && this[item.action]) {
+        this[item.action]();
+        return;
+      }
+
+      this.triggerRedirect('' + item.path);
+    }
+  }, {
     key: 'saveAuth',
     value: function saveAuth(account) {
-      var _this7 = this;
+      var _this8 = this;
 
       return _reactChunky.Data.Cache.cacheAuth(account).then(function () {
-        _this7.loggedIn(account);
+        _this8.loggedIn(account);
       });
     }
   }, {
@@ -451,19 +512,19 @@ var Screen = function (_Core$Screen) {
       return _react2.default.createElement('div', null);
     }
   }, {
-    key: 'renderProgress',
-    value: function renderProgress() {
-      return _react2.default.createElement('div', null);
+    key: 'renderLoading',
+    value: function renderLoading() {
+      return _react2.default.createElement(
+        'div',
+        { style: {} },
+        _react2.default.createElement(DefaultComponents.Loading, { message: this.state.loadingMessage || 'Loading, just a sec please ...' })
+      );
     }
   }, {
     key: 'render',
     value: function render() {
       if (this.state.skip) {
         return _react2.default.createElement('div', null);
-      }
-
-      if (this.state.progress) {
-        return this.renderProgress();
       }
 
       if (this.state.stopError) {
@@ -499,6 +560,11 @@ var Screen = function (_Core$Screen) {
       );
     }
   }, {
+    key: 'sections',
+    get: function get() {
+      return this._sections;
+    }
+  }, {
     key: 'browser',
     get: function get() {
       return this._browser;
@@ -511,7 +577,7 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'sideMenu',
     get: function get() {
-      return this.menu;
+      return this._sideMenu;
     }
   }, {
     key: 'isSmallScreen',
