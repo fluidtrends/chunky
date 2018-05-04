@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.83",
+  "version": "0.9.84",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -94,8 +94,6 @@
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-ionicons": "^2.1.6",
-    "react-mdl": "^1.10.3",
     "react-placeholder": "^1.0.7",
     "react-player": "^0.25.3",
     "react-progressive-image": "^0.3.0",
