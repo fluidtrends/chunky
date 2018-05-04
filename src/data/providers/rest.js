@@ -65,32 +65,35 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _prepareAuthHeaders (auth) {
-    if (!auth || !auth.user || !auth.user.token || !auth.user.email || !auth.user._id) {
-      return
-    }
-
-    const access = { token: auth.user.token, email: auth.user.email, id: auth.user._id }
-
-    return {
-      Authorization: Base64.encode(`${JSON.stringify(access)}`)
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        firebase.auth().currentUser.getIdToken()
+                .then((token) => {
+                  resolve({ Authorization: Base64.encode(token) })
+                })
+        .catch(() => resolve())
+      } catch (e) {
+        resolve()
+      }
+    })
   }
 
   _prepareRequest ({ url, method, headers, body }, auth) {
-    const authHeaders = this._prepareAuthHeaders(auth)
+    return this._prepareAuthHeaders(auth)
+           .then((authHeaders) => {
+             // Prepare the request properties
+             const options = {
+               method: method.toUpperCase(),
+               headers: Object.assign({}, headers, authHeaders)
+             }
 
-    // Prepare the request properties
-    const options = {
-      method: method.toUpperCase(),
-      headers: Object.assign({}, headers, authHeaders)
-    }
+             if (body) {
+               // Inject the body if found
+               options.body = JSON.stringify(body)
+             }
 
-    if (body) {
-      // Inject the body if found
-      options.body = JSON.stringify(body)
-    }
-
-    return { url, options }
+             return ({ url, options })
+           })
   }
 
   _timeout (ms, promise) {
@@ -103,9 +106,9 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _sendAuthRequest (request, auth) {
-    const requestParams = this._prepareRequest(request, auth)
-    return this._timeout(request.timeout, fetch(requestParams.url, requestParams.options))
-               .then((response) => response.json())
+    return this._prepareRequest(request, auth)
+           .then(({ url, options }) => this._timeout(request.timeout, fetch(url, options)))
+           .then((response) => response.json())
   }
 
   _sendRequest (request) {

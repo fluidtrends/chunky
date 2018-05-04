@@ -37,8 +37,9 @@ function save(data) {
 function verifyAccess(event) {
   return new Promise(function (resolve, reject) {
     try {
-      var access = JSON.parse(Base64.decode(event.headers.Authorization));
-      resolve(access);
+      var token = Base64.decode(event.headers.Authorization);
+      var account = { token: token };
+      resolve(account);
     } catch (e) {
       resolve();
     }
