@@ -51,23 +51,22 @@ function authorize ({ context, auth, event }) {
     const chunk = loader.loadChunk()
     const config = loader.loadSecureCloudConfig()
 
-    // return firebase.verify(event, config)
-    //                .then((account) => resolve({ chunk, config, account }))
-    resolve({ chunk, config, account })
+    return firebase.verify(event, config)
+                   .then((account) => resolve({ chunk, config, account }))
   })
 }
 
 function main ({ executor, filename, auth }) {
   return (event, context) => authorize({ auth, context, event })
-                              // .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
-                              // .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
-                              // .then((data) => {
-                              //   return Object.assign({}, { data }, {
-                              //     ok: true,
-                              //     timestamp: Date.now()
-                              //   })
-                              // })
-                              // .catch(error => ({ error: error.message }))
+                              .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
+                              .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
+                              .then((data) => {
+                                return Object.assign({}, { data }, {
+                                  ok: true,
+                                  timestamp: Date.now()
+                                })
+                              })
+                              .catch(error => ({ error: error.message }))
 }
 
 module.exports = main
