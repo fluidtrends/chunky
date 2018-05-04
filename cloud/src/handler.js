@@ -58,7 +58,7 @@ function authorize ({ context, auth, event }) {
     //              reject(new Error('Unauthorized access'))
     //              return
     //            }
-    resolve({ chunk, config, auth })
+    // resolve({ chunk, config, auth })
     //          })
   })
 }
