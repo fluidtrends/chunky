@@ -38,9 +38,11 @@ function verifyAccess(event) {
   return new Promise(function (resolve, reject) {
     try {
       var token = Base64.decode(event.headers.Authorization);
-      return firebase.auth().verifyIdToken(token);
-    } catch (e) {
-      resolve();
+      return firebase.auth().verifyIdToken(token).then(function (user) {
+        return { user: user };
+      });
+    } catch (error) {
+      resolve({ guest: true, error: error });
     }
   });
 }

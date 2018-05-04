@@ -92,6 +92,8 @@ export default class RestDataProvider extends DataProvider {
                options.body = JSON.stringify(body)
              }
 
+             console.log(url, options)
+
              return ({ url, options })
            })
   }
