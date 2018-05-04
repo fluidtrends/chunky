@@ -65,11 +65,11 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _prepareAuthHeaders (auth) {
-    if (!auth || !auth.access || !auth.user || !auth.user.email || !auth.user._id) {
+    if (!auth || !auth.token || !auth.user || !auth.user.email || !auth.user._id) {
       return
     }
 
-    const access = Object.assign({}, auth.access, { email: auth.user.email, id: auth.user._id })
+    const access = Object.assign({}, auth.token, { email: auth.user.email, id: auth.user._id })
 
     return {
       Authorization: `Bearer ` + Base64.encode(`${JSON.stringify(access)}`)
