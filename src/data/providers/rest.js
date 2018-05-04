@@ -69,7 +69,7 @@ export default class RestDataProvider extends DataProvider {
       return
     }
 
-    const access = Object.assign({}, auth.user.token, { email: auth.user.email, id: auth.user._id })
+    const access = { token: auth.user.token, email: auth.user.email, id: auth.user._id }
 
     return {
       Authorization: Base64.encode(`${JSON.stringify(access)}`)
