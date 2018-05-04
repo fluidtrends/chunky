@@ -84,15 +84,13 @@ export default class RestDataProvider extends DataProvider {
              // Prepare the request properties
              const options = {
                method: method.toUpperCase(),
-               headers: Object.assign({}, headers, authHeaders)
+               headers: Object.assign({}, headers)//, authHeaders)
              }
 
              if (body) {
                // Inject the body if found
                options.body = JSON.stringify(body)
              }
-
-             console.log(url, options)
 
              return ({ url, options })
            })
@@ -110,11 +108,7 @@ export default class RestDataProvider extends DataProvider {
   _sendAuthRequest (request, auth) {
     return this._prepareRequest(request, auth)
            .then(({ url, options }) => this._timeout(request.timeout, fetch(url, options)))
-           // .then((response) => response.json())
-           .then((response) => {
-             console.log(response)
-             return response.json()
-           })
+           .then((response) => response.json())
   }
 
   _sendRequest (request) {

@@ -50,16 +50,16 @@ function authorize ({ context, auth, event }) {
 
     const chunk = loader.loadChunk()
     const config = loader.loadSecureCloudConfig()
-
-    return firebase.verify({ event, config })
-                   .then((account) => resolve({ chunk, config, account }))
-                   .catch(() => {
-                     if (auth.private) {
-                       reject(new Error('Unauthorized access'))
-                       return
-                     }
-                     resolve()
-                   })
+    resolve()
+    // return firebase.verify({ event, config })
+    //                .then((account) => resolve({ chunk, config, account }))
+    //                .catch(() => {
+    //                  if (auth.private) {
+    //                    reject(new Error('Unauthorized access'))
+    //                    return
+    //                  }
+    //                  resolve()
+    //                })
   })
 }
 
