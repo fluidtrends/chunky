@@ -24,16 +24,6 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _reactIonicons = require('react-ionicons');
-
-var _reactIonicons2 = _interopRequireDefault(_reactIonicons);
-
-var _Icon = require('rmwc/Icon');
-
-var _Button = require('rmwc/Button');
-
-var _Typography = require('rmwc/Typography');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }

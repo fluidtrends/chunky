@@ -1,21 +1,13 @@
 import React from 'react'
 import Component from '../core/Component'
-import Text from './Text'
-import { renderResponsive } from '../utils/responsive'
-import Ionicon from 'react-ionicons'
 import {
   Card,
   CardMedia,
-  CardPrimary,
-  CardTitle,
-  CardSubtitle,
-  CardSupportingText,
   CardActionButtons,
-  CardActionIcons,
   CardActions,
   CardAction
 } from 'rmwc/Card'
-import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip'
+import { Chip, ChipText, ChipSet } from 'rmwc/Chip'
 import {Fab} from 'rmwc/Fab'
 import { Typography } from 'rmwc/Typography'
 import Media from './Media'
@@ -30,7 +22,6 @@ const colors = {
 }
 
 export default class Collection extends Component {
-
   constructor (props) {
     super(props)
     this.state = { ...this.state }

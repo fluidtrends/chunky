@@ -33,10 +33,7 @@ function save (data) {
 function verifyAccess (event) {
   return new Promise((resolve, reject) => {
     try {
-      const parts = event.headers.Authorization.split()
-      const type = parts[0]
-      const access = JSON.parse(Base64.decode(parts[1]))
-
+      const access = Base64.decode(event.headers.Authorization)
       resolve(access)
     } catch (e) {
       resolve()

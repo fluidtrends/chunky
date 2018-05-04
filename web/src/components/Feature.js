@@ -2,13 +2,9 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import Ionicon from 'react-ionicons'
-import { Icon } from 'rmwc/Icon'
 import { Button } from 'rmwc/Button'
-import { Typography } from 'rmwc/Typography'
 
 export default class Feature extends Component {
-
   constructor (props) {
     super(props)
     this.state = { ...this.state }

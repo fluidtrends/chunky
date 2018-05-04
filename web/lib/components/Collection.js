@@ -18,16 +18,6 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _Text = require('./Text');
-
-var _Text2 = _interopRequireDefault(_Text);
-
-var _responsive = require('../utils/responsive');
-
-var _reactIonicons = require('react-ionicons');
-
-var _reactIonicons2 = _interopRequireDefault(_reactIonicons);
-
 var _Card = require('rmwc/Card');
 
 var _Chip = require('rmwc/Chip');

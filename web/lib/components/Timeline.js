@@ -24,8 +24,6 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Typography = require('rmwc/Typography');
-
 var _Icon = require('rmwc/Icon');
 
 var _Button = require('rmwc/Button');
@@ -93,7 +91,6 @@ var Timeline = function (_Component) {
       var _this2 = this;
 
       var iconBackground = (0, _moment2.default)().isAfter(item.until) ? this.props.pastColor : this.props.inProgressColor;
-      console.log(this);
       return _react2.default.createElement(
         _reactVerticalTimelineComponent.VerticalTimelineElement,
         {
@@ -107,8 +104,7 @@ var Timeline = function (_Component) {
             justifyContent: 'center',
             alignItems: 'center'
           },
-          icon: _react2.default.createElement(_Icon.Icon, { use: item.icon })
-        },
+          icon: _react2.default.createElement(_Icon.Icon, { use: item.icon }) },
         _react2.default.createElement(
           'h3',
           { className: 'vertical-timeline-element-title' },
@@ -146,11 +142,12 @@ var Timeline = function (_Component) {
         return;
       }
 
+      var index = 0;
       return _react2.default.createElement(
         _reactVerticalTimelineComponent.VerticalTimeline,
         { style: { marginTop: 0 } },
         this.props.milestones.map(function (milestone) {
-          return _this3.renderMilestone(milestone);
+          return _this3.renderMilestone(milestone, index++);
         })
       );
     }
@@ -184,8 +181,7 @@ var Timeline = function (_Component) {
           style: {
             color: this.props.textColor,
             backgroundColor: this.props.backgroundColor
-          }
-        },
+          } },
         this.renderTimeline()
       );
     }

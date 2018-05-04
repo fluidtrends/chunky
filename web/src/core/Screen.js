@@ -91,6 +91,10 @@ export default class Screen extends Core.Screen {
   }
 
   onMenuItem (item) {
+    if (!item) {
+      return
+    }
+
     if (item.action && this[item.action]) {
       this[item.action](item)
       return
@@ -518,6 +522,10 @@ export default class Screen extends Core.Screen {
   }
 
   sidebarMenuSelected (item) {
+    if (!item) {
+      return
+    }
+
     if (item.action && this[item.action]) {
       this[item.action]()
       return

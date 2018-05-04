@@ -2,44 +2,26 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import { Typography } from 'rmwc/Typography'
 import { Icon } from 'rmwc/Icon'
-import { Button, ButtonIcon } from 'rmwc/Button'
+import { Button } from 'rmwc/Button'
 import { LinearProgress } from 'rmwc/LinearProgress'
 import moment from 'moment'
-import {
-  VerticalTimeline,
-  VerticalTimelineElement
-} from 'react-vertical-timeline-component'
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
 import 'react-vertical-timeline-component/style.min.css'
 
-import {
-  Card,
-  CardMedia,
-  CardMediaItem,
-  CardPrimary,
-  CardTitle,
-  CardActions,
-  CardActionButtons,
-  CardAction,
-  CardPrimaryAction,
-  CardActionIcons,
-  CardSubtitle,
-  CardSupportingText,
-  CardHorizontalBlock
-} from 'rmwc/Card'
+import { Card } from 'rmwc/Card'
 
 export default class Timeline extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { ...this.state, loading: false }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     super.componentDidMount()
   }
 
-  renderText() {
+  renderText () {
     return renderResponsive(
       'text',
       <Text
@@ -59,19 +41,18 @@ export default class Timeline extends Component {
     )
   }
 
-  triggerRawRedirect(url) {
+  triggerRawRedirect (url) {
     window.open(url, '_blank')
   }
 
-  renderMilestone(item, index) {
+  renderMilestone (item, index) {
     let iconBackground = moment().isAfter(item.until)
       ? this.props.pastColor
       : this.props.inProgressColor
-    console.log(this)
     return (
       <VerticalTimelineElement
         key={index}
-        className="vertical-timeline-element--work"
+        className='vertical-timeline-element--work'
         date={item.date}
         iconStyle={{
           background: iconBackground,
@@ -80,11 +61,10 @@ export default class Timeline extends Component {
           justifyContent: 'center',
           alignItems: 'center'
         }}
-        icon={<Icon use={item.icon} />}
-      >
-        <h3 className="vertical-timeline-element-title">{item.title}</h3>
-        <h4 className="vertical-timeline-element-subtitle">{item.subtitle}</h4>
-        <p className="vertical-timeline-element-subtitle">{item.text}</p>
+        icon={<Icon use={item.icon} />}>
+        <h3 className='vertical-timeline-element-title'>{item.title}</h3>
+        <h4 className='vertical-timeline-element-subtitle'>{item.subtitle}</h4>
+        <p className='vertical-timeline-element-subtitle'>{item.text}</p>
         <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
           <Button onClick={() => this.triggerRawRedirect(item.link)}>
             More...
@@ -94,21 +74,22 @@ export default class Timeline extends Component {
     )
   }
 
-  renderTimeline() {
+  renderTimeline () {
     if (!this.props.milestones) {
       return
     }
 
+    var index = 0
     return (
       <VerticalTimeline style={{ marginTop: 0 }}>
         {this.props.milestones.map(milestone =>
-          this.renderMilestone(milestone)
+          this.renderMilestone(milestone, index++)
         )}
       </VerticalTimeline>
     )
   }
 
-  renderComponent() {
+  renderComponent () {
     if (this.state.loading) {
       return (
         <div
@@ -133,8 +114,7 @@ export default class Timeline extends Component {
         style={{
           color: this.props.textColor,
           backgroundColor: this.props.backgroundColor
-        }}
-      >
+        }}>
         {this.renderTimeline()}
       </div>
     )

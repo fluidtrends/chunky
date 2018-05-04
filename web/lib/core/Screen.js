@@ -140,6 +140,10 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'onMenuItem',
     value: function onMenuItem(item) {
+      if (!item) {
+        return;
+      }
+
       if (item.action && this[item.action]) {
         this[item.action](item);
         return;
@@ -497,6 +501,10 @@ var Screen = function (_Core$Screen) {
   }, {
     key: 'sidebarMenuSelected',
     value: function sidebarMenuSelected(item) {
+      if (!item) {
+        return;
+      }
+
       if (item.action && this[item.action]) {
         this[item.action]();
         return;
