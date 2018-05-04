@@ -38,7 +38,7 @@ export default class FirebaseDataProvider extends DataProvider {
     return operations.login(firebase, { email, password })
 
             // Let's keep track of the user locally
-            .then((user) => cacheAuth({ user: user.toJSON() }))
+            .then((user) => cacheAuth({ user }))
   }
 
   reset ({ nodes, options, props }) {

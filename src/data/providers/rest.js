@@ -2,10 +2,7 @@ import * as Errors from '../../errors'
 import * as Config from '../../config'
 import ChunkyError from '../../core/Error'
 import DataProvider from '../../core/DataProvider'
-
-import {
-  retrieveAuthToken
-} from '../cache'
+import { retrieveAuth } from '../cache'
 
 export default class RestDataProvider extends DataProvider {
 
@@ -66,11 +63,21 @@ export default class RestDataProvider extends DataProvider {
     return this._sendRequest(request)
   }
 
-  _prepareRequest ({ url, method, headers, body }) {
+  _prepareAuthHeaders (auth) {
+    if (!auth) {
+      return
+    }
+
+    console.log(auth.user.stsTokenManager.apiKey, auth.user.stsTokenManager.accessToken)
+  }
+
+  _prepareRequest ({ url, method, headers, body }, auth) {
+    const authHeaders = this._prepareAuthHeaders(auth)
+
     // Prepare the request properties
     const options = {
       method: method.toUpperCase(),
-      headers
+      headers: Object.assign({}, headers, authHeaders)
     }
 
     if (body) {
@@ -90,10 +97,16 @@ export default class RestDataProvider extends DataProvider {
     })
   }
 
-  _sendRequest (request) {
-    const requestParams = this._prepareRequest(request)
+  _sendAuthRequest (request, auth) {
+    const requestParams = this._prepareRequest(request, auth)
     return this._timeout(request.timeout, fetch(requestParams.url, requestParams.options))
-                .then((response) => response.json())
+               .then((response) => response.json())
+  }
+
+  _sendRequest (request) {
+    return retrieveAuth()
+            .then((auth) => this._sendAuthRequest(request, auth))
+            .catch(() => this._sendAuthRequest(request))
   }
 
 }

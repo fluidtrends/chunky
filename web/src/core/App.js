@@ -47,9 +47,11 @@ export default class App extends PureComponent {
   }
 
   userLogout () {
-    Data.Cache.clearAuth().then(account => {
-      this._resolve()
-    })
+    Data.Cache.clearAuth()
+              .then(() => {
+                this._resolve()
+                firebase && firebase.auth().signOut()
+              })
   }
 
   _resolveTransitionFromURI (uri) {

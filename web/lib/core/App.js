@@ -89,8 +89,9 @@ var App = function (_PureComponent) {
     value: function userLogout() {
       var _this3 = this;
 
-      _reactChunky.Data.Cache.clearAuth().then(function (account) {
+      _reactChunky.Data.Cache.clearAuth().then(function () {
         _this3._resolve();
+        firebase && firebase.auth().signOut();
       });
     }
   }, {

@@ -26,7 +26,7 @@ module.exports = (options) => {
     resolve: {
       extensions: ['.js', '.json'],
       alias: {
-
+        moment: 'moment/moment.js'
       },
       modules: [
         path.resolve(options.dir),
@@ -35,6 +35,7 @@ module.exports = (options) => {
     },
 
     module: {
+      noParse: [/moment.js/],
       rules: [
         {
           test: /\.(png|gif|jpe?g)$/,
