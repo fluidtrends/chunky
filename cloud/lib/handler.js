@@ -75,25 +75,17 @@ function main(_ref3) {
       auth = _ref3.auth;
 
   return function (event, context) {
-    return authorize({ auth: auth, context: context, event: event }).then(function (_ref4) {
-      var chunk = _ref4.chunk,
-          config = _ref4.config,
-          account = _ref4.account;
-      return validate({ event: event, chunk: chunk, config: config, account: account, filename: filename });
-    }).then(function (_ref5) {
-      var chunk = _ref5.chunk,
-          config = _ref5.config,
-          account = _ref5.account;
-      return executor({ event: event, chunk: chunk, config: config, account: account });
-    }).then(function (data) {
-      return Object.assign({}, { data: data }, {
-        ok: true,
-        timestamp: Date.now()
-      });
-    }).catch(function (error) {
-      return { error: error.message };
-    });
+    return authorize({ auth: auth, context: context, event: event });
   };
+  // .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
+  // .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
+  // .then((data) => {
+  //   return Object.assign({}, { data }, {
+  //     ok: true,
+  //     timestamp: Date.now()
+  //   })
+  // })
+  // .catch(error => ({ error: error.message }))
 }
 
 module.exports = main;
