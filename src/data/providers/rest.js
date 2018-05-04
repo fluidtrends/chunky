@@ -84,7 +84,7 @@ export default class RestDataProvider extends DataProvider {
              // Prepare the request properties
              const options = {
                method: method.toUpperCase(),
-               headers: Object.assign({}, headers)//, authHeaders)
+               headers: Object.assign({}, headers, authHeaders)
              }
 
              if (body) {

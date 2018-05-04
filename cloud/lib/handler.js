@@ -63,15 +63,15 @@ function authorize(_ref2) {
     var chunk = loader.loadChunk();
     var config = loader.loadSecureCloudConfig();
 
-    firebase.verify({ event: event, config: config }).then(function (account) {
-      return resolve({ chunk: chunk, config: config, account: account });
-    }).catch(function () {
-      if (auth.private) {
-        reject(new Error('Unauthorized access'));
-        return;
-      }
-      resolve({ chunk: chunk, config: config });
-    });
+    // firebase.verify({ event, config })
+    //          .then((account) => resolve({ chunk, config, account }))
+    //          .catch(() => {
+    //            if (auth.private) {
+    //              reject(new Error('Unauthorized access'))
+    //              return
+    //            }
+    resolve({ chunk: chunk, config: config, auth: auth });
+    //          })
   });
 }
 
