@@ -110,7 +110,11 @@ export default class RestDataProvider extends DataProvider {
   _sendAuthRequest (request, auth) {
     return this._prepareRequest(request, auth)
            .then(({ url, options }) => this._timeout(request.timeout, fetch(url, options)))
-           .then((response) => response.json())
+           // .then((response) => response.json())
+           .then((response) => {
+             console.log(response)
+             return response.json()
+           })
   }
 
   _sendRequest (request) {
