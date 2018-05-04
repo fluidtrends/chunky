@@ -34,8 +34,7 @@ function verifyAccess (event) {
   return new Promise((resolve, reject) => {
     try {
       const token = Base64.decode(event.headers.Authorization)
-      const account = { token }
-      resolve(account)
+      return firebase.auth().verifyIdToken(token)
     } catch (e) {
       resolve()
     }
