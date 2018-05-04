@@ -30,16 +30,16 @@ function save (data) {
   }))
 }
 
-function verify (event, config) {
+function verify ({ event, config }) {
   return new Promise((resolve, reject) => {
-    try {
-      initialize(config.google)
-      const token = Base64.decode(event.headers.Authorization)
-      firebase.auth().verifyIdToken(token)
-              .then((user) => resolve({ user, token }))
-    } catch (error) {
-      resolve({ guest: true, error })
+    initialize(config.google)
+
+    if (!event || !event.headers || !event.headers.Authorization) {
+      reject(new Error('No authorization sent'))
+      return
     }
+
+    return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization))
   })
 }
 

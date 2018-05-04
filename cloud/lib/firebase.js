@@ -34,17 +34,19 @@ function save(data) {
   }));
 }
 
-function verify(event, config) {
+function verify(_ref) {
+  var event = _ref.event,
+      config = _ref.config;
+
   return new Promise(function (resolve, reject) {
-    try {
-      initialize(config.google);
-      var token = Base64.decode(event.headers.Authorization);
-      firebase.auth().verifyIdToken(token).then(function (user) {
-        return resolve({ user: user, token: token });
-      });
-    } catch (error) {
-      resolve({ guest: true, error: error });
+    initialize(config.google);
+
+    if (!event || !event.headers || !event.headers.Authorization) {
+      reject(new Error('No authorization sent'));
+      return;
     }
+
+    return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization));
   });
 }
 
