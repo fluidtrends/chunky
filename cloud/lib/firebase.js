@@ -46,7 +46,8 @@ function verify(_ref) {
       return;
     }
 
-    return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization));
+    resolve({ event: event });
+    // return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization))
   });
 }
 
