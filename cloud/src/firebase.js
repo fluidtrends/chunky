@@ -30,9 +30,10 @@ function save (data) {
   }))
 }
 
-function verifyAccess (event) {
+function verify (event, config) {
   return new Promise((resolve, reject) => {
     try {
+      initialize(config.google)
       const token = Base64.decode(event.headers.Authorization)
       return firebase.auth().verifyIdToken(token).then((user) => ({ user }))
     } catch (error) {
@@ -44,6 +45,6 @@ function verifyAccess (event) {
 module.exports = {
   initialize,
   operation,
-  verifyAccess,
+  verify,
   save
 }

@@ -63,7 +63,7 @@ function authorize(_ref2) {
     var chunk = loader.loadChunk();
     var config = loader.loadSecureCloudConfig();
 
-    return firebase.verifyAccess(event).then(function (account) {
+    return firebase.verify(event, config).then(function (account) {
       return resolve({ chunk: chunk, config: config, account: account });
     });
   });

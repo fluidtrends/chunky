@@ -34,9 +34,10 @@ function save(data) {
   }));
 }
 
-function verifyAccess(event) {
+function verify(event, config) {
   return new Promise(function (resolve, reject) {
     try {
+      initialize(config.google);
       var token = Base64.decode(event.headers.Authorization);
       return firebase.auth().verifyIdToken(token).then(function (user) {
         return { user: user };
@@ -50,6 +51,6 @@ function verifyAccess(event) {
 module.exports = {
   initialize: initialize,
   operation: operation,
-  verifyAccess: verifyAccess,
+  verify: verify,
   save: save
 };
