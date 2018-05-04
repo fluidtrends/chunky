@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.9.22",
+  "version": "0.9.23",
   "description": "The Chunky Universal Framework",
   "main": "lib/index.js",
   "scripts": {

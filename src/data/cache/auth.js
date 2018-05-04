@@ -6,8 +6,7 @@ export function retrieveAuth () {
 }
 
 export function cacheAuth (data) {
-  const newData = Object.assign({}, data, data.user && data.user.stsTokenManager && { access: data.user.stsTokenManager })
-  return cacheItem(Config.AUTH_CACHE_KEY, newData)
+  return cacheItem(Config.AUTH_CACHE_KEY, data)
 }
 
 export function clearAuth () {
