@@ -39,8 +39,9 @@ function verify ({ event, config }) {
       return
     }
 
-    resolve({ event })
-    // return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization))
+    const token = Base64.decode(event.headers.Authorization)
+    resolve({ token })
+    // return firebase.auth().verifyIdToken(token)
   })
 }
 
