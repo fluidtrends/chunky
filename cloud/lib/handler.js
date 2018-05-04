@@ -1,6 +1,7 @@
 'use strict';
 
 var loader = require('./loader');
+var firebase = require('./firebase');
 var path = require('path');
 
 var now = Date.now();
@@ -17,7 +18,8 @@ function validate(_ref) {
   var event = _ref.event,
       chunk = _ref.chunk,
       config = _ref.config,
-      filename = _ref.filename;
+      filename = _ref.filename,
+      account = _ref.account;
 
   return new Promise(function (resolve, reject) {
     if (!chunk.service.requiredFields) {
@@ -34,26 +36,14 @@ function validate(_ref) {
       }
     });
 
-    resolve({ chunk: chunk, config: config });
-  });
-}
-
-function initialize() {
-  return new Promise(function (resolve, reject) {
-    try {
-      var chunk = loader.loadChunk();
-      var config = loader.loadSecureCloudConfig();
-
-      resolve({ chunk: chunk, config: config });
-    } catch (error) {
-      reject(error);
-    }
+    resolve({ chunk: chunk, config: config, account: account });
   });
 }
 
 function authorize(_ref2) {
   var context = _ref2.context,
-      auth = _ref2.auth;
+      auth = _ref2.auth,
+      event = _ref2.event;
 
   return new Promise(function (resolve, reject) {
     var update = Date.now();
@@ -69,7 +59,13 @@ function authorize(_ref2) {
     }
 
     context.callbackWaitsForEmptyEventLoop = false;
-    resolve();
+
+    var chunk = loader.loadChunk();
+    var config = loader.loadSecureCloudConfig();
+
+    return firebase.verifyAccess(event).then(function (account) {
+      return resolve({ chunk: chunk, config: config, account: account });
+    });
   });
 }
 
@@ -79,16 +75,16 @@ function main(_ref3) {
       auth = _ref3.auth;
 
   return function (event, context) {
-    return authorize({ auth: auth, context: context }).then(function () {
-      return initialize();
-    }).then(function (_ref4) {
+    return authorize({ auth: auth, context: context, event: event }).then(function (_ref4) {
       var chunk = _ref4.chunk,
-          config = _ref4.config;
-      return validate({ event: event, chunk: chunk, config: config, filename: filename });
+          config = _ref4.config,
+          account = _ref4.account;
+      return validate({ event: event, chunk: chunk, config: config, account: account, filename: filename });
     }).then(function (_ref5) {
       var chunk = _ref5.chunk,
-          config = _ref5.config;
-      return executor({ event: event, chunk: chunk, config: config });
+          config = _ref5.config,
+          account = _ref5.account;
+      return executor({ event: event, chunk: chunk, config: config, account: account });
     }).then(function (data) {
       return Object.assign({}, { data: data }, {
         ok: true,

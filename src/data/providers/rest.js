@@ -3,6 +3,7 @@ import * as Config from '../../config'
 import ChunkyError from '../../core/Error'
 import DataProvider from '../../core/DataProvider'
 import { retrieveAuth } from '../cache'
+import { Base64 } from 'js-base64'
 
 export default class RestDataProvider extends DataProvider {
 
@@ -64,11 +65,15 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _prepareAuthHeaders (auth) {
-    if (!auth) {
+    if (!auth || !auth.access || !auth.user || !auth.user.email || !auth.user._id) {
       return
     }
 
-    console.log(auth.user.stsTokenManager.apiKey, auth.user.stsTokenManager.accessToken)
+    const access = Object.assign({}, auth.access, { email: auth.user.email, id: auth.user._id })
+
+    return {
+      Authorization: `Bearer ` + Base64.encode(`${JSON.stringify(access)}`)
+    }
   }
 
   _prepareRequest ({ url, method, headers, body }, auth) {

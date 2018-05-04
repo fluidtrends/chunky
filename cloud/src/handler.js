@@ -1,4 +1,5 @@
 const loader = require('./loader')
+const firebase = require('./firebase')
 const path = require('path')
 
 const now = Date.now()
@@ -11,7 +12,7 @@ var _context = {
   burst: 0
 }
 
-function validate ({ event, chunk, config, filename }) {
+function validate ({ event, chunk, config, filename, account }) {
   return new Promise((resolve, reject) => {
     if (!chunk.service.requiredFields) {
       resolve({ chunk, config })
@@ -27,24 +28,11 @@ function validate ({ event, chunk, config, filename }) {
       }
     })
 
-    resolve({ chunk, config })
+    resolve({ chunk, config, account })
   })
 }
 
-function initialize () {
-  return new Promise((resolve, reject) => {
-    try {
-      const chunk = loader.loadChunk()
-      const config = loader.loadSecureCloudConfig()
-
-      resolve({ chunk, config })
-    } catch (error) {
-      reject(error)
-    }
-  })
-}
-
-function authorize ({ context, auth }) {
+function authorize ({ context, auth, event }) {
   return new Promise((resolve, reject) => {
     const update = Date.now()
     const burstRate = 1000
@@ -59,15 +47,19 @@ function authorize ({ context, auth }) {
     }
 
     context.callbackWaitsForEmptyEventLoop = false
-    resolve()
+
+    const chunk = loader.loadChunk()
+    const config = loader.loadSecureCloudConfig()
+
+    return firebase.verifyAccess(event)
+             .then((account) => resolve({ chunk, config, account }))
   })
 }
 
 function main ({ executor, filename, auth }) {
-  return (event, context) => authorize({ auth, context })
-                              .then(() => initialize())
-                              .then(({ chunk, config }) => validate({ event, chunk, config, filename }))
-                              .then(({ chunk, config }) => executor({ event, chunk, config }))
+  return (event, context) => authorize({ auth, context, event })
+                              .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
+                              .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
                               .then((data) => {
                                 return Object.assign({}, { data }, {
                                   ok: true,

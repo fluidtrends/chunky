@@ -2,6 +2,7 @@
 
 var firebase = require('firebase-admin');
 var firebaseline = require('firebaseline');
+var Base64 = require('js-base64').Base64;
 
 function operation(name, args) {
   return firebaseline.operations[name](firebase, args);
@@ -33,8 +34,23 @@ function save(data) {
   }));
 }
 
+function verifyAccess(event) {
+  return new Promise(function (resolve, reject) {
+    try {
+      var parts = event.headers.Authorization.split();
+      var type = parts[0];
+      var access = JSON.parse(Base64.decode(parts[1]));
+
+      resolve(access);
+    } catch (e) {
+      resolve();
+    }
+  });
+}
+
 module.exports = {
   initialize: initialize,
   operation: operation,
+  verifyAccess: verifyAccess,
   save: save
 };

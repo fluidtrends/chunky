@@ -1,5 +1,6 @@
 const firebase = require('firebase-admin')
 const firebaseline = require('firebaseline')
+const Base64 = require('js-base64').Base64
 
 function operation (name, args) {
   return firebaseline.operations[name](firebase, args)
@@ -29,8 +30,23 @@ function save (data) {
   }))
 }
 
+function verifyAccess (event) {
+  return new Promise((resolve, reject) => {
+    try {
+      const parts = event.headers.Authorization.split()
+      const type = parts[0]
+      const access = JSON.parse(Base64.decode(parts[1]))
+
+      resolve(access)
+    } catch (e) {
+      resolve()
+    }
+  })
+}
+
 module.exports = {
   initialize,
   operation,
+  verifyAccess,
   save
 }
