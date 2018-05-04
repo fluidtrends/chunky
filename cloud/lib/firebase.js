@@ -39,8 +39,9 @@ function verify(event, config) {
     try {
       initialize(config.google);
       var token = Base64.decode(event.headers.Authorization);
-      // return firebase.auth().verifyIdToken(token).then((user) => ({ user }))
-      resolve({ token: token });
+      firebase.auth().verifyIdToken(token).then(function (user) {
+        return resolve({ user: user, token: token });
+      });
     } catch (error) {
       resolve({ guest: true, error: error });
     }
