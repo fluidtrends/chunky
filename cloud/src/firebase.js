@@ -40,7 +40,7 @@ function verify ({ event, config }) {
     }
 
     const token = Base64.decode(event.headers.Authorization)
-    resolve({ token })
+    resolve({ token: `-${token}-` })
     // return firebase.auth().verifyIdToken(token)
   })
 }
