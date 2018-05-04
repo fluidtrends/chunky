@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.9.24",
+  "version": "0.9.25",
   "description": "The Chunky Universal Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.14",
     "randomstring": "^1.1.5",
-    "react": "^16.1.1",
+    "react": "^15.6.2",
     "react-countdown-now": "git://github.com/fluidtrends/react-countdown.git",
     "react-ga": "^2.4.1",
     "react-moment": "^0.7.0",
