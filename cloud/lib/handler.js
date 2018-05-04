@@ -63,17 +63,15 @@ function authorize(_ref2) {
     var chunk = loader.loadChunk();
     var config = loader.loadSecureCloudConfig();
 
-    resolve({ auth: auth, chunk: chunk });
-
-    // return firebase.verify({ event, config })
-    //                .then((account) => resolve({ chunk, config, account }))
-    //                .catch(() => {
-    //                  if (auth.private) {
-    //                    reject(new Error('Unauthorized access'))
-    //                    return
-    //                  }
-    //                  resolve()
-    //                })
+    firebase.verify({ event: event, config: config }).then(function (account) {
+      return resolve({ chunk: chunk, config: config, account: account });
+    }).catch(function () {
+      if (auth.private) {
+        reject(new Error('Unauthorized access'));
+        return;
+      }
+      resolve({ chunk: chunk, config: config });
+    });
   });
 }
 
@@ -83,17 +81,25 @@ function main(_ref3) {
       auth = _ref3.auth;
 
   return function (event, context) {
-    return authorize({ auth: auth, context: context, event: event });
+    return authorize({ auth: auth, context: context, event: event }).then(function (_ref4) {
+      var chunk = _ref4.chunk,
+          config = _ref4.config,
+          account = _ref4.account;
+      return validate({ event: event, chunk: chunk, config: config, account: account, filename: filename });
+    }).then(function (_ref5) {
+      var chunk = _ref5.chunk,
+          config = _ref5.config,
+          account = _ref5.account;
+      return executor({ event: event, chunk: chunk, config: config, account: account });
+    }).then(function (data) {
+      return Object.assign({}, { data: data }, {
+        ok: true,
+        timestamp: Date.now()
+      });
+    }).catch(function (error) {
+      return { error: error.message };
+    });
   };
-  // .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
-  // .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
-  // .then((data) => {
-  //   return Object.assign({}, { data }, {
-  //     ok: true,
-  //     timestamp: Date.now()
-  //   })
-  // })
-  // .catch(error => ({ error: error.message }))
 }
 
 module.exports = main;
