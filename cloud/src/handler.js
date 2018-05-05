@@ -52,14 +52,13 @@ function authorize ({ context, auth, event }) {
     const config = loader.loadSecureCloudConfig()
 
     firebase.verify({ event, config })
-             .then((account) => resolve({ chunk, config, account }))
-    //          .catch(() => {
-    //            if (auth.private) {
-    //              reject(new Error('Unauthorized access'))
-    //              return
-    //            }
-    // resolve({ chunk, config, auth })
-    //          })
+            .then((account) => {
+              if (auth.private && !account) {
+                reject(new Error('Unauthorized access'))
+                return
+              }
+              resolve({ chunk, config, account })
+            })
   })
 }
 
@@ -73,7 +72,7 @@ function main ({ executor, filename, auth }) {
                                   timestamp: Date.now()
                                 })
                               })
-                              .catch(error => ({ error: error.message }))
+                              .catch(error => ({ data: { error: error.message } }))
 }
 
 module.exports = main

@@ -35,13 +35,14 @@ function verify ({ event, config }) {
     initialize(config.google)
 
     if (!event || !event.headers || !event.headers.Authorization) {
-      reject(new Error('No authorization sent'))
+      resolve()
       return
     }
 
     const token = Base64.decode(event.headers.Authorization)
-    resolve({ token: `-${token}-` })
-    // return firebase.auth().verifyIdToken(token)
+    firebase.auth().verifyIdToken(token)
+            .then((user) => resolve({ user }))
+            .catch(() => resolve())
   })
 }
 

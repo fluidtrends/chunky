@@ -64,15 +64,12 @@ function authorize(_ref2) {
     var config = loader.loadSecureCloudConfig();
 
     firebase.verify({ event: event, config: config }).then(function (account) {
-      return resolve({ chunk: chunk, config: config, account: account });
+      if (auth.private && !account) {
+        reject(new Error('Unauthorized access'));
+        return;
+      }
+      resolve({ chunk: chunk, config: config, account: account });
     });
-    //          .catch(() => {
-    //            if (auth.private) {
-    //              reject(new Error('Unauthorized access'))
-    //              return
-    //            }
-    resolve({ chunk: chunk, config: config, auth: auth });
-    //          })
   });
 }
 
@@ -98,7 +95,7 @@ function main(_ref3) {
         timestamp: Date.now()
       });
     }).catch(function (error) {
-      return { error: error.message };
+      return { data: { error: error.message } };
     });
   };
 }

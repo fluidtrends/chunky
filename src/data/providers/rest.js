@@ -112,9 +112,19 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _sendRequest (request) {
-    return retrieveAuth()
-            .then((auth) => this._sendAuthRequest(request, auth))
-            .catch(() => this._sendAuthRequest(request))
+    return new Promise((resolve, reject) => {
+      retrieveAuth()
+            .then((auth) => {
+              this._sendAuthRequest(request, auth).then((response) => {
+                resolve(response)
+              })
+            })
+            .catch(() => {
+              this._sendAuthRequest(request).then((response) => {
+                resolve(response)
+              })
+            })
+    })
   }
 
 }

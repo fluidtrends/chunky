@@ -42,12 +42,16 @@ function verify(_ref) {
     initialize(config.google);
 
     if (!event || !event.headers || !event.headers.Authorization) {
-      reject(new Error('No authorization sent'));
+      resolve();
       return;
     }
 
-    resolve({ event: event });
-    // return firebase.auth().verifyIdToken(Base64.decode(event.headers.Authorization))
+    var token = Base64.decode(event.headers.Authorization);
+    firebase.auth().verifyIdToken(token).then(function (user) {
+      return resolve({ user: user });
+    }).catch(function () {
+      return resolve();
+    });
   });
 }
 
