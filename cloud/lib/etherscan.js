@@ -19,7 +19,8 @@ var api = function api(apiKey, data) {
 var transactions = function transactions(apiKey, _ref) {
   var address = _ref.address,
       total = _ref.total,
-      contract = _ref.contract;
+      contract = _ref.contract,
+      startBlock = _ref.startBlock;
   return api(apiKey, {
     module: 'account',
     action: contract ? 'tokentx' : 'txlist',
@@ -27,6 +28,7 @@ var transactions = function transactions(apiKey, _ref) {
     page: 1,
     offset: total,
     address: address,
+    startBlock: startBlock,
     contract: contract
   });
 };

@@ -6,13 +6,14 @@ const api = (apiKey, data) => {
   return fetch(url).then(res => res.json()).then(json => json.result)
 }
 
-const transactions = (apiKey, { address, total, contract }) => api(apiKey, {
+const transactions = (apiKey, { address, total, contract, startBlock }) => api(apiKey, {
   module: 'account',
   action: (contract ? 'tokentx' : 'txlist'),
   sort: 'desc',
   page: 1,
   offset: total,
   address,
+  startBlock,
   contract
 })
 
