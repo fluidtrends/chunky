@@ -87,13 +87,6 @@ export default class Screen extends Component {
     this.props.analytics && this.props.analytics.error(error)
   }
 
-  componentDidMount () {
-    // Automatically attempt to retrieve the main data, if possible and if desired
-    if (this.props.startOperationsOnMount && this.props.startOperation) {
-      this.props.startOperation()
-    }
-  }
-
   updateProgress (progressTitle) {
     this.setState({ progressTitle })
   }
@@ -106,6 +99,63 @@ export default class Screen extends Component {
   }
 
   componentWillUnmount () {
+    this._stopSubscriptions()
+  }
+
+  componentDidMount () {
+    this._startSubscriptions()
+
+      // Automatically attempt to retrieve the main data, if possible and if desired
+    if (this.props.startOperationsOnMount && this.props.startOperation) {
+      this.props.startOperation()
+    }
+  }
+
+  _stopSubscriptions () {
+    if (!this.props.subscriptions) {
+      return
+    }
+
+    this.props.subscriptions.forEach((subscription) => {
+      this.stopSubscription(subscription)
+    })
+  }
+
+  _startSubscriptions () {
+    if (!this.props.subscriptions) {
+      return
+    }
+
+    this.props.subscriptions.forEach((subscription) => {
+      this.startSubscription(subscription)
+    })
+  }
+
+  stopSubscription (subscription) {
+    this.state[[`${subscription}Stream`]] && this.state[`${subscription}Stream`].off()
+  }
+
+  subscriptionArgs (subscription) {
+    return {}
+  }
+
+  startSubscription (subscription) {
+    const self = this
+    const args = this.subscriptionArgs(subscription)
+
+    if (!this.props[subscription] || !self[`${subscription}Success`]) {
+      return
+    }
+
+    setTimeout(() => {
+      this.props[subscription](Object.assign({}, args, {
+        onStarted: (subscriptionStream) => {
+          self.setState({ [`${subscription}Stream`]: subscriptionStream })
+        },
+        onReceivedData: (data) => {
+          self[`${subscription}Success`](data || {})
+        }}))
+    }, 300)
   }
 
   injectTransition (transition) {

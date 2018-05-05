@@ -25,20 +25,51 @@ export default class FirebaseDataProvider extends DataProvider {
   }
 
   login ({ nodes, options, props }) {
-    if (!props.email || !props.password || !operations.login) {
-      // We only support email logins for now
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    }
+    return new Promise((resolve, reject) => {
+      if (!props.email || !props.password || !operations.login) {
+        // We only support email logins for now
+        reject(Errors.UNDEFINED_OPERATION())
+        return
+      }
 
-    // Let's take a look at the credentials
-    const email = props.email
-    const password = props.password
+      // Let's take a look at the credentials
+      const email = props.email
+      const password = props.password
 
-    // Attempt to sign in
-    return operations.login(firebase, { email, password })
+      // Attempt to sign in
+      operations.login(firebase, { email, password })
+                .then((user) => cacheAuth({ user }))
+                .then((auth) => {
+                  firebase.auth().onAuthStateChanged((user) => {
+                    resolve(user)
+                  })
+                })
+    })
+  }
 
-            // Let's keep track of the user locally
-            .then((user) => cacheAuth({ user }))
+  register ({ nodes, options, props }) {
+    return new Promise((resolve, reject) => {
+      if (!props.email || !props.password || !operations.register) {
+        // We only support email for now
+        reject(Errors.UNDEFINED_OPERATION())
+        return
+      }
+
+      // Let's take a look at the credentials
+      const name = props.name
+      const email = props.email
+      const password = props.password
+
+      // Attempt to register user
+      operations.register(firebase, Object.assign({ appAuth: true }, props))
+                .then(() => operations.login(firebase, { email, password }))
+                .then((user) => cacheAuth({ user }))
+                .then((auth) => {
+                  firebase.auth().onAuthStateChanged((user) => {
+                    resolve(user)
+                  })
+                })
+    })
   }
 
   reset ({ nodes, options, props }) {
@@ -51,27 +82,6 @@ export default class FirebaseDataProvider extends DataProvider {
 
     // Attempt to reset
     return operations.reset(firebase, { email })
-  }
-
-  register ({ nodes, options, props }) {
-    if (!props.email || !props.password || !operations.register) {
-      // We only support email for now
-      return Promise.reject(Errors.UNDEFINED_OPERATION())
-    }
-
-    // Let's take a look at the credentials
-    const name = props.name
-    const email = props.email
-    const password = props.password
-
-    // Attempt to register user
-    return operations.register(firebase, Object.assign({ appAuth: true }, props))
-
-            // Login immediately
-            .then(() => operations.login(firebase, { email, password }))
-
-            // Let's keep track of the user locally
-            .then((user) => cacheAuth({ user }))
   }
 
   subscribe ({ nodes, options, props }) {
@@ -170,6 +180,7 @@ export default class FirebaseDataProvider extends DataProvider {
     }
 
     const key = nodes.map(node => (node === ':uid' ? firebase.auth().currentUser.uid : node)).join('/')
+
     var params = { key }
 
     if (options.latest) {
