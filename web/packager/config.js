@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const StaticPlugin = require('./staticPlugin')
 const pages = require('./pages')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-// const JavaScriptObfuscator = require('webpack-obfuscator')
 
 module.exports = (options) => {
   return {
@@ -131,10 +130,6 @@ module.exports = (options) => {
       new UglifyJsPlugin({
         extractComments: true
       })
-      // new JavaScriptObfuscator({
-      //   compact: true,
-      //   rotateUnicodeArray: true
-      // })
     ])
   }
 }

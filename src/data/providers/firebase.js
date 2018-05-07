@@ -61,7 +61,7 @@ export default class FirebaseDataProvider extends DataProvider {
       const password = props.password
 
       // Attempt to register user
-      operations.register(firebase, Object.assign({ appAuth: true }, props))
+      return operations.register(firebase, Object.assign({ appAuth: true }, props))
                 .then(() => operations.login(firebase, { email, password }))
                 .then((user) => cacheAuth({ user }))
                 .then((auth) => {
@@ -69,6 +69,7 @@ export default class FirebaseDataProvider extends DataProvider {
                     resolve(user)
                   })
                 })
+                .catch((error) => reject(error))
     })
   }
 
