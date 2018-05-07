@@ -37,13 +37,14 @@ export default class FirebaseDataProvider extends DataProvider {
       const password = props.password
 
       // Attempt to sign in
-      operations.login(firebase, { email, password })
+      return operations.login(firebase, { email, password })
                 .then((user) => cacheAuth({ user }))
                 .then((auth) => {
                   firebase.auth().onAuthStateChanged((user) => {
                     resolve(user)
                   })
                 })
+                .catch((error) => reject(error))
     })
   }
 
