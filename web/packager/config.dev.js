@@ -15,7 +15,7 @@ module.exports = (options) => {
 
     output: {
       filename: 'chunky.js',
-      path: path.resolve(options.dir, 'web', 'build'),
+      path: path.resolve(options.dir, '.chunky', 'web'),
       publicPath: '/',
       libraryTarget: 'umd'
     },

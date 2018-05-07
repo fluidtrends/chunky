@@ -9,7 +9,7 @@ let copyfiles = require('copyfiles')
 function build (options) {
   return new Promise((resolve, reject) => {
     // Start off fresh
-    const dir = path.resolve(options.dir, 'web', 'build')
+    const dir = path.resolve(options.dir, '.chunky', 'web')
     if (fs.existsSync(dir)) { fs.removeSync(dir) }
     fs.mkdirSync(dir)
 
