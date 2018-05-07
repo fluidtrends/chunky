@@ -25,6 +25,7 @@ var Ethereum = function () {
     this._accounts = [];
     this._props = props || {};
     this._infura = new _infura2.default(props.infura);
+    this._account = props.account;
     this._load();
   }
 

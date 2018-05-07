@@ -1,12 +1,12 @@
 const path = require('path')
-const fs = require('fs-extra')
+// const fs = require('fs-extra')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const StaticPlugin = require('./staticPlugin')
 const pages = require('./pages')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const JavaScriptObfuscator = require('webpack-obfuscator')
+// const JavaScriptObfuscator = require('webpack-obfuscator')
 
 module.exports = (options) => {
   return {
@@ -130,11 +130,11 @@ module.exports = (options) => {
     ].concat(pages(options)).concat([new StaticPlugin(Object.assign({}, options)),
       new UglifyJsPlugin({
         extractComments: true
-      }),
-      new JavaScriptObfuscator({
-        compact: true,
-        rotateUnicodeArray: true
       })
+      // new JavaScriptObfuscator({
+      //   compact: true,
+      //   rotateUnicodeArray: true
+      // })
     ])
   }
 }

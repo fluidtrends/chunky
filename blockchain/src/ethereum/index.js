@@ -6,6 +6,7 @@ export default class Ethereum {
     this._accounts = []
     this._props = props || {}
     this._infura = new InfuraFactory(props.infura)
+    this._account = props.account
     this._load()
   }
 
