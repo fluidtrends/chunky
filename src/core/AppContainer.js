@@ -21,7 +21,7 @@ export default class AppContainer extends Component {
     this._parseChunks()
 
     // Initialize the store with custom app reducers
-    this.state = { store: DataStore(this.reducers, { logging: props.env !== 'production' }) }
+    this.state = { store: DataStore(this.reducers, { logging: props.env !== '@@@@@' }) }
 
     // Initialize the analytics engine
     this._initializeAnalytics()

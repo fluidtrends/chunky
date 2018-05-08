@@ -64,14 +64,35 @@ export default class RestDataProvider extends DataProvider {
     return this._sendRequest(request)
   }
 
+  get _firebaseToken () {
+    return new Promise((resolve, reject) => {
+      if (!firebase.auth().currentUser) {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (!user) {
+            resolve()
+            return
+          }
+          firebase.auth().currentUser.getIdToken().then((token) => {
+            resolve(token)
+          })
+        })
+        return
+      }
+
+      firebase.auth().currentUser.getIdToken().then((token) => resolve(token))
+    })
+  }
+
   _prepareAuthHeaders (auth) {
     return new Promise((resolve, reject) => {
       try {
-        firebase.auth().currentUser.getIdToken()
-                .then((token) => {
-                  resolve({ Authorization: Base64.encode(token) })
-                })
-        .catch(() => resolve())
+        this._firebaseToken
+            .then((token) => {
+              resolve({ Authorization: Base64.encode(token) })
+            })
+        .catch((e) => {
+          resolve()
+        })
       } catch (e) {
         resolve()
       }
