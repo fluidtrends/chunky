@@ -4,8 +4,6 @@ import { StaticRouter, HashRouter, BrowserRouter, Route } from 'react-router-dom
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
 import { createSectionRoutes } from './Router'
-import { Redirect } from 'react-router'
-import uuid from 'uuid'
 import Cache from './Cache'
 
 export default class App extends PureComponent {
@@ -42,8 +40,16 @@ export default class App extends PureComponent {
     return this._cache
   }
 
-  userLoggedIn () {
-    return this.checkAuth()
+  userLoggedIn (account) {
+    return new Promise((resolve, reject) => {
+      const user = firebase.auth().currentUser
+      const combined = Object.assign({}, {
+        uid: user.uid,
+        emailVerified: user.emailVerified
+      }, account)
+      Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
+    })
+    .then(() => this.checkAuth())
   }
 
   userLogout () {

@@ -38,10 +38,13 @@ export default class FirebaseDataProvider extends DataProvider {
 
       // Attempt to sign in
       return operations.login(firebase, { email, password })
-                .then((user) => cacheAuth({ user }))
-                .then((auth) => {
+                .then((account) => {
                   firebase.auth().onAuthStateChanged((user) => {
-                    resolve(user)
+                    const combined = Object.assign({}, {
+                      uid: user.uid,
+                      emailVerified: user.emailVerified
+                    }, account)
+                    cacheAuth({ user: combined }).then(() => resolve(combined))
                   })
                 })
                 .catch((error) => reject(error))
@@ -63,14 +66,18 @@ export default class FirebaseDataProvider extends DataProvider {
 
       // Attempt to register user
       return operations.register(firebase, Object.assign({ appAuth: true }, props))
-                .then(() => operations.login(firebase, { email, password }))
-                .then((user) => cacheAuth({ user }))
-                .then((auth) => {
-                  firebase.auth().onAuthStateChanged((user) => {
-                    resolve(user)
-                  })
-                })
-                .catch((error) => reject(error))
+                      .then((account) => {
+                        firebase.auth().onAuthStateChanged((user) => {
+                          const combined = Object.assign({}, {
+                            uid: user.uid,
+                            emailVerified: user.emailVerified
+                          }, account)
+                          cacheAuth({ user: combined })
+                          .then(() => firebase.auth().currentUser.sendEmailVerification())
+                          .then(() => resolve(combined))
+                        })
+                      })
+                      .catch((error) => reject(error))
     })
   }
 

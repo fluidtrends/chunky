@@ -359,14 +359,6 @@ export default class Screen extends Core.Screen {
     return []
   }
 
-  logout () {
-    this.props.onUserLogout && this.props.onUserLogout()
-  }
-
-  login (account) {
-    this.props.onUserLoggedIn && this.props.onUserLoggedIn(account)
-  }
-
   loadCustomComponent () {}
 
   loadSingleComponent (props) {

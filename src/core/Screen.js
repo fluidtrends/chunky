@@ -224,6 +224,14 @@ export default class Screen extends Component {
     return true
   }
 
+  logout () {
+    this.props.onUserLogout && this.props.onUserLogout()
+  }
+
+  login (account) {
+    this.props.onUserLoggedIn && this.props.onUserLoggedIn(account)
+  }
+
   didLogout () {
     if (!this.props.permissions || !this.props.permissions.publicRedirect) {
       return

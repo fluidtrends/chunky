@@ -26,10 +26,6 @@ var _reactChunky = require('react-chunky');
 
 var _Router = require('./Router');
 
-var _uuid = require('uuid');
-
-var _uuid2 = _interopRequireDefault(_uuid);
-
 var _Cache = require('./Cache');
 
 var _Cache2 = _interopRequireDefault(_Cache);
@@ -81,16 +77,29 @@ var App = function (_PureComponent) {
     }
   }, {
     key: 'userLoggedIn',
-    value: function userLoggedIn() {
-      return this.checkAuth();
+    value: function userLoggedIn(account) {
+      var _this3 = this;
+
+      return new Promise(function (resolve, reject) {
+        var user = firebase.auth().currentUser;
+        var combined = Object.assign({}, {
+          uid: user.uid,
+          emailVerified: user.emailVerified
+        }, account);
+        _reactChunky.Data.Cache.cacheAuth({ user: combined }).then(function () {
+          return resolve(combined);
+        });
+      }).then(function () {
+        return _this3.checkAuth();
+      });
     }
   }, {
     key: 'userLogout',
     value: function userLogout() {
-      var _this3 = this;
+      var _this4 = this;
 
       _reactChunky.Data.Cache.clearAuth().then(function () {
-        _this3._resolve();
+        _this4._resolve();
         firebase && firebase.auth().signOut();
       });
     }
@@ -107,7 +116,7 @@ var App = function (_PureComponent) {
   }, {
     key: '_createSectionNavigatorRoutes',
     value: function _createSectionNavigatorRoutes(element, section) {
-      var _this4 = this;
+      var _this5 = this;
 
       // We want to look at a stack element and figure out its parent chunk;
       var _element$split = element.split('/'),
@@ -146,7 +155,7 @@ var App = function (_PureComponent) {
       if (this.props.transitions) {
         this.props.transitions.forEach(function (transitionUri) {
           // Let's resolve global transitions
-          var transition = _this4._resolveTransitionFromURI(transitionUri);
+          var transition = _this5._resolveTransitionFromURI(transitionUri);
           globalTransitions[transition.name] = transition;
         });
       }
@@ -215,7 +224,7 @@ var App = function (_PureComponent) {
         if (chunk.transitions) {
           chunk.transitions.forEach(function (transitionUri) {
             // Parse this transition's URI
-            var transition = _this4._resolveTransitionFromURI(transitionUri);
+            var transition = _this5._resolveTransitionFromURI(transitionUri);
             var routeData = chunk.routes[transition.route];
             if (transition.route && routeData) {
               // This is a local transition, so let's resolve locally

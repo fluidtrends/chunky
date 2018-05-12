@@ -357,16 +357,6 @@ var Screen = function (_Core$Screen) {
       return [];
     }
   }, {
-    key: 'logout',
-    value: function logout() {
-      this.props.onUserLogout && this.props.onUserLogout();
-    }
-  }, {
-    key: 'login',
-    value: function login(account) {
-      this.props.onUserLoggedIn && this.props.onUserLoggedIn(account);
-    }
-  }, {
     key: 'loadCustomComponent',
     value: function loadCustomComponent() {}
   }, {
