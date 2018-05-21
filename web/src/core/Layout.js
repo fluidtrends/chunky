@@ -241,6 +241,7 @@ export default class DefaultLayout extends PureComponent {
         :root {
           --mdc-theme-primary: ${this.props.theme.primaryColor};
           --mdc-theme-secondary: ${this.props.theme.secondaryColor};
+          font-family: Roboto Condensed, sans-serif;
         }
 
         html {
