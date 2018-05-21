@@ -114,7 +114,7 @@ function update (src, remove) {
   console.log(compile ? 'Transpiled' : 'Moved', src, 'to', target)
 }
 
-console.log('*** Listening ***')
+console.log('*** Started ***')
 
 watcher
   .on('add', src => add(src))

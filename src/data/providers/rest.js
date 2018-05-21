@@ -57,7 +57,7 @@ export default class RestDataProvider extends DataProvider {
     const request = {
       method: 'get',
       timeout: this.props.timeout,
-      url: `${this.props.url}/${endpoint}`,
+      url: `${this.props.url}/${this.props.env === 'production' ? '' : this.props.env + '-'}${endpoint}`,
       headers: this.props.headers
     }
 
