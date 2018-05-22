@@ -65,6 +65,14 @@ export default class Screen extends Core.Screen {
     return this._sections
   }
 
+  get restUrl () {
+    if (!this.props.provisioning || !this.props.provisioning.rest || !this.props.provisioning.rest.url || !this.props.env) {
+      return
+    }
+
+    return `${this.props.provisioning.rest.url}/${this.props.env === 'production' ? '' : this.props.env + '-'}`
+  }
+
   componentWillReceiveProps (nextProps) {
     if (this.props.match.url !== nextProps.match.url) {
       this._load(nextProps)

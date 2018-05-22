@@ -21,7 +21,7 @@ export default class AppContainer extends Component {
     this._parseChunks()
 
     // Initialize the store with custom app reducers
-    this.state = { store: DataStore(this.reducers, { logging: props.env !== '@@@@@' }) }
+    this.state = { store: DataStore(this.reducers, { logging: props.env !== 'production' }) }
 
     // Initialize the analytics engine
     this._initializeAnalytics()
@@ -75,6 +75,8 @@ export default class AppContainer extends Component {
   get app () {
     return React.cloneElement(this.props.children, {
       chunks: this.chunks,
+      env: this.props.env,
+      provisioning: this.props.provisioning,
       analytics: this.analytics,
       strings: this.props.strings
     })

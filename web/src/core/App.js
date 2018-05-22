@@ -199,6 +199,8 @@ export default class App extends PureComponent {
         strings: {},
         desktop: this.props.desktop,
         account: section.account,
+        env: this.props.env,
+        provisioning: this.props.provisioning,
         analytics: this.props.analytics,
         onUserLogout: this._userLogout,
         onUserLoggedIn: this._userLoggedIn,

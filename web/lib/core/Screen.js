@@ -570,6 +570,15 @@ var Screen = function (_Core$Screen) {
       return this._sections;
     }
   }, {
+    key: 'restUrl',
+    get: function get() {
+      if (!this.props.provisioning || !this.props.provisioning.rest || !this.props.provisioning.rest.url || !this.props.env) {
+        return;
+      }
+
+      return this.props.provisioning.rest.url + '/' + (this.props.env === 'production' ? '' : this.props.env + '-');
+    }
+  }, {
     key: 'browser',
     get: function get() {
       return this._browser;
