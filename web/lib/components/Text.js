@@ -120,6 +120,7 @@ var Text = function (_Component) {
   }, {
     key: 'renderComponent',
     value: function renderComponent() {
+      this.loadContent();
       return _react2.default.createElement(
         'div',
         { style: Object.assign({}, {
