@@ -27,7 +27,7 @@ import {
 
 export default class Timer extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { ...this.state, loading: true }
     this._clockRenderer = this.clockRenderer.bind(this)
@@ -35,12 +35,12 @@ export default class Timer extends Component {
     this._clockTick = this.clockTick.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     super.componentDidMount()
     this.refreshPeriods()
   }
 
-  refreshPeriods () {
+  refreshPeriods() {
     let period
 
     const { periods } = this.props
@@ -50,11 +50,11 @@ export default class Timer extends Component {
         break
       }
       if (i + 1 === periods.length) {
-        period = periods[ i ]
+        period = periods[i]
         break
       }
 
-      if (moment().isBefore(periods[ i ].until)) {
+      if (moment().isBefore(periods[i].until)) {
         period = periods[i]
         break
       }
@@ -68,68 +68,81 @@ export default class Timer extends Component {
     this.setState({ period, loading: false })
   }
 
-  renderText () {
+  renderText() {
     return renderResponsive('text',
       <Text source={this.state.period.text} style={{
         width: `90vw`,
-        padding: '10px'
+        padding: '10px',
+        color: 'white'
       }} />,
       <Text source={this.state.period.text} style={{
         width: `70vw`,
+        color: 'white',
         paddingBottom: '10px'
       }} />)
   }
 
-  renderAction () {
-    return <Button onClick={this.triggerEvent()} raised style={{height: '64px'}} theme='secondary-bg text-primary-on-secondary'>
-      <Typography use='headline' style={{margin: '10px'}}>
-        { this.props.actionTitle }
-      </Typography>
+  renderSimpleText() {
+    return <Typography use='display1' style={{ margin: '10px' }}>
+      {this.state.period.text}
+    </Typography>
+  }
+
+  renderAction() {
+    return <Button onClick={this.triggerEvent()} raised xstyle={{ height: '64px' }} theme='secondary-bg text-primary-on-secondary'>
+      {this.props.actionTitle}
     </Button>
   }
 
-  onComplete () {
+  onComplete() {
     this._clockRenderer = this.clockRenderer.bind(this)
     this.refreshPeriods()
   }
 
-  clockTick () {
+  clockTick() {
     // this.refreshPeriods()
   }
 
-  clockRenderer ({ days, hours, minutes, seconds, completed }) {
-    const size = this.props.isSmallScreen ? 'title' : 'display1'
+  clockRenderer({ days, hours, minutes, seconds, completed }) {
+    const size = this.props.isSmallScreen ? 'title' : 'headline3'
     const margin = this.props.isSmallScreen ? '5' : '20'
+    const width = this.props.isSmallScreen ? '10' : '90'
+    const height = this.props.isSmallScreen ? '10' : '50'
 
-    return <ChipSet style={{paddingBottom: '30px'}}>
-      <Chip style={{border: '2px solid #ffffff', color: this.props.textColor}}>
-        <Typography use={size} style={{margin: `${margin}px`}}><ChipText>{days}d</ChipText></Typography>
+    const style = {
+      border: '2px solid #ffffff', color: this.props.textColor, padding: 2,
+      width,
+      height
+    }
+    return <ChipSet>
+      <Chip style={style}>
+        <Typography use={size} style={{ margin: `${margin}px` }}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
       </Chip>
-      <Chip style={{border: '2px solid #ffffff', color: this.props.textColor}}><Typography use={size} style={{margin: `${margin}px`}}><ChipText>{hours}h</ChipText></Typography></Chip>
-      <Chip style={{border: '2px solid #ffffff', color: this.props.textColor}}><Typography use={size} style={{margin: `${margin}px`}}><ChipText>{minutes}m</ChipText></Typography></Chip>
-      <Chip style={{border: '2px solid #ffffff', color: this.props.textColor}}><Typography use={size} style={{margin: `${margin}px`}}><ChipText>{seconds}s</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{hours}h</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{minutes}m</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{seconds}s</ChipText></Typography></Chip>
     </ChipSet>
   }
 
-  renderClock () {
+  renderClock() {
     const size = this.props.isSmallScreen ? 'title' : 'headline'
     const margin = '50'
 
-    return <Typography use={size} style={{marginBottom: `${margin}px`, textAlign: 'center'}}>
+    return <Typography use={size} style={{ marginBottom: `${margin}px`, textAlign: 'center' }}>
       <Countdown
         date={this.state.period.until}
         zeroPadLength={3}
         onTick={this._clockTick}
         onComplete={this._onComplete}
         renderer={this._clockRenderer} />
-      Period ends on <strong> {this.state.period.until} </strong>
+      {/* Period ends on <strong> {this.state.period.until} </strong> */}
     </Typography>
   }
 
-  renderComponent () {
+  renderComponent() {
     if (this.state.loading) {
       return (<div style={{ display: 'flex', flex: 1, margin: '10px', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} >
-        <Card style={{width: '80vw', margin: '20px', padding: '0px'}} >
+        <Card style={{ width: '80vw', margin: '20px', padding: '0px' }} >
           <LinearProgress determinate={false} />
         </Card>
       </div>)
@@ -149,10 +162,11 @@ export default class Timer extends Component {
       backgroundColor: this.props.backgroundColor,
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'center' }}>
-      { this.renderText() }
-      { this.renderClock() }
-      { this.renderAction() }
+      justifyContent: 'center'
+    }}>
+      {this.props.simple ? this.renderSimpleText() : this.renderText()}
+      {this.renderClock()}
+      {this.renderAction()}
     </div>
   }
 }
