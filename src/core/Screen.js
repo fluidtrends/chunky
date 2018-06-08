@@ -49,7 +49,7 @@ export default class Screen extends Component {
 
     if (handlerHash) {
       // This is a function handler
-      this[handlerHash] && this[handlerHash]()
+      this[handlerHash] && this[handlerHash](event)
       return
     }
 

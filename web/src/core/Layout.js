@@ -157,8 +157,14 @@ export default class DefaultLayout extends PureComponent {
     return this.props.sidebarIndex
   }
 
+  renderSidebarItem (item) {
+    return (<Menu.Item key={item.id}>
+      <Icon type={item.icon} />
+      <span className='nav-text'> {item.title}</span>
+    </Menu.Item>)
+  }
+
   renderWithSidebar () {
-    var index = 0
     return <Layout>
       <Sider
         breakpoint='lg'
@@ -174,13 +180,7 @@ export default class DefaultLayout extends PureComponent {
             minHeight: '100%',
             color: '#90A4AE'
           }}>
-          {
-          this.props.sidebar.map(item => (
-            <Menu.Item key={index++}>
-              <Icon type={item.icon} />
-              <span className='nav-text'> {item.title}</span>
-            </Menu.Item>
-        ))}
+          { this.props.sidebar.map(item => this.renderSidebarItem(item)) }
         </Menu>
       </Sider>
       <Layout style={{

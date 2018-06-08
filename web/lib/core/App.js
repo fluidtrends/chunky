@@ -86,7 +86,7 @@ var App = function (_PureComponent) {
           uid: user.uid,
           emailVerified: user.emailVerified
         }, account);
-        _reactChunky.Data.Cache.cacheAuth({ user: combined }).then(function () {
+        return _reactChunky.Data.Cache.cacheAuth({ user: combined }).then(function () {
           return resolve(combined);
         });
       }).then(function () {
@@ -183,7 +183,7 @@ var App = function (_PureComponent) {
           this._sidebar.push({
             routeKey: routeKey,
             id: '' + this.sidebar.length,
-            icon: route.icon.replace('-', '_'),
+            icon: route.icon,
             title: routeMenuTitle,
             alwaysShowIcon: route.alwaysShowIcon,
             action: route.action,

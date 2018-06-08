@@ -7,7 +7,6 @@ import { createSectionRoutes } from './Router'
 import Cache from './Cache'
 
 export default class App extends PureComponent {
-
   constructor (props) {
     super(props)
     this.state = { loading: true }
@@ -47,7 +46,7 @@ export default class App extends PureComponent {
         uid: user.uid,
         emailVerified: user.emailVerified
       }, account)
-      Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
+      return Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
     })
     .then(() => this.checkAuth())
   }
@@ -131,7 +130,7 @@ export default class App extends PureComponent {
         this._sidebar.push({
           routeKey,
           id: `${this.sidebar.length}`,
-          icon: route.icon.replace('-', '_'),
+          icon: route.icon,
           title: routeMenuTitle,
           alwaysShowIcon: route.alwaysShowIcon,
           action: route.action,

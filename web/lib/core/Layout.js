@@ -164,9 +164,25 @@ var DefaultLayout = function (_PureComponent) {
       this.props.onSidebarMenuSelected && this.props.onSidebarMenuSelected(item);
     }
   }, {
+    key: 'renderSidebarItem',
+    value: function renderSidebarItem(item) {
+      return _react2.default.createElement(
+        _antd.Menu.Item,
+        { key: item.id },
+        _react2.default.createElement(_antd.Icon, { type: item.icon }),
+        _react2.default.createElement(
+          'span',
+          { className: 'nav-text' },
+          ' ',
+          item.title
+        )
+      );
+    }
+  }, {
     key: 'renderWithSidebar',
     value: function renderWithSidebar() {
-      var index = 0;
+      var _this2 = this;
+
       return _react2.default.createElement(
         _antd.Layout,
         null,
@@ -189,17 +205,7 @@ var DefaultLayout = function (_PureComponent) {
                 color: '#90A4AE'
               } },
             this.props.sidebar.map(function (item) {
-              return _react2.default.createElement(
-                _antd.Menu.Item,
-                { key: index++ },
-                _react2.default.createElement(_antd.Icon, { type: item.icon }),
-                _react2.default.createElement(
-                  'span',
-                  { className: 'nav-text' },
-                  ' ',
-                  item.title
-                )
-              );
+              return _this2.renderSidebarItem(item);
             })
           )
         ),
@@ -252,7 +258,7 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderComponents',
     value: function renderComponents() {
-      var _this2 = this;
+      var _this3 = this;
 
       var components = this.props.children || [];
       var index = 0;
@@ -264,19 +270,19 @@ var DefaultLayout = function (_PureComponent) {
             marginTop: marginTop + 'px'
           } },
         components.map(function (c) {
-          return _this2.renderComponent(c, index++);
+          return _this3.renderComponent(c, index++);
         })
       );
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
         { style: this.styles.container, ref: function ref(c) {
-            _this3.container = c;
+            _this4.container = c;
           }, className: _style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
         },
         this.renderDrawer(),
