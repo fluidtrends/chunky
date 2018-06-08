@@ -6,6 +6,7 @@ import Timer from './Timer'
 import { Button } from 'rmwc/Button'
 import { Typography } from 'rmwc/Typography'
 import { Icon } from "antd"
+import Eos from './eos.js'
 
 import {
   Card,
@@ -18,18 +19,6 @@ import {
 } from 'rmwc/Card';
 import { relative } from 'path';
 
-
-const periods = [
-  {
-    "until": "07 June 2018 00:00:00 PDT",
-    "text": `Airdrop Live Now`
-  }]
-
-const purchasePeriods = [
-  {
-    "until": "07 July 2018 00:00:00 PDT",
-    "text": `Pre Sale Starts in`
-  }]
 
 export default class Cover extends Component {
 
@@ -94,6 +83,9 @@ export default class Cover extends Component {
       }}
     />
       <style jsx>{`
+        div :global(.icon) {
+          color: ${'#CFD8DC'}
+        }
         div :global(.icon):hover {
           color: ${'#00bcd4'}
         }
@@ -134,11 +126,10 @@ export default class Cover extends Component {
       }}>
         {this.renderCoverTitle()}
         {this.renderCoverSubtitle()}
-        {this.renderCoverTimeline()}
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }}>
         {this.renderAirdropTimer()}
-        {this.renderVideo()}
+        {this.renderCoverTimeline()}
       </div>
       {this.renderIcons()}
     </div>)
@@ -156,7 +147,7 @@ export default class Cover extends Component {
       textColor = "#ffffff"
 
     return <div style={{ maxWidth: 450, maxHeight: 300 }}>
-      <Timer periods={purchasePeriods} textColor={textColor} simple actionTitle="Buy tokens" />
+      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle="Buy tokens" />
     </div>
   }
 
@@ -164,7 +155,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
+    return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
   }
 
   renderCoverSubtitle() {
@@ -179,12 +170,7 @@ export default class Cover extends Component {
       return <div />
     }
 
-    const backgroundColor = "#00ACC1",
-      textColor = "#ffffff"
-
-    return <div style={{ border: '1px solid white', borderRadius: '2px', padding: 20, maxWidth: 450, maxHeight: 300 }}>
-      <Timer periods={periods} textColor={textColor} simple actionTitle="Get your FREE tokens" />
-    </div>
+    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
   }
 
   renderVideo() {
@@ -196,7 +182,7 @@ export default class Cover extends Component {
       textColor = "#ffffff"
 
     return <div style={{ padding: 20, width: 450, height: 300, position: 'relative' }}>
-      <Media video={'https://www.youtube.com/watch?v=hUcMqblawDE&list=PL9YBPmbctP4izy3pLrev014nSlI9Cr6Se'} width={450} height={300} style={{ position: 'absolute', top: 0, left: 0 }} />
+      <Media video={this.props.introVideo} width={450} height={300} style={{ position: 'absolute', top: 0, left: 0 }} />
     </div>
   }
 
@@ -205,7 +191,7 @@ export default class Cover extends Component {
       return <div />
     }
     return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
-      style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
+      style={{ margin: '20px', padding: 20 }}> {this.props.primaryActionTitle} </Button>
   }
 
   get presentationHeight() {

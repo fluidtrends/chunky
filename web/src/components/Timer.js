@@ -88,8 +88,14 @@ export default class Timer extends Component {
     </Typography>
   }
 
+  renderInfo() {
+    return <Typography use='title' style={{ marginBottom: '10px' }}>
+      {this.state.period.info}
+    </Typography>
+  }
+
   renderAction() {
-    return <Button onClick={this.triggerEvent()} raised xstyle={{ height: '64px' }} theme='secondary-bg text-primary-on-secondary'>
+    return <Button onClick={this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondary-bg text-primary-on-secondary'>
       {this.props.actionTitle}
     </Button>
   }
@@ -126,7 +132,7 @@ export default class Timer extends Component {
 
   renderClock() {
     const size = this.props.isSmallScreen ? 'title' : 'headline'
-    const margin = '50'
+    const margin = '20'
 
     return <Typography use={size} style={{ marginBottom: `${margin}px`, textAlign: 'center' }}>
       <Countdown
@@ -166,6 +172,7 @@ export default class Timer extends Component {
     }}>
       {this.props.simple ? this.renderSimpleText() : this.renderText()}
       {this.renderClock()}
+      {this.renderInfo()}
       {this.renderAction()}
     </div>
   }
