@@ -1,7 +1,7 @@
 import React from "react";
 
-const SvgComponent = props => (
-  <svg viewBox="0 0 2000 2000" width={400} height={400} {...props}>
+const Eos = props => (
+  <svg viewBox="0 0 2000 2000" width={350} height={350} {...props}>
     <path
       fill="none"
       stroke="#fff"
@@ -13,4 +13,4 @@ const SvgComponent = props => (
   </svg>
 );
 
-export default SvgComponent;
+export default Eos;

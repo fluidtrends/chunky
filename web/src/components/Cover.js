@@ -83,13 +83,13 @@ export default class Cover extends Component {
       }}
     />
       <style jsx>{`
-        div :global(.icon) {
-          color: ${'#CFD8DC'}
-        }
-        div :global(.icon):hover {
-          color: ${'#00bcd4'}
-        }
-      `}</style>
+          div :global(.icon) {
+            color: ${'#CFD8DC'}
+          }
+          div :global(.icon):hover {  
+            color: ${'#00bcd4'}
+          }
+        `}</style>
     </div>
   }
 
@@ -128,7 +128,7 @@ export default class Cover extends Component {
         {this.renderCoverSubtitle()}
       </div>
       <div style={{ display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }}>
-        {this.renderAirdropTimer()}
+        {this.renderLogos()}
         {this.renderCoverTimeline()}
       </div>
       {this.renderIcons()}
@@ -147,7 +147,7 @@ export default class Cover extends Component {
       textColor = "#ffffff"
 
     return <div style={{ maxWidth: 450, maxHeight: 300 }}>
-      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle="Buy tokens" />
+      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle="Buy tokens" onAction={this.triggerEvent()} />
     </div>
   }
 
@@ -165,11 +165,7 @@ export default class Cover extends Component {
     return <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
   }
 
-  renderAirdropTimer() {
-    if (this.props.isSmallScreen) {
-      return <div />
-    }
-
+  renderLogos() {
     return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
   }
 
