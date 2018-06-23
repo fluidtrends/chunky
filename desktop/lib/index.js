@@ -125,7 +125,7 @@ var createWindow = function () {
               });
             });
 
-            _start2.default && (0, _start2.default)();
+            _start2.default && (0, _start2.default)({ ipcMain: _electron.ipcMain, ipcRenderer: _electron.ipcRenderer });
             mainWindow.setTitle(_electron.app.getName());
             mainWindow.show();
 

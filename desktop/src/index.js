@@ -1,4 +1,4 @@
-import { app, BrowserWindow, protocol, ipcMain } from 'electron'
+import { app, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
@@ -87,7 +87,7 @@ const createWindow = async () => {
     })
   })
 
-  startDesktop && startDesktop()
+  startDesktop && startDesktop({ ipcMain, ipcRenderer })
   mainWindow.setTitle(app.getName())
   mainWindow.show()
 
