@@ -14,9 +14,9 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _blockchain = require('../../../blockchain');
+var _start = require('../../../desktop/start');
 
-var _blockchain2 = _interopRequireDefault(_blockchain);
+var _start2 = _interopRequireDefault(_start);
 
 var _nodeCmd = require('node-cmd');
 
@@ -125,7 +125,7 @@ var createWindow = function () {
               });
             });
 
-            _blockchain2.default && (0, _blockchain2.default)();
+            _start2.default && (0, _start2.default)();
             mainWindow.setTitle(_electron.app.getName());
             mainWindow.show();
 

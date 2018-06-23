@@ -3,7 +3,7 @@ import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-insta
 import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
 import path from 'path'
-import { default as startApp } from '../../../blockchain'
+import startDesktop from '../../../desktop/start'
 import { default as cmd } from 'node-cmd'
 const { spawn } = require('child_process')
 require('fix-path')()
@@ -87,7 +87,7 @@ const createWindow = async () => {
     })
   })
 
-  startApp && startApp()
+  startDesktop && startDesktop()
   mainWindow.setTitle(app.getName())
   mainWindow.show()
 
