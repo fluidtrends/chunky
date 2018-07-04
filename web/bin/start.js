@@ -17,7 +17,7 @@ function start (options) {
     const setup = config(options)
     process.noDeprecation = true
     new WebpackDevServer(webpack(setup), setup.devServer)
-      .listen(options.port, 'localhost', (error) => {
+      .listen(options.port, '0.0.0.0', (error) => {
         if (error) {
           // Looks like webpack failed with a hard error
           reject(error)
@@ -25,7 +25,7 @@ function start (options) {
         }
 
         // Open a browser with the website loaded
-        const url = 'http://localhost:' + options.port
+        const url = 'http://localhost:1' + options.port
         resolve(url)
       })
   })

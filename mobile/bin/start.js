@@ -22,18 +22,18 @@ args.forEach(arg => {
 
 if (isDebug) {
   // Inject the remote dev server in the React Native Debugger
-  remotedev({ hostname: 'localhost', port: 8000, injectserver: true })
+  remotedev({ hostname: '0.0.0.0', port: 8000, injectserver: true })
 }
 
 const packager = spawn(packagerExec, ['--verbose', '--projectRoots', `${appDir},${reactNativeChunkyAppDir}`])
 
 packager.stdout.on('data', (data) => {
-  console.log(`${data}`);
+  console.log(`${data}`)
 })
 
 packager.stderr.on('data', (data) => {
   console.log(`${data}`)
-});
+})
 
 packager.on('close', (code) => {
   console.log(`exit ${code}`)
