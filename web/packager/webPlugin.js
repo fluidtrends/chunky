@@ -57,6 +57,8 @@ class Plugin {
         console.log(`[${name}] connected to carmelstudio`)
       })
     })
+
+    this._ipcConnected = true
   }
 
   sendStudioEvent (event) {
