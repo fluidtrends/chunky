@@ -13,6 +13,8 @@ module.exports = (options) => {
       path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
     ],
 
+    watch: true,
+
     output: {
       filename: 'chunky.js',
       path: path.resolve(options.dir, '.chunky', 'web'),
