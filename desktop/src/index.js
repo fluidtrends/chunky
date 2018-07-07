@@ -87,7 +87,7 @@ const createWindow = async () => {
     })
   })
 
-  startDesktop && startDesktop({ ipcMain, ipcRenderer })
+  startDesktop && startDesktop({ ipcMain, ipcRenderer, mainWindow })
   mainWindow.setTitle(app.getName())
   mainWindow.show()
 
