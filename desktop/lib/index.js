@@ -18,16 +18,9 @@ var _start = require('../../../desktop/start');
 
 var _start2 = _interopRequireDefault(_start);
 
-var _nodeCmd = require('node-cmd');
-
-var _nodeCmd2 = _interopRequireDefault(_nodeCmd);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-var _require = require('child_process'),
-    spawn = _require.spawn;
 
 require('fix-path')();
 
@@ -43,25 +36,6 @@ _electron.protocol.registerStandardSchemes(['carmel']);
 
 var isDevMode = process.execPath.match(/[\\/]electron/);
 if (isDevMode) (0, _electronCompile.enableLiveReload)({ strategy: 'react-hmr' });
-
-var runCommand = function runCommand(command, args, callback) {
-  var cmd = spawn(command, args, {
-    stdio: 'inherit',
-    shell: true
-  });
-
-  cmd.stdout.on('data', function (data) {
-    callback && callback.out && callback.out(data);
-  });
-
-  cmd.stderr.on('data', function (data) {
-    callback && callback.err && callback.err(data);
-  });
-
-  cmd.on('close', function (code) {
-    callback && callback.done && callback.done(code);
-  });
-};
 
 var createWindow = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -100,31 +74,6 @@ var createWindow = function () {
 
           case 7:
 
-            _electron.ipcMain.on('shell', function (event, arg) {
-              _nodeCmd2.default.get(arg.command, function (error, data, stderr) {
-                event.sender.send(arg.callId, { error: error, data: data });
-              });
-            });
-
-            _electron.ipcMain.on('process', function (event, arg) {
-              runCommand(arg.command, arg.args || [], {
-                err: function err(error) {
-                  event.sender.send(arg.callId, { error: error });
-                },
-                out: function out(data) {
-                  event.sender.send(arg.callId, { data: data });
-                },
-                done: function done(code) {
-                  event.sender.send(arg.callId, { done: true, code: code });
-                } });
-            });
-
-            _electron.ipcMain.on('which', function (event, arg) {
-              _nodeCmd2.default.get(arg.command + ' --help', function (error, data, stderr) {
-                event.sender.send(arg.callId, { error: error, data: data });
-              });
-            });
-
             _start2.default && (0, _start2.default)({ ipcMain: _electron.ipcMain, ipcRenderer: _electron.ipcRenderer, mainWindow: mainWindow });
             mainWindow.setTitle(_electron.app.getName());
             mainWindow.show();
@@ -137,7 +86,7 @@ var createWindow = function () {
               mainWindow = null;
             });
 
-          case 15:
+          case 12:
           case 'end':
             return _context.stop();
         }

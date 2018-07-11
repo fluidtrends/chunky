@@ -83,6 +83,9 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderDrawer () {
+    if (this.props.desktop) {
+      return <div />
+    }
     return (<Drawer
       index={-1}
       onClose={this._onMenuClose}
@@ -94,6 +97,10 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderNavigation () {
+    if (this.props.desktop) {
+      return <div />
+    }
+
     return (<Navigation
       index={0}
       onMenuOpen={this._onMenuOpen}
@@ -108,8 +115,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderCover () {
-    if (!this.hasCover) {
-      return
+    if (!this.hasCover || this.props.desktop) {
+      return <div />
     }
     return (<Cover
       index={1}
@@ -123,6 +130,9 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderFooter () {
+    if (this.props.desktop) {
+      return <div />
+    }
     return <LargeFooter
       index={9999}
       id='footer'
@@ -188,19 +198,15 @@ export default class DefaultLayout extends PureComponent {
       }}>
         <Content style={{
           margin: '0',
-          minHeight: '100vh'
+          minHeight: '100vh',
+          width: '100vw',
+          backgroundColor: '#ffffff',
+          alignItems: 'top',
+          justifyContent: 'center',
+          flex: 1,
+          display: 'flex'
         }}>
-          <div style={{
-            marginLeft: 56,
-            backgroundColor: '#ffffff',
-            minHeight: 360,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 1,
-            display: 'flex'
-          }}>
-            { this.renderComponents() }
-          </div>
+          { this.renderComponents() }
         </Content>
       </Layout>
     </Layout>
@@ -220,7 +226,7 @@ export default class DefaultLayout extends PureComponent {
   renderComponents () {
     var components = this.props.children || []
     var index = 0
-    const marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
+    const marginTop = (this.props.desktop ? 0 : (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0))
 
     return (<main style={{
       marginTop: `${marginTop}px`
@@ -305,6 +311,7 @@ export default class DefaultLayout extends PureComponent {
 
 const styles = {
   container: {
+    backgroundColor: '#FFFFFF'
   },
   component: {
     backgroundColor: '#FFFFFF',

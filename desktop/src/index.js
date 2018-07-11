@@ -4,8 +4,6 @@ import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
 import path from 'path'
 import startDesktop from '../../../desktop/start'
-import { default as cmd } from 'node-cmd'
-const { spawn } = require('child_process')
 require('fix-path')()
 
 let mainWindow
@@ -20,25 +18,6 @@ protocol.registerStandardSchemes(['carmel'])
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
 if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
-
-const runCommand = (command, args, callback) => {
-  const cmd = spawn(command, args, {
-    stdio: 'inherit',
-    shell: true
-  })
-
-  cmd.stdout.on('data', (data) => {
-    callback && callback.out && callback.out(data)
-  })
-
-  cmd.stderr.on('data', (data) => {
-    callback && callback.err && callback.err(data)
-  })
-
-  cmd.on('close', (code) => {
-    callback && callback.done && callback.done(code)
-  })
-}
 
 const createWindow = async () => {
   // Create the browser window.
@@ -61,31 +40,6 @@ const createWindow = async () => {
     await installExtension(REACT_DEVELOPER_TOOLS)
     mainWindow.webContents.openDevTools()
   }
-
-  ipcMain.on('shell', (event, arg) => {
-    cmd.get(arg.command, (error, data, stderr) => {
-      event.sender.send(arg.callId, { error, data })
-    })
-  })
-
-  ipcMain.on('process', (event, arg) => {
-    runCommand(arg.command, arg.args || [], {
-      err: (error) => {
-        event.sender.send(arg.callId, { error })
-      },
-      out: (data) => {
-        event.sender.send(arg.callId, { data })
-      },
-      done: (code) => {
-        event.sender.send(arg.callId, { done: true, code })
-      }})
-  })
-
-  ipcMain.on('which', (event, arg) => {
-    cmd.get(`${arg.command} --help`, (error, data, stderr) => {
-      event.sender.send(arg.callId, { error, data })
-    })
-  })
 
   startDesktop && startDesktop({ ipcMain, ipcRenderer, mainWindow })
   mainWindow.setTitle(app.getName())

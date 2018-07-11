@@ -91,6 +91,9 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderDrawer',
     value: function renderDrawer() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
       return _react2.default.createElement(_Drawer2.default, {
         index: -1,
         onClose: this._onMenuClose,
@@ -103,6 +106,10 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderNavigation',
     value: function renderNavigation() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
+
       return _react2.default.createElement(_Navigation2.default, {
         index: 0,
         onMenuOpen: this._onMenuOpen,
@@ -118,8 +125,8 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderCover',
     value: function renderCover() {
-      if (!this.hasCover) {
-        return;
+      if (!this.hasCover || this.props.desktop) {
+        return _react2.default.createElement('div', null);
       }
       return _react2.default.createElement(_Cover2.default, _extends({
         index: 1,
@@ -133,6 +140,9 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderFooter',
     value: function renderFooter() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
       return _react2.default.createElement(_Footer2.default, _extends({
         index: 9999,
         id: 'footer'
@@ -218,21 +228,15 @@ var DefaultLayout = function (_PureComponent) {
             Content,
             { style: {
                 margin: '0',
-                minHeight: '100vh'
+                minHeight: '100vh',
+                width: '100vw',
+                backgroundColor: '#ffffff',
+                alignItems: 'top',
+                justifyContent: 'center',
+                flex: 1,
+                display: 'flex'
               } },
-            _react2.default.createElement(
-              'div',
-              { style: {
-                  marginLeft: 56,
-                  backgroundColor: '#ffffff',
-                  minHeight: 360,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flex: 1,
-                  display: 'flex'
-                } },
-              this.renderComponents()
-            )
+            this.renderComponents()
           )
         )
       );
@@ -262,7 +266,7 @@ var DefaultLayout = function (_PureComponent) {
 
       var components = this.props.children || [];
       var index = 0;
-      var marginTop = this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
+      var marginTop = this.props.desktop ? 0 : this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
 
       return _react2.default.createElement(
         'main',
@@ -366,7 +370,9 @@ exports.default = DefaultLayout;
 
 
 var styles = {
-  container: {},
+  container: {
+    backgroundColor: '#FFFFFF'
+  },
   component: {
     backgroundColor: '#FFFFFF',
     display: 'flex',
