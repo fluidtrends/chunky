@@ -120,6 +120,10 @@ module.exports = (options) => {
 
     devServer: {
       host: 'localhost',
+      watchOptions: {
+        poll: true,
+        aggregateTimeout: 100
+      },
       port: options.port,
       contentBase: path.resolve(options.dir, 'web', 'build'),
       watchContentBase: true,
