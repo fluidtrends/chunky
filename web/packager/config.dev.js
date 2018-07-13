@@ -124,6 +124,18 @@ module.exports = (options) => {
         poll: true,
         aggregateTimeout: 100
       },
+      quiet: true,
+      noInfo: true,
+      stats: {
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+      },
       port: options.port,
       contentBase: path.resolve(options.dir, 'web', 'build'),
       watchContentBase: true,

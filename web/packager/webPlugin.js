@@ -4,15 +4,34 @@ let chalk = require('chalk')
 let path = require('path')
 let Ora = require('ora')
 let ejs = require('ejs')
-const ipc = require('node-ipc')
+const emotions = require('./emotions.json')
 
 class Plugin {
 
   constructor (context) {
     this._context = context
-    this._startTime = new Date().getTime()
-    this._spinner = new Ora()
-    this._ipcConnected = false
+    this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
+    console.log = () => {}
+  }
+
+  get counter () {
+    return this._counter
+  }
+
+  emotion (type) {
+    if (!emotions || !emotions[type]) {
+      return 'Chunky is confused.'
+    }
+
+    const expression = emotions[type].expression
+    const moods = emotions[type].moods
+    const mood = moods[Math.floor(Math.random() * Math.floor(moods.length - 1))]
+
+    return { expression, mood }
+  }
+
+  get happy () {
+    return this.emotion('happy')
   }
 
   get context () {
@@ -20,58 +39,22 @@ class Plugin {
   }
 
   get spinner () {
-    return chalk.gray.dim(this._spinner.frame())
+    return this._spinner
   }
 
   get startTime () {
     return this._startTime
   }
 
-  get ipcConnected () {
-    return this._ipcConnected
-  }
-
-  log (message) {
-    console.log(`${chalk.bold('[Chunky]')} ${message}`)
-  }
-
   onStart () {
     this._startTime = new Date().getTime()
-    this.log(chalk.green('Getting ready to start packing'))
-    this.connectToStudio()
-    this.sendStudioEvent({ type: 'start_packing', time: this._startTime })
-  }
-
-  connectToStudio () {
-    if (this.ipcConnected) {
-      return
-    }
-
-    const name = 'chunkyweb'
-    ipc.config.id = 'name'
-    ipc.config.retry = 1500
-    ipc.config.silent = true
-
-    ipc.connectTo('carmelstudio', () => {
-      ipc.of.carmelstudio.on('connect', () => {
-        console.log(`[${name}] connected to carmelstudio`)
-      })
-    })
-
-    this._ipcConnected = true
-  }
-
-  sendStudioEvent (event) {
-    if (!this.ipcConnected) {
-      return
-    }
-    ipc.of.carmelstudio.emit('event', event)
+    this.spinner.start()
+    this._counter = 0
   }
 
   onDone (done) {
     const time = this.endTime(this.startTime)
-    this.log(chalk.green('✔ Finished packing in ') + chalk.bold(time))
-    this.sendStudioEvent({ type: 'finished_packing', time })
+    this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
     done && done()
   }
 
@@ -84,15 +67,16 @@ class Plugin {
       return
     }
 
-    this.log(chalk.red('✘ ') + chalk.gray(module.resource))
-    this.log(chalk.red(module.error))
-    this.sendStudioEvent({ type: 'module_error', module: module.resource, error: module.error })
+    var resource = module.resource.substring(path.resolve('.').length + 1)
+    this.spinner.fail(module.resource)
+    this.spinner.fail(module.error)
   }
 
   onModuleSuccess (module) {
     if (module.errors && module.errors.length > 0) {
-      this.log(chalk.red('✘ ') + chalk.gray(module.resource))
-      this.log(chalk.red(module.errors[0]))
+      var resource = module.resource.substring(path.resolve('.').length + 1)
+      this.spinner.fail(resource)
+      this.spinner.fail(module.errors[0])
       return
     }
 
@@ -101,8 +85,8 @@ class Plugin {
       return
     }
 
-    this.log(chalk.green('✔ ') + chalk.gray(module.resource))
-    this.sendStudioEvent({ type: 'module_success', module: module.resource })
+    var resource = module.resource.substring(path.resolve('.').length + 1)
+    this.spinner.text = `${chalk.white('Chunky is packing')} ${chalk.green(resource)}`
   }
 
   endTime (startTime) {
