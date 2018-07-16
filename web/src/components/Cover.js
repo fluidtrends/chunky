@@ -187,7 +187,7 @@ export default class Cover extends Component {
       return <div />
     }
     return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
-      style={{ margin: '20px', padding: 20 }}> {this.props.primaryActionTitle} </Button>
+      style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
   }
 
   get presentationHeight() {
