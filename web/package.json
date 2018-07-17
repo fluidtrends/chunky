@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.105",
+  "version": "0.9.106",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -116,8 +116,8 @@
     "uglifyjs-webpack-plugin": "^1.2.4",
     "url-loader": "0.5.9",
     "video-react": "^0.9.4",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
+    "webpack": "^4.16.1",
+    "webpack-dev-server": "^3.1.4",
     "webpack-obfuscator": "^0.15.0"
   },
   "devDependencies": {
