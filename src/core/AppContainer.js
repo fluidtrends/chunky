@@ -148,6 +148,10 @@ export default class AppContainer extends Component {
       throw new Errors.UNABLE_TO_LOAD_CHUNKS()
     }
 
+    if (this.props.autoRefresh) {
+      this._parseChunks()
+    }
+
     return (
       <Provider store={this.state.store}>
         { this.app }

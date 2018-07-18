@@ -320,8 +320,8 @@ var App = function (_PureComponent) {
       return (0, _Router.createSectionRoutes)(section, this._createSectionNavigatorRoutes.bind(this));
     }
   }, {
-    key: '_resolve',
-    value: function _resolve(account) {
+    key: '_refreshRoutes',
+    value: function _refreshRoutes(account) {
       this._routes = [];
       this._sections = [];
       this._menu = [];
@@ -337,7 +337,11 @@ var App = function (_PureComponent) {
         this._sections.push(section);
         this._routes = this._routes.concat(section.navigator.routes);
       }
-
+    }
+  }, {
+    key: '_resolve',
+    value: function _resolve(account) {
+      this._refreshRoutes(account);
       this.setState({ loading: false, account: account || undefined, authstamp: '' + Date.now() });
     }
   }, {
@@ -379,6 +383,10 @@ var App = function (_PureComponent) {
             this.renderRoutes()
           )
         );
+      }
+
+      if (this.props.autoRefresh) {
+        this._refreshRoutes(this.state.account);
       }
 
       return _react2.default.createElement(

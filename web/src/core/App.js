@@ -265,7 +265,7 @@ export default class App extends PureComponent {
     return createSectionRoutes(section, this._createSectionNavigatorRoutes.bind(this))
   }
 
-  _resolve (account) {
+  _refreshRoutes (account) {
     this._routes = []
     this._sections = []
     this._menu = []
@@ -281,7 +281,10 @@ export default class App extends PureComponent {
       this._sections.push(section)
       this._routes = this._routes.concat(section.navigator.routes)
     }
+  }
 
+  _resolve (account) {
+    this._refreshRoutes(account)
     this.setState({ loading: false, account: account || undefined, authstamp: `${Date.now()}` })
   }
 
@@ -329,6 +332,10 @@ export default class App extends PureComponent {
           { this.renderRoutes() }
         </Switch>
       </HashRouter>)
+    }
+
+    if (this.props.autoRefresh) {
+      this._refreshRoutes(this.state.account)
     }
 
     return (<BrowserRouter>
