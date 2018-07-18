@@ -8,7 +8,7 @@ module.exports = (options) => {
   return {
     entry: [
       'react-hot-loader/patch',
-      'webpack-dev-server/client?http://localhost:' + options.port,
+      'webpack-dev-server/client',
       'webpack/hot/only-dev-server',
       path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
     ],
@@ -119,11 +119,12 @@ module.exports = (options) => {
     ].concat([new WebPlugin(Object.assign({}, options, { dev: true }))]).concat(pages(options, true)),
 
     devServer: {
-      host: 'localhost',
+      host: '0.0.0.0',
       watchOptions: {
         poll: true,
         aggregateTimeout: 100
       },
+      inline: true,
       quiet: true,
       noInfo: true,
       stats: {
