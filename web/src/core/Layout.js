@@ -147,7 +147,7 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderPrimary () {
-    if (this.props.sidebar && this.props.private && this.props.isLargeScreen) {
+    if (this.props.sidebar && this.props.private && !this.props.isSmallScreen) {
       return this.renderWithSidebar()
     }
 
