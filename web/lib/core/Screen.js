@@ -565,6 +565,11 @@ var Screen = function (_Core$Screen) {
       );
     }
   }, {
+    key: 'sidebarWidth',
+    get: function get() {
+      return 200;
+    }
+  }, {
     key: 'sections',
     get: function get() {
       return this._sections;
@@ -631,7 +636,7 @@ var Screen = function (_Core$Screen) {
   }, {
     key: '_props',
     get: function get() {
-      return Object.assign({}, this.variant ? _deepmerge2.default.all([this.props, this.variant]) : this.props, { menu: this.menu, sideMenu: this.sideMenu });
+      return Object.assign({}, this.variant ? _deepmerge2.default.all([this.props, this.variant]) : this.props, { menu: this.menu, sideMenu: this.sideMenu, sidebarWidth: this.sidebarWidth });
     }
   }, {
     key: 'variant',

@@ -193,15 +193,18 @@ var DefaultLayout = function (_PureComponent) {
     value: function renderWithSidebar() {
       var _this2 = this;
 
+      var collapseSidebar = this.props.desktop ? false : this.props.isSmallScreen;
+      var width = this.props.sidebarWidth;
       return _react2.default.createElement(
         _antd.Layout,
         null,
         _react2.default.createElement(
           Sider,
           {
-            breakpoint: 'lg',
-            collapsedWidth: '28',
-            collapsed: this.props.isSmallScreen },
+            collapsible: false,
+            defaultCollapsed: false,
+            width: width,
+            collapsed: collapseSidebar },
           _react2.default.createElement(
             _antd.Menu,
             {
@@ -227,11 +230,11 @@ var DefaultLayout = function (_PureComponent) {
           _react2.default.createElement(
             Content,
             { style: {
-                margin: '0',
                 minHeight: '100vh',
-                width: '100vw',
-                backgroundColor: '#ffffff',
+                backgroundColor: '' + (this.props.layoutBackground || '#ffffff'),
                 alignItems: 'top',
+                width: '100%',
+                marginLeft: '' + (this.props.isSmallScreen ? '0px' : '0px'),
                 justifyContent: 'center',
                 flex: 1,
                 display: 'flex'

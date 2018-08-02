@@ -175,11 +175,14 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderWithSidebar () {
+    const collapseSidebar = (this.props.desktop ? false : this.props.isSmallScreen)
+    const width = this.props.sidebarWidth
     return <Layout>
       <Sider
-        breakpoint='lg'
-        collapsedWidth='28'
-        collapsed={this.props.isSmallScreen}>
+        collapsible={false}
+        defaultCollapsed={false}
+        width={width}
+        collapsed={collapseSidebar}>
         <Menu
           theme='light'
           mode='inline'
@@ -197,11 +200,11 @@ export default class DefaultLayout extends PureComponent {
         backgroundColor: '#ffffff'
       }}>
         <Content style={{
-          margin: '0',
           minHeight: '100vh',
-          width: '100vw',
-          backgroundColor: '#ffffff',
+          backgroundColor: `${this.props.layoutBackground || '#ffffff'}`,
           alignItems: 'top',
+          width: '100%',
+          marginLeft: `${this.props.isSmallScreen ? '0px' : '0px'}`,
           justifyContent: 'center',
           flex: 1,
           display: 'flex'

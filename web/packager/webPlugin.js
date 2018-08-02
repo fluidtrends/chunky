@@ -5,13 +5,19 @@ let path = require('path')
 let Ora = require('ora')
 let ejs = require('ejs')
 const emotions = require('./emotions.json')
+const openSocket = require('socket.io-client')
 
 class Plugin {
 
   constructor (context) {
     this._context = context
     this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
-    console.log = () => {}
+    this._socket = openSocket('http://localhost:8000')
+    // console.log = () => {}
+  }
+
+  get socket () {
+    return this._socket
   }
 
   get counter () {
@@ -55,6 +61,10 @@ class Plugin {
   onDone (done) {
     const time = this.endTime(this.startTime)
     this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
+    this.socket.emit('webpacker', { done: true, time })
+
+    console.log('Chunky is happy. Chunky finished packing.')
+
     done && done()
   }
 
@@ -87,6 +97,7 @@ class Plugin {
 
     var resource = module.resource.substring(path.resolve('.').length + 1)
     this.spinner.text = `${chalk.white('Chunky is packing')} ${chalk.green(resource)}`
+    this.socket.emit('webpacker', { done: false, resource })
   }
 
   endTime (startTime) {

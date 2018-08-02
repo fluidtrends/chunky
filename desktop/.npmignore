@@ -4,3 +4,4 @@ coverage
 .circleci
 .DS_Store
 src
+package-lock.json

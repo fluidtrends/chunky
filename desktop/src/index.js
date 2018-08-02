@@ -1,4 +1,4 @@
-import { app, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
+import { app, globalShortcut, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
@@ -22,10 +22,10 @@ if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1280,
+    width: 1024,
     height: 800,
     minWidth: 1024,
-    minHeight: 600,
+    minHeight: 800,
     show: false,
     backgroundColor: '#0bbcd4'
   })
@@ -68,6 +68,7 @@ const shouldQuit = app.makeSingleInstance((argv, workingDirectory) => {
 })
 
 if (shouldQuit) {
+  globalShortcut.unregisterAll()
   app.quit()
 }
 
@@ -75,6 +76,7 @@ app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
+    globalShortcut.unregisterAll()
     app.quit()
   }
 })

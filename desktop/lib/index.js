@@ -46,10 +46,10 @@ var createWindow = function () {
           case 0:
             // Create the browser window.
             mainWindow = new _electron.BrowserWindow({
-              width: 1280,
+              width: 1024,
               height: 800,
               minWidth: 1024,
-              minHeight: 600,
+              minHeight: 800,
               show: false,
               backgroundColor: '#0bbcd4'
             });
@@ -113,6 +113,7 @@ var shouldQuit = _electron.app.makeSingleInstance(function (argv, workingDirecto
 });
 
 if (shouldQuit) {
+  _electron.globalShortcut.unregisterAll();
   _electron.app.quit();
 }
 
@@ -120,6 +121,7 @@ _electron.app.on('ready', createWindow);
 
 _electron.app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
+    _electron.globalShortcut.unregisterAll();
     _electron.app.quit();
   }
 });
