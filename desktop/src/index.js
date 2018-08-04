@@ -7,50 +7,89 @@ import startDesktop from '../../../desktop/start'
 require('fix-path')()
 
 let mainWindow
+let startWindow
 let deepLink
+let session
 
 const processDeepLink = function () {
   console.log(deepLink)
 }
 
-// Setup the custom Carmel protocol
 protocol.registerStandardSchemes(['carmel'])
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
 if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 
+const start = async () => {
+  startDesktop({ ipcMain, mainWindow })
+      .then((s) => {
+        session = s
+        mainWindow.webContents.send('start', { session })
+        setTimeout(() => {
+          startWindow && startWindow.close()
+          mainWindow && mainWindow.show()
+        }, 1000)
+      })
+      .catch((error) => {
+        mainWindow && mainWindow.close()
+        startWindow.webContents.send('event', { error: error.message })
+      })
+}
+
 const createWindow = async () => {
-  // Create the browser window.
+  startWindow = new BrowserWindow({
+    width: 800,
+    height: 500,
+    minWidth: 800,
+    minHeight: 500,
+    frame: false,
+    resizable: false,
+    center: true,
+    show: true
+  })
+
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 800,
+    center: true,
     minWidth: 1024,
     minHeight: 800,
     show: false,
-    backgroundColor: '#0bbcd4'
+    backgroundColor: '#f5f5f5'
   })
 
-  // The html entry points
-  const entryFile = path.join(path.dirname(__dirname), 'app', 'pages', 'default.html')
-
-  // Load the main entry point
-  mainWindow.loadURL(`file://${entryFile}`)
+  mainWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'main.html')}`)
+  startWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'start.html')}`)
 
   if (isDevMode) {
     await installExtension(REACT_DEVELOPER_TOOLS)
     mainWindow.webContents.openDevTools()
   }
 
-  startDesktop && startDesktop({ ipcMain, ipcRenderer, mainWindow })
-  mainWindow.setTitle(app.getName())
-  mainWindow.show()
-
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.setTitle(app.getName())
+
+    if (!startDesktop) {
+      startWindow.close()
+      mainWindow.show()
+      return
+    }
+
+    start()
   })
 
   mainWindow.on('closed', () => {
     mainWindow = null
+  })
+
+  startWindow.on('closed', () => {
+    startWindow = null
+  })
+
+  ipcMain.on('startEvent', (event, e) => {
+    if (e.close) {
+      startWindow.close()
+    }
   })
 }
 

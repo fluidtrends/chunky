@@ -16,6 +16,8 @@ var _reactDomChunky = require('react-dom-chunky');
 
 var _reactChunky = require('react-chunky');
 
+var _electron = require('electron');
+
 require('./global');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -34,10 +36,18 @@ var render = function render(Component, config) {
   ), document.getElementById('chunky'));
 };
 
-if (module.hot) {
-  require('./global');
-  module.hot.accept();
-  render(_reactDomChunky.App, Object.assign({}, chunky.config, { timestamp: '' + Date.now() }));
-} else {
-  render(_reactDomChunky.App, chunky.config);
-}
+var start = function start(session) {
+  if (module.hot) {
+    require('./global');
+    module.hot.accept();
+    render(_reactDomChunky.App, Object.assign({}, chunky.config, { session: session, timestamp: '' + Date.now() }));
+  } else {
+    render(_reactDomChunky.App, Object.assign({}, chunky.config, { session: session, timestamp: '' + Date.now() }));
+  }
+};
+
+_electron.ipcRenderer.on('start', function (event, _ref) {
+  var session = _ref.session;
+
+  start(session);
+});

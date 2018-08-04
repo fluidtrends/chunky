@@ -25,68 +25,38 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 require('fix-path')();
 
 var mainWindow = void 0;
+var startWindow = void 0;
 var deepLink = void 0;
+var session = void 0;
 
 var processDeepLink = function processDeepLink() {
   console.log(deepLink);
 };
 
-// Setup the custom Carmel protocol
 _electron.protocol.registerStandardSchemes(['carmel']);
 
 var isDevMode = process.execPath.match(/[\\/]electron/);
 if (isDevMode) (0, _electronCompile.enableLiveReload)({ strategy: 'react-hmr' });
 
-var createWindow = function () {
+var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-    var entryFile;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // Create the browser window.
-            mainWindow = new _electron.BrowserWindow({
-              width: 1024,
-              height: 800,
-              minWidth: 1024,
-              minHeight: 800,
-              show: false,
-              backgroundColor: '#0bbcd4'
+            (0, _start2.default)({ ipcMain: _electron.ipcMain, mainWindow: mainWindow }).then(function (s) {
+              session = s;
+              mainWindow.webContents.send('start', { session: session });
+              setTimeout(function () {
+                startWindow && startWindow.close();
+                mainWindow && mainWindow.show();
+              }, 1000);
+            }).catch(function (error) {
+              mainWindow && mainWindow.close();
+              startWindow.webContents.send('event', { error: error.message });
             });
 
-            // The html entry points
-            entryFile = _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'default.html');
-
-            // Load the main entry point
-
-            mainWindow.loadURL('file://' + entryFile);
-
-            if (!isDevMode) {
-              _context.next = 7;
-              break;
-            }
-
-            _context.next = 6;
-            return (0, _electronDevtoolsInstaller2.default)(_electronDevtoolsInstaller.REACT_DEVELOPER_TOOLS);
-
-          case 6:
-            mainWindow.webContents.openDevTools();
-
-          case 7:
-
-            _start2.default && (0, _start2.default)({ ipcMain: _electron.ipcMain, ipcRenderer: _electron.ipcRenderer, mainWindow: mainWindow });
-            mainWindow.setTitle(_electron.app.getName());
-            mainWindow.show();
-
-            mainWindow.webContents.on('did-finish-load', function () {
-              mainWindow.setTitle(_electron.app.getName());
-            });
-
-            mainWindow.on('closed', function () {
-              mainWindow = null;
-            });
-
-          case 12:
+          case 1:
           case 'end':
             return _context.stop();
         }
@@ -94,8 +64,90 @@ var createWindow = function () {
     }, _callee, undefined);
   }));
 
-  return function createWindow() {
+  return function start() {
     return _ref.apply(this, arguments);
+  };
+}();
+
+var createWindow = function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            startWindow = new _electron.BrowserWindow({
+              width: 800,
+              height: 500,
+              minWidth: 800,
+              minHeight: 500,
+              frame: false,
+              resizable: false,
+              center: true,
+              show: true
+            });
+
+            mainWindow = new _electron.BrowserWindow({
+              width: 1024,
+              height: 800,
+              center: true,
+              minWidth: 1024,
+              minHeight: 800,
+              show: false,
+              backgroundColor: '#f5f5f5'
+            });
+
+            mainWindow.loadURL('file://' + _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'main.html'));
+            startWindow.loadURL('file://' + _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'start.html'));
+
+            if (!isDevMode) {
+              _context2.next = 8;
+              break;
+            }
+
+            _context2.next = 7;
+            return (0, _electronDevtoolsInstaller2.default)(_electronDevtoolsInstaller.REACT_DEVELOPER_TOOLS);
+
+          case 7:
+            mainWindow.webContents.openDevTools();
+
+          case 8:
+
+            mainWindow.webContents.on('did-finish-load', function () {
+              mainWindow.setTitle(_electron.app.getName());
+
+              if (!_start2.default) {
+                startWindow.close();
+                mainWindow.show();
+                return;
+              }
+
+              start();
+            });
+
+            mainWindow.on('closed', function () {
+              mainWindow = null;
+            });
+
+            startWindow.on('closed', function () {
+              startWindow = null;
+            });
+
+            _electron.ipcMain.on('startEvent', function (event, e) {
+              if (e.close) {
+                startWindow.close();
+              }
+            });
+
+          case 12:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function createWindow() {
+    return _ref2.apply(this, arguments);
   };
 }();
 

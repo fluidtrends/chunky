@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { hot, AppContainer } from 'react-hot-loader'
 import { App } from 'react-dom-chunky'
 import { Core } from 'react-chunky'
+import { ipcRenderer } from 'electron'
 import './global'
 
 const render = (Component, config) => {
@@ -17,10 +18,16 @@ const render = (Component, config) => {
   document.getElementById('chunky'))
 }
 
-if (module.hot) {
-  require('./global')
-  module.hot.accept()
-  render(App, Object.assign({}, chunky.config, { timestamp: `${Date.now()}` }))
-} else {
-  render(App, chunky.config)
+const start = (session) => {
+  if (module.hot) {
+    require('./global')
+    module.hot.accept()
+    render(App, Object.assign({}, chunky.config, { session, timestamp: `${Date.now()}` }))
+  } else {
+    render(App, Object.assign({}, chunky.config, { session, timestamp: `${Date.now()}` }))
+  }
 }
+
+ipcRenderer.on('start', (event, { session }) => {
+  start(session)
+})

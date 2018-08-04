@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <link rel="stylesheet" href="./deps/normalize.min.css">
+  <link rel="stylesheet" href="./deps/vegas.min.css">
+  <link rel="stylesheet" href="./start.css">
+</head>
+
+<body>
+
+  <header class="main-header">
+   	<div class="row">
+   		<div class="logo"/>
+   	</div>
+    <a id="action" class="close" href="#"><span>Close</span></a>
+   </header>
+
+
+   <main id="container">
+        <div id="slider"/>
+        <div class="error"/>
+  	    <div class="container-wrap">
+  		   <div class="shadow-overlay"></div>
+  		   <div class="main">
+     	   	<div class="row">
+  		   		<div class="col-twelve">
+  			  			<h1 id="title">Welcome</h1>
+  			  			<p id="subtitle"> Get ready ... </p>
+  			   	</div>
+  		   	</div>
+  		   </div>
+  		   <footer>
+  		   	<div class="row">
+            <div class="col-twelve">
+              <h4 id="progress"> Loading ... </h4>
+            </div>
+  		   	</div>
+  		   </footer>
+  		</div>
+  </main>
+
+   <div id="preloader">
+    	<div id="loader"/>
+   </div>
+
+   <script>
+      window.$ = window.jQuery = require('./deps/jquery.min.js')
+   </script>
+   <script src="./deps/vegas.min.js"></script>
+   <script src="./deps/plugins.js"></script>
+   <script src="./start.js"></script>
+</body>
+</html>

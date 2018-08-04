@@ -257,6 +257,7 @@ var App = function (_PureComponent) {
           onUserLogout: this._userLogout,
           onUserLoggedIn: this._userLoggedIn,
           info: this.props.info,
+          session: this.props.session,
           startOperationsOnMount: true
         }, _extends({
           theme: theme,

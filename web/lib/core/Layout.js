@@ -161,7 +161,7 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderPrimary',
     value: function renderPrimary() {
-      if (this.props.sidebar && this.props.private) {
+      if (this.props.sidebar && this.props.private && !this.props.isSmallScreen) {
         return this.renderWithSidebar();
       }
 

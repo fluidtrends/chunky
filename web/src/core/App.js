@@ -204,6 +204,7 @@ export default class App extends PureComponent {
         onUserLogout: this._userLogout,
         onUserLoggedIn: this._userLoggedIn,
         info: this.props.info,
+        session: this.props.session,
         startOperationsOnMount: true
       }, {
         theme,
