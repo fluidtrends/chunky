@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "0.9.41",
+  "version": "0.9.42",
   "description": "The Chunky Universal Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -48,6 +48,7 @@
     "html-entities": "^1.2.1",
     "http": "0.0.0",
     "js-base64": "^2.4.3",
+    "lali": "^0.x",
     "mailchimp-api-v3": "^1.8.0",
     "mailchimp-v3": "^1.0.5",
     "marked": "^0.3.6",
