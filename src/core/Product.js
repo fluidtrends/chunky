@@ -8,7 +8,6 @@ import {
 } from '../generators'
 import fs from 'fs-extra'
 import path from 'path'
-import Chunk from './Chunk'
 
 export default class Product {
   constructor (props) {
