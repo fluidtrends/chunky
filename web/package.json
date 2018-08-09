@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.113",
+  "version": "0.9.114",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -71,6 +71,7 @@
     "firebase": "^4.3.1",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.29.0",
+    "image-loader": "0.0.1",
     "log-update": "^2.1.0",
     "lqip": "^2.0.2",
     "lqip-loader": "^2.0.2",

@@ -2,12 +2,11 @@ import {
   createFile,
   generateManifest,
   generatePackage,
-  cacheChunksArchive,
   updateChunksIndex,
   installTemplate
 } from '../generators'
-import fs from 'fs-extra'
 import path from 'path'
+import fs from 'fs-extra'
 
 export default class Product {
   constructor (props) {
@@ -30,16 +29,16 @@ export default class Product {
     return this.props.template
   }
 
-  get root () {
-    return this.props.root
-  }
-
-  get dir () {
-    return path.resolve(this.root, this.id)
+  get home () {
+    return this.props.home
   }
 
   get exists () {
     return fs.existsSync(this.dir)
+  }
+
+  get dir () {
+    return path.resolve(this.home, 'products', this.id)
   }
 
   create () {
@@ -47,22 +46,14 @@ export default class Product {
       return
     }
 
-    fs.mkdirsSync(this.dir)
-
     const packageData = generatePackage({ name: this.name })
     const manifestData = generateManifest({ name: this.name })
 
     createFile({ root: this.dir, filepath: 'package.json', data: packageData, json: true })
     createFile({ root: this.dir, filepath: 'chunky.json', data: manifestData, json: true })
 
-    installTemplate({ root: this.dir, name: 'bananas/personal' })
+    installTemplate({ dir: this.dir, home: this.home, template: this.template })
 
     updateChunksIndex(this.dir)
-  }
-
-  addChunk () {
-    const chunksCacheDir = path.resolve(this.dir)
-    // const name = 'main'
-    // const chunk = new Chunk({ name })
   }
 }

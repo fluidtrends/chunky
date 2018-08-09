@@ -1,6 +1,5 @@
 export { default as AppError } from './Error'
 export { default as Generator } from './Generator'
-export { default as Product } from './Product'
 export { default as Container } from './Container'
 export { default as DataProvider } from './DataProvider'
 export { default as AppContainer } from './AppContainer'

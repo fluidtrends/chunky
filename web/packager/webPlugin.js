@@ -8,12 +8,11 @@ const emotions = require('./emotions.json')
 const openSocket = require('socket.io-client')
 
 class Plugin {
-
   constructor (context) {
     this._context = context
     this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
     this._socket = openSocket('http://localhost:8000')
-    // console.log = () => {}
+    console.log = () => {}
   }
 
   get socket () {
@@ -56,16 +55,6 @@ class Plugin {
     this._startTime = new Date().getTime()
     this.spinner.start()
     this._counter = 0
-  }
-
-  onDone (done) {
-    const time = this.endTime(this.startTime)
-    this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
-    this.socket.emit('webpacker', { done: true, time })
-
-    console.log('Chunky is happy. Chunky finished packing.')
-
-    done && done()
   }
 
   onModuleStart (module) {
@@ -123,6 +112,20 @@ class Plugin {
     done(null, this.resolveHtml(data))
   }
 
+  onDone (stats) {
+    if (stats.compilation.errors && stats.compilation.errors.length > 0) {
+      stats.compilation.errors.map(error => {
+        this.spinner.fail(error)
+      })
+      this.spinner.fail(`${chalk.red('Chunky failed packing. And he is devastated.')}`)
+      return
+    }
+
+    const time = this.endTime(this.startTime)
+    this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
+    // this.socket.emit('webpacker', { done: true, time })
+  }
+
   apply (compiler) {
     compiler.plugin('compile', (params) => this.onStart())
 
@@ -133,7 +136,7 @@ class Plugin {
       compilation.plugin('succeed-module', (module) => this.onModuleSuccess(module))
     })
 
-    compiler.plugin('emit', (compilation, done) => this.onDone(done))
+    compiler.plugin('done', (stats) => this.onDone(stats))
   }
 }
 

@@ -40,8 +40,8 @@ module.exports = (options) => {
       noParse: [/moment.js/],
       rules: [
         {
-          test: /\.(png|gif|jpe?g)$/,
-          use: [ {
+          test: /\.pngr$/,
+          use: [{
             loader: 'responsive-loader',
             options: {
               sizes: [600, 2000],
@@ -50,6 +50,13 @@ module.exports = (options) => {
               adapter: require('responsive-loader/sharp')
             }
           }]
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: {
+            loader: 'file-loader',
+            options: {}
+          }
         },
         {
           test: /\.(html)$/,
@@ -124,6 +131,7 @@ module.exports = (options) => {
         poll: true,
         aggregateTimeout: 100
       },
+
       inline: true,
       quiet: true,
       noInfo: true,
@@ -137,6 +145,7 @@ module.exports = (options) => {
         chunkModules: false,
         modules: false
       },
+
       port: options.port,
       contentBase: path.resolve(options.dir, 'web', 'build'),
       watchContentBase: true,
