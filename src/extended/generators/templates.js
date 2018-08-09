@@ -5,7 +5,7 @@ import deepmerge from 'deepmerge'
 import {
   installChunk,
   createFile
-} from '.'
+} from '..'
 
 function loadTemplate ({ home, template }) {
   if (!home || !template || !template.from) {

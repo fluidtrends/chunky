@@ -4,7 +4,7 @@ import {
   generatePackage,
   updateChunksIndex,
   installTemplate
-} from '../generators'
+} from './generators'
 import path from 'path'
 import fs from 'fs-extra'
 

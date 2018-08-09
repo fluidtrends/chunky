@@ -1,6 +1,6 @@
 import fs from 'fs-extra'
 import path from 'path'
-import { createFile } from '.'
+import { createFile } from '..'
 
 const MOBILE = 'js'
 const WEB = 'web.js'
