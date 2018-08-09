@@ -40,7 +40,7 @@ module.exports = (options) => {
       noParse: [/moment.js/],
       rules: [
         {
-          test: /\.pngr$/,
+          test: /\.r.png$/,
           use: [{
             loader: 'responsive-loader',
             options: {

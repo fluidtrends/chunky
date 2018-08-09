@@ -20,8 +20,6 @@ module.exports = (options) => {
       libraryTarget: 'umd'
     },
 
-    // devtool: 'source-map',
-
     resolve: {
       extensions: ['.js', '.json'],
       modules: [
@@ -48,8 +46,8 @@ module.exports = (options) => {
     module: {
       rules: [
         {
-          test: /\.(png|gif|jpe?g)$/,
-          use: [ {
+          test: /\.r.png$/,
+          use: [{
             loader: 'responsive-loader',
             options: {
               sizes: [600, 2000],
@@ -58,6 +56,13 @@ module.exports = (options) => {
               adapter: require('responsive-loader/sharp')
             }
           }]
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: {
+            loader: 'file-loader',
+            options: {}
+          }
         },
         {
           test: /\.(html)$/,
