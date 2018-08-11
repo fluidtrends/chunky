@@ -1,64 +1,65 @@
 import fs from 'fs-extra'
 import path from 'path'
-
+import cpy from 'cpy'
 import deepmerge from 'deepmerge'
 import {
   installChunk,
-  createFile
+  createFile,
+  updateChunksIndex
 } from '..'
 
-function loadTemplate ({ home, template }) {
-  if (!home || !template || !template.from) {
-    return
-  }
-
-  var bundle = 'bananas'
-  var bundleId = '0'
-  var name = template.from
-
-  const parts = name.split('/')
-
-  if (parts.length === 3) {
-    bundle = parts[0]
-    bundleId = parts[1]
-    name = parts[2]
-  } else if (parts.length === 2) {
-    bundle = parts[0]
-    name = parts[1]
-  }
-
-  const bundleDir = path.resolve(home, 'bundles', bundle, bundleId)
-  const templateDir = path.resolve(bundleDir, 'templates', name)
-  const templateIndex = path.resolve(templateDir, 'index.json')
-
-  if (!fs.existsSync(templateIndex)) {
-    return
-  }
-
-  try {
-    const templateContent = fs.readFileSync(templateIndex, 'utf8')
-    const templateData = JSON.parse(templateContent)
-
-    return templateData
-  } catch (e) {
-    return
-  }
-}
-
 export function installTemplate ({ dir, home, template }) {
-  const t = loadTemplate({ home, template })
+  return new Promise((resolve, reject) => {
+    try {
+      const assetsDir = path.resolve(dir, 'assets')
+      const assetsTextDir = path.resolve(assetsDir, 'text')
 
-  if (!t || !t.chunks) {
-    return
-  }
+      fs.mkdirsSync(assetsDir)
+      fs.mkdirsSync(assetsTextDir)
 
-  t.chunks.map(chunk => installChunk({ chunk, dir, home }))
+      const bundleAssetsDir = path.resolve(home, 'bundles', template.bundle, 'assets')
+      const bundleFixturesDir = path.resolve(home, 'bundles', template.bundle, 'fixtures')
 
-  const webRoot = path.resolve(dir, 'web')
-  const webBuildRoot = path.resolve(dir, '.chunky', 'web')
+      const fixture = require(path.resolve(bundleFixturesDir, template.fixture, 'index.js'))(template)
+      const bundleImages = fixture.images.map(image => path.resolve(bundleAssetsDir, image))
+      const bundleText = fixture.text.map(t => path.resolve(bundleAssetsDir, 'text', t))
 
-  fs.mkdirsSync(webRoot)
-  fs.mkdirsSync(webBuildRoot)
+      console.log(bundleText, assetsTextDir)
 
-  createFile({ root: webRoot, filepath: 'index.json', data: {}, json: true })
+      const chunkInstallers = Object.keys(fixture.chunks).map(chunkName => {
+        const chunk = fixture.chunks[chunkName]
+        return installChunk({ chunk, chunkName, dir, home, template, fixture })
+      })
+
+      const copyImages = () => cpy(bundleImages, assetsDir)
+      const copyText = () => cpy(bundleText, assetsTextDir)
+
+      Promise.all(chunkInstallers)
+             .then(() => copyImages())
+             .then(() => copyText())
+             .then(() => {
+               updateChunksIndex(dir)
+
+               const webRoot = path.resolve(dir, 'web')
+               const webBuildRoot = path.resolve(dir, '.chunky', 'web')
+
+               fs.mkdirsSync(webRoot)
+               fs.mkdirsSync(webBuildRoot)
+
+               createFile({ root: webRoot, filepath: 'index.json', data: fixture.web, json: true })
+               createFile({ root: webRoot, filepath: 'firebase-config.json', data: {}, json: true })
+               createFile({ root: dir, filepath: 'chunky.json', data: fixture.manifest, json: true })
+               createFile({ root: assetsDir, filepath: 'strings.json', data: fixture.strings || {}, json: true })
+
+               resolve()
+             })
+             .catch(e => {
+               console.log(e)
+               reject(e)
+             })
+    } catch (e) {
+      console.log(e)
+      reject(e)
+    }
+  })
 }

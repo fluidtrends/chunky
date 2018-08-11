@@ -2,7 +2,6 @@ import {
   createFile,
   generateManifest,
   generatePackage,
-  updateChunksIndex,
   installTemplate
 } from '.'
 import path from 'path'
@@ -43,17 +42,15 @@ export default class Product {
 
   create () {
     if (this.exists) {
-      return
+      return Promise.reject(new Error('The product already exists'))
     }
 
+    fs.mkdirsSync(this.dir)
+
     const packageData = generatePackage({ name: this.name })
-    const manifestData = generateManifest({ name: this.name })
 
     createFile({ root: this.dir, filepath: 'package.json', data: packageData, json: true })
-    createFile({ root: this.dir, filepath: 'chunky.json', data: manifestData, json: true })
 
-    installTemplate({ dir: this.dir, home: this.home, template: this.template })
-
-    updateChunksIndex(this.dir)
+    return installTemplate({ dir: this.dir, home: this.home, template: this.template })
   }
 }
