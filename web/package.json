@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.115",
+  "version": "0.9.116",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -66,9 +66,10 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.1.0",
+    "grpc": "1.13.1",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "0.11.2",
-    "firebase": "^4.3.1",
+    "firebase": "4.12.1",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.29.0",
     "image-loader": "0.0.1",
