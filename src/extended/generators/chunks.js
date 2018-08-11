@@ -87,7 +87,6 @@ export function installChunk ({ chunk, chunkName, dir, home, template }) {
       resolve()
     } catch (e) {
       reject(e)
-      return
     }
   })
 }

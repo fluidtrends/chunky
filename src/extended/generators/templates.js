@@ -24,8 +24,6 @@ export function installTemplate ({ dir, home, template }) {
       const bundleImages = fixture.images.map(image => path.resolve(bundleAssetsDir, image))
       const bundleText = fixture.text.map(t => path.resolve(bundleAssetsDir, 'text', t))
 
-      console.log(bundleText, assetsTextDir)
-
       const chunkInstallers = Object.keys(fixture.chunks).map(chunkName => {
         const chunk = fixture.chunks[chunkName]
         return installChunk({ chunk, chunkName, dir, home, template, fixture })
@@ -54,11 +52,9 @@ export function installTemplate ({ dir, home, template }) {
                resolve()
              })
              .catch(e => {
-               console.log(e)
                reject(e)
              })
     } catch (e) {
-      console.log(e)
       reject(e)
     }
   })
