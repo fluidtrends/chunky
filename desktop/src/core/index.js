@@ -1,19 +1,46 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { App } from 'react-dom-chunky'
+import { App, Screen } from 'react-dom-chunky'
 import { Core } from 'react-chunky'
+import { ipcRenderer } from 'electron'
 import './global'
 
-const render = () => {
-  ReactDOM.render(
-    <Core.AppContainer {...chunky.config}>
-      <App {...chunky.config} />
-    </Core.AppContainer>,
-  document.getElementById('chunky'))
+class Main extends Component {
+
+  constructor (props) {
+    super(props)
+    this.state = {}
+  }
+
+  componentDidMount () {
+    ipcRenderer.on('refresh', (event, { session }) => {
+      this.setState({ session })
+    })
+  }
+
+  get session () {
+    return this.state.session || this.props.session
+  }
+
+  render () {
+    const config = Object.assign({}, chunky.config, {
+      session: this.session,
+      timestamp: `${Date.now()}`
+    })
+
+    var appConfig = Object.assign({}, config)
+    delete appConfig.chunks
+
+    return <Core.AppContainer {...config}>
+      <App {...appConfig} />
+    </Core.AppContainer>
+  }
 }
 
-render()
-
-if (module.hot) {
-  module.hot.accept(render)
+const start = (session) => {
+  ReactDOM.render(<Main session={session} />, document.getElementById('chunky'))
 }
+
+ipcRenderer.on('start', (event, { session }) => {
+  start(session)
+})

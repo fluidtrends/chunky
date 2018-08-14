@@ -9,7 +9,6 @@ function createSectionRoutes (section, generator) {
   var menu = []
 
   // Let's look through the stack and build some routes for this section's navigator
-  var elementIndex = 0
   section.stack.forEach(element => {
     var elementRoutes = []
     if (element && typeof element === 'string') {

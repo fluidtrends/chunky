@@ -91,6 +91,9 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderDrawer',
     value: function renderDrawer() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
       return _react2.default.createElement(_Drawer2.default, {
         index: -1,
         onClose: this._onMenuClose,
@@ -103,6 +106,10 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderNavigation',
     value: function renderNavigation() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
+
       return _react2.default.createElement(_Navigation2.default, {
         index: 0,
         onMenuOpen: this._onMenuOpen,
@@ -118,8 +125,8 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderCover',
     value: function renderCover() {
-      if (!this.hasCover) {
-        return;
+      if (!this.hasCover || this.props.desktop) {
+        return _react2.default.createElement('div', null);
       }
       return _react2.default.createElement(_Cover2.default, _extends({
         index: 1,
@@ -133,6 +140,9 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderFooter',
     value: function renderFooter() {
+      if (this.props.desktop) {
+        return _react2.default.createElement('div', null);
+      }
       return _react2.default.createElement(_Footer2.default, _extends({
         index: 9999,
         id: 'footer'
@@ -151,7 +161,7 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderPrimary',
     value: function renderPrimary() {
-      if (this.props.sidebar && this.props.private) {
+      if (this.props.sidebar && this.props.private && !this.props.isSmallScreen) {
         return this.renderWithSidebar();
       }
 
@@ -164,18 +174,37 @@ var DefaultLayout = function (_PureComponent) {
       this.props.onSidebarMenuSelected && this.props.onSidebarMenuSelected(item);
     }
   }, {
+    key: 'renderSidebarItem',
+    value: function renderSidebarItem(item) {
+      return _react2.default.createElement(
+        _antd.Menu.Item,
+        { key: item.id },
+        _react2.default.createElement(_antd.Icon, { type: item.icon }),
+        _react2.default.createElement(
+          'span',
+          { className: 'nav-text' },
+          ' ',
+          item.title
+        )
+      );
+    }
+  }, {
     key: 'renderWithSidebar',
     value: function renderWithSidebar() {
-      var index = 0;
+      var _this2 = this;
+
+      var collapseSidebar = this.props.desktop ? false : this.props.isSmallScreen;
+      var width = this.props.sidebarWidth;
       return _react2.default.createElement(
         _antd.Layout,
         null,
         _react2.default.createElement(
           Sider,
           {
-            breakpoint: 'lg',
-            collapsedWidth: '28',
-            collapsed: this.props.isSmallScreen },
+            collapsible: false,
+            defaultCollapsed: false,
+            width: width,
+            collapsed: collapseSidebar },
           _react2.default.createElement(
             _antd.Menu,
             {
@@ -189,17 +218,7 @@ var DefaultLayout = function (_PureComponent) {
                 color: '#90A4AE'
               } },
             this.props.sidebar.map(function (item) {
-              return _react2.default.createElement(
-                _antd.Menu.Item,
-                { key: index++ },
-                _react2.default.createElement(_antd.Icon, { type: item.icon }),
-                _react2.default.createElement(
-                  'span',
-                  { className: 'nav-text' },
-                  ' ',
-                  item.title
-                )
-              );
+              return _this2.renderSidebarItem(item);
             })
           )
         ),
@@ -211,22 +230,16 @@ var DefaultLayout = function (_PureComponent) {
           _react2.default.createElement(
             Content,
             { style: {
-                margin: '0',
-                minHeight: '100vh'
+                minHeight: '100vh',
+                backgroundColor: '' + (this.props.layoutBackground || '#ffffff'),
+                alignItems: 'top',
+                width: '100%',
+                marginLeft: '' + (this.props.isSmallScreen ? '0px' : '0px'),
+                justifyContent: 'center',
+                flex: 1,
+                display: 'flex'
               } },
-            _react2.default.createElement(
-              'div',
-              { style: {
-                  marginLeft: 56,
-                  backgroundColor: '#ffffff',
-                  minHeight: 360,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flex: 1,
-                  display: 'flex'
-                } },
-              this.renderComponents()
-            )
+            this.renderComponents()
           )
         )
       );
@@ -252,11 +265,11 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'renderComponents',
     value: function renderComponents() {
-      var _this2 = this;
+      var _this3 = this;
 
       var components = this.props.children || [];
       var index = 0;
-      var marginTop = this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
+      var marginTop = this.props.desktop ? 0 : this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
 
       return _react2.default.createElement(
         'main',
@@ -264,19 +277,19 @@ var DefaultLayout = function (_PureComponent) {
             marginTop: marginTop + 'px'
           } },
         components.map(function (c) {
-          return _this2.renderComponent(c, index++);
+          return _this3.renderComponent(c, index++);
         })
       );
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _react2.default.createElement(
         'div',
         { style: this.styles.container, ref: function ref(c) {
-            _this3.container = c;
+            _this4.container = c;
           }, className: _style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
         },
         this.renderDrawer(),
@@ -360,7 +373,9 @@ exports.default = DefaultLayout;
 
 
 var styles = {
-  container: {},
+  container: {
+    backgroundColor: '#FFFFFF'
+  },
   component: {
     backgroundColor: '#FFFFFF',
     display: 'flex',

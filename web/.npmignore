@@ -5,6 +5,6 @@ cli
 mobile
 coverage
 .circleci
+package-lock.json
 product
 .DS_Store
-

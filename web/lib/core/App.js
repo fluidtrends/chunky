@@ -86,7 +86,7 @@ var App = function (_PureComponent) {
           uid: user.uid,
           emailVerified: user.emailVerified
         }, account);
-        _reactChunky.Data.Cache.cacheAuth({ user: combined }).then(function () {
+        return _reactChunky.Data.Cache.cacheAuth({ user: combined }).then(function () {
           return resolve(combined);
         });
       }).then(function () {
@@ -183,7 +183,7 @@ var App = function (_PureComponent) {
           this._sidebar.push({
             routeKey: routeKey,
             id: '' + this.sidebar.length,
-            icon: route.icon.replace('-', '_'),
+            icon: route.icon,
             title: routeMenuTitle,
             alwaysShowIcon: route.alwaysShowIcon,
             action: route.action,
@@ -257,6 +257,7 @@ var App = function (_PureComponent) {
           onUserLogout: this._userLogout,
           onUserLoggedIn: this._userLoggedIn,
           info: this.props.info,
+          session: this.props.session,
           startOperationsOnMount: true
         }, _extends({
           theme: theme,
@@ -291,6 +292,8 @@ var App = function (_PureComponent) {
   }, {
     key: '_makeScreenRoute',
     value: function _makeScreenRoute(screenPath, screenId, route, screenProps) {
+      var _this6 = this;
+
       var RouteScreen = route.screen;
       var Screen = function Screen(props) {
         var skip = false;
@@ -302,7 +305,8 @@ var App = function (_PureComponent) {
           });
         }
 
-        return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, _extends({}, props, screenProps));
+        var allProps = Object.assign({}, props, screenProps, { session: _this6.props.session });
+        return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, allProps);
       };
 
       var routeKey = '' + screenId + screenPath;
@@ -320,8 +324,8 @@ var App = function (_PureComponent) {
       return (0, _Router.createSectionRoutes)(section, this._createSectionNavigatorRoutes.bind(this));
     }
   }, {
-    key: '_resolve',
-    value: function _resolve(account) {
+    key: '_refreshRoutes',
+    value: function _refreshRoutes(account) {
       this._routes = [];
       this._sections = [];
       this._menu = [];
@@ -337,7 +341,11 @@ var App = function (_PureComponent) {
         this._sections.push(section);
         this._routes = this._routes.concat(section.navigator.routes);
       }
-
+    }
+  }, {
+    key: '_resolve',
+    value: function _resolve(account) {
+      this._refreshRoutes(account);
       this.setState({ loading: false, account: account || undefined, authstamp: '' + Date.now() });
     }
   }, {
@@ -367,6 +375,10 @@ var App = function (_PureComponent) {
 
       if (!this.routes || this.routes.length === 0) {
         return _react2.default.createElement('div', null);
+      }
+
+      if (this.props.autoRefresh) {
+        this._refreshRoutes(this.state.account);
       }
 
       if (this.props.desktop) {

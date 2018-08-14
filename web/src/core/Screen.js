@@ -61,6 +61,10 @@ export default class Screen extends Core.Screen {
     this._load(this.props)
   }
 
+  get sidebarWidth () {
+    return 200
+  }
+
   get sections () {
     return this._sections
   }
@@ -310,7 +314,7 @@ export default class Screen extends Core.Screen {
     return Object.assign(
       {},
       this.variant ? merge.all([this.props, this.variant]) : this.props,
-      { menu: this.menu, sideMenu: this.sideMenu }
+      { menu: this.menu, sideMenu: this.sideMenu, sidebarWidth: this.sidebarWidth }
     )
   }
 

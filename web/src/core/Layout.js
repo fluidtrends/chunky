@@ -83,6 +83,9 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderDrawer() {
+    if (this.props.desktop) {
+      return <div />
+    }
     return (<Drawer
       index={-1}
       onClose={this._onMenuClose}
@@ -94,6 +97,10 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderNavigation() {
+    if (this.props.desktop) {
+      return <div />
+    }
+
     return (<Navigation
       index={0}
       onMenuOpen={this._onMenuOpen}
@@ -108,8 +115,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderCover() {
-    if (!this.hasCover) {
-      return
+    if (!this.hasCover || this.props.desktop) {
+      return <div />
     }
     return (<Cover
       index={1}
@@ -123,6 +130,9 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderFooter() {
+    if (this.props.desktop) {
+      return <div />
+    }
 
     if (this.props.noFooter) {
       return
@@ -162,13 +172,22 @@ export default class DefaultLayout extends PureComponent {
     return this.props.sidebarIndex
   }
 
+  renderSidebarItem(item) {
+    return (<Menu.Item key={item.id}>
+      <Icon type={item.icon} />
+      <span className='nav-text'> {item.title}</span>
+    </Menu.Item>)
+  }
+
   renderWithSidebar() {
-    var index = 0
+    const collapseSidebar = (this.props.desktop ? false : this.props.isSmallScreen)
+    const width = this.props.sidebarWidth
     return <Layout>
       <Sider
-        breakpoint='lg'
-        collapsedWidth='28'
-        collapsed={this.props.isSmallScreen}>
+        collapsible={false}
+        defaultCollapsed={false}
+        width={width}
+        collapsed={collapseSidebar}>
         <Menu
           theme='light'
           mode='inline'
@@ -179,33 +198,23 @@ export default class DefaultLayout extends PureComponent {
             minHeight: '100%',
             color: '#90A4AE'
           }}>
-          {
-            this.props.sidebar.map(item => (
-              <Menu.Item key={index++}>
-                <Icon type={item.icon} />
-                <span className='nav-text'> {item.title}</span>
-              </Menu.Item>
-            ))}
+          {this.props.sidebar.map(item => this.renderSidebarItem(item))}
         </Menu>
       </Sider>
       <Layout style={{
         backgroundColor: '#ffffff'
       }}>
         <Content style={{
-          margin: '0',
-          minHeight: '100vh'
+          minHeight: '100vh',
+          backgroundColor: `${this.props.layoutBackground || '#ffffff'}`,
+          alignItems: 'top',
+          width: '100%',
+          marginLeft: `${this.props.isSmallScreen ? '0px' : '0px'}`,
+          justifyContent: 'center',
+          flex: 1,
+          display: 'flex'
         }}>
-          <div style={{
-            marginLeft: 56,
-            backgroundColor: '#ffffff',
-            minHeight: 360,
-            alignItems: 'center',
-            justifyContent: 'center',
-            flex: 1,
-            display: 'flex'
-          }}>
-            {this.renderComponents()}
-          </div>
+          {this.renderComponents()}
         </Content>
       </Layout>
     </Layout>
@@ -230,6 +239,10 @@ export default class DefaultLayout extends PureComponent {
       marginTop = 0
     } else {
       marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
+    }
+
+    if (this.props.desktop) {
+      marginTop = 0
     }
 
     return (<main style={{
@@ -315,6 +328,7 @@ export default class DefaultLayout extends PureComponent {
 
 const styles = {
   container: {
+    backgroundColor: '#FFFFFF'
   },
   component: {
     backgroundColor: '#FFFFFF',

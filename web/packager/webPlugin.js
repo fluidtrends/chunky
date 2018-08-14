@@ -2,42 +2,52 @@
 
 let chalk = require('chalk')
 let path = require('path')
-let Ora = require('ora')
+// let Ora = require('ora')
 let ejs = require('ejs')
+const emotions = require('./emotions.json')
+// const openSocket = require('socket.io-client')
 
 class Plugin {
-
   constructor (context) {
     this._context = context
-    this._startTime = new Date().getTime()
-    this._spinner = new Ora()
+    // this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
+  }
+
+  // get counter () {
+  //   return this._counter
+  // }
+
+  emotion (type) {
+    if (!emotions || !emotions[type]) {
+      return 'Chunky is confused.'
+    }
+
+    const expression = emotions[type].expression
+    const moods = emotions[type].moods
+    const mood = moods[Math.floor(Math.random() * Math.floor(moods.length - 1))]
+
+    return { expression, mood }
+  }
+
+  get happy () {
+    return this.emotion('happy')
   }
 
   get context () {
     return this._context
   }
 
-  get spinner () {
-    return chalk.gray.dim(this._spinner.frame())
-  }
+  // get spinner () {
+  //   return this._spinner
+  // }
 
   get startTime () {
     return this._startTime
   }
 
-  log (message) {
-    console.log(`${chalk.bold('[Chunky]')} ${message}`)
-  }
-
   onStart () {
     this._startTime = new Date().getTime()
-    this.log(chalk.green('Getting ready to start packing'))
-  }
-
-  onDone (done) {
-    const time = this.endTime(this.startTime)
-    this.log(chalk.green('✔ Finished packing in ') + chalk.bold(time))
-    done && done()
+    // this.spinner.start()
   }
 
   onModuleStart (module) {
@@ -49,14 +59,16 @@ class Plugin {
       return
     }
 
-    this.log(chalk.red('✘ ') + chalk.gray(module.resource))
-    this.log(chalk.red(module.error))
+    // var resource = module.resource.substring(path.resolve('.').length + 1)
+    // this.spinner.fail(module.resource)
+    // this.spinner.fail(module.error)
   }
 
   onModuleSuccess (module) {
     if (module.errors && module.errors.length > 0) {
-      this.log(chalk.red('✘ ') + chalk.gray(module.resource))
-      this.log(chalk.red(module.errors[0]))
+      // var resource = module.resource.substring(path.resolve('.').length + 1)
+      // this.spinner.fail(resource)
+      // this.spinner.fail(module.errors[0])
       return
     }
 
@@ -65,7 +77,8 @@ class Plugin {
       return
     }
 
-    this.log(chalk.green('✔ ') + chalk.gray(module.resource))
+    // var resource = module.resource.substring(path.resolve('.').length + 1)
+    // this.spinner.text = `${chalk.white('Chunky is packing')} ${chalk.green(resource)}`
   }
 
   endTime (startTime) {
@@ -91,6 +104,19 @@ class Plugin {
     done(null, this.resolveHtml(data))
   }
 
+  onDone (stats) {
+    if (stats.compilation.errors && stats.compilation.errors.length > 0) {
+      stats.compilation.errors.map(error => {
+        // this.spinner.fail(error)
+      })
+      // this.spinner.fail(`${chalk.red('Chunky failed packing. And he is devastated.')}`)
+      return
+    }
+
+    const time = this.endTime(this.startTime)
+    // this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
+  }
+
   apply (compiler) {
     compiler.plugin('compile', (params) => this.onStart())
 
@@ -101,7 +127,7 @@ class Plugin {
       compilation.plugin('succeed-module', (module) => this.onModuleSuccess(module))
     })
 
-    compiler.plugin('emit', (compilation, done) => this.onDone(done))
+    compiler.plugin('done', (stats) => this.onDone(stats))
   }
 }
 

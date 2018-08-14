@@ -8,7 +8,7 @@ function generateDevPage (options, route) {
     filename: 'index.html',
     route,
     inject: 'true',
-    template: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', 'default.html')
+    template: path.resolve(options.root || options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', 'default.html')
   })
 }
 
@@ -25,7 +25,7 @@ function generateStaticPage (options, route) {
       removeComments: true
     },
     filename: `${(route.path && route.path !== '/') ? route.path + '/' : ''}index.html`,
-    template: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', `${route.template || 'default'}.html`)
+    template: path.resolve(options.root || options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', `${route.template || 'default'}.html`)
   })
 }
 

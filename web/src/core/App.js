@@ -7,7 +7,6 @@ import { createSectionRoutes } from './Router'
 import Cache from './Cache'
 
 export default class App extends PureComponent {
-
   constructor (props) {
     super(props)
     this.state = { loading: true }
@@ -47,7 +46,7 @@ export default class App extends PureComponent {
         uid: user.uid,
         emailVerified: user.emailVerified
       }, account)
-      Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
+      return Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
     })
     .then(() => this.checkAuth())
   }
@@ -131,7 +130,7 @@ export default class App extends PureComponent {
         this._sidebar.push({
           routeKey,
           id: `${this.sidebar.length}`,
-          icon: route.icon.replace('-', '_'),
+          icon: route.icon,
           title: routeMenuTitle,
           alwaysShowIcon: route.alwaysShowIcon,
           action: route.action,
@@ -205,6 +204,7 @@ export default class App extends PureComponent {
         onUserLogout: this._userLogout,
         onUserLoggedIn: this._userLoggedIn,
         info: this.props.info,
+        session: this.props.session,
         startOperationsOnMount: true
       }, {
         theme,
@@ -249,7 +249,8 @@ export default class App extends PureComponent {
         })
       }
 
-      return (skip ? <div /> : <RouteScreen {...props} {...screenProps} />)
+      const allProps = Object.assign({}, props, screenProps, { session: this.props.session })
+      return (skip ? <div /> : <RouteScreen {...allProps} />)
     }
 
     const routeKey = `${screenId}${screenPath}`
@@ -266,7 +267,7 @@ export default class App extends PureComponent {
     return createSectionRoutes(section, this._createSectionNavigatorRoutes.bind(this))
   }
 
-  _resolve (account) {
+  _refreshRoutes (account) {
     this._routes = []
     this._sections = []
     this._menu = []
@@ -282,7 +283,10 @@ export default class App extends PureComponent {
       this._sections.push(section)
       this._routes = this._routes.concat(section.navigator.routes)
     }
+  }
 
+  _resolve (account) {
+    this._refreshRoutes(account)
     this.setState({ loading: false, account: account || undefined, authstamp: `${Date.now()}` })
   }
 
@@ -322,6 +326,10 @@ export default class App extends PureComponent {
 
     if (!this.routes || this.routes.length === 0) {
       return (<div />)
+    }
+
+    if (this.props.autoRefresh) {
+      this._refreshRoutes(this.state.account)
     }
 
     if (this.props.desktop) {
