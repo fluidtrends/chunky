@@ -98,8 +98,7 @@ export default class Product {
         const chunks = loadChunks(this)
 
         const root = this.root
-        console.log(root)
-        const configFile = path.resolve(this.dir, 'node_modules', 'react-dom-chunky', 'packager', 'config.dev.js')
+        const configFile = path.resolve(root, 'node_modules', 'react-dom-chunky', 'packager', 'config.dev.js')
         const config = require(configFile)
         const setup = config({ dir: this.dir, chunks, config: manifest, root, port })
         const compConfig = this.compilerConfig({ dir: this.dir, root, port })
@@ -115,31 +114,15 @@ export default class Product {
         const server = new WebpackDevServer(compiler, compConfig)
         server.listen(port, '0.0.0.0', (error) => {
           if (error) {
-            console.log(error)
             reject(error)
             return
           }
-          console.log('Web server started')
           resolve()
         })
       } catch (e) {
-        console.log(e)
         reject(e)
       }
     })
-  }
-
-  installDependencies () {
-    const depsDir = path.resolve(this.dir, 'node_modules')
-    if (!fs.existsSync(depsDir)) {
-      fs.mkdirsSync(depsDir)
-    }
-
-    const srcDepsDir = path.resolve(this.root, 'node_modules')
-    const destDepsDir = path.resolve(this.dir, 'node_modules')
-
-    const deps = ['react-dom-chunky']
-    fs.copySync(path.resolve(srcDepsDir, 'react-dom-chunky'), path.resolve(destDepsDir, 'react-dom-chunky'))
   }
 
   create () {
@@ -151,7 +134,6 @@ export default class Product {
 
     const packageData = generatePackage({ name: this.name })
     createFile({ root: this.dir, filepath: 'package.json', data: packageData, json: true })
-    this.installDependencies()
 
     const template = Object.assign({}, this.template, { name: this.name })
     const fixture = this.fixture(template)

@@ -13,7 +13,7 @@ module.exports = (options) => {
       'react-hot-loader/patch',
       'webpack-dev-server/client',
       'webpack/hot/only-dev-server',
-      path.resolve(dir, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
+      path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
     ],
 
     watch: true,
@@ -93,8 +93,8 @@ module.exports = (options) => {
         {
           test: /\.js$/,
           include: [
-            path.resolve(dir, 'node_modules', 'react-chunky'),
-            path.resolve(dir, 'node_modules', 'react-dom-chunky'),
+            path.resolve(root, 'node_modules', 'react-chunky'),
+            path.resolve(root, 'node_modules', 'react-dom-chunky'),
             path.resolve(dir, 'chunks')
           ],
           use: {
@@ -110,7 +110,7 @@ module.exports = (options) => {
               ],
               plugins: [
                 require.resolve('react-hot-loader/babel'),
-                'styled-jsx/babel'
+                require.resolve('styled-jsx/babel')
               ]
             }
           }
@@ -124,7 +124,7 @@ module.exports = (options) => {
       new webpack.NoEmitOnErrorsPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new CopyWebpackPlugin([
-        { from: { glob: path.resolve(dir, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
+        { from: { glob: path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
         { from: { glob: path.resolve(dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
       ])
     ].concat([new WebPlugin(Object.assign({}, options, { dev: true }))]).concat(pages(options, true)),
