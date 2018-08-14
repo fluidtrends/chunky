@@ -74,8 +74,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   get theme() {
-    const navigationColor = (this.navigationUncover ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
-    const navigationTintColor = (this.navigationUncover ? '#FFFFFF' : this.props.theme.navigationTintColor)
+    const navigationColor = (this.navigationUncover || this.props.forceNavigation ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    const navigationTintColor = (this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
       navigationColor, navigationTintColor
@@ -123,6 +123,11 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderFooter() {
+
+    if (this.props.noFooter) {
+      return
+    }
+
     return <LargeFooter
       index={9999}
       id='footer'
@@ -137,7 +142,7 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderPrimary() {
-    if (this.props.sidebar && this.props.private && this.props.isLargeScreen) {
+    if (this.props.sidebar && this.props.private && !this.props.isSmallScreen) {
       return this.renderWithSidebar()
     }
 
@@ -220,7 +225,12 @@ export default class DefaultLayout extends PureComponent {
   renderComponents() {
     var components = this.props.children || []
     var index = 0
-    const marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
+    let marginTop
+    if (this.props.forceNavigation) {
+      marginTop = 0
+    } else {
+      marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
+    }
 
     return (<main style={{
       marginTop: `${marginTop}px`
@@ -247,7 +257,7 @@ export default class DefaultLayout extends PureComponent {
         html {
           font-weight: 300;
           font-family: Roboto Condensed, sans-serif;
-          color: #ffffff;
+          color: #ffffff; 
         }
 
         pre {

@@ -95,8 +95,8 @@ export default class Timer extends Component {
   }
 
   renderAction() {
-    return <Button onClick={this.props.onAction || this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondary-bg text-primary-on-secondary'>
-      {this.props.actionTitle}
+    return <Button onClick={this.state.period.onAction || this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondary-bg text-primary-on-secondary'>
+      {this.state.period.actionTitle}
     </Button>
   }
 
@@ -122,11 +122,11 @@ export default class Timer extends Component {
     }
     return <ChipSet>
       <Chip style={style}>
-        <Typography use={size} style={{ margin: `${margin}px` }}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
+        <Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
       </Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{hours}h</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{minutes}m</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px` }}><ChipText>{seconds}s</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{hours}h</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{minutes}m</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{seconds}s</ChipText></Typography></Chip>
     </ChipSet>
   }
 
@@ -159,7 +159,7 @@ export default class Timer extends Component {
     }
 
     return <div style={{
-      color: this.props.textColor,
+      color: 'white',
       position: 'relative',
       display: 'flex',
       flex: 1,
@@ -170,7 +170,8 @@ export default class Timer extends Component {
       alignItems: 'center',
       justifyContent: 'center'
     }}>
-      {this.props.simple ? this.renderSimpleText() : this.renderText()}
+      {/* {this.props.simple ? this.renderSimpleText() : this.renderText()} */}
+      {this.renderSimpleText()}
       {this.renderClock()}
       {this.renderInfo()}
       {this.renderAction()}
