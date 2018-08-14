@@ -135,7 +135,7 @@ export default class DefaultLayout extends PureComponent {
     }
 
     if (this.props.noFooter) {
-      return
+      return <div />
     }
 
     return <LargeFooter

@@ -170,7 +170,6 @@ export default class Timer extends Component {
       alignItems: 'center',
       justifyContent: 'center'
     }}>
-      {/* {this.props.simple ? this.renderSimpleText() : this.renderText()} */}
       {this.renderSimpleText()}
       {this.renderClock()}
       {this.renderInfo()}
