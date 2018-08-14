@@ -2,21 +2,35 @@ import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import Media from './Media'
-import { Icon } from 'rmwc/Icon'
+import Timer from './Timer'
 import { Button } from 'rmwc/Button'
 import { Typography } from 'rmwc/Typography'
+import { Icon } from "antd"
+import Eos from './eos.js'
+
+import {
+  Card,
+  CardPrimaryAction,
+  CardMedia,
+  CardAction,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons
+} from 'rmwc/Card';
+import { relative } from 'path';
+
 
 export default class Cover extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     super.componentDidMount()
   }
 
-  renderDefaultContent () {
+  renderDefaultContent() {
     if (this.props.video) {
       return <div />
     }
@@ -34,61 +48,161 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      { this.renderCoverTitle() }
-      { this.renderCoverSubtitle() }
-      { this.renderCoverAction() }
+      {this.renderCoverTitle()}
+      {this.renderCoverSubtitle()}
+      {this.renderCoverAction()}
     </div>)
   }
 
-  renderCoverTitle () {
+  renderIcons() {
+    if (!this.props.social) {
+      return
+    }
+
+    const margin = this.props.isSmallScreen ? '0 0 5px 0' : '0 95px 35px 0'
+    const align = this.props.isSmallScreen ? 'center' : 'flex-end'
+    const { social } = this.props
+    return <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end', alignSelf: align, margin }}>
+      {Object.keys(social).map(key => {
+        return this.renderIcon(social[key], key)
+      })}
+    </div>
+  }
+
+  renderIcon(props, key) {
+    const size = this.props.isSmallScreen ? 20 : 28
+
+    return <div><Icon
+      type={key}
+      onClick={this.onLinkClick.bind(this, props.url)}
+      className="icon"
+      style={{
+        cursor: "pointer",
+        fontSize: size,
+        padding: "10px"
+      }}
+    />
+      <style jsx>{`
+          div :global(.icon) {
+            color: ${'#CFD8DC'}
+          }
+          div :global(.icon):hover {  
+            color: ${'#00bcd4'}
+          }
+        `}</style>
+    </div>
+  }
+
+  onLinkClick(url) {
+    window.open(url, '_blank')
+  }
+
+  renderIcoContent() {
+    if (this.props.video) {
+      return <div />
+    }
+
+    return (<div style={{
+      position: 'absolute',
+      backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
+      width: '100vw',
+      height: '100vh',
+      top: 0,
+      left: 0,
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'space-around',
+      textAlign: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'
+    }}>
+      <div style={{ display: 'flex', flex: 1 }} />
+      <div style={{
+        display: 'flex',
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column'
+      }}>
+        {this.renderCoverTitle()}
+        {this.renderCoverSubtitle()}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }}>
+        {this.renderLogos()}
+        {this.renderCoverTimeline()}
+      </div>
+      {this.renderIcons()}
+    </div>)
+  }
+
+  renderCoverTitle() {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='display2' style={{margin: '20px', color: this.props.color}}> {this.props.title} </Typography>
+    return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
   }
 
-  renderCoverSubtitle () {
+  renderCoverTimeline() {
+    const backgroundColor = "#00ACC1",
+      textColor = "#ffffff"
+
+    return <div style={{ maxWidth: 450, maxHeight: 300 }}>
+      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle="Buy tokens" onAction={this.triggerEvent()} />
+    </div>
+  }
+
+  renderIcoCoverTitle() {
+    if (!this.props.title) {
+      return <div />
+    }
+    return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
+  }
+
+  renderCoverSubtitle() {
     if (!this.props.subtitle) {
       return <div />
     }
-    return <Typography use='display1' style={{margin: '20px', color: this.props.color}}> {this.props.subtitle} </Typography>
+    return <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
   }
 
-  renderCoverAction () {
+  renderLogos() {
+    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
+  }
+
+  renderVideo() {
+    if (this.props.isSmallScreen) {
+      return <div />
+    }
+
+    const backgroundColor = "#00ACC1",
+      textColor = "#ffffff"
+
+    return <div style={{ padding: 20, width: 450, height: 300, position: 'relative' }}>
+      <Media video={this.props.introVideo} width={450} height={300} style={{ position: 'absolute', top: 0, left: 0 }} />
+    </div>
+  }
+
+  renderCoverAction() {
     if (!this.props.primaryActionTitle) {
       return <div />
     }
     return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
-      style={{margin: '20px'}}> {this.props.primaryActionTitle} </Button>
+      style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
   }
 
-  renderDownArrow () {
-    return <div style={{
-      bottom: '10px',
-      position: 'absolute',
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <Icon style={{fontSize: '30px'}} use='keyboard_arrow_down' />
-    </div>
-  }
-
-  get presentationHeight () {
+  get presentationHeight() {
     return 500
   }
 
-  get simpleHeight () {
+  get simpleHeight() {
     return 300
   }
 
-  get menuHeight () {
+  get menuHeight() {
     return 68
   }
 
-  renderSimpleContent (height, title) {
+  renderSimpleContent(height, title) {
     return (<div style={{
       position: 'absolute',
       backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
@@ -102,11 +216,11 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      <Typography use='display1' style={{margin: '20px', color: this.props.color}}> {title} </Typography>
+      <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {title} </Typography>
     </div>)
   }
 
-  renderPresentationContent () {
+  renderPresentationContent() {
     const title = this.props.title
     return (<div style={{
       position: 'absolute',
@@ -118,11 +232,11 @@ export default class Cover extends Component {
       alignItems: 'flex-start',
       flexDirection: 'column'
     }}>
-      <Typography use='display2' style={{margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color}}> {title} </Typography>
+      <Typography use='display2' style={{ margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color }}> {title} </Typography>
     </div>)
   }
 
-  renderMedia (style, playing, innerHeight) {
+  renderMedia(style, playing, innerHeight) {
     if (!this.props.image && !this.props.video) {
       return <div />
     }
@@ -137,7 +251,7 @@ export default class Cover extends Component {
       style={style} />
   }
 
-  renderDefault (title) {
+  renderDefault(title) {
     const height = this.props.height
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
@@ -152,18 +266,19 @@ export default class Cover extends Component {
       flexDirection: 'column',
       justifyContent: 'center'
     }}>
-      { this.renderMedia(coverStyle, coverPlaying) }
-      { this.renderDefaultContent() }
+      {this.renderMedia(coverStyle, coverPlaying)}
+      {this.renderDefaultContent()}
     </div>)
   }
 
-  renderSimple (height, title) {
+  renderSimple(height, title) {
     const coverStyle = {
       width: '100%',
       backgroundColor: this.props.backgroundColor,
       height: `${height}px`,
       objectFit: 'cover',
-      objectPosition: 'center center' }
+      objectPosition: 'center center'
+    }
     const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{
@@ -176,19 +291,20 @@ export default class Cover extends Component {
       flexDirection: 'column',
       justifyContent: 'center'
     }}>
-      { this.renderMedia(coverStyle, coverPlaying) }
-      { this.renderSimpleContent(height, title) }
+      {this.renderMedia(coverStyle, coverPlaying)}
+      {this.renderSimpleContent(height, title)}
     </div>)
   }
 
-  renderPresentation () {
+  renderPresentation() {
     const height = this.presentationHeight
     const coverStyle = {
       width: '100%',
       height: `${height}px`,
       backgroundColor: this.props.backgroundColor,
       objectFit: 'cover',
-      objectPosition: 'center center' }
+      objectPosition: 'center center'
+    }
     const coverPlaying = (this.props.scroll < 200)
 
     return (<div style={{
@@ -196,26 +312,46 @@ export default class Cover extends Component {
       marginTop: `${this.props.offset}px`,
       height: `${height + 2}px`,
       display: 'flex',
-      overflow: 'hidden',      
+      overflow: 'hidden',
       flex: 1,
       alignItems: 'center',
       flexDirection: 'column',
       justifyContent: 'center'
     }}>
-      { this.renderMedia(coverStyle, coverPlaying, `${height - 100}px`) }
-      { this.renderPresentationContent() }
+      {this.renderMedia(coverStyle, coverPlaying, `${height - 100}px`)}
+      {this.renderPresentationContent()}
     </div>)
   }
 
-  renderMenu () {
+  renderIco(title) {
+    const height = this.props.height
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverPlaying = (this.props.scroll < 200)
+
+    return (<div style={{
+      backgroundColor: this.props.backgroundColor,
+      marginTop: `${this.props.offset}px`,
+      height: `${height}px`,
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}>
+      {this.renderMedia(coverStyle, coverPlaying)}
+      {this.renderIcoContent()}
+    </div>)
+  }
+
+  renderMenu() {
     return this.renderSimple(this.menuHeight)
   }
 
-  get type () {
+  get type() {
     return this.props.type || 'default'
   }
 
-  render () {
+  render() {
     switch (this.type) {
       case 'presentation':
         return this.renderPresentation()
@@ -223,6 +359,8 @@ export default class Cover extends Component {
         return this.renderSimple(this.simpleHeight, this.props.title)
       case 'menu':
         return this.renderMenu()
+      case 'ico':
+        return this.renderIco(this.props.title)
       default:
         return this.renderDefault()
     }
