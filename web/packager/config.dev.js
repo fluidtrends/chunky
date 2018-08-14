@@ -35,7 +35,7 @@ module.exports = (options) => {
       },
       modules: [
         path.resolve(dir),
-        path.resolve(root),
+        path.resolve(root, 'node_modules'),
         'node_modules'
       ]
     },

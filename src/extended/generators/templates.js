@@ -8,7 +8,7 @@ import {
   updateChunksIndex
 } from '..'
 
-export function installTemplate ({ dir, home, template }) {
+export function installTemplate ({ dir, home, template, fixture }) {
   return new Promise((resolve, reject) => {
     try {
       const assetsDir = path.resolve(dir, 'assets')
@@ -17,12 +17,8 @@ export function installTemplate ({ dir, home, template }) {
       fs.mkdirsSync(assetsDir)
       fs.mkdirsSync(assetsTextDir)
 
-      const bundleAssetsDir = path.resolve(home, 'bundles', template.bundle, 'assets')
-      const bundleFixturesDir = path.resolve(home, 'bundles', template.bundle, 'fixtures')
-
-      const fixture = require(path.resolve(bundleFixturesDir, template.fixture, 'index.js'))(template)
-      const bundleImages = fixture.images.map(image => path.resolve(bundleAssetsDir, image))
-      const bundleText = fixture.text.map(t => path.resolve(bundleAssetsDir, 'text', t))
+      const bundleImages = fixture.images.map(image => path.resolve(template.assetsDir, image))
+      const bundleText = fixture.text.map(t => path.resolve(template.assetsDir, 'text', t))
 
       const chunkInstallers = Object.keys(fixture.chunks).map(chunkName => {
         const chunk = fixture.chunks[chunkName]

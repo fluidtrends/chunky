@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { hot, AppContainer } from 'react-hot-loader'
 import { App, Screen } from 'react-dom-chunky'
 import { Core } from 'react-chunky'
 import { ipcRenderer } from 'electron'
@@ -32,20 +31,13 @@ class Main extends Component {
     var appConfig = Object.assign({}, config)
     delete appConfig.chunks
 
-    return <AppContainer>
-      <Core.AppContainer {...config}>
-        <App {...appConfig} />
-      </Core.AppContainer>
-    </AppContainer>
+    return <Core.AppContainer {...config}>
+      <App {...appConfig} />
+    </Core.AppContainer>
   }
 }
 
 const start = (session) => {
-  if (module.hot) {
-    require('./global')
-    module.hot.accept()
-  }
-
   ReactDOM.render(<Main session={session} />, document.getElementById('chunky'))
 }
 

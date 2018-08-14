@@ -10,8 +10,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactHotLoader = require('react-hot-loader');
-
 var _reactDomChunky = require('react-dom-chunky');
 
 var _reactChunky = require('react-chunky');
@@ -63,13 +61,9 @@ var Main = function (_Component) {
       delete appConfig.chunks;
 
       return _react2.default.createElement(
-        _reactHotLoader.AppContainer,
-        null,
-        _react2.default.createElement(
-          _reactChunky.Core.AppContainer,
-          config,
-          _react2.default.createElement(_reactDomChunky.App, appConfig)
-        )
+        _reactChunky.Core.AppContainer,
+        config,
+        _react2.default.createElement(_reactDomChunky.App, appConfig)
       );
     }
   }, {
@@ -83,11 +77,6 @@ var Main = function (_Component) {
 }(_react.Component);
 
 var start = function start(session) {
-  if (module.hot) {
-    require('./global');
-    module.hot.accept();
-  }
-
   _reactDom2.default.render(_react2.default.createElement(Main, { session: session }), document.getElementById('chunky'));
 };
 

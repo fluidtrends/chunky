@@ -62,7 +62,7 @@ export function installChunk ({ chunk, chunkName, dir, home, template }) {
 
     fs.mkdirsSync(chunkDir)
 
-    const chunkTemplateDir = path.resolve(home, 'bundles', template.bundle, 'chunks', chunkName)
+    const chunkTemplateDir = path.resolve(template.bundleDir, 'chunks', chunkName)
 
     if (!fs.existsSync(chunkTemplateDir)) {
       reject(new Error('Chunk template does not exist'))

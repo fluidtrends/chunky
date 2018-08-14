@@ -33,12 +33,24 @@ export default class Product {
     return this.props.template
   }
 
+  get fixture () {
+    return this.props.fixture
+  }
+
+  get root () {
+    return this.props.root
+  }
+
   get home () {
     return this.props.home
   }
 
   get exists () {
     return fs.existsSync(this.dir)
+  }
+
+  get depsRoot () {
+    return this.props.depsRoot
   }
 
   get dir () {
@@ -73,7 +85,7 @@ export default class Product {
     }
   }
 
-  start (cb) {
+  start ({ port }, cb) {
     return new Promise((resolve, reject) => {
       try {
         process.noDeprecation = true
@@ -85,11 +97,12 @@ export default class Product {
         const manifest = loadManifest(this)
         const chunks = loadChunks(this)
 
-        const root = path.resolve(this.dir, '..', '..')
+        const root = this.root
+        console.log(root)
         const configFile = path.resolve(this.dir, 'node_modules', 'react-dom-chunky', 'packager', 'config.dev.js')
         const config = require(configFile)
-        const setup = config({ dir: this.dir, chunks, config: manifest, root, port: 8082 })
-        const compConfig = this.compilerConfig({ dir: this.dir, root, port: 8082 })
+        const setup = config({ dir: this.dir, chunks, config: manifest, root, port })
+        const compConfig = this.compilerConfig({ dir: this.dir, root, port })
 
         const compiler = webpack(setup)
         compiler.plugin('done', (stats) => {
@@ -100,7 +113,7 @@ export default class Product {
         })
 
         const server = new WebpackDevServer(compiler, compConfig)
-        server.listen(8082, '0.0.0.0', (error) => {
+        server.listen(port, '0.0.0.0', (error) => {
           if (error) {
             console.log(error)
             reject(error)
@@ -122,7 +135,7 @@ export default class Product {
       fs.mkdirsSync(depsDir)
     }
 
-    const srcDepsDir = path.resolve(this.dir, '..', '..', 'node_modules')
+    const srcDepsDir = path.resolve(this.root, 'node_modules')
     const destDepsDir = path.resolve(this.dir, 'node_modules')
 
     const deps = ['react-dom-chunky']
@@ -141,6 +154,8 @@ export default class Product {
     this.installDependencies()
 
     const template = Object.assign({}, this.template, { name: this.name })
-    return installTemplate({ dir: this.dir, home: this.home, template })
+    const fixture = this.fixture(template)
+
+    return installTemplate({ dir: this.dir, home: this.home, template, fixture })
   }
 }
