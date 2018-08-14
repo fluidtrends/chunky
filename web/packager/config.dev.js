@@ -5,19 +5,22 @@ const pages = require('./pages')
 const WebPlugin = require('./webPlugin')
 
 module.exports = (options) => {
+  const root = (options.root || options.dir)
+  const dir = options.dir
+
   return {
     entry: [
       'react-hot-loader/patch',
       'webpack-dev-server/client',
       'webpack/hot/only-dev-server',
-      path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
+      path.resolve(dir, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
     ],
 
     watch: true,
 
     output: {
       filename: 'chunky.js',
-      path: path.resolve(options.dir, '.chunky', 'web'),
+      path: path.resolve(dir, '.chunky', 'web'),
       publicPath: '/',
       libraryTarget: 'umd'
     },
@@ -31,7 +34,8 @@ module.exports = (options) => {
         moment: 'moment/moment.js'
       },
       modules: [
-        path.resolve(options.dir),
+        path.resolve(dir),
+        path.resolve(root),
         'node_modules'
       ]
     },
@@ -89,20 +93,20 @@ module.exports = (options) => {
         {
           test: /\.js$/,
           include: [
-            path.resolve(options.dir, 'node_modules', 'react-chunky'),
-            path.resolve(options.dir, 'node_modules', 'react-dom-chunky'),
-            path.resolve(options.dir, 'chunks')
+            path.resolve(dir, 'node_modules', 'react-chunky'),
+            path.resolve(dir, 'node_modules', 'react-dom-chunky'),
+            path.resolve(dir, 'chunks')
           ],
           use: {
             loader: 'babel-loader',
             options: {
               presets: [
-                [path.resolve(options.dir, 'node_modules', 'babel-preset-env'), {
+                [path.resolve(root, 'node_modules', 'babel-preset-env'), {
                   loose: true,
                   modules: false
                 }],
-                path.resolve(options.dir, 'node_modules', 'babel-preset-react'),
-                path.resolve(options.dir, 'node_modules', 'babel-preset-stage-2')
+                path.resolve(root, 'node_modules', 'babel-preset-react'),
+                path.resolve(root, 'node_modules', 'babel-preset-stage-2')
               ],
               plugins: [
                 require.resolve('react-hot-loader/babel'),
@@ -120,8 +124,8 @@ module.exports = (options) => {
       new webpack.NoEmitOnErrorsPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new CopyWebpackPlugin([
-        { from: { glob: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
-        { from: { glob: path.resolve(options.dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
+        { from: { glob: path.resolve(dir, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
+        { from: { glob: path.resolve(dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
       ])
     ].concat([new WebPlugin(Object.assign({}, options, { dev: true }))]).concat(pages(options, true)),
 
@@ -147,7 +151,7 @@ module.exports = (options) => {
       },
 
       port: options.port,
-      contentBase: path.resolve(options.dir, 'web', 'build'),
+      contentBase: path.resolve(dir, '.chunky', 'web'),
       watchContentBase: true,
       historyApiFallback: true,
       hot: true

@@ -10,6 +10,7 @@ import path from 'path'
 import fs from 'fs-extra'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
+import cpy from 'cpy'
 
 export default class Product {
   constructor (props) {
@@ -44,25 +45,61 @@ export default class Product {
     return path.resolve(this.home, 'products', this.id)
   }
 
-  start () {
+  compilerConfig ({ dir, port }) {
+    return {
+      host: '0.0.0.0',
+      watchOptions: {
+        poll: true,
+        aggregateTimeout: 100
+      },
+      // inline: true,
+      // quiet: true,
+      // noInfo: true,
+      // stats: {
+      //   assets: false,
+      //   colors: true,
+      //   version: false,
+      //   hash: false,
+      //   timings: false,
+      //   chunks: false,
+      //   chunkModules: false,
+      //   modules: false
+      // },
+      port,
+      contentBase: path.resolve(dir, '.chunky', 'web'),
+      watchContentBase: true,
+      historyApiFallback: true,
+      hot: true
+    }
+  }
+
+  start (cb) {
     return new Promise((resolve, reject) => {
       try {
+        process.noDeprecation = true
+
         const dir = path.resolve(this.dir, '.chunky', 'web')
         fs.existsSync(dir) && fs.removeSync(dir)
         fs.mkdirsSync(dir)
 
-        var configFile = path.resolve(this.dir, 'node_modules', 'react-dom-chunky', 'packager', 'config.dev.js')
-        const config = require(configFile)
-
         const manifest = loadManifest(this)
         const chunks = loadChunks(this)
 
-        const setup = config({ dir: this.dir, chunks, config: manifest, port: 8082 })
+        const root = path.resolve(this.dir, '..', '..')
+        const configFile = path.resolve(this.dir, 'node_modules', 'react-dom-chunky', 'packager', 'config.dev.js')
+        const config = require(configFile)
+        const setup = config({ dir: this.dir, chunks, config: manifest, root, port: 8082 })
+        const compConfig = this.compilerConfig({ dir: this.dir, root, port: 8082 })
 
-        process.noDeprecation = true
+        const compiler = webpack(setup)
+        compiler.plugin('done', (stats) => {
+          cb && cb(Object.assign({}, { compiled: true, compiling: false }, stats.compilation.errors.length > 0, { errors: stats.compilation.errors }))
+        })
+        compiler.plugin('compile', (params) => {
+          cb && cb(Object.assign({}, { compiled: false, compiling: true }))
+        })
 
-        const server = new WebpackDevServer(webpack(setup), setup.devServer)
-
+        const server = new WebpackDevServer(compiler, compConfig)
         server.listen(8082, '0.0.0.0', (error) => {
           if (error) {
             console.log(error)
@@ -79,6 +116,19 @@ export default class Product {
     })
   }
 
+  installDependencies () {
+    const depsDir = path.resolve(this.dir, 'node_modules')
+    if (!fs.existsSync(depsDir)) {
+      fs.mkdirsSync(depsDir)
+    }
+
+    const srcDepsDir = path.resolve(this.dir, '..', '..', 'node_modules')
+    const destDepsDir = path.resolve(this.dir, 'node_modules')
+
+    const deps = ['react-dom-chunky']
+    fs.copySync(path.resolve(srcDepsDir, 'react-dom-chunky'), path.resolve(destDepsDir, 'react-dom-chunky'))
+  }
+
   create () {
     if (this.exists) {
       return Promise.reject(new Error('The product already exists'))
@@ -87,9 +137,10 @@ export default class Product {
     fs.mkdirsSync(this.dir)
 
     const packageData = generatePackage({ name: this.name })
-
     createFile({ root: this.dir, filepath: 'package.json', data: packageData, json: true })
+    this.installDependencies()
 
-    return installTemplate({ dir: this.dir, home: this.home, template: this.template })
+    const template = Object.assign({}, this.template, { name: this.name })
+    return installTemplate({ dir: this.dir, home: this.home, template })
   }
 }

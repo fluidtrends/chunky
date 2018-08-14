@@ -249,7 +249,8 @@ export default class App extends PureComponent {
         })
       }
 
-      return (skip ? <div /> : <RouteScreen {...props} {...screenProps} />)
+      const allProps = Object.assign({}, props, screenProps, { session: this.props.session })
+      return (skip ? <div /> : <RouteScreen {...allProps} />)
     }
 
     const routeKey = `${screenId}${screenPath}`
@@ -327,16 +328,16 @@ export default class App extends PureComponent {
       return (<div />)
     }
 
+    if (this.props.autoRefresh) {
+      this._refreshRoutes(this.state.account)
+    }
+
     if (this.props.desktop) {
       return (<HashRouter>
         <Switch>
           { this.renderRoutes() }
         </Switch>
       </HashRouter>)
-    }
-
-    if (this.props.autoRefresh) {
-      this._refreshRoutes(this.state.account)
     }
 
     return (<BrowserRouter>

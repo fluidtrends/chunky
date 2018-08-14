@@ -292,6 +292,8 @@ var App = function (_PureComponent) {
   }, {
     key: '_makeScreenRoute',
     value: function _makeScreenRoute(screenPath, screenId, route, screenProps) {
+      var _this6 = this;
+
       var RouteScreen = route.screen;
       var Screen = function Screen(props) {
         var skip = false;
@@ -303,7 +305,8 @@ var App = function (_PureComponent) {
           });
         }
 
-        return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, _extends({}, props, screenProps));
+        var allProps = Object.assign({}, props, screenProps, { session: _this6.props.session });
+        return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, allProps);
       };
 
       var routeKey = '' + screenId + screenPath;
@@ -374,6 +377,10 @@ var App = function (_PureComponent) {
         return _react2.default.createElement('div', null);
       }
 
+      if (this.props.autoRefresh) {
+        this._refreshRoutes(this.state.account);
+      }
+
       if (this.props.desktop) {
         return _react2.default.createElement(
           _reactRouterDom.HashRouter,
@@ -384,10 +391,6 @@ var App = function (_PureComponent) {
             this.renderRoutes()
           )
         );
-      }
-
-      if (this.props.autoRefresh) {
-        this._refreshRoutes(this.state.account);
       }
 
       return _react2.default.createElement(

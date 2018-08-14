@@ -2,26 +2,20 @@
 
 let chalk = require('chalk')
 let path = require('path')
-let Ora = require('ora')
+// let Ora = require('ora')
 let ejs = require('ejs')
 const emotions = require('./emotions.json')
-const openSocket = require('socket.io-client')
+// const openSocket = require('socket.io-client')
 
 class Plugin {
   constructor (context) {
     this._context = context
-    this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
-    this._socket = openSocket('http://localhost:8000')
-    console.log = () => {}
+    // this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
   }
 
-  get socket () {
-    return this._socket
-  }
-
-  get counter () {
-    return this._counter
-  }
+  // get counter () {
+  //   return this._counter
+  // }
 
   emotion (type) {
     if (!emotions || !emotions[type]) {
@@ -43,9 +37,9 @@ class Plugin {
     return this._context
   }
 
-  get spinner () {
-    return this._spinner
-  }
+  // get spinner () {
+  //   return this._spinner
+  // }
 
   get startTime () {
     return this._startTime
@@ -53,8 +47,7 @@ class Plugin {
 
   onStart () {
     this._startTime = new Date().getTime()
-    this.spinner.start()
-    this._counter = 0
+    // this.spinner.start()
   }
 
   onModuleStart (module) {
@@ -66,16 +59,16 @@ class Plugin {
       return
     }
 
-    var resource = module.resource.substring(path.resolve('.').length + 1)
-    this.spinner.fail(module.resource)
-    this.spinner.fail(module.error)
+    // var resource = module.resource.substring(path.resolve('.').length + 1)
+    // this.spinner.fail(module.resource)
+    // this.spinner.fail(module.error)
   }
 
   onModuleSuccess (module) {
     if (module.errors && module.errors.length > 0) {
-      var resource = module.resource.substring(path.resolve('.').length + 1)
-      this.spinner.fail(resource)
-      this.spinner.fail(module.errors[0])
+      // var resource = module.resource.substring(path.resolve('.').length + 1)
+      // this.spinner.fail(resource)
+      // this.spinner.fail(module.errors[0])
       return
     }
 
@@ -84,9 +77,8 @@ class Plugin {
       return
     }
 
-    var resource = module.resource.substring(path.resolve('.').length + 1)
-    this.spinner.text = `${chalk.white('Chunky is packing')} ${chalk.green(resource)}`
-    this.socket.emit('webpacker', { done: false, resource })
+    // var resource = module.resource.substring(path.resolve('.').length + 1)
+    // this.spinner.text = `${chalk.white('Chunky is packing')} ${chalk.green(resource)}`
   }
 
   endTime (startTime) {
@@ -115,15 +107,14 @@ class Plugin {
   onDone (stats) {
     if (stats.compilation.errors && stats.compilation.errors.length > 0) {
       stats.compilation.errors.map(error => {
-        this.spinner.fail(error)
+        // this.spinner.fail(error)
       })
-      this.spinner.fail(`${chalk.red('Chunky failed packing. And he is devastated.')}`)
+      // this.spinner.fail(`${chalk.red('Chunky failed packing. And he is devastated.')}`)
       return
     }
 
     const time = this.endTime(this.startTime)
-    this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
-    // this.socket.emit('webpacker', { done: true, time })
+    // this.spinner.succeed(`${chalk.green('Chunky finished packing in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
   }
 
   apply (compiler) {
