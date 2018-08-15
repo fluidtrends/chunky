@@ -11,58 +11,63 @@ import { Icon } from 'rmwc/Icon'
 
 export default class Navigation extends PureComponent {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this._onMenuOpen = this.onMenuOpen.bind(this)
     this._onMenuItem = (item) => this.onMenuItem.bind(this, item)
   }
 
-  onMenuItem (item) {
+  onMenuItem(item) {
     this.props.onMenuItem && this.props.onMenuItem(item)
   }
 
-  renderNavigationMenuItem (item, index) {
+  renderNavigationMenuItem(item, index) {
     const MenuIcon = <ToolbarMenuIcon onClick={this._onMenuItem(item)} use={item.icon} style={{
       color: this.props.theme.navigationTintColor,
-      marginRight: '0px'}} />
+      marginRight: '0px'
+    }} />
     const MenuButton = <Button onClick={this._onMenuItem(item)}
       style={{
         color: this.props.theme.navigationTintColor,
-        marginRight: '0px'}}>
-      { item.title }
+        textShadow: this.props.theme.textShadow,
+        marginRight: '0px'
+      }}>
+      {item.title}
     </Button>
     const MenuActionButton = <Button raised theme='secondary-bg text-primary-on-secondary'
       onClick={this._onMenuItem(item)}
       style={{
         color: this.props.theme.navigationTintColor,
-        marginRight: '0px'}}>
-      { `${item.title}` }
+        marginRight: '0px'
+      }}>
+      {`${item.title}`}
     </Button>
     return renderResponsive(`menuItem${index++}`, <div />, item.alwaysShowIcon ? MenuIcon : (item.action ? MenuActionButton : MenuButton))
   }
 
-  onMenuOpen () {
+  onMenuOpen() {
     this.props.onMenuOpen && this.props.onMenuOpen()
   }
 
-  renderNavigationMenu () {
+  renderNavigationMenu() {
     var index = 0
     return this.props.menu.map(item => this.renderNavigationMenuItem(item, index++))
   }
 
-  renderNavigationLogo () {
+  renderNavigationLogo() {
     const image = (this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage)
     const height = (this.props.navigationUncover ? 64 : 64)
 
     return renderResponsive('logo',
-      <ToolbarMenuIcon use='menu' style={{color: this.props.theme.navigationTintColor}} onClick={this._onMenuOpen} />,
-      <img src={`${this.props.desktop ? '../../../../' : '/'}assets/${image}`} style={{height: `${height}px`, marginLeft: '20px'}} />
-      )
+      <ToolbarMenuIcon use='menu' style={{ color: this.props.theme.navigationTintColor }} onClick={this._onMenuOpen} />,
+      <img src={`${this.props.desktop ? '../../../../' : '/'}assets/${image}`} style={{ height: `${height}px`, marginLeft: '20px' }} />
+    )
   }
 
-  renderDefault () {
+  renderDefault() {
     return (<Toolbar waterfall fixed={this.props.layout.fixed} style={{
-      backgroundColor: this.props.theme.navigationColor}}>
+      backgroundColor: this.props.theme.navigationColor
+    }}>
       <ToolbarRow>
         <ToolbarSection alignStart style={{
           flex: 1,
@@ -71,7 +76,7 @@ export default class Navigation extends PureComponent {
           flexDirection: 'row',
           alignItems: 'center'
         }}>
-          { this.renderNavigationLogo() }
+          {this.renderNavigationLogo()}
         </ToolbarSection>
         <ToolbarSection alignEnd style={{
           flex: 4,
@@ -80,13 +85,13 @@ export default class Navigation extends PureComponent {
           flexDirection: 'row',
           alignItems: 'center'
         }}>
-          { this.renderNavigationMenu() }
+          {this.renderNavigationMenu()}
         </ToolbarSection>
       </ToolbarRow>
     </Toolbar>)
   }
 
-  render () {
+  render() {
     return this.renderDefault()
   }
 }
