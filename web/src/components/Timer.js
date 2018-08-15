@@ -83,13 +83,13 @@ export default class Timer extends Component {
   }
 
   renderSimpleText() {
-    return <Typography use='display1' style={{ margin: '10px' }}>
+    return <Typography use='display1' style={{ margin: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.text}
     </Typography>
   }
 
   renderInfo() {
-    return <Typography use='title' style={{ marginBottom: '10px' }}>
+    return <Typography use='title' style={{ marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.info}
     </Typography>
   }
