@@ -36,7 +36,7 @@ var processDeepLink = function processDeepLink() {
 _electron.protocol.registerStandardSchemes(['carmel']);
 
 var isDevMode = process.execPath.match(/[\\/]electron/);
-if (isDevMode) (0, _electronCompile.enableLiveReload)({ strategy: 'react-hmr' });
+// if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 
 var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
