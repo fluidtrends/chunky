@@ -71,12 +71,15 @@ export default class Team extends Component {
       return <div />
     }
 
+    const width = this.props.small ? 100 : 220
+    const height = this.props.small ? 100 : 220
+
     const style = {
       alignSelf: 'center',
       marginTop: '20px',
       objectFit: 'cover',
-      height: 220,
-      width: 220,
+      height,
+      width,
       borderRadius: '50%',
       objectPosition: 'center center'
     }
@@ -100,11 +103,14 @@ export default class Team extends Component {
   renderCard(item, index) {
     const { linkedIn, github, website, text } = item
 
+    const width = this.props.small ? 230 : 320
+    const height = this.props.small ? 340 : 540
+
     return (
       <Card
         style={{
-          width: '320px',
-          height: '540px',
+          width,
+          height,
           margin: 20,
           textAlign: 'center'
         }}
@@ -205,12 +211,14 @@ export default class Team extends Component {
   }
 
   renderSection(section, index) {
+
+    const style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : {}
     return (
       <div
         key={'section' + index}
         style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}
       >
-        <Typography use="display1" tag="h1">
+        <Typography use="display1" tag="h1" style={style} >
           {section.title}
         </Typography>
         <div
@@ -257,6 +265,7 @@ export default class Team extends Component {
     if (!this.props.sections) {
       return <div />
     }
+
     return (
       <div
         style={{
@@ -266,7 +275,6 @@ export default class Team extends Component {
           flex: 1,
           paddingTop: '20px',
           paddingBottom: '50px',
-          backgroundColor: this.props.backgroundColor,
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center'

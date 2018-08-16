@@ -11,7 +11,7 @@ const { Header, Content, Sider, Footer } = Layout
  *
  */
 export default class DefaultLayout extends PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { menuOpened: false, fixed: false }
     this._onMenuItem = this.onMenuItem.bind(this)
@@ -21,23 +21,23 @@ export default class DefaultLayout extends PureComponent {
     this._sidebarMenuSelected = this.sidebarMenuSelected.bind(this)
   }
 
-  get styles () {
+  get styles() {
     return styles
   }
 
-  get cover () {
+  get cover() {
     return Object.assign({}, this.props.cover, {})
   }
 
-  get hasCover () {
+  get hasCover() {
     return (this.props.cover !== undefined)
   }
 
-  get navigationHeight () {
+  get navigationHeight() {
     return (this.isLargeScreen ? 64 : 56)
   }
 
-  get coverOffset () {
+  get coverOffset() {
     if (this.hasCover && !this.cover.navigation && this.props.layout.fixed) {
       return this.navigationHeight
     }
@@ -49,7 +49,7 @@ export default class DefaultLayout extends PureComponent {
     return 0
   }
 
-  get navigationUncover () {
+  get navigationUncover() {
     if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
       return true
     }
@@ -57,32 +57,32 @@ export default class DefaultLayout extends PureComponent {
     return (this.hasCover && this.cover.navigation && this.props.scroll < 10)
   }
 
-  onMenuItem (item) {
+  onMenuItem(item) {
     this.props.onMenuItem && this.props.onMenuItem(item)
   }
 
-  onEvent (event, data) {
+  onEvent(event, data) {
     this.props.onEvent && this.props.onEvent(event, data)
   }
 
-  onMenuOpen () {
+  onMenuOpen() {
     this.setState({ menuOpened: true })
   }
 
-  onMenuClose () {
+  onMenuClose() {
     this.setState({ menuOpened: false })
   }
 
-  get theme () {
-    const navigationColor = (this.navigationUncover ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
-    const navigationTintColor = (this.navigationUncover ? '#FFFFFF' : this.props.theme.navigationTintColor)
+  get theme() {
+    const navigationColor = (this.navigationUncover || this.props.forceNavigation ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    const navigationTintColor = (this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
       navigationColor, navigationTintColor
     })
   }
 
-  renderDrawer () {
+  renderDrawer() {
     if (this.props.desktop) {
       return <div />
     }
@@ -93,10 +93,10 @@ export default class DefaultLayout extends PureComponent {
       onMenuItem={this._onMenuItem}
       onEvent={this._onEvent}
       menu={this.props.sideMenu}
-      />)
+    />)
   }
 
-  renderNavigation () {
+  renderNavigation() {
     if (this.props.desktop) {
       return <div />
     }
@@ -111,10 +111,10 @@ export default class DefaultLayout extends PureComponent {
       theme={this.theme}
       desktop={this.props.desktop}
       menu={this.props.menu}
-      />)
+    />)
   }
 
-  renderCover () {
+  renderCover() {
     if (!this.hasCover || this.props.desktop) {
       return <div />
     }
@@ -129,10 +129,15 @@ export default class DefaultLayout extends PureComponent {
     />)
   }
 
-  renderFooter () {
+  renderFooter() {
     if (this.props.desktop) {
       return <div />
     }
+
+    if (this.props.noFooter) {
+      return <div />
+    }
+
     return <LargeFooter
       index={9999}
       id='footer'
@@ -140,13 +145,13 @@ export default class DefaultLayout extends PureComponent {
       onEvent={this._onEvent} />
   }
 
-  renderComponent (component, index) {
+  renderComponent(component, index) {
     return (<div key={`component${index}`} style={this.styles.component}>
-      { component }
+      {component}
     </div>)
   }
 
-  renderPrimary () {
+  renderPrimary() {
     if (this.props.sidebar && this.props.private && !this.props.isSmallScreen) {
       return this.renderWithSidebar()
     }
@@ -154,12 +159,12 @@ export default class DefaultLayout extends PureComponent {
     return this.renderWithoutSidebar()
   }
 
-  sidebarMenuSelected (selection) {
+  sidebarMenuSelected(selection) {
     const item = this.props.sidebar[selection.key]
     this.props.onSidebarMenuSelected && this.props.onSidebarMenuSelected(item)
   }
 
-  get sidebarIndex () {
+  get sidebarIndex() {
     if (!this.props.sidebar || this.props.sidebar.length === 0) {
       return 0
     }
@@ -167,14 +172,14 @@ export default class DefaultLayout extends PureComponent {
     return this.props.sidebarIndex
   }
 
-  renderSidebarItem (item) {
+  renderSidebarItem(item) {
     return (<Menu.Item key={item.id}>
       <Icon type={item.icon} />
       <span className='nav-text'> {item.title}</span>
     </Menu.Item>)
   }
 
-  renderWithSidebar () {
+  renderWithSidebar() {
     const collapseSidebar = (this.props.desktop ? false : this.props.isSmallScreen)
     const width = this.props.sidebarWidth
     return <Layout>
@@ -193,7 +198,7 @@ export default class DefaultLayout extends PureComponent {
             minHeight: '100%',
             color: '#90A4AE'
           }}>
-          { this.props.sidebar.map(item => this.renderSidebarItem(item)) }
+          {this.props.sidebar.map(item => this.renderSidebarItem(item))}
         </Menu>
       </Sider>
       <Layout style={{
@@ -209,42 +214,51 @@ export default class DefaultLayout extends PureComponent {
           flex: 1,
           display: 'flex'
         }}>
-          { this.renderComponents() }
+          {this.renderComponents()}
         </Content>
       </Layout>
     </Layout>
   }
 
-  renderWithoutSidebar () {
+  renderWithoutSidebar() {
     return <Layout>
       <Content style={{ margin: '0' }}>
         <div style={{ padding: 0, background: '#ffffff', minHeight: 360 }}>
-          { this.renderComponents() }
+          {this.renderComponents()}
         </div>
       </Content>
-      { this.renderFooter() }
+      {this.renderFooter()}
     </Layout>
   }
 
-  renderComponents () {
+  renderComponents() {
     var components = this.props.children || []
     var index = 0
-    const marginTop = (this.props.desktop ? 0 : (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0))
+    let marginTop
+    if (this.props.forceNavigation) {
+      marginTop = 0
+    } else {
+      marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
+    }
+
+    if (this.props.desktop) {
+      marginTop = 0
+    }
 
     return (<main style={{
       marginTop: `${marginTop}px`
     }}>
-      { components.map(c => this.renderComponent(c, index++)) }
+      {components.map(c => this.renderComponent(c, index++))}
     </main>)
   }
 
-  render () {
+  render() {
     return (<div style={this.styles.container} ref={c => { this.container = c }}>
 
-      { this.renderDrawer() }
-      { this.renderNavigation() }
-      { this.renderCover() }
-      { this.renderPrimary() }
+      {this.renderDrawer()}
+      {this.renderNavigation()}
+      {this.renderCover()}
+      {this.renderPrimary()}
 
       <style jsx global>{`{
         :root {
@@ -256,7 +270,7 @@ export default class DefaultLayout extends PureComponent {
         html {
           font-weight: 300;
           font-family: Roboto Condensed, sans-serif;
-          color: #ffffff;
+          color: #ffffff; 
         }
 
         pre {
