@@ -38,10 +38,6 @@ var _Typography = require('rmwc/Typography');
 
 var _antd = require('antd');
 
-var _eos = require('./eos.js');
-
-var _eos2 = _interopRequireDefault(_eos);
-
 var _Card = require('rmwc/Card');
 
 var _path = require('path');
@@ -267,7 +263,7 @@ var Cover = function (_Component) {
         { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-1090201794'
         },
         ' ',
-        _react2.default.createElement(_eos2.default, null)
+        _react2.default.createElement(Eos, null)
       );
     }
   }, {
