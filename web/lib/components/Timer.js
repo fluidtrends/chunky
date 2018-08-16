@@ -108,23 +108,39 @@ var Timer = function (_Component) {
     value: function renderText() {
       return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: this.state.period.text, style: {
           width: '90vw',
-          padding: '10px'
+          padding: '10px',
+          color: 'white'
         } }), _react2.default.createElement(_Text2.default, { source: this.state.period.text, style: {
           width: '70vw',
+          color: 'white',
           paddingBottom: '10px'
         } }));
+    }
+  }, {
+    key: 'renderSimpleText',
+    value: function renderSimpleText() {
+      return _react2.default.createElement(
+        _Typography.Typography,
+        { use: 'display1', style: { margin: '10px', textShadow: '2px 2px 5px #607D8B' } },
+        this.state.period.text
+      );
+    }
+  }, {
+    key: 'renderInfo',
+    value: function renderInfo() {
+      return _react2.default.createElement(
+        _Typography.Typography,
+        { use: 'title', style: { marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' } },
+        this.state.period.info
+      );
     }
   }, {
     key: 'renderAction',
     value: function renderAction() {
       return _react2.default.createElement(
         _Button.Button,
-        { onClick: this.triggerEvent(), raised: true, style: { height: '64px' }, theme: 'secondary-bg text-primary-on-secondary' },
-        _react2.default.createElement(
-          _Typography.Typography,
-          { use: 'headline', style: { margin: '10px' } },
-          this.props.actionTitle
-        )
+        { onClick: this.state.period.onAction || this.triggerEvent(), raised: true, style: { padding: '0 20px' }, theme: 'secondary-bg text-primary-on-secondary' },
+        this.state.period.actionTitle
       );
     }
   }, {
@@ -147,21 +163,28 @@ var Timer = function (_Component) {
           seconds = _ref.seconds,
           completed = _ref.completed;
 
-      var size = this.props.isSmallScreen ? 'title' : 'display1';
+      var size = this.props.isSmallScreen ? 'title' : 'headline3';
       var margin = this.props.isSmallScreen ? '5' : '20';
+      var width = this.props.isSmallScreen ? '10' : '90';
+      var height = this.props.isSmallScreen ? '10' : '50';
 
+      var style = {
+        border: '2px solid #ffffff', color: this.props.textColor, padding: 2,
+        width: width,
+        height: height
+      };
       return _react2.default.createElement(
         _Chip.ChipSet,
-        { style: { paddingBottom: '30px' } },
+        null,
         _react2.default.createElement(
           _Chip.Chip,
-          { style: { border: '2px solid #ffffff', color: this.props.textColor } },
+          { style: style },
           _react2.default.createElement(
             _Typography.Typography,
-            { use: size, style: { margin: margin + 'px' } },
+            { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
               _Chip.ChipText,
-              null,
+              { style: { marginLeft: 5 } },
               days,
               'd'
             )
@@ -169,10 +192,10 @@ var Timer = function (_Component) {
         ),
         _react2.default.createElement(
           _Chip.Chip,
-          { style: { border: '2px solid #ffffff', color: this.props.textColor } },
+          { style: style },
           _react2.default.createElement(
             _Typography.Typography,
-            { use: size, style: { margin: margin + 'px' } },
+            { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
               _Chip.ChipText,
               null,
@@ -183,10 +206,10 @@ var Timer = function (_Component) {
         ),
         _react2.default.createElement(
           _Chip.Chip,
-          { style: { border: '2px solid #ffffff', color: this.props.textColor } },
+          { style: style },
           _react2.default.createElement(
             _Typography.Typography,
-            { use: size, style: { margin: margin + 'px' } },
+            { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
               _Chip.ChipText,
               null,
@@ -197,10 +220,10 @@ var Timer = function (_Component) {
         ),
         _react2.default.createElement(
           _Chip.Chip,
-          { style: { border: '2px solid #ffffff', color: this.props.textColor } },
+          { style: style },
           _react2.default.createElement(
             _Typography.Typography,
-            { use: size, style: { margin: margin + 'px' } },
+            { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
               _Chip.ChipText,
               null,
@@ -215,7 +238,7 @@ var Timer = function (_Component) {
     key: 'renderClock',
     value: function renderClock() {
       var size = this.props.isSmallScreen ? 'title' : 'headline';
-      var margin = '50';
+      var margin = '20';
 
       return _react2.default.createElement(
         _Typography.Typography,
@@ -225,15 +248,7 @@ var Timer = function (_Component) {
           zeroPadLength: 3,
           onTick: this._clockTick,
           onComplete: this._onComplete,
-          renderer: this._clockRenderer }),
-        'Period ends on ',
-        _react2.default.createElement(
-          'strong',
-          null,
-          ' ',
-          this.state.period.until,
-          ' '
-        )
+          renderer: this._clockRenderer })
       );
     }
   }, {
@@ -258,7 +273,7 @@ var Timer = function (_Component) {
       return _react2.default.createElement(
         'div',
         { style: {
-            color: this.props.textColor,
+            color: 'white',
             position: 'relative',
             display: 'flex',
             flex: 1,
@@ -267,9 +282,11 @@ var Timer = function (_Component) {
             backgroundColor: this.props.backgroundColor,
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center' } },
-        this.renderText(),
+            justifyContent: 'center'
+          } },
+        this.renderSimpleText(),
         this.renderClock(),
+        this.renderInfo(),
         this.renderAction()
       );
     }

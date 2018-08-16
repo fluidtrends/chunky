@@ -143,6 +143,11 @@ var DefaultLayout = function (_PureComponent) {
       if (this.props.desktop) {
         return _react2.default.createElement('div', null);
       }
+
+      if (this.props.noFooter) {
+        return _react2.default.createElement('div', null);
+      }
+
       return _react2.default.createElement(_Footer2.default, _extends({
         index: 9999,
         id: 'footer'
@@ -269,7 +274,16 @@ var DefaultLayout = function (_PureComponent) {
 
       var components = this.props.children || [];
       var index = 0;
-      var marginTop = this.props.desktop ? 0 : this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
+      var marginTop = void 0;
+      if (this.props.forceNavigation) {
+        marginTop = 0;
+      } else {
+        marginTop = this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
+      }
+
+      if (this.props.desktop) {
+        marginTop = 0;
+      }
 
       return _react2.default.createElement(
         'main',
@@ -290,14 +304,14 @@ var DefaultLayout = function (_PureComponent) {
         'div',
         { style: this.styles.container, ref: function ref(c) {
             _this4.container = c;
-          }, className: _style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
+          }, className: _style2.default.dynamic([['521845962', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['521845962', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
         },
         this.renderDrawer(),
         this.renderNavigation(),
         this.renderCover(),
         this.renderPrimary(),
         _react2.default.createElement(_style2.default, {
-          styleId: '3825890534',
+          styleId: '521845962',
           css: ':root{--mdc-theme-primary:' + this.props.theme.primaryColor + ';--mdc-theme-secondary:' + this.props.theme.secondaryColor + ';font-family:Roboto Condensed,sans-serif;}html{font-weight:300;font-family:Roboto Condensed,sans-serif;color:#ffffff;}pre{background-color:#F5F5F5;color:#455A64;text-align:left;padding:20px;width:90%;}.text{text-align:left;}a{-webkit-text-decoration:none;text-decoration:none;}h1{font-weight:300;font-size:40px;text-align:center;}h2{font-weight:300;font-size:32px;text-align:center;}h3{font-weight:300;font-size:24px;text-align:left;}p{font-size:20px;text-align:left;}.animation-fadeIn-appear{opacity:0.01;}.animation-fadeIn-appear.animation-fadeIn-appear-active{opacity:1;-webkit-transition:opacity .5s ease-in;transition:opacity .5s ease-in;}',
           dynamic: [this.props.theme.primaryColor, this.props.theme.secondaryColor]
         })
@@ -348,8 +362,8 @@ var DefaultLayout = function (_PureComponent) {
   }, {
     key: 'theme',
     get: function get() {
-      var navigationColor = this.navigationUncover ? 'rgba(0,0,0,0)' : this.props.theme.navigationColor;
-      var navigationTintColor = this.navigationUncover ? '#FFFFFF' : this.props.theme.navigationTintColor;
+      var navigationColor = this.navigationUncover || this.props.forceNavigation ? 'rgba(0,0,0,0)' : this.props.theme.navigationColor;
+      var navigationTintColor = this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor;
 
       return Object.assign({}, this.props.theme, {
         navigationColor: navigationColor, navigationTintColor: navigationTintColor

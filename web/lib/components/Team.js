@@ -95,12 +95,15 @@ var Team = function (_Component) {
         return _react2.default.createElement('div', null);
       }
 
+      var width = this.props.small ? 100 : 220;
+      var height = this.props.small ? 100 : 220;
+
       var style = {
         alignSelf: 'center',
         marginTop: '20px',
         objectFit: 'cover',
-        height: 220,
-        width: 220,
+        height: height,
+        width: width,
         borderRadius: '50%',
         objectPosition: 'center center'
       };
@@ -132,12 +135,15 @@ var Team = function (_Component) {
           text = item.text;
 
 
+      var width = this.props.small ? 230 : 320;
+      var height = this.props.small ? 340 : 540;
+
       return _react2.default.createElement(
         _Card.Card,
         {
           style: {
-            width: '320px',
-            height: '540px',
+            width: width,
+            height: height,
             margin: 20,
             textAlign: 'center'
           },
@@ -259,6 +265,8 @@ var Team = function (_Component) {
   }, {
     key: 'renderSection',
     value: function renderSection(section, index) {
+
+      var style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : {};
       return _react2.default.createElement(
         'div',
         {
@@ -267,7 +275,7 @@ var Team = function (_Component) {
         },
         _react2.default.createElement(
           _Typography.Typography,
-          { use: 'display1', tag: 'h1' },
+          { use: 'display1', tag: 'h1', style: style },
           section.title
         ),
         _react2.default.createElement(
@@ -322,6 +330,7 @@ var Team = function (_Component) {
       if (!this.props.sections) {
         return _react2.default.createElement('div', null);
       }
+
       return _react2.default.createElement(
         'div',
         {
@@ -332,7 +341,6 @@ var Team = function (_Component) {
             flex: 1,
             paddingTop: '20px',
             paddingBottom: '50px',
-            backgroundColor: this.props.backgroundColor,
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center'
