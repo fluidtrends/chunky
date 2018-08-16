@@ -18,7 +18,7 @@ const processDeepLink = function () {
 protocol.registerStandardSchemes(['carmel'])
 
 const isDevMode = process.execPath.match(/[\\/]electron/)
-if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
+// if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 
 const start = async () => {
   startDesktop({ ipcMain, mainWindow })

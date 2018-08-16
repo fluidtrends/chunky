@@ -91,8 +91,9 @@ var Media = function (_PureComponent) {
           },
           url: this.props.video,
           playing: this.props.playing,
-          width: '100vw',
-          height: '100vh'
+          width: this.props.width || '100vw',
+          height: this.props.height || '100vh',
+          style: this.props.style
         });
       }
 

@@ -18,12 +18,16 @@ function buildForPlatform (dir, outDir, platform) {
 
 function build (options) {
   const dir = path.resolve(options.dir)
-  const outDir = path.resolve(options.dir, 'desktop', 'build')
+  const buildDir = path.resolve(options.dir, '.chunky')
+  const outDir = path.resolve(buildDir, 'desktop')
+
+  if (fs.existsSync(buildDir)) {
+    fs.removeSync(buildDir)
+  }
+
+  fs.mkdirsSync(outDir)
 
   const includePath = path.resolve(options.dir, 'node_modules', 'react-electron-chunky', 'include')
-  process.env.CPPFLAGS = `-I${path.resolve(includePath)}`
-
-  if (fs.existsSync(outDir)) { fs.removeSync(outDir) }
 
   if (options.config && options.config.build && options.config.build.platforms) {
     return Promise.all(options.config.build.platforms.map(p => buildForPlatform(dir, outDir, p)))

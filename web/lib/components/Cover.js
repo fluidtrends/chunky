@@ -8,6 +8,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
+var _style = require('styled-jsx/style');
+
+var _style2 = _interopRequireDefault(_style);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -24,11 +28,23 @@ var _Media = require('./Media');
 
 var _Media2 = _interopRequireDefault(_Media);
 
-var _Icon = require('rmwc/Icon');
+var _Timer = require('./Timer');
+
+var _Timer2 = _interopRequireDefault(_Timer);
 
 var _Button = require('rmwc/Button');
 
 var _Typography = require('rmwc/Typography');
+
+var _antd = require('antd');
+
+var _eos = require('./eos.js');
+
+var _eos2 = _interopRequireDefault(_eos);
+
+var _Card = require('rmwc/Card');
+
+var _path = require('path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80,10 +96,144 @@ var Cover = function (_Component) {
       );
     }
   }, {
+    key: 'renderIcons',
+    value: function renderIcons() {
+      var _this2 = this;
+
+      if (!this.props.social) {
+        return;
+      }
+
+      var margin = this.props.isSmallScreen ? '0 0 5px 0' : '0 95px 35px 0';
+      var align = this.props.isSmallScreen ? 'center' : 'flex-end';
+      var social = this.props.social;
+
+      return _react2.default.createElement(
+        'div',
+        { style: { display: 'flex', flexDirection: 'row', alignItems: 'flex-end', alignSelf: align, margin: margin } },
+        Object.keys(social).map(function (key) {
+          return _this2.renderIcon(social[key], key);
+        })
+      );
+    }
+  }, {
+    key: 'renderIcon',
+    value: function renderIcon(props, key) {
+      var size = this.props.isSmallScreen ? 20 : 28;
+
+      return _react2.default.createElement(
+        'div',
+        {
+          className: 'jsx-1090201794' + ' ' + 'jsx-1090201794'
+        },
+        _react2.default.createElement(_antd.Icon, {
+          type: key,
+          onClick: this.onLinkClick.bind(this, props.url),
+          className: 'icon',
+          style: {
+            cursor: "pointer",
+            fontSize: size,
+            padding: "10px"
+          }
+        }),
+        _react2.default.createElement(_style2.default, {
+          styleId: '1090201794',
+          css: 'div.jsx-1090201794 .icon{color:' + '#CFD8DC' + ';}div.jsx-1090201794 .icon:hover{color:' + '#00bcd4' + ';}'
+        })
+      );
+    }
+  }, {
+    key: 'onLinkClick',
+    value: function onLinkClick(url) {
+      window.open(url, '_blank');
+    }
+  }, {
+    key: 'renderIcoContent',
+    value: function renderIcoContent() {
+      if (this.props.video) {
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { style: {
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,' + this.props.opacity + ')',
+            width: '100vw',
+            height: '100vh',
+            top: 0,
+            left: 0,
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'space-around',
+            textAlign: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }, className: 'jsx-1090201794'
+        },
+        _react2.default.createElement('div', { style: { display: 'flex', flex: 1 }, className: 'jsx-1090201794'
+        }),
+        _react2.default.createElement(
+          'div',
+          { style: {
+              display: 'flex',
+              flex: 3,
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
+            }, className: 'jsx-1090201794'
+          },
+          this.renderCoverTitle(),
+          this.renderCoverSubtitle()
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: { display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }, className: 'jsx-1090201794'
+          },
+          this.renderLogos(),
+          this.renderCoverTimeline()
+        ),
+        this.renderIcons()
+      );
+    }
+  }, {
     key: 'renderCoverTitle',
     value: function renderCoverTitle() {
       if (!this.props.title) {
-        return _react2.default.createElement('div', null);
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
+      }
+      return _react2.default.createElement(
+        _Typography.Typography,
+        { use: 'display2', style: { margin: '20px', color: this.props.color } },
+        ' ',
+        this.props.title,
+        ' '
+      );
+    }
+  }, {
+    key: 'renderCoverTimeline',
+    value: function renderCoverTimeline() {
+      var backgroundColor = "#00ACC1",
+          textColor = "#ffffff";
+
+      return _react2.default.createElement(
+        'div',
+        { style: { maxWidth: 450, maxHeight: 300 }, className: 'jsx-1090201794'
+        },
+        _react2.default.createElement(_Timer2.default, { periods: this.props.timedPeriods, textColor: textColor, simple: true, actionTitle: 'Buy tokens', onAction: this.triggerEvent() })
+      );
+    }
+  }, {
+    key: 'renderIcoCoverTitle',
+    value: function renderIcoCoverTitle() {
+      if (!this.props.title) {
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
       }
       return _react2.default.createElement(
         _Typography.Typography,
@@ -97,7 +247,9 @@ var Cover = function (_Component) {
     key: 'renderCoverSubtitle',
     value: function renderCoverSubtitle() {
       if (!this.props.subtitle) {
-        return _react2.default.createElement('div', null);
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
       }
       return _react2.default.createElement(
         _Typography.Typography,
@@ -108,10 +260,42 @@ var Cover = function (_Component) {
       );
     }
   }, {
+    key: 'renderLogos',
+    value: function renderLogos() {
+      return _react2.default.createElement(
+        'div',
+        { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-1090201794'
+        },
+        ' ',
+        _react2.default.createElement(_eos2.default, null)
+      );
+    }
+  }, {
+    key: 'renderVideo',
+    value: function renderVideo() {
+      if (this.props.isSmallScreen) {
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
+      }
+
+      var backgroundColor = "#00ACC1",
+          textColor = "#ffffff";
+
+      return _react2.default.createElement(
+        'div',
+        { style: { padding: 20, width: 450, height: 300, position: 'relative' }, className: 'jsx-1090201794'
+        },
+        _react2.default.createElement(_Media2.default, { video: this.props.introVideo, width: 450, height: 300, style: { position: 'absolute', top: 0, left: 0 } })
+      );
+    }
+  }, {
     key: 'renderCoverAction',
     value: function renderCoverAction() {
       if (!this.props.primaryActionTitle) {
-        return _react2.default.createElement('div', null);
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
       }
       return _react2.default.createElement(
         _Button.Button,
@@ -120,23 +304,6 @@ var Cover = function (_Component) {
         ' ',
         this.props.primaryActionTitle,
         ' '
-      );
-    }
-  }, {
-    key: 'renderDownArrow',
-    value: function renderDownArrow() {
-      return _react2.default.createElement(
-        'div',
-        { style: {
-            bottom: '10px',
-            position: 'absolute',
-            display: 'flex',
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
-          } },
-        _react2.default.createElement(_Icon.Icon, { style: { fontSize: '30px' }, use: 'keyboard_arrow_down' })
       );
     }
   }, {
@@ -156,7 +323,8 @@ var Cover = function (_Component) {
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'column'
-          } },
+          }, className: 'jsx-1090201794'
+        },
         _react2.default.createElement(
           _Typography.Typography,
           { use: 'display1', style: { margin: '20px', color: this.props.color } },
@@ -181,7 +349,8 @@ var Cover = function (_Component) {
             justifyContent: 'flex-end',
             alignItems: 'flex-start',
             flexDirection: 'column'
-          } },
+          }, className: 'jsx-1090201794'
+        },
         _react2.default.createElement(
           _Typography.Typography,
           { use: 'display2', style: { margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color } },
@@ -195,7 +364,9 @@ var Cover = function (_Component) {
     key: 'renderMedia',
     value: function renderMedia(style, playing, innerHeight) {
       if (!this.props.image && !this.props.video) {
-        return _react2.default.createElement('div', null);
+        return _react2.default.createElement('div', {
+          className: 'jsx-1090201794'
+        });
       }
 
       return _react2.default.createElement(_Media2.default, {
@@ -225,7 +396,8 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          } },
+          }, className: 'jsx-1090201794'
+        },
         this.renderMedia(coverStyle, coverPlaying),
         this.renderDefaultContent()
       );
@@ -238,7 +410,8 @@ var Cover = function (_Component) {
         backgroundColor: this.props.backgroundColor,
         height: height + 'px',
         objectFit: 'cover',
-        objectPosition: 'center center' };
+        objectPosition: 'center center'
+      };
       var coverPlaying = this.props.scroll < 200;
 
       return _react2.default.createElement(
@@ -252,7 +425,8 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          } },
+          }, className: 'jsx-1090201794'
+        },
         this.renderMedia(coverStyle, coverPlaying),
         this.renderSimpleContent(height, title)
       );
@@ -266,7 +440,8 @@ var Cover = function (_Component) {
         height: height + 'px',
         backgroundColor: this.props.backgroundColor,
         objectFit: 'cover',
-        objectPosition: 'center center' };
+        objectPosition: 'center center'
+      };
       var coverPlaying = this.props.scroll < 200;
 
       return _react2.default.createElement(
@@ -281,9 +456,34 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          } },
+          }, className: 'jsx-1090201794'
+        },
         this.renderMedia(coverStyle, coverPlaying, height - 100 + 'px'),
         this.renderPresentationContent()
+      );
+    }
+  }, {
+    key: 'renderIco',
+    value: function renderIco(title) {
+      var height = this.props.height;
+      var coverStyle = { width: '100%', height: height + 'px', objectFit: 'cover', objectPosition: 'center center' };
+      var coverPlaying = this.props.scroll < 200;
+
+      return _react2.default.createElement(
+        'div',
+        { style: {
+            backgroundColor: this.props.backgroundColor,
+            marginTop: this.props.offset + 'px',
+            height: height + 'px',
+            display: 'flex',
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }, className: 'jsx-1090201794'
+        },
+        this.renderMedia(coverStyle, coverPlaying),
+        this.renderIcoContent()
       );
     }
   }, {
@@ -301,6 +501,8 @@ var Cover = function (_Component) {
           return this.renderSimple(this.simpleHeight, this.props.title);
         case 'menu':
           return this.renderMenu();
+        case 'ico':
+          return this.renderIco(this.props.title);
         default:
           return this.renderDefault();
       }

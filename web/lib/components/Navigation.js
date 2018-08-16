@@ -51,13 +51,16 @@ var Navigation = function (_PureComponent) {
     value: function renderNavigationMenuItem(item, index) {
       var MenuIcon = _react2.default.createElement(_Toolbar.ToolbarMenuIcon, { onClick: this._onMenuItem(item), use: item.icon, style: {
           color: this.props.theme.navigationTintColor,
-          marginRight: '0px' } });
+          marginRight: '0px'
+        } });
       var MenuButton = _react2.default.createElement(
         _Button.Button,
         { onClick: this._onMenuItem(item),
           style: {
             color: this.props.theme.navigationTintColor,
-            marginRight: '0px' } },
+            textShadow: this.props.theme.textShadow,
+            marginRight: '0px'
+          } },
         item.title
       );
       var MenuActionButton = _react2.default.createElement(
@@ -66,7 +69,8 @@ var Navigation = function (_PureComponent) {
           onClick: this._onMenuItem(item),
           style: {
             color: this.props.theme.navigationTintColor,
-            marginRight: '0px' } },
+            marginRight: '0px'
+          } },
         '' + item.title
       );
       return (0, _responsive.renderResponsive)('menuItem' + index++, _react2.default.createElement('div', null), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : MenuButton);
@@ -100,7 +104,8 @@ var Navigation = function (_PureComponent) {
       return _react2.default.createElement(
         _Toolbar.Toolbar,
         { waterfall: true, fixed: this.props.layout.fixed, style: {
-            backgroundColor: this.props.theme.navigationColor } },
+            backgroundColor: this.props.theme.navigationColor
+          } },
         _react2.default.createElement(
           _Toolbar.ToolbarRow,
           null,
