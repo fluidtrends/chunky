@@ -6,7 +6,6 @@ import Timer from './Timer'
 import { Button } from 'rmwc/Button'
 import { Typography } from 'rmwc/Typography'
 import { Icon } from "antd"
-import Eos from './eos.js'
 
 import {
   Card,
