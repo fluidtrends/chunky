@@ -69,19 +69,19 @@ export default class Product {
         poll: true,
         aggregateTimeout: 100
       },
-      // inline: true,
-      // quiet: true,
-      // noInfo: true,
-      // stats: {
-      //   assets: false,
-      //   colors: true,
-      //   version: false,
-      //   hash: false,
-      //   timings: false,
-      //   chunks: false,
-      //   chunkModules: false,
-      //   modules: false
-      // },
+      inline: true,
+      quiet: true,
+      noInfo: true,
+      stats: {
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+      },
       port,
       contentBase: path.resolve(dir, '.chunky', 'web'),
       watchContentBase: true,
@@ -158,7 +158,7 @@ export default class Product {
             reject(error)
             return
           }
-          resolve()
+          resolve({ port, files: this.files })
         })
       } catch (e) {
         reject(e)
