@@ -122,7 +122,11 @@ export default class Product {
     })
   }
 
-  start ({ port }, cb) {
+  start ({ port, light }, cb) {
+    if (light) {
+      return this.loadFileList().then(() => ({ files: this.files, port }))
+    }
+
     return this.loadFileList().then(() => this.startServer({ port }, cb))
   }
 
