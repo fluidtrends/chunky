@@ -73,7 +73,6 @@ export default class Text extends Component {
   }
 
   renderComponent() {
-    this.loadContent()
     return (<div style={Object.assign({}, {
       textAlign: 'center',
       padding: '20px',
