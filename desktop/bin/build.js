@@ -9,6 +9,7 @@ function buildForPlatform (dir, outDir, platform) {
 
   return forgePackage({
     dir,
+    prune: false,
     interactive: true,
     platform: parts[0],
     arch: parts[1],
@@ -18,11 +19,10 @@ function buildForPlatform (dir, outDir, platform) {
 
 function build (options) {
   const dir = path.resolve(options.dir)
-  const buildDir = path.resolve(options.dir, '.chunky')
-  const outDir = path.resolve(buildDir, 'desktop')
+  const outDir = path.resolve(path.dirname(options.dir), `chunky-desktop-build-${Date.now()}`)
 
-  if (fs.existsSync(buildDir)) {
-    fs.removeSync(buildDir)
+  if (fs.existsSync(outDir)) {
+    fs.removeSync(outDir)
   }
 
   fs.mkdirsSync(outDir)

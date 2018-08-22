@@ -11,6 +11,7 @@ import fs from 'fs-extra'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import cpy from 'cpy'
+import recursive from 'recursive-readdir'
 
 export default class Product {
   constructor (props) {
@@ -57,6 +58,10 @@ export default class Product {
     return path.resolve(this.home, 'products', this.id)
   }
 
+  get files () {
+    return this._files
+  }
+
   compilerConfig ({ dir, port }) {
     return {
       host: '0.0.0.0',
@@ -64,19 +69,19 @@ export default class Product {
         poll: true,
         aggregateTimeout: 100
       },
-      // inline: true,
-      // quiet: true,
-      // noInfo: true,
-      // stats: {
-      //   assets: false,
-      //   colors: true,
-      //   version: false,
-      //   hash: false,
-      //   timings: false,
-      //   chunks: false,
-      //   chunkModules: false,
-      //   modules: false
-      // },
+      inline: true,
+      quiet: true,
+      noInfo: true,
+      stats: {
+        assets: false,
+        colors: true,
+        version: false,
+        hash: false,
+        timings: false,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+      },
       port,
       contentBase: path.resolve(dir, '.chunky', 'web'),
       watchContentBase: true,
@@ -85,7 +90,47 @@ export default class Product {
     }
   }
 
-  start ({ port }, cb) {
+  loadFileList () {
+    return new Promise((resolve, reject) => {
+      const ignore = (file, stats) => {
+        return path.basename(file).charAt(0) === '.' ||
+                 path.basename(file) === 'node_modules' ||
+                 path.basename(file) === 'package.json' ||
+                 path.basename(file) === 'README.md' ||
+                 path.basename(file) === 'desktop' ||
+                 path.basename(file) === 'docs' ||
+                 path.basename(file) === 'web' ||
+                 path.basename(file) === 'package-lock.json' ||
+                 path.basename(file) === 'assets' ||
+                 path.basename(file) === 'ios' ||
+                 path.basename(file) === 'android' ||
+                 path.basename(file) === 'cloud' ||
+                 path.basename(file) === 'blockchain'
+      }
+
+      recursive(this.dir, [ignore], (error, files) => {
+        if (error) {
+          reject(error)
+          return
+        }
+
+        this._files = files.map(file => {
+          return path.relative(this.dir, file)
+        })
+        resolve(this._files)
+      })
+    })
+  }
+
+  start ({ port, light }, cb) {
+    if (light) {
+      return this.loadFileList().then(() => ({ files: this.files, port }))
+    }
+
+    return this.loadFileList().then(() => this.startServer({ port }, cb))
+  }
+
+  startServer ({ port }, cb) {
     return new Promise((resolve, reject) => {
       try {
         process.noDeprecation = true
@@ -117,7 +162,7 @@ export default class Product {
             reject(error)
             return
           }
-          resolve()
+          resolve({ port, files: this.files })
         })
       } catch (e) {
         reject(e)
