@@ -83,7 +83,7 @@ export default class Product {
         modules: false
       },
       port,
-      contentBase: path.resolve(dir, '.chunky', 'web'),
+      contentBase: path.resolve(dir),
       watchContentBase: true,
       historyApiFallback: true,
       hot: true
