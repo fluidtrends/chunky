@@ -12,6 +12,7 @@ import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import cpy from 'cpy'
 import recursive from 'recursive-readdir'
+import deepmerge from 'deepmerge'
 
 export default class Product {
   constructor (props) {
@@ -168,21 +169,5 @@ export default class Product {
         reject(e)
       }
     })
-  }
-
-  create () {
-    if (this.exists) {
-      return Promise.reject(new Error('The product already exists'))
-    }
-
-    fs.mkdirsSync(this.dir)
-
-    const packageData = generatePackage({ name: this.name })
-    createFile({ root: this.dir, filepath: 'package.json', data: packageData, json: true })
-
-    const template = Object.assign({}, this.template, { name: this.name })
-    const fixture = this.fixture(template)
-
-    return installTemplate({ dir: this.dir, home: this.home, template, fixture })
   }
 }
