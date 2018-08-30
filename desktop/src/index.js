@@ -5,6 +5,9 @@ import 'babel-polyfill'
 import path from 'path'
 import startDesktop from '../../../desktop/start'
 require('fix-path')()
+require('electron-debug')({
+  enabled: true
+})
 
 let mainWindow
 let startWindow
@@ -16,9 +19,6 @@ const processDeepLink = function () {
 }
 
 protocol.registerStandardSchemes(['carmel'])
-
-const isDevMode = process.execPath.match(/[\\/]electron/)
-// if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 
 const start = async () => {
   startDesktop({ ipcMain, mainWindow })
@@ -60,11 +60,6 @@ const createWindow = async () => {
 
   mainWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'main.html')}`)
   startWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'start.html')}`)
-
-  if (isDevMode) {
-    await installExtension(REACT_DEVELOPER_TOOLS)
-    mainWindow.webContents.openDevTools()
-  }
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.setTitle(app.getName())

@@ -1,6 +1,6 @@
 {
   "name": "react-electron-chunky",
-  "version": "0.9.46",
+  "version": "0.9.47",
   "description": "The Chunky Desktop Framework",
   "scripts": {
     "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel"
@@ -48,11 +48,14 @@
     "babel-preset-stage-2": "^6.24.1",
     "command-exists": "^1.2.6",
     "cpy": "^6.0.0",
+    "devtron": "^1.4.0",
     "electron-compile": "^6.4.2",
+    "electron-debug": "^2.0.0",
     "electron-devtools-installer": "^2.1.0",
     "electron-fetch": "^1.1.0",
     "electron-forge": "^5.1.1",
     "electron-main-fetch": "^0.1.0",
+    "electron-react-devtools": "^0.5.3",
     "electron-squirrel-startup": "^1.0.0",
     "eslint": "^3",
     "eslint-config-airbnb": "^15",

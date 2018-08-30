@@ -23,6 +23,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 require('fix-path')();
+require('electron-debug')({
+  enabled: true
+});
 
 var mainWindow = void 0;
 var startWindow = void 0;
@@ -34,9 +37,6 @@ var processDeepLink = function processDeepLink() {
 };
 
 _electron.protocol.registerStandardSchemes(['carmel']);
-
-var isDevMode = process.execPath.match(/[\\/]electron/);
-// if (isDevMode) enableLiveReload({ strategy: 'react-hmr' })
 
 var start = function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -99,19 +99,6 @@ var createWindow = function () {
             mainWindow.loadURL('file://' + _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'main.html'));
             startWindow.loadURL('file://' + _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'start.html'));
 
-            if (!isDevMode) {
-              _context2.next = 8;
-              break;
-            }
-
-            _context2.next = 7;
-            return (0, _electronDevtoolsInstaller2.default)(_electronDevtoolsInstaller.REACT_DEVELOPER_TOOLS);
-
-          case 7:
-            mainWindow.webContents.openDevTools();
-
-          case 8:
-
             mainWindow.webContents.on('did-finish-load', function () {
               mainWindow.setTitle(_electron.app.getName());
 
@@ -138,7 +125,7 @@ var createWindow = function () {
               }
             });
 
-          case 12:
+          case 8:
           case 'end':
             return _context2.stop();
         }
