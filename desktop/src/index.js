@@ -6,7 +6,7 @@ import path from 'path'
 import startDesktop from '../../../desktop/start'
 require('fix-path')()
 require('electron-debug')({
-  enabled: true
+  enabled: false
 })
 
 let mainWindow

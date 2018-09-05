@@ -24,7 +24,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 require('fix-path')();
 require('electron-debug')({
-  enabled: true
+  enabled: false
 });
 
 var mainWindow = void 0;

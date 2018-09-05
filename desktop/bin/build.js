@@ -19,7 +19,7 @@ function buildForPlatform (dir, outDir, platform) {
 
 function build (options) {
   const dir = path.resolve(options.dir)
-  const outDir = path.resolve(path.dirname(options.dir), `chunky-desktop-build-${Date.now()}`)
+  const outDir = path.resolve(path.dirname(options.dir), `chunky-desktop-build`)
 
   if (fs.existsSync(outDir)) {
     fs.removeSync(outDir)
