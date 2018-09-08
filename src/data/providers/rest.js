@@ -10,7 +10,7 @@ export default class RestDataProvider extends DataProvider {
   get defaults () {
     return {
       // Defaults
-      timeout: 10000,
+      timeout: 60000,
       headers: {
         'Content-Type': Config.API_JSON_CONTENT_TYPE,
         'Accept': Config.API_JSON_CONTENT_TYPE
