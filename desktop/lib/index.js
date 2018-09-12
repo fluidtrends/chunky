@@ -14,9 +14,9 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _start = require('../../../desktop/start');
+var _controller = require('../../../desktop/controller');
 
-var _start2 = _interopRequireDefault(_start);
+var _controller2 = _interopRequireDefault(_controller);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44,7 +44,7 @@ var start = function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            (0, _start2.default)({ ipcMain: _electron.ipcMain, mainWindow: mainWindow }).then(function (s) {
+            _controller2.default.start({ ipcMain: _electron.ipcMain, mainWindow: mainWindow }).then(function (s) {
               session = s;
               mainWindow.webContents.send('start', { session: session });
               setTimeout(function () {
@@ -69,6 +69,17 @@ var start = function () {
   };
 }();
 
+var destroyWindow = function destroyWindow() {
+  if (!_controller2.default) {
+    _electron.app.quit();
+    return;
+  }
+
+  _controller2.default.stop().then(function () {
+    return _electron.app.quit();
+  });
+};
+
 var createWindow = function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -82,6 +93,7 @@ var createWindow = function () {
               minHeight: 500,
               frame: false,
               resizable: false,
+              title: _electron.app.getName(),
               center: true,
               show: true
             });
@@ -91,6 +103,7 @@ var createWindow = function () {
               height: 800,
               center: true,
               minWidth: 1024,
+              title: _electron.app.getName(),
               minHeight: 800,
               show: false,
               backgroundColor: '#f5f5f5'
@@ -100,9 +113,7 @@ var createWindow = function () {
             startWindow.loadURL('file://' + _path2.default.join(_path2.default.dirname(__dirname), 'app', 'pages', 'start.html'));
 
             mainWindow.webContents.on('did-finish-load', function () {
-              mainWindow.setTitle(_electron.app.getName());
-
-              if (!_start2.default) {
+              if (!_controller2.default) {
                 startWindow.close();
                 mainWindow.show();
                 return;
@@ -111,8 +122,12 @@ var createWindow = function () {
               start();
             });
 
+            mainWindow.on('page-title-updated', function (evt) {
+              evt.preventDefault();
+            });
+
             mainWindow.on('closed', function () {
-              mainWindow = null;
+              destroyWindow();
             });
 
             startWindow.on('closed', function () {
@@ -125,7 +140,7 @@ var createWindow = function () {
               }
             });
 
-          case 8:
+          case 9:
           case 'end':
             return _context2.stop();
         }
@@ -152,7 +167,6 @@ var shouldQuit = _electron.app.makeSingleInstance(function (argv, workingDirecto
 });
 
 if (shouldQuit) {
-  _electron.globalShortcut.unregisterAll();
   _electron.app.quit();
 }
 
@@ -160,7 +174,6 @@ _electron.app.on('ready', createWindow);
 
 _electron.app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
-    _electron.globalShortcut.unregisterAll();
     _electron.app.quit();
   }
 });

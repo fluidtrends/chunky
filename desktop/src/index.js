@@ -1,9 +1,9 @@
-import { app, globalShortcut, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
+import { app, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
 import { enableLiveReload } from 'electron-compile'
 import 'babel-polyfill'
 import path from 'path'
-import startDesktop from '../../../desktop/start'
+import controller from '../../../desktop/controller'
 require('fix-path')()
 require('electron-debug')({
   enabled: false
@@ -21,7 +21,7 @@ const processDeepLink = function () {
 protocol.registerStandardSchemes(['carmel'])
 
 const start = async () => {
-  startDesktop({ ipcMain, mainWindow })
+  controller.start({ ipcMain, mainWindow })
       .then((s) => {
         session = s
         mainWindow.webContents.send('start', { session })
@@ -36,6 +36,15 @@ const start = async () => {
       })
 }
 
+const destroyWindow = () => {
+  if (!controller) {
+    app.quit()
+    return
+  }
+
+  controller.stop().then(() => app.quit())
+}
+
 const createWindow = async () => {
   startWindow = new BrowserWindow({
     width: 800,
@@ -44,6 +53,7 @@ const createWindow = async () => {
     minHeight: 500,
     frame: false,
     resizable: false,
+    title: app.getName(),
     center: true,
     show: true
   })
@@ -53,6 +63,7 @@ const createWindow = async () => {
     height: 800,
     center: true,
     minWidth: 1024,
+    title: app.getName(),
     minHeight: 800,
     show: false,
     backgroundColor: '#f5f5f5'
@@ -62,9 +73,7 @@ const createWindow = async () => {
   startWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'start.html')}`)
 
   mainWindow.webContents.on('did-finish-load', () => {
-    mainWindow.setTitle(app.getName())
-
-    if (!startDesktop) {
+    if (!controller) {
       startWindow.close()
       mainWindow.show()
       return
@@ -73,8 +82,12 @@ const createWindow = async () => {
     start()
   })
 
+  mainWindow.on('page-title-updated', (evt) => {
+    evt.preventDefault()
+  })
+
   mainWindow.on('closed', () => {
-    mainWindow = null
+    destroyWindow()
   })
 
   startWindow.on('closed', () => {
@@ -102,7 +115,6 @@ const shouldQuit = app.makeSingleInstance((argv, workingDirectory) => {
 })
 
 if (shouldQuit) {
-  globalShortcut.unregisterAll()
   app.quit()
 }
 
@@ -110,7 +122,6 @@ app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    globalShortcut.unregisterAll()
     app.quit()
   }
 })
