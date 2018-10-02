@@ -4,11 +4,11 @@ import ReactPlayer from 'react-player'
 import { renderResponsive } from '../utils/responsive'
 
 export default class Media extends PureComponent {
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  renderImage(name, src, placeholder) {
+  renderImage (name, src, placeholder) {
     return (
       <ProgressiveImage src={src} placeholder={placeholder}>
         {(src, loading) => {
@@ -33,7 +33,7 @@ export default class Media extends PureComponent {
     )
   }
 
-  renderResponsiveImage(image) {
+  renderResponsiveImage (image) {
     const placeholderImage = `${this.props.desktop ? '../../../../' : '/'}assets/placeholder.jpg`
 
     if (!image) {
@@ -58,13 +58,21 @@ export default class Media extends PureComponent {
     )
   }
 
-  render() {
+  onVideoPlayerEvent (type, data) {
+    this.props.onVideoPlayerEvent && this.props.onVideoPlayerEvent(type, data)
+  }
+
+  render () {
     if (this.props.video) {
       return (
         <ReactPlayer
           ref={player => {
             this.coverPlayer = player
           }}
+          onReady={() => this.onVideoPlayerEvent('ready', { player: this.coverPlayer })}
+          onProgress={(progress) => this.onVideoPlayerEvent('progress', { progress })}
+          onEnded={() => this.onVideoPlayerEvent('done', { })}
+          onError={(error) => this.onVideoPlayerEvent('error', { error })}
           url={this.props.video}
           playing={this.props.playing}
           width={this.props.width || '100vw'}

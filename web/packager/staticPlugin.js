@@ -25,6 +25,12 @@ class Plugin extends WebPlugin {
 
   onPageGeneration (compilation, data, done) {
     const main = this.loadMainModule(compilation)
+
+    if (!main) {
+      done(new Error('Could not load main module'))
+      return
+    }
+
     const route = data.plugin.options.route
 
     main.renderStaticPage(route)
