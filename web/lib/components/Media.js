@@ -80,6 +80,11 @@ var Media = function (_PureComponent) {
       return (0, _responsive.renderResponsive)(image.id, this.renderImage(this.props.image, image.data.images[0].path, image.data.placeholder), this.renderImage(this.props.image, image.data.images[1].path, image.data.placeholder));
     }
   }, {
+    key: 'onVideoPlayerEvent',
+    value: function onVideoPlayerEvent(type, data) {
+      this.props.onVideoPlayerEvent && this.props.onVideoPlayerEvent(type, data);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
@@ -88,6 +93,18 @@ var Media = function (_PureComponent) {
         return _react2.default.createElement(_reactPlayer2.default, {
           ref: function ref(player) {
             _this3.coverPlayer = player;
+          },
+          onReady: function onReady() {
+            return _this3.onVideoPlayerEvent('ready', { player: _this3.coverPlayer });
+          },
+          onProgress: function onProgress(progress) {
+            return _this3.onVideoPlayerEvent('progress', { progress: progress });
+          },
+          onEnded: function onEnded() {
+            return _this3.onVideoPlayerEvent('done', {});
+          },
+          onError: function onError(error) {
+            return _this3.onVideoPlayerEvent('error', { error: error });
           },
           url: this.props.video,
           playing: this.props.playing,

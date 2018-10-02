@@ -1,5 +1,4 @@
 const path = require('path')
-// const fs = require('fs-extra')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -8,14 +7,17 @@ const pages = require('./pages')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = (options) => {
+  const root = (options.root || options.dir)
+  const dir = options.dir
+
   return {
     entry: {
-      app: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'index.js')
+      app: path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'index.js')
     },
 
     output: {
       filename: 'chunky.js',
-      path: path.resolve(options.dir, '.chunky', 'web'),
+      path: path.resolve(dir, '.chunky', 'web'),
       publicPath: '/',
       libraryTarget: 'umd'
     },
@@ -23,7 +25,8 @@ module.exports = (options) => {
     resolve: {
       extensions: ['.js', '.json'],
       modules: [
-        path.resolve(options.dir),
+        path.resolve(dir),
+        path.resolve(root, 'node_modules'),
         'node_modules'
       ]
     },
@@ -97,23 +100,23 @@ module.exports = (options) => {
         {
           test: /\.js$/,
           include: [
-            path.resolve(options.dir, 'node_modules', 'react-chunky'),
-            path.resolve(options.dir, 'node_modules', 'react-dom-chunky'),
-            path.resolve(options.dir, 'chunks')
+            path.resolve(root, 'node_modules', 'react-chunky'),
+            path.resolve(root, 'node_modules', 'react-dom-chunky'),
+            path.resolve(dir, 'chunks')
           ],
           use: {
             loader: 'babel-loader',
             options: {
               presets: [
-                [path.resolve(options.dir, 'node_modules', 'babel-preset-env'), {
+                [path.resolve(root, 'node_modules', 'babel-preset-env'), {
                   loose: true,
                   modules: false
                 }],
-                path.resolve(options.dir, 'node_modules', 'babel-preset-react'),
-                path.resolve(options.dir, 'node_modules', 'babel-preset-stage-2')
+                path.resolve(root, 'node_modules', 'babel-preset-react'),
+                path.resolve(root, 'node_modules', 'babel-preset-stage-2')
               ],
               plugins: [
-                'styled-jsx/babel'
+                require.resolve('styled-jsx/babel')
               ]
             }
           }
@@ -128,8 +131,8 @@ module.exports = (options) => {
       new ExtractTextPlugin('chunky.css'),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new CopyWebpackPlugin([
-        { from: { glob: path.resolve(options.dir, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
-        { from: { glob: path.resolve(options.dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
+        { from: { glob: path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
+        { from: { glob: path.resolve(dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
       ])
     ].concat(pages(options)).concat([new StaticPlugin(Object.assign({}, options)),
       new UglifyJsPlugin({
