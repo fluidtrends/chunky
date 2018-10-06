@@ -304,14 +304,14 @@ var DefaultLayout = function (_PureComponent) {
         'div',
         { style: this.styles.container, ref: function ref(c) {
             _this4.container = c;
-          }, className: _style2.default.dynamic([['521845962', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['521845962', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
+          }, className: _style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) + ' ' + (_style2.default.dynamic([['3825890534', [this.props.theme.primaryColor, this.props.theme.secondaryColor]]]) || '')
         },
         this.renderDrawer(),
         this.renderNavigation(),
         this.renderCover(),
         this.renderPrimary(),
         _react2.default.createElement(_style2.default, {
-          styleId: '521845962',
+          styleId: '3825890534',
           css: ':root{--mdc-theme-primary:' + this.props.theme.primaryColor + ';--mdc-theme-secondary:' + this.props.theme.secondaryColor + ';font-family:Roboto Condensed,sans-serif;}html{font-weight:300;font-family:Roboto Condensed,sans-serif;color:#ffffff;}pre{background-color:#F5F5F5;color:#455A64;text-align:left;padding:20px;width:90%;}.text{text-align:left;}a{-webkit-text-decoration:none;text-decoration:none;}h1{font-weight:300;font-size:40px;text-align:center;}h2{font-weight:300;font-size:32px;text-align:center;}h3{font-weight:300;font-size:24px;text-align:left;}p{font-size:20px;text-align:left;}.animation-fadeIn-appear{opacity:0.01;}.animation-fadeIn-appear.animation-fadeIn-appear-active{opacity:1;-webkit-transition:opacity .5s ease-in;transition:opacity .5s ease-in;}',
           dynamic: [this.props.theme.primaryColor, this.props.theme.secondaryColor]
         })
@@ -344,7 +344,8 @@ var DefaultLayout = function (_PureComponent) {
         return this.navigationHeight;
       }
 
-      if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
+      if (this.hasCover && this.cover.navigation) {
+        // && !this.props.layout.fixed) {
         return -this.navigationHeight;
       }
 

@@ -5,7 +5,7 @@ import Media from './Media'
 import Timer from './Timer'
 import { Button } from 'rmwc/Button'
 import { Typography } from 'rmwc/Typography'
-import { Icon } from "antd"
+import { Icon } from 'antd'
 
 import {
   Card,
@@ -15,21 +15,20 @@ import {
   CardActions,
   CardActionButtons,
   CardActionIcons
-} from 'rmwc/Card';
-import { relative } from 'path';
-
+} from 'rmwc/Card'
+import { relative } from 'path'
 
 export default class Cover extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     super.componentDidMount()
   }
 
-  renderDefaultContent() {
+  renderDefaultContent () {
     if (this.props.video) {
       return <div />
     }
@@ -53,7 +52,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderIcons() {
+  renderIcons () {
     if (!this.props.social) {
       return
     }
@@ -68,35 +67,35 @@ export default class Cover extends Component {
     </div>
   }
 
-  renderIcon(props, key) {
+  renderIcon (props, key) {
     const size = this.props.isSmallScreen ? 20 : 28
 
     return <div><Icon
       type={key}
       onClick={this.onLinkClick.bind(this, props.url)}
-      className="icon"
+      className='icon'
       style={{
-        cursor: "pointer",
+        cursor: 'pointer',
         fontSize: size,
-        padding: "10px"
+        padding: '10px'
       }}
     />
       <style jsx>{`
           div :global(.icon) {
             color: ${'#CFD8DC'}
           }
-          div :global(.icon):hover {  
+          div :global(.icon):hover {
             color: ${'#00bcd4'}
           }
         `}</style>
     </div>
   }
 
-  onLinkClick(url) {
+  onLinkClick (url) {
     window.open(url, '_blank')
   }
 
-  renderIcoContent() {
+  renderIcoContent () {
     if (this.props.video) {
       return <div />
     }
@@ -134,54 +133,54 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderCoverTitle() {
+  renderCoverTitle () {
     if (!this.props.title) {
       return <div />
     }
     return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
   }
 
-  renderCoverTimeline() {
-    const backgroundColor = "#00ACC1",
-      textColor = "#ffffff"
+  renderCoverTimeline () {
+    const backgroundColor = '#00ACC1',
+      textColor = '#ffffff'
 
     return <div style={{ maxWidth: 450, maxHeight: 300 }}>
-      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle="Buy tokens" onAction={this.triggerEvent()} />
+      <Timer periods={this.props.timedPeriods} textColor={textColor} simple actionTitle='Buy tokens' onAction={this.triggerEvent()} />
     </div>
   }
 
-  renderIcoCoverTitle() {
+  renderIcoCoverTitle () {
     if (!this.props.title) {
       return <div />
     }
     return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
   }
 
-  renderCoverSubtitle() {
+  renderCoverSubtitle () {
     if (!this.props.subtitle) {
       return <div />
     }
     return <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
   }
 
-  renderLogos() {
+  renderLogos () {
     return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
   }
 
-  renderVideo() {
+  renderVideo () {
     if (this.props.isSmallScreen) {
       return <div />
     }
 
-    const backgroundColor = "#00ACC1",
-      textColor = "#ffffff"
+    const backgroundColor = '#00ACC1',
+      textColor = '#ffffff'
 
     return <div style={{ padding: 20, width: 450, height: 300, position: 'relative' }}>
       <Media video={this.props.introVideo} width={450} height={300} style={{ position: 'absolute', top: 0, left: 0 }} />
     </div>
   }
 
-  renderCoverAction() {
+  renderCoverAction () {
     if (!this.props.primaryActionTitle) {
       return <div />
     }
@@ -189,19 +188,19 @@ export default class Cover extends Component {
       style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
   }
 
-  get presentationHeight() {
+  get presentationHeight () {
     return 500
   }
 
-  get simpleHeight() {
+  get simpleHeight () {
     return 300
   }
 
-  get menuHeight() {
+  get menuHeight () {
     return 68
   }
 
-  renderSimpleContent(height, title) {
+  renderSimpleContent (height, title) {
     return (<div style={{
       position: 'absolute',
       backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
@@ -219,7 +218,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderPresentationContent() {
+  renderPresentationContent () {
     const title = this.props.title
     return (<div style={{
       position: 'absolute',
@@ -235,7 +234,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderMedia(style, playing, innerHeight) {
+  renderMedia (style, playing, innerHeight) {
     if (!this.props.image && !this.props.video) {
       return <div />
     }
@@ -250,11 +249,12 @@ export default class Cover extends Component {
       style={style} />
   }
 
-  renderDefault(title) {
+  renderDefault (title) {
     const height = this.props.height
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
+    console.log(this.props.offset)
     return (<div style={{
       backgroundColor: this.props.backgroundColor,
       marginTop: `${this.props.offset}px`,
@@ -270,7 +270,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderSimple(height, title) {
+  renderSimple (height, title) {
     const coverStyle = {
       width: '100%',
       backgroundColor: this.props.backgroundColor,
@@ -295,7 +295,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderPresentation() {
+  renderPresentation () {
     const height = this.presentationHeight
     const coverStyle = {
       width: '100%',
@@ -322,7 +322,7 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderIco(title) {
+  renderIco (title) {
     const height = this.props.height
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
@@ -342,15 +342,15 @@ export default class Cover extends Component {
     </div>)
   }
 
-  renderMenu() {
+  renderMenu () {
     return this.renderSimple(this.menuHeight)
   }
 
-  get type() {
+  get type () {
     return this.props.type || 'default'
   }
 
-  render() {
+  render () {
     switch (this.type) {
       case 'presentation':
         return this.renderPresentation()

@@ -120,21 +120,21 @@ var Cover = function (_Component) {
       return _react2.default.createElement(
         'div',
         {
-          className: 'jsx-1090201794' + ' ' + 'jsx-1090201794'
+          className: 'jsx-3069546275' + ' ' + 'jsx-3069546275'
         },
         _react2.default.createElement(_antd.Icon, {
           type: key,
           onClick: this.onLinkClick.bind(this, props.url),
           className: 'icon',
           style: {
-            cursor: "pointer",
+            cursor: 'pointer',
             fontSize: size,
-            padding: "10px"
+            padding: '10px'
           }
         }),
         _react2.default.createElement(_style2.default, {
-          styleId: '1090201794',
-          css: 'div.jsx-1090201794 .icon{color:' + '#CFD8DC' + ';}div.jsx-1090201794 .icon:hover{color:' + '#00bcd4' + ';}'
+          styleId: '3069546275',
+          css: 'div.jsx-3069546275 .icon{color:' + '#CFD8DC' + ';}div.jsx-3069546275 .icon:hover{color:' + '#00bcd4' + ';}'
         })
       );
     }
@@ -148,7 +148,7 @@ var Cover = function (_Component) {
     value: function renderIcoContent() {
       if (this.props.video) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
 
@@ -167,9 +167,9 @@ var Cover = function (_Component) {
             textAlign: 'center',
             alignItems: 'center',
             flexDirection: 'column'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
-        _react2.default.createElement('div', { style: { display: 'flex', flex: 1 }, className: 'jsx-1090201794'
+        _react2.default.createElement('div', { style: { display: 'flex', flex: 1 }, className: 'jsx-3069546275'
         }),
         _react2.default.createElement(
           'div',
@@ -179,14 +179,14 @@ var Cover = function (_Component) {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'column'
-            }, className: 'jsx-1090201794'
+            }, className: 'jsx-3069546275'
           },
           this.renderCoverTitle(),
           this.renderCoverSubtitle()
         ),
         _react2.default.createElement(
           'div',
-          { style: { display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }, className: 'jsx-1090201794'
+          { style: { display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'space-around', width: '100%', padding: '0 50px' }, className: 'jsx-3069546275'
           },
           this.renderLogos(),
           this.renderCoverTimeline()
@@ -199,7 +199,7 @@ var Cover = function (_Component) {
     value: function renderCoverTitle() {
       if (!this.props.title) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
       return _react2.default.createElement(
@@ -213,12 +213,12 @@ var Cover = function (_Component) {
   }, {
     key: 'renderCoverTimeline',
     value: function renderCoverTimeline() {
-      var backgroundColor = "#00ACC1",
-          textColor = "#ffffff";
+      var backgroundColor = '#00ACC1',
+          textColor = '#ffffff';
 
       return _react2.default.createElement(
         'div',
-        { style: { maxWidth: 450, maxHeight: 300 }, className: 'jsx-1090201794'
+        { style: { maxWidth: 450, maxHeight: 300 }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(_Timer2.default, { periods: this.props.timedPeriods, textColor: textColor, simple: true, actionTitle: 'Buy tokens', onAction: this.triggerEvent() })
       );
@@ -228,7 +228,7 @@ var Cover = function (_Component) {
     value: function renderIcoCoverTitle() {
       if (!this.props.title) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
       return _react2.default.createElement(
@@ -244,7 +244,7 @@ var Cover = function (_Component) {
     value: function renderCoverSubtitle() {
       if (!this.props.subtitle) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
       return _react2.default.createElement(
@@ -260,7 +260,7 @@ var Cover = function (_Component) {
     value: function renderLogos() {
       return _react2.default.createElement(
         'div',
-        { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-1090201794'
+        { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-3069546275'
         },
         ' ',
         _react2.default.createElement(Eos, null)
@@ -271,16 +271,16 @@ var Cover = function (_Component) {
     value: function renderVideo() {
       if (this.props.isSmallScreen) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
 
-      var backgroundColor = "#00ACC1",
-          textColor = "#ffffff";
+      var backgroundColor = '#00ACC1',
+          textColor = '#ffffff';
 
       return _react2.default.createElement(
         'div',
-        { style: { padding: 20, width: 450, height: 300, position: 'relative' }, className: 'jsx-1090201794'
+        { style: { padding: 20, width: 450, height: 300, position: 'relative' }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(_Media2.default, { video: this.props.introVideo, width: 450, height: 300, style: { position: 'absolute', top: 0, left: 0 } })
       );
@@ -290,7 +290,7 @@ var Cover = function (_Component) {
     value: function renderCoverAction() {
       if (!this.props.primaryActionTitle) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
       return _react2.default.createElement(
@@ -319,7 +319,7 @@ var Cover = function (_Component) {
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'column'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(
           _Typography.Typography,
@@ -345,7 +345,7 @@ var Cover = function (_Component) {
             justifyContent: 'flex-end',
             alignItems: 'flex-start',
             flexDirection: 'column'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(
           _Typography.Typography,
@@ -361,7 +361,7 @@ var Cover = function (_Component) {
     value: function renderMedia(style, playing, innerHeight) {
       if (!this.props.image && !this.props.video) {
         return _react2.default.createElement('div', {
-          className: 'jsx-1090201794'
+          className: 'jsx-3069546275'
         });
       }
 
@@ -381,6 +381,7 @@ var Cover = function (_Component) {
       var coverStyle = { width: '100%', height: height + 'px', objectFit: 'cover', objectPosition: 'center center' };
       var coverPlaying = this.props.scroll < 200;
 
+      console.log(this.props.offset);
       return _react2.default.createElement(
         'div',
         { style: {
@@ -392,7 +393,7 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         this.renderMedia(coverStyle, coverPlaying),
         this.renderDefaultContent()
@@ -421,7 +422,7 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         this.renderMedia(coverStyle, coverPlaying),
         this.renderSimpleContent(height, title)
@@ -452,7 +453,7 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         this.renderMedia(coverStyle, coverPlaying, height - 100 + 'px'),
         this.renderPresentationContent()
@@ -476,7 +477,7 @@ var Cover = function (_Component) {
             alignItems: 'center',
             flexDirection: 'column',
             justifyContent: 'center'
-          }, className: 'jsx-1090201794'
+          }, className: 'jsx-3069546275'
         },
         this.renderMedia(coverStyle, coverPlaying),
         this.renderIcoContent()
