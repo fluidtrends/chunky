@@ -109,7 +109,7 @@
     "require-from-string": "^2.0.1",
     "responsive-loader": "^1.1.0",
     "rimraf": "^2.6.0",
-    "rmwc": "1.1.0",
+    "rmwc": "1.9.0",
     "sass-loader": "^6.0.6",
     "sharp": "^0.20.1",
     "static-site-generator-webpack-plugin": "^3.4.1",
