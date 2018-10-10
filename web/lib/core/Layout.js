@@ -344,8 +344,7 @@ var DefaultLayout = function (_PureComponent) {
         return this.navigationHeight;
       }
 
-      if (this.hasCover && this.cover.navigation) {
-        // && !this.props.layout.fixed) {
+      if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
         return -this.navigationHeight;
       }
 
@@ -358,13 +357,17 @@ var DefaultLayout = function (_PureComponent) {
         return true;
       }
 
+      if (!this.hasCover && this.props.forceNavigation) {
+        return this.props.scroll < 10;
+      }
+
       return this.hasCover && this.cover.navigation && this.props.scroll < 10;
     }
   }, {
     key: 'theme',
     get: function get() {
-      var navigationColor = this.navigationUncover || this.props.forceNavigation ? 'rgba(0,0,0,0)' : this.props.theme.navigationColor;
-      var navigationTintColor = this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor;
+      var navigationColor = this.navigationUncover || this.props.forceNavigation && this.hasCover ? 'rgba(0,0,0,0)' : this.props.theme.navigationColor;
+      var navigationTintColor = this.navigationUncover || this.props.forceNavigation && this.hasCover ? '#FFFFFF' : this.props.theme.navigationTintColor;
 
       return Object.assign({}, this.props.theme, {
         navigationColor: navigationColor, navigationTintColor: navigationTintColor

@@ -42,7 +42,7 @@ export default class DefaultLayout extends PureComponent {
       return this.navigationHeight
     }
 
-    if (this.hasCover && this.cover.navigation) { // && !this.props.layout.fixed) {
+    if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
       return -this.navigationHeight
     }
 
@@ -52,6 +52,10 @@ export default class DefaultLayout extends PureComponent {
   get navigationUncover () {
     if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
       return true
+    }
+
+    if (!this.hasCover && this.props.forceNavigation) {
+      return (this.props.scroll < 10)
     }
 
     return (this.hasCover && this.cover.navigation && this.props.scroll < 10)
@@ -74,8 +78,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   get theme () {
-    const navigationColor = (this.navigationUncover || this.props.forceNavigation ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
-    const navigationTintColor = (this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor)
+    const navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    const navigationTintColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
       navigationColor, navigationTintColor
