@@ -204,10 +204,10 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'display2', style: { margin: '20px', color: this.props.color } },
+        { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
-        ' '
+        ' fffffssddddd'
       );
     }
   }, {
@@ -233,10 +233,10 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'display2', style: { margin: '20px', color: this.props.color } },
+        { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
-        ' '
+        ' ffffffff'
       );
     }
   }, {
@@ -249,7 +249,7 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'display1', style: { margin: '20px', color: this.props.color } },
+        { use: 'headline5', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.subtitle,
         ' '
@@ -323,10 +323,10 @@ var Cover = function (_Component) {
         },
         _react2.default.createElement(
           _typography.Typography,
-          { use: 'display1', style: { margin: '20px', color: this.props.color } },
+          { use: 'headline5', style: { margin: '20px', color: this.props.color } },
           ' ',
           title,
-          ' '
+          ' 2222'
         )
       );
     }
@@ -349,7 +349,7 @@ var Cover = function (_Component) {
         },
         _react2.default.createElement(
           _typography.Typography,
-          { use: 'display2', style: { margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color } },
+          { use: 'headline4', style: { margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color } },
           ' ',
           title,
           ' '

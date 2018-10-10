@@ -136,7 +136,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} fffffssddddd</Typography>
   }
 
   renderCoverTimeline () {
@@ -152,14 +152,14 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='display2' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} ffffffff</Typography>
   }
 
   renderCoverSubtitle () {
     if (!this.props.subtitle) {
       return <div />
     }
-    return <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
+    return <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
   }
 
   renderLogos () {
@@ -213,7 +213,7 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      <Typography use='display1' style={{ margin: '20px', color: this.props.color }}> {title} </Typography>
+      <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {title} 2222</Typography>
     </div>)
   }
 
@@ -229,7 +229,7 @@ export default class Cover extends Component {
       alignItems: 'flex-start',
       flexDirection: 'column'
     }}>
-      <Typography use='display2' style={{ margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color }}> {title} </Typography>
+      <Typography use='headline4' style={{ margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color }}> {title} </Typography>
     </div>)
   }
 
