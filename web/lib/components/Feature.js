@@ -24,7 +24,7 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -84,7 +84,7 @@ var Feature = function (_Component) {
     key: 'button',
     value: function button() {
       return _react2.default.createElement(
-        _Button.Button,
+        _button.Button,
         { style: {
             marginBottom: '30px'
           },

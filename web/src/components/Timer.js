@@ -2,12 +2,12 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import { Typography } from 'rmwc/Typography'
+import { Typography } from '@rmwc/typography'
 import Countdown from 'react-countdown-now'
-import { Elevation } from 'rmwc/Elevation'
-import { Chip, ChipText, ChipIcon, ChipSet } from 'rmwc/Chip'
-import { Button, ButtonIcon } from 'rmwc/Button'
-import { LinearProgress } from 'rmwc/LinearProgress'
+import { Elevation } from '@rmwc/elevation'
+import { Chip, ChipText, ChipIcon, ChipSet } from '@rmwc/chip'
+import { Button, ButtonIcon } from '@rmwc/button'
+import { LinearProgress } from '@rmwc/linear-progress'
 import moment from 'moment'
 import {
   Card,
@@ -23,11 +23,11 @@ import {
   CardSubtitle,
   CardSupportingText,
   CardHorizontalBlock
-} from 'rmwc/Card'
+} from '@rmwc/card'
 
 export default class Timer extends Component {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = { ...this.state, loading: true }
     this._clockRenderer = this.clockRenderer.bind(this)
@@ -35,12 +35,12 @@ export default class Timer extends Component {
     this._clockTick = this.clockTick.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     super.componentDidMount()
     this.refreshPeriods()
   }
 
-  refreshPeriods() {
+  refreshPeriods () {
     let period
 
     const { periods } = this.props
@@ -68,7 +68,7 @@ export default class Timer extends Component {
     this.setState({ period, loading: false })
   }
 
-  renderText() {
+  renderText () {
     return renderResponsive('text',
       <Text source={this.state.period.text} style={{
         width: `90vw`,
@@ -82,34 +82,34 @@ export default class Timer extends Component {
       }} />)
   }
 
-  renderSimpleText() {
+  renderSimpleText () {
     return <Typography use='display1' style={{ margin: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.text}
     </Typography>
   }
 
-  renderInfo() {
+  renderInfo () {
     return <Typography use='title' style={{ marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.info}
     </Typography>
   }
 
-  renderAction() {
+  renderAction () {
     return <Button onClick={this.state.period.onAction || this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondary-bg text-primary-on-secondary'>
       {this.state.period.actionTitle}
     </Button>
   }
 
-  onComplete() {
+  onComplete () {
     this._clockRenderer = this.clockRenderer.bind(this)
     this.refreshPeriods()
   }
 
-  clockTick() {
+  clockTick () {
     // this.refreshPeriods()
   }
 
-  clockRenderer({ days, hours, minutes, seconds, completed }) {
+  clockRenderer ({ days, hours, minutes, seconds, completed }) {
     const size = this.props.isSmallScreen ? 'title' : 'headline3'
     const margin = this.props.isSmallScreen ? '5' : '20'
     const width = this.props.isSmallScreen ? '10' : '90'
@@ -130,7 +130,7 @@ export default class Timer extends Component {
     </ChipSet>
   }
 
-  renderClock() {
+  renderClock () {
     const size = this.props.isSmallScreen ? 'title' : 'headline'
     const margin = '20'
 
@@ -145,7 +145,7 @@ export default class Timer extends Component {
     </Typography>
   }
 
-  renderComponent() {
+  renderComponent () {
     if (this.state.loading) {
       return (<div style={{ display: 'flex', flex: 1, margin: '10px', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }} >
         <Card style={{ width: '80vw', margin: '20px', padding: '0px' }} >

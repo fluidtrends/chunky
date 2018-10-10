@@ -32,13 +32,13 @@ var _Timer = require('./Timer');
 
 var _Timer2 = _interopRequireDefault(_Timer);
 
-var _Button = require('rmwc/Button');
-
-var _Typography = require('rmwc/Typography');
-
 var _antd = require('antd');
 
-var _Card = require('rmwc/Card');
+var _button = require('@rmwc/button');
+
+var _typography = require('@rmwc/typography');
+
+var _card = require('@rmwc/card');
 
 var _path = require('path');
 
@@ -203,7 +203,7 @@ var Cover = function (_Component) {
         });
       }
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: 'display2', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
@@ -232,7 +232,7 @@ var Cover = function (_Component) {
         });
       }
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: 'display2', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
@@ -248,7 +248,7 @@ var Cover = function (_Component) {
         });
       }
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: 'display1', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.subtitle,
@@ -294,7 +294,7 @@ var Cover = function (_Component) {
         });
       }
       return _react2.default.createElement(
-        _Button.Button,
+        _button.Button,
         { onClick: this.triggerEvent(), raised: true, theme: 'secondary-bg text-primary-on-secondary',
           style: { margin: '20px' } },
         ' ',
@@ -322,7 +322,7 @@ var Cover = function (_Component) {
           }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(
-          _Typography.Typography,
+          _typography.Typography,
           { use: 'display1', style: { margin: '20px', color: this.props.color } },
           ' ',
           title,
@@ -348,7 +348,7 @@ var Cover = function (_Component) {
           }, className: 'jsx-3069546275'
         },
         _react2.default.createElement(
-          _Typography.Typography,
+          _typography.Typography,
           { use: 'display2', style: { margin: '20px', position: 'absolute', bottom: '-100px', color: this.props.color } },
           ' ',
           title,
@@ -381,7 +381,6 @@ var Cover = function (_Component) {
       var coverStyle = { width: '100%', height: height + 'px', objectFit: 'cover', objectPosition: 'center center' };
       var coverPlaying = this.props.scroll < 200;
 
-      console.log(this.props.offset);
       return _react2.default.createElement(
         'div',
         { style: {

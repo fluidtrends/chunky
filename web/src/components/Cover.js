@@ -3,10 +3,9 @@ import Component from '../core/Component'
 import Text from './Text'
 import Media from './Media'
 import Timer from './Timer'
-import { Button } from 'rmwc/Button'
-import { Typography } from 'rmwc/Typography'
 import { Icon } from 'antd'
-
+import { Button } from '@rmwc/button'
+import { Typography } from '@rmwc/typography'
 import {
   Card,
   CardPrimaryAction,
@@ -15,7 +14,7 @@ import {
   CardActions,
   CardActionButtons,
   CardActionIcons
-} from 'rmwc/Card'
+} from '@rmwc/card'
 import { relative } from 'path'
 
 export default class Cover extends Component {
@@ -254,7 +253,6 @@ export default class Cover extends Component {
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
-    console.log(this.props.offset)
     return (<div style={{
       backgroundColor: this.props.backgroundColor,
       marginTop: `${this.props.offset}px`,

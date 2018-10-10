@@ -1,7 +1,6 @@
-
 import React from 'react'
 import Component from '../core/Component'
-import { Typography } from 'rmwc/Typography'
+import { Typography } from '@rmwc/typography'
 import { Spin, Icon } from 'antd'
 
 export default class LoadingComponent extends Component {

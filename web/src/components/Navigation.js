@@ -5,23 +5,23 @@ import {
   ToolbarRow,
   ToolbarMenuIcon,
   ToolbarSection
-} from 'rmwc/Toolbar'
-import { Button } from 'rmwc/Button'
-import { Icon } from 'rmwc/Icon'
+} from '@rmwc/toolbar'
+import { Button } from '@rmwc/button'
+import { Icon } from '@rmwc/icon'
 
 export default class Navigation extends PureComponent {
 
-  constructor(props) {
+  constructor (props) {
     super(props)
     this._onMenuOpen = this.onMenuOpen.bind(this)
     this._onMenuItem = (item) => this.onMenuItem.bind(this, item)
   }
 
-  onMenuItem(item) {
+  onMenuItem (item) {
     this.props.onMenuItem && this.props.onMenuItem(item)
   }
 
-  renderNavigationMenuItem(item, index) {
+  renderNavigationMenuItem (item, index) {
     const MenuIcon = <ToolbarMenuIcon onClick={this._onMenuItem(item)} use={item.icon} style={{
       color: this.props.theme.navigationTintColor,
       marginRight: '0px'
@@ -45,16 +45,16 @@ export default class Navigation extends PureComponent {
     return renderResponsive(`menuItem${index++}`, <div />, item.alwaysShowIcon ? MenuIcon : (item.action ? MenuActionButton : MenuButton))
   }
 
-  onMenuOpen() {
+  onMenuOpen () {
     this.props.onMenuOpen && this.props.onMenuOpen()
   }
 
-  renderNavigationMenu() {
+  renderNavigationMenu () {
     var index = 0
     return this.props.menu.map(item => this.renderNavigationMenuItem(item, index++))
   }
 
-  renderNavigationLogo() {
+  renderNavigationLogo () {
     const image = (this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage)
     const height = (this.props.navigationUncover ? 64 : 64)
 
@@ -64,7 +64,7 @@ export default class Navigation extends PureComponent {
     )
   }
 
-  renderDefault() {
+  renderDefault () {
     return (<Toolbar waterfall fixed={this.props.layout.fixed} style={{
       backgroundColor: this.props.theme.navigationColor
     }}>
@@ -91,7 +91,7 @@ export default class Navigation extends PureComponent {
     </Toolbar>)
   }
 
-  render() {
+  render () {
     return this.renderDefault()
   }
 }

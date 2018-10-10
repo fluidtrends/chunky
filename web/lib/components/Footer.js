@@ -16,13 +16,13 @@ var _Component3 = _interopRequireDefault(_Component2);
 
 var _responsive = require('../utils/responsive');
 
-var _List = require('rmwc/List');
+var _list = require('@rmwc/list');
 
-var _Icon = require('rmwc/Icon');
+var _icon = require('@rmwc/icon');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
-var _Typography = require('rmwc/Typography');
+var _typography = require('@rmwc/typography');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45,10 +45,10 @@ var Footer = function (_Component) {
     key: 'renderFooterSectionElement',
     value: function renderFooterSectionElement(element) {
       return _react2.default.createElement(
-        _List.ListItem,
+        _list.ListItem,
         { key: element.id, style: {} },
         _react2.default.createElement(
-          _Button.Button,
+          _button.Button,
           { onClick: this.triggerEvent(element.id, { handler: element.link }), style: { color: this.props.theme.footerTintColor, textAlign: 'left' } },
           element.title
         )
@@ -65,13 +65,13 @@ var Footer = function (_Component) {
             marginRight: '20px'
           } },
         _react2.default.createElement(
-          _List.List,
+          _list.List,
           null,
           _react2.default.createElement(
-            _List.ListItem,
+            _list.ListItem,
             { style: { marginLeft: '15px' } },
             _react2.default.createElement(
-              _List.ListItemText,
+              _list.ListItemText,
               { style: { color: this.props.theme.footerHeaderColor } },
               ' ',
               section.title,
@@ -106,7 +106,7 @@ var Footer = function (_Component) {
             backgroundColor: this.props.theme.footerBottomColor,
             flexDirection: compact ? 'row' : 'column' } },
         _react2.default.createElement(
-          _List.List,
+          _list.List,
           { style: {
               display: 'flex',
               flex: '1',
@@ -116,12 +116,12 @@ var Footer = function (_Component) {
               textAlign: 'center'
             } },
           _react2.default.createElement(
-            _List.ListItem,
+            _list.ListItem,
             { style: { color: this.props.theme.footerHeaderColor,
                 alignSelf: 'center'
               } },
             _react2.default.createElement(
-              _List.ListItemText,
+              _list.ListItemText,
               null,
               ' ',
               this.props.info.watermark,
@@ -130,7 +130,7 @@ var Footer = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _List.List,
+          _list.List,
           { style: {
               display: 'flex',
               flex: '1',
@@ -140,12 +140,12 @@ var Footer = function (_Component) {
               textAlign: 'center'
             } },
           _react2.default.createElement(
-            _List.ListItem,
+            _list.ListItem,
             { style: { marginRight: '20px', color: this.props.theme.footerHeaderColor,
                 alignSelf: 'center'
               } },
             _react2.default.createElement(
-              _List.ListItemText,
+              _list.ListItemText,
               null,
               ' ',
               this.props.info.copyright,

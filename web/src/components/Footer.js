@@ -5,10 +5,10 @@ import {
   List,
   ListItem,
   ListItemText
-} from 'rmwc/List'
-import { Icon } from 'rmwc/Icon'
-import { Button } from 'rmwc/Button'
-import { Typography } from 'rmwc/Typography'
+} from '@rmwc/list'
+import { Icon } from '@rmwc/icon'
+import { Button } from '@rmwc/button'
+import { Typography } from '@rmwc/typography'
 
 export default class Footer extends Component {
 

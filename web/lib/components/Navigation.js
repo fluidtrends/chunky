@@ -12,11 +12,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _responsive = require('../utils/responsive');
 
-var _Toolbar = require('rmwc/Toolbar');
+var _toolbar = require('@rmwc/toolbar');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
-var _Icon = require('rmwc/Icon');
+var _icon = require('@rmwc/icon');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,12 +49,12 @@ var Navigation = function (_PureComponent) {
   }, {
     key: 'renderNavigationMenuItem',
     value: function renderNavigationMenuItem(item, index) {
-      var MenuIcon = _react2.default.createElement(_Toolbar.ToolbarMenuIcon, { onClick: this._onMenuItem(item), use: item.icon, style: {
+      var MenuIcon = _react2.default.createElement(_toolbar.ToolbarMenuIcon, { onClick: this._onMenuItem(item), use: item.icon, style: {
           color: this.props.theme.navigationTintColor,
           marginRight: '0px'
         } });
       var MenuButton = _react2.default.createElement(
-        _Button.Button,
+        _button.Button,
         { onClick: this._onMenuItem(item),
           style: {
             color: this.props.theme.navigationTintColor,
@@ -64,7 +64,7 @@ var Navigation = function (_PureComponent) {
         item.title
       );
       var MenuActionButton = _react2.default.createElement(
-        _Button.Button,
+        _button.Button,
         { raised: true, theme: 'secondary-bg text-primary-on-secondary',
           onClick: this._onMenuItem(item),
           style: {
@@ -96,21 +96,21 @@ var Navigation = function (_PureComponent) {
       var image = this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage;
       var height = this.props.navigationUncover ? 64 : 64;
 
-      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_Toolbar.ToolbarMenuIcon, { use: 'menu', style: { color: this.props.theme.navigationTintColor }, onClick: this._onMenuOpen }), _react2.default.createElement('img', { src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image, style: { height: height + 'px', marginLeft: '20px' } }));
+      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_toolbar.ToolbarMenuIcon, { use: 'menu', style: { color: this.props.theme.navigationTintColor }, onClick: this._onMenuOpen }), _react2.default.createElement('img', { src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image, style: { height: height + 'px', marginLeft: '20px' } }));
     }
   }, {
     key: 'renderDefault',
     value: function renderDefault() {
       return _react2.default.createElement(
-        _Toolbar.Toolbar,
+        _toolbar.Toolbar,
         { waterfall: true, fixed: this.props.layout.fixed, style: {
             backgroundColor: this.props.theme.navigationColor
           } },
         _react2.default.createElement(
-          _Toolbar.ToolbarRow,
+          _toolbar.ToolbarRow,
           null,
           _react2.default.createElement(
-            _Toolbar.ToolbarSection,
+            _toolbar.ToolbarSection,
             { alignStart: true, style: {
                 flex: 1,
                 display: 'flex',
@@ -121,7 +121,7 @@ var Navigation = function (_PureComponent) {
             this.renderNavigationLogo()
           ),
           _react2.default.createElement(
-            _Toolbar.ToolbarSection,
+            _toolbar.ToolbarSection,
             { alignEnd: true, style: {
                 flex: 4,
                 display: 'flex',

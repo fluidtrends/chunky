@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import 'node_modules/material-components-web/dist/material-components-web.css'
 import Cover from '../components/Cover'
 import Drawer from '../components/Drawer'
 import LargeFooter from '../components/Footer'

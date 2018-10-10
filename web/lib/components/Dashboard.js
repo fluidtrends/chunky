@@ -28,15 +28,15 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Menu = require('rmwc/Menu');
+var _Menu = require('@rmwc/Menu');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
-var _Icon = require('rmwc/Icon');
+var _icon = require('@rmwc/icon');
 
-var _Drawer = require('rmwc/Drawer');
+var _drawer = require('@rmwc/drawer');
 
-var _List = require('rmwc/List');
+var _list = require('@rmwc/list');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -91,7 +91,7 @@ var Dashboard = function (_Component) {
       var isSelected = section.path === this.props.section.path;
 
       return _react2.default.createElement(
-        _List.ListItem,
+        _list.ListItem,
         {
           key: 'section' + index,
           onClick: this._onSectionSelect(section),
@@ -100,7 +100,7 @@ var Dashboard = function (_Component) {
             color: isSelected ? this.props.sectionSelectedColor : section.actionColor || this.props.sectionColor
           } },
         _react2.default.createElement(
-          _List.ListItemText,
+          _list.ListItemText,
           null,
           section.title
         )
@@ -123,7 +123,7 @@ var Dashboard = function (_Component) {
 
       var index = 0;
       return _react2.default.createElement(
-        _List.List,
+        _list.List,
         null,
         this.props.sections.map(function (section) {
           return _this2.renderSection(section, index++);
@@ -134,13 +134,13 @@ var Dashboard = function (_Component) {
     key: 'renderSidebar',
     value: function renderSidebar() {
       return _react2.default.createElement(
-        _Drawer.Drawer,
+        _drawer.Drawer,
         { permanent: true, style: {
             alignSelf: 'stretch',
             paddingLeft: '10px',
             backgroundColor: this.props.sectionsBackgroundColor } },
         _react2.default.createElement(
-          _Drawer.DrawerContent,
+          _drawer.DrawerContent,
           null,
           this.renderSections()
         )
@@ -169,7 +169,7 @@ var Dashboard = function (_Component) {
               padding: '10px'
             } },
           _react2.default.createElement(
-            _Button.Button,
+            _button.Button,
             {
               style: {
                 display: 'flex',
@@ -181,7 +181,7 @@ var Dashboard = function (_Component) {
                 return _this3.setState({ 'compactMenuIsOpen': !_this3.state.compactMenuIsOpen });
               } },
             this.props.section.menuTitle,
-            _react2.default.createElement(_Icon.Icon, { use: 'expand_more', style: {
+            _react2.default.createElement(_icon.Icon, { use: 'expand_more', style: {
                 color: this.props.sectionSelectedColor
               } })
           ),
@@ -227,8 +227,8 @@ var Dashboard = function (_Component) {
             justifyContent: 'space-around'
           }, className: 'jsx-3157557023'
         },
-        _react2.default.createElement(_Icon.Icon, { onClick: this._onSectionNavigate(-1), use: 'navigate_before', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } }),
-        _react2.default.createElement(_Icon.Icon, { onClick: this._onSectionNavigate(1), use: 'navigate_next', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } })
+        _react2.default.createElement(_icon.Icon, { onClick: this._onSectionNavigate(-1), use: 'navigate_before', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } }),
+        _react2.default.createElement(_icon.Icon, { onClick: this._onSectionNavigate(1), use: 'navigate_next', style: { fontSize: 48, cursor: 'pointer', color: this.props.sectionSelectedColor } })
       );
     }
   }, {

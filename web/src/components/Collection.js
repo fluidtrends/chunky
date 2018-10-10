@@ -1,17 +1,17 @@
 import React from 'react'
 import Component from '../core/Component'
+import { Button } from '@rmwc/button'
+import { Typography } from '@rmwc/typography'
+import { Chip, ChipText, ChipSet } from '@rmwc/chip'
+import {Fab} from '@rmwc/fab'
 import {
   Card,
   CardMedia,
   CardActionButtons,
   CardActions,
   CardAction
-} from 'rmwc/Card'
-import { Chip, ChipText, ChipSet } from 'rmwc/Chip'
-import {Fab} from 'rmwc/Fab'
-import { Typography } from 'rmwc/Typography'
+} from '@rmwc/card'
 import Media from './Media'
-import { Button } from 'rmwc/Button'
 
 const colors = {
   'Beginner': '#65bb6a',
