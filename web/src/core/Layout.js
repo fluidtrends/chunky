@@ -4,6 +4,7 @@ import Drawer from '../components/Drawer'
 import LargeFooter from '../components/Footer'
 import Navigation from '../components/Navigation'
 import { Layout, Menu, Icon } from 'antd'
+
 const { Header, Content, Sider, Footer } = Layout
 
 /**
@@ -89,6 +90,7 @@ export default class DefaultLayout extends PureComponent {
     if (this.props.desktop) {
       return <div />
     }
+
     return (<Drawer
       index={-1}
       onClose={this._onMenuClose}
@@ -256,14 +258,15 @@ export default class DefaultLayout extends PureComponent {
   }
 
   render () {
-    return (<div style={this.styles.container} ref={c => { this.container = c }}>
-
+    return (<div>
       {this.renderDrawer()}
-      {this.renderNavigation()}
-      {this.renderCover()}
-      {this.renderPrimary()}
+      <div style={this.styles.container} ref={c => { this.container = c }}>
 
-      <style jsx global>{`{
+        {this.renderNavigation()}
+        {this.renderCover()}
+        {this.renderPrimary()}
+
+        <style jsx global>{`{
         :root {
           --mdc-theme-primary: ${this.props.theme.primaryColor};
           --mdc-theme-secondary: ${this.props.theme.secondaryColor};
@@ -324,7 +327,8 @@ export default class DefaultLayout extends PureComponent {
           transition: opacity .5s ease-in;
         }
       }`}
-      </style>
+        </style>
+      </div>
     </div>)
   }
 }

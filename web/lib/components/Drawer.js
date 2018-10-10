@@ -10,9 +10,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Drawer = require('rmwc/Drawer');
+var _drawer = require('@rmwc/drawer');
 
-var _List = require('rmwc/List');
+var _list = require('@rmwc/list');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -78,10 +78,10 @@ var DrawerComponent = function (_PureComponent) {
       var index = 0;
       return this.props.menu.map(function (item) {
         return _react2.default.createElement(
-          _List.ListItem,
+          _list.ListItem,
           { key: 'menuItem' + index++ },
           _react2.default.createElement(
-            _List.ListItemText,
+            ListItemText,
             null,
             item.title
           )
@@ -97,14 +97,14 @@ var DrawerComponent = function (_PureComponent) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        _Drawer.Drawer,
+        _drawer.Drawer,
         {
-          temporary: true,
+          modal: true,
           open: this._open,
           onClose: this._onClosePressed },
-        _react2.default.createElement(_Drawer.DrawerHeader, { style: this._headerStyle }),
+        _react2.default.createElement(_drawer.DrawerHeader, { style: this._headerStyle }),
         _react2.default.createElement(
-          _Drawer.DrawerContent,
+          _drawer.DrawerContent,
           null,
           this.renderMenu()
         )
@@ -147,12 +147,12 @@ var DrawerComponent = function (_PureComponent) {
       var index = 0;
       return this._menu.map(function (item) {
         return _react2.default.createElement(
-          _List.ListItem,
+          _list.ListItem,
           {
             onClick: _this2._onMenuItem(item),
             key: 'menuItem' + index++ },
           _react2.default.createElement(
-            _List.ListItemText,
+            _list.ListItemPrimaryText,
             null,
             item.title
           )

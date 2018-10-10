@@ -1,15 +1,17 @@
-
 import React, { PureComponent } from 'react'
 import {
   Drawer,
   DrawerHeader,
-  DrawerContent
-} from 'rmwc/Drawer'
+  DrawerContent,
+  DrawerTitle,
+  DrawerSubtitle
+} from '@rmwc/drawer'
 
 import {
+  List,
   ListItem,
-  ListItemText
-} from 'rmwc/List'
+  ListItemPrimaryText
+} from '@rmwc/list'
 
 /**
  *  This is the Chunky Web Navigation Drawer that is usually used with a navigator
@@ -67,7 +69,7 @@ export default class DrawerComponent extends PureComponent {
    */
   render () {
     return (<Drawer
-      temporary
+      modal
       open={this._open}
       onClose={this._onClosePressed}>
       <DrawerHeader style={this._headerStyle} />
@@ -124,7 +126,7 @@ export default class DrawerComponent extends PureComponent {
     return this._menu.map(item => (<ListItem
       onClick={this._onMenuItem(item)}
       key={`menuItem${index++}`}>
-      <ListItemText>{ item.title }</ListItemText>
+      <ListItemPrimaryText>{ item.title }</ListItemPrimaryText>
     </ListItem>))
   }
 }
