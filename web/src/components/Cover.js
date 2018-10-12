@@ -254,7 +254,6 @@ export default class Cover extends Component {
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
     const coverPlaying = (this.props.scroll < 200)
 
-    console.log(this.props.offset)
     return (<div style={{
       backgroundColor: this.props.backgroundColor,
       marginTop: `${this.props.offset}px`,
