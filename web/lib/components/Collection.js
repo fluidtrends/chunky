@@ -18,19 +18,19 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _Card = require('rmwc/Card');
+var _button = require('@rmwc/button');
 
-var _Chip = require('rmwc/Chip');
+var _typography = require('@rmwc/typography');
 
-var _Fab = require('rmwc/Fab');
+var _chip = require('@rmwc/chip');
 
-var _Typography = require('rmwc/Typography');
+var _fab = require('@rmwc/fab');
+
+var _card = require('@rmwc/card');
 
 var _Media = require('./Media');
 
 var _Media2 = _interopRequireDefault(_Media);
-
-var _Button = require('rmwc/Button');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -86,7 +86,7 @@ var Collection = function (_Component) {
       delete props.video;
 
       return _react2.default.createElement(
-        _Card.CardMedia,
+        _card.CardMedia,
         { style: {
             backgroundColor: item.backgroundColor
           } },
@@ -103,10 +103,10 @@ var Collection = function (_Component) {
     value: function renderCard(item, index) {
       var details = item.details.substring(0, 120);
       return _react2.default.createElement(
-        _Card.Card,
+        _card.Card,
         { style: { width: '320px' }, key: 'item' + index },
         _react2.default.createElement(
-          _Button.Button,
+          _button.Button,
           { onClick: this.triggerEvent(item.name || index, item.action), style: { padding: 0, height: '100%' } },
           this.renderCardMedia(item)
         ),
@@ -114,12 +114,12 @@ var Collection = function (_Component) {
           'div',
           { style: { padding: '0 1rem 1rem 1rem' } },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: 'title', tag: 'h2' },
             item.title
           ),
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             {
               use: 'subheading1',
               tag: 'h3',
@@ -130,7 +130,7 @@ var Collection = function (_Component) {
         ),
         this.renderCardTags(item),
         _react2.default.createElement(
-          _Card.CardActions,
+          _card.CardActions,
           { style: { justifyContent: 'center', marginBottom: '1rem' } },
           this.renderCardButtons(item, index)
         )
@@ -144,10 +144,10 @@ var Collection = function (_Component) {
       }
 
       return _react2.default.createElement(
-        _Card.CardActionButtons,
+        _card.CardActionButtons,
         null,
         _react2.default.createElement(
-          _Card.CardAction,
+          _card.CardAction,
           { onClick: this.triggerEvent(item.name || index, Object.assign({}, item.action, { primary: true })) },
           ' ',
           item.actionTitle || 'Learn More',
@@ -160,13 +160,13 @@ var Collection = function (_Component) {
     key: 'renderCardTag',
     value: function renderCardTag(tag) {
       return _react2.default.createElement(
-        _Chip.Chip,
+        _chip.Chip,
         { style: { background: 'red', color: 'white' } },
         _react2.default.createElement(
-          _Chip.ChipText,
+          _chip.ChipText,
           null,
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             {
               use: 'caption' },
             'sdfasd'
@@ -187,7 +187,7 @@ var Collection = function (_Component) {
         'div',
         { style: { display: 'flex', alignItems: 'center' } },
         _react2.default.createElement(
-          _Chip.ChipSet,
+          _chip.ChipSet,
           { style: { flex: 2 } },
           item.tags.map(function (t) {
             return _this2.renderCardTag(t);
@@ -203,7 +203,7 @@ var Collection = function (_Component) {
       }
 
       return _react2.default.createElement(
-        _Card.CardAction,
+        _card.CardAction,
         { onClick: this.triggerEvent(item.name || index, Object.assign({}, item.action, { secondary: true })) },
         ' ',
         item.actionTitleSecondary || 'Learn More',
@@ -215,19 +215,19 @@ var Collection = function (_Component) {
     value: function renderChallenge(item, index) {
       var details = item.details.substring(0, 50);
       return _react2.default.createElement(
-        _Card.Card,
+        _card.Card,
         { style: { width: '320px' }, key: 'item' + index },
         this.renderCardMedia(item),
         _react2.default.createElement(
           'div',
           { style: { padding: '0 1rem 1rem 1rem' } },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: 'title', tag: 'h2' },
             item.title
           ),
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             {
               use: 'subheading1',
               tag: 'h3',
@@ -240,16 +240,16 @@ var Collection = function (_Component) {
             'div',
             { style: { display: 'flex', alignItems: 'center' } },
             _react2.default.createElement(
-              _Chip.ChipSet,
+              _chip.ChipSet,
               { style: { flex: 2 } },
               _react2.default.createElement(
-                _Chip.Chip,
+                _chip.Chip,
                 { style: { background: colors[item.category], color: 'white' } },
                 _react2.default.createElement(
-                  _Chip.ChipText,
+                  _chip.ChipText,
                   null,
                   _react2.default.createElement(
-                    _Typography.Typography,
+                    _typography.Typography,
                     {
                       use: 'caption'
                     },
@@ -258,13 +258,13 @@ var Collection = function (_Component) {
                 )
               ),
               _react2.default.createElement(
-                _Chip.Chip,
+                _chip.Chip,
                 { style: { background: '#90A4AE', color: 'white' } },
                 _react2.default.createElement(
-                  _Chip.ChipText,
+                  _chip.ChipText,
                   null,
                   _react2.default.createElement(
-                    _Typography.Typography,
+                    _typography.Typography,
                     {
                       use: 'caption'
                     },
@@ -274,12 +274,12 @@ var Collection = function (_Component) {
               )
             ),
             _react2.default.createElement(
-              _Fab.Fab,
+              _fab.Fab,
               { mini: true },
               'star'
             ),
             _react2.default.createElement(
-              _Typography.Typography,
+              _typography.Typography,
               {
                 use: 'title',
                 style: { marginLeft: 5 }
@@ -289,13 +289,13 @@ var Collection = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _Card.CardActions,
+          _card.CardActions,
           { style: { justifyContent: 'center', marginBottom: '1rem' } },
           _react2.default.createElement(
-            _Card.CardActionButtons,
+            _card.CardActionButtons,
             null,
             _react2.default.createElement(
-              _Card.CardAction,
+              _card.CardAction,
               { onClick: this.triggerEvent(item.name || index, item.action) },
               ' ',
               item.actionTitle || 'Learn More',

@@ -24,11 +24,11 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Icon = require('rmwc/Icon');
+var _icon = require('@rmwc/icon');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
-var _LinearProgress = require('rmwc/LinearProgress');
+var _linearProgress = require('@rmwc/linear-progress');
 
 var _moment = require('moment');
 
@@ -104,7 +104,7 @@ var Timeline = function (_Component) {
             justifyContent: 'center',
             alignItems: 'center'
           },
-          icon: _react2.default.createElement(_Icon.Icon, { use: item.icon }) },
+          icon: _react2.default.createElement(_icon.Icon, { use: item.icon }) },
         _react2.default.createElement(
           'h3',
           { className: 'vertical-timeline-element-title' },
@@ -124,7 +124,7 @@ var Timeline = function (_Component) {
           'div',
           { style: { display: 'flex', flex: 1, justifyContent: 'flex-end' } },
           _react2.default.createElement(
-            _Button.Button,
+            _button.Button,
             { onClick: function onClick() {
                 return _this2.triggerRawRedirect(item.link);
               } },
@@ -170,7 +170,7 @@ var Timeline = function (_Component) {
           _react2.default.createElement(
             _Card.Card,
             { style: { width: '80vw', margin: '20px', padding: '0px' } },
-            _react2.default.createElement(_LinearProgress.LinearProgress, { determinate: false })
+            _react2.default.createElement(_linearProgress.LinearProgress, { determinate: false })
           )
         );
       }

@@ -18,7 +18,7 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _Typography = require('rmwc/Typography');
+var _typography = require('@rmwc/typography');
 
 var _antd = require('antd');
 
@@ -63,7 +63,7 @@ var LoadingComponent = function (_Component) {
         },
         _react2.default.createElement(_antd.Spin, { indicator: indicator, style: { padding: '40px' } }),
         _react2.default.createElement(
-          _Typography.Typography,
+          _typography.Typography,
           { use: 'title', style: { color: '#B0BEC5' }, tag: 'h1' },
           this.props.message
         )

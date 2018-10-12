@@ -14,6 +14,20 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _typography = require('@rmwc/typography');
+
+var _icon = require('@rmwc/icon');
+
+var _chip = require('@rmwc/chip');
+
+var _button = require('@rmwc/button');
+
+var _linearProgress = require('@rmwc/linear-progress');
+
+var _card = require('@rmwc/card');
+
+var _dialog = require('@rmwc/dialog');
+
 var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
@@ -24,23 +38,9 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Typography = require('rmwc/Typography');
-
-var _Icon = require('rmwc/Icon');
-
-var _Chip = require('rmwc/Chip');
-
-var _Button = require('rmwc/Button');
-
-var _LinearProgress = require('rmwc/LinearProgress');
-
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
-
-var _Card = require('rmwc/Card');
-
-var _Dialog = require('rmwc/Dialog');
 
 var _Media = require('./Media');
 
@@ -110,7 +110,7 @@ var Team = function (_Component) {
       var props = Object.assign({}, this.props);
       delete props.video;
       return _react2.default.createElement(
-        _Card.CardMedia,
+        _card.CardMedia,
         {
           style: {
             backgroundColor: item.backgroundColor
@@ -139,7 +139,7 @@ var Team = function (_Component) {
       var height = this.props.small ? 340 : 540;
 
       return _react2.default.createElement(
-        _Card.Card,
+        _card.Card,
         {
           style: {
             width: width,
@@ -161,7 +161,7 @@ var Team = function (_Component) {
               }
             },
             _react2.default.createElement(
-              _Typography.Typography,
+              _typography.Typography,
               {
                 use: 'headline',
                 tag: 'h2',
@@ -170,7 +170,7 @@ var Team = function (_Component) {
               item.name
             ),
             _react2.default.createElement(
-              _Typography.Typography,
+              _typography.Typography,
               { use: 'title', tag: 'h3', style: { textAlign: 'center' } },
               item.title
             )
@@ -182,7 +182,7 @@ var Team = function (_Component) {
               'div',
               { style: { display: 'flex', justifyContent: 'center' } },
               github && _react2.default.createElement(
-                _Button.ButtonIcon,
+                _button.ButtonIcon,
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
@@ -192,7 +192,7 @@ var Team = function (_Component) {
                 _react2.default.createElement('img', { src: this.props.githubIcon })
               ),
               linkedIn && _react2.default.createElement(
-                _Button.ButtonIcon,
+                _button.ButtonIcon,
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
@@ -202,7 +202,7 @@ var Team = function (_Component) {
                 _react2.default.createElement('img', { src: this.props.linkedinIcon })
               ),
               website && _react2.default.createElement(
-                _Button.ButtonIcon,
+                _button.ButtonIcon,
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
@@ -213,7 +213,7 @@ var Team = function (_Component) {
               )
             ),
             text && _react2.default.createElement(
-              _Button.Button,
+              _button.Button,
               {
                 style: { marginTop: 10 },
                 onClick: function onClick() {
@@ -265,7 +265,6 @@ var Team = function (_Component) {
   }, {
     key: 'renderSection',
     value: function renderSection(section, index) {
-
       var style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : {};
       return _react2.default.createElement(
         'div',
@@ -274,7 +273,7 @@ var Team = function (_Component) {
           style: { padding: '0 1rem 1rem 1rem', textAlign: 'right' }
         },
         _react2.default.createElement(
-          _Typography.Typography,
+          _typography.Typography,
           { use: 'display1', tag: 'h1', style: style },
           section.title
         ),
@@ -323,10 +322,41 @@ var Team = function (_Component) {
       );
     }
   }, {
-    key: 'renderComponent',
-    value: function renderComponent() {
+    key: 'renderDialog',
+    value: function renderDialog() {
       var _this5 = this;
 
+      return _react2.default.createElement(
+        _dialog.Dialog,
+        {
+          open: this.state.detailDialogOpen,
+          onClose: function onClose(evt) {
+            _this5.setState({ detailDialogOpen: false });
+          } },
+        _react2.default.createElement(
+          _dialog.DialogTitle,
+          null,
+          this.renderDetailsTitle()
+        ),
+        _react2.default.createElement(
+          _dialog.DialogContent,
+          null,
+          this.renderDetails()
+        ),
+        _react2.default.createElement(
+          _dialog.DialogActions,
+          { style: { display: 'flex', justifyContent: 'center' } },
+          _react2.default.createElement(
+            _dialog.DialogButton,
+            { action: 'close' },
+            'Back'
+          )
+        )
+      );
+    }
+  }, {
+    key: 'renderComponent',
+    value: function renderComponent() {
       if (!this.props.sections) {
         return _react2.default.createElement('div', null);
       }
@@ -347,50 +377,7 @@ var Team = function (_Component) {
           }
         },
         this.renderSections(),
-        _react2.default.createElement(
-          _Dialog.Dialog,
-          {
-            open: this.state.detailDialogOpen,
-            onClose: function onClose(evt) {
-              return _this5.setState({ detailDialogOpen: false, item: null });
-            }
-          },
-          _react2.default.createElement(
-            _Dialog.DialogSurface,
-            { style: { maxHeight: '90vh' } },
-            _react2.default.createElement(
-              _Dialog.DialogHeader,
-              null,
-              _react2.default.createElement(
-                _Dialog.DialogHeaderTitle,
-                null,
-                this.renderDetailsTitle()
-              )
-            ),
-            _react2.default.createElement(
-              _Dialog.DialogBody,
-              {
-                style: {
-                  overflow: 'scroll',
-                  overflowX: 'hidden',
-                  overflowY: 'auto',
-                  maxHeight: '60vh'
-                }
-              },
-              this.renderDetails()
-            ),
-            _react2.default.createElement(
-              _Dialog.DialogFooter,
-              { style: { display: 'flex', justifyContent: 'center' } },
-              _react2.default.createElement(
-                _Dialog.DialogFooterButton,
-                { cancel: true },
-                'Back'
-              )
-            )
-          ),
-          _react2.default.createElement(_Dialog.DialogBackdrop, null)
-        )
+        this.renderDialog()
       );
     }
   }]);

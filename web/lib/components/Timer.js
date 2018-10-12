@@ -24,25 +24,25 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Typography = require('rmwc/Typography');
+var _typography = require('@rmwc/typography');
 
 var _reactCountdownNow = require('react-countdown-now');
 
 var _reactCountdownNow2 = _interopRequireDefault(_reactCountdownNow);
 
-var _Elevation = require('rmwc/Elevation');
+var _elevation = require('@rmwc/elevation');
 
-var _Chip = require('rmwc/Chip');
+var _chip = require('@rmwc/chip');
 
-var _Button = require('rmwc/Button');
+var _button = require('@rmwc/button');
 
-var _LinearProgress = require('rmwc/LinearProgress');
+var _linearProgress = require('@rmwc/linear-progress');
 
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Card = require('rmwc/Card');
+var _card = require('@rmwc/card');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -120,7 +120,7 @@ var Timer = function (_Component) {
     key: 'renderSimpleText',
     value: function renderSimpleText() {
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: 'display1', style: { margin: '10px', textShadow: '2px 2px 5px #607D8B' } },
         this.state.period.text
       );
@@ -129,7 +129,7 @@ var Timer = function (_Component) {
     key: 'renderInfo',
     value: function renderInfo() {
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: 'title', style: { marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' } },
         this.state.period.info
       );
@@ -138,7 +138,7 @@ var Timer = function (_Component) {
     key: 'renderAction',
     value: function renderAction() {
       return _react2.default.createElement(
-        _Button.Button,
+        _button.Button,
         { onClick: this.state.period.onAction || this.triggerEvent(), raised: true, style: { padding: '0 20px' }, theme: 'secondary-bg text-primary-on-secondary' },
         this.state.period.actionTitle
       );
@@ -174,16 +174,16 @@ var Timer = function (_Component) {
         height: height
       };
       return _react2.default.createElement(
-        _Chip.ChipSet,
+        _chip.ChipSet,
         null,
         _react2.default.createElement(
-          _Chip.Chip,
+          _chip.Chip,
           { style: style },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
-              _Chip.ChipText,
+              _chip.ChipText,
               { style: { marginLeft: 5 } },
               days,
               'd'
@@ -191,13 +191,13 @@ var Timer = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _Chip.Chip,
+          _chip.Chip,
           { style: style },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
-              _Chip.ChipText,
+              _chip.ChipText,
               null,
               hours,
               'h'
@@ -205,13 +205,13 @@ var Timer = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _Chip.Chip,
+          _chip.Chip,
           { style: style },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
-              _Chip.ChipText,
+              _chip.ChipText,
               null,
               minutes,
               'm'
@@ -219,13 +219,13 @@ var Timer = function (_Component) {
           )
         ),
         _react2.default.createElement(
-          _Chip.Chip,
+          _chip.Chip,
           { style: style },
           _react2.default.createElement(
-            _Typography.Typography,
+            _typography.Typography,
             { use: size, style: { margin: margin + 'px', color: '#fff' } },
             _react2.default.createElement(
-              _Chip.ChipText,
+              _chip.ChipText,
               null,
               seconds,
               's'
@@ -241,7 +241,7 @@ var Timer = function (_Component) {
       var margin = '20';
 
       return _react2.default.createElement(
-        _Typography.Typography,
+        _typography.Typography,
         { use: size, style: { marginBottom: margin + 'px', textAlign: 'center' } },
         _react2.default.createElement(_reactCountdownNow2.default, {
           date: this.state.period.until,
@@ -259,9 +259,9 @@ var Timer = function (_Component) {
           'div',
           { style: { display: 'flex', flex: 1, margin: '10px', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' } },
           _react2.default.createElement(
-            _Card.Card,
+            _card.Card,
             { style: { width: '80vw', margin: '20px', padding: '0px' } },
-            _react2.default.createElement(_LinearProgress.LinearProgress, { determinate: false })
+            _react2.default.createElement(_linearProgress.LinearProgress, { determinate: false })
           )
         );
       }

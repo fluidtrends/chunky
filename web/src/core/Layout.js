@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import 'node_modules/material-components-web/dist/material-components-web.css'
 import Cover from '../components/Cover'
 import Drawer from '../components/Drawer'
 import LargeFooter from '../components/Footer'
 import Navigation from '../components/Navigation'
 import { Layout, Menu, Icon } from 'antd'
+
 const { Header, Content, Sider, Footer } = Layout
 
 /**
@@ -42,7 +42,7 @@ export default class DefaultLayout extends PureComponent {
       return this.navigationHeight
     }
 
-    if (this.hasCover && this.cover.navigation) { // && !this.props.layout.fixed) {
+    if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
       return -this.navigationHeight
     }
 
@@ -52,6 +52,10 @@ export default class DefaultLayout extends PureComponent {
   get navigationUncover () {
     if (this.hasCover && this.cover.navigation && !this.props.layout.fixed) {
       return true
+    }
+
+    if (!this.hasCover && this.props.forceNavigation) {
+      return (this.props.scroll < 10)
     }
 
     return (this.hasCover && this.cover.navigation && this.props.scroll < 10)
@@ -74,8 +78,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   get theme () {
-    const navigationColor = (this.navigationUncover || this.props.forceNavigation ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
-    const navigationTintColor = (this.navigationUncover || this.props.forceNavigation ? '#FFFFFF' : this.props.theme.navigationTintColor)
+    const navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    const navigationTintColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
       navigationColor, navigationTintColor
@@ -86,6 +90,7 @@ export default class DefaultLayout extends PureComponent {
     if (this.props.desktop) {
       return <div />
     }
+
     return (<Drawer
       index={-1}
       onClose={this._onMenuClose}
@@ -253,14 +258,15 @@ export default class DefaultLayout extends PureComponent {
   }
 
   render () {
-    return (<div style={this.styles.container} ref={c => { this.container = c }}>
-
+    return (<div>
       {this.renderDrawer()}
-      {this.renderNavigation()}
-      {this.renderCover()}
-      {this.renderPrimary()}
+      <div style={this.styles.container} ref={c => { this.container = c }}>
 
-      <style jsx global>{`{
+        {this.renderNavigation()}
+        {this.renderCover()}
+        {this.renderPrimary()}
+
+        <style jsx global>{`{
         :root {
           --mdc-theme-primary: ${this.props.theme.primaryColor};
           --mdc-theme-secondary: ${this.props.theme.secondaryColor};
@@ -321,7 +327,8 @@ export default class DefaultLayout extends PureComponent {
           transition: opacity .5s ease-in;
         }
       }`}
-      </style>
+        </style>
+      </div>
     </div>)
   }
 }

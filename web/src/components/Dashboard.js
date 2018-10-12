@@ -6,18 +6,18 @@ import {
   MenuAnchor,
   SimpleMenu,
   MenuItem
-} from 'rmwc/Menu'
-import { Button } from 'rmwc/Button'
-import { Icon } from 'rmwc/Icon'
+} from '@rmwc/Menu'
+import { Button } from '@rmwc/button'
+import { Icon } from '@rmwc/icon'
 import {
   Drawer,
   DrawerContent
-} from 'rmwc/Drawer'
+} from '@rmwc/drawer'
 import {
   List,
   ListItem,
   ListItemText
-} from 'rmwc/List'
+} from '@rmwc/list'
 
 export default class Dashboard extends Component {
 

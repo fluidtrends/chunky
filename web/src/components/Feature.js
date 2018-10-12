@@ -2,7 +2,7 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import { Button } from 'rmwc/Button'
+import { Button } from '@rmwc/button'
 
 export default class Feature extends Component {
   constructor (props) {
