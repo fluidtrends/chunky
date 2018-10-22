@@ -161,8 +161,8 @@ export default class App extends PureComponent {
           }
         }
       } else {
-        route.icon = rootRoute.icon
-        route.menuTitle = rootRoute.menuTitle
+        // route.icon = rootRoute.icon
+        // route.menuTitle = rootRoute.menuTitle
       }
 
       // Let's build up the transitions, if any

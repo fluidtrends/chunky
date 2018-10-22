@@ -213,10 +213,10 @@ var App = function (_PureComponent) {
               this._menu = this._menu.concat(route.extendedMenu);
             }
           }
-        } else {
-          route.icon = rootRoute.icon;
-          route.menuTitle = rootRoute.menuTitle;
-        }
+        } else {}
+        // route.icon = rootRoute.icon
+        // route.menuTitle = rootRoute.menuTitle
+
 
         // Let's build up the transitions, if any
         var transitions = {};

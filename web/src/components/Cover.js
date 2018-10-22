@@ -136,7 +136,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} fffffssddddd</Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} </Typography>
   }
 
   renderCoverTimeline () {

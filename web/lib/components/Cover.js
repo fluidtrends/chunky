@@ -207,7 +207,7 @@ var Cover = function (_Component) {
         { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
         this.props.title,
-        ' fffffssddddd'
+        ' '
       );
     }
   }, {
