@@ -83,13 +83,13 @@ export default class Timer extends Component {
   }
 
   renderSimpleText () {
-    return <Typography use='display1' style={{ margin: '10px', textShadow: '2px 2px 5px #607D8B' }}>
+    return <Typography use='headline4' style={{ margin: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.text}
     </Typography>
   }
 
   renderInfo () {
-    return <Typography use='title' style={{ marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' }}>
+    return <Typography use='headline5' style={{ marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' }}>
       {this.state.period.info}
     </Typography>
   }
@@ -110,23 +110,28 @@ export default class Timer extends Component {
   }
 
   clockRenderer ({ days, hours, minutes, seconds, completed }) {
-    const size = this.props.isSmallScreen ? 'title' : 'headline3'
+    const size = this.props.isSmallScreen ? 'headline4' : 'headline4'
     const margin = this.props.isSmallScreen ? '5' : '20'
-    const width = this.props.isSmallScreen ? '10' : '90'
-    const height = this.props.isSmallScreen ? '10' : '50'
+    const width = this.props.isSmallScreen ? '40' : '90'
+    const height = this.props.isSmallScreen ? '140' : '50'
+    const typographyStyle = { margin: `${margin}px`, color: '#fff', height: 40 }
 
     const style = {
-      border: '2px solid #ffffff', color: this.props.textColor, padding: 2,
+      border: '2px solid #ffffff', 
+      color: this.props.textColor, 
+      background: 'transparent',
+      padding: 2,
       width,
-      height
+      height: 60
     }
+
     return <ChipSet>
       <Chip style={style}>
-        <Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
+        <Typography use={size} style={typographyStyle}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
       </Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{hours}h</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{minutes}m</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={{ margin: `${margin}px`, color: '#fff' }}><ChipText>{seconds}s</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{hours}h</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{minutes}m</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{seconds}s</ChipText></Typography></Chip>
     </ChipSet>
   }
 

@@ -136,7 +136,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} fffffssddddd</Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title}</Typography>
   }
 
   renderCoverTimeline () {
@@ -152,7 +152,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} ffffffff</Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title}</Typography>
   }
 
   renderCoverSubtitle () {
@@ -163,7 +163,7 @@ export default class Cover extends Component {
   }
 
   renderLogos () {
-    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
+    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} ></div>
   }
 
   renderVideo () {
@@ -213,7 +213,7 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {title} 2222</Typography>
+      <Typography use='headline3' style={{ margin: '20px', color: this.props.color }}> {title} </Typography>
     </div>)
   }
 

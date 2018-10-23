@@ -6,7 +6,7 @@ import {
   MenuAnchor,
   SimpleMenu,
   MenuItem
-} from '@rmwc/Menu'
+} from '@rmwc/menu'
 import { Button } from '@rmwc/button'
 import { Icon } from '@rmwc/icon'
 import {
