@@ -30,8 +30,8 @@ export default class Screen extends Core.Screen {
     this.state = {
       ...this.state,
       loading: true,
-      height: 0,
-      width: 0,
+      height: window.innerHeight,
+      width: window.innerWidth,
       scroll: 0
     }
 
@@ -363,11 +363,11 @@ export default class Screen extends Core.Screen {
   }
 
   get width () {
-    return this.state.width
+    return this.state.width || window.innerWidth
   }
 
   get height () {
-    return this.state.height
+    return this.state.height || window.innerHeight
   }
 
   get scroll () {

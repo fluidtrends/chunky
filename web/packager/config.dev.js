@@ -63,7 +63,7 @@ module.exports = (options) => {
           }
         },
         {
-          test: /\.svg$/, 
+          test: /\.svg$/,
           use: {
             loader: 'raw-loader'
           }
@@ -137,11 +137,6 @@ module.exports = (options) => {
 
     devServer: {
       host: '0.0.0.0',
-      watchOptions: {
-        poll: true,
-        aggregateTimeout: 100
-      },
-
       inline: true,
       quiet: true,
       noInfo: true,
