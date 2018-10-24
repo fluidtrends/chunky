@@ -1,6 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
+import AnimatedSvg from './AnimatedSvg'
 import { renderResponsive } from '../utils/responsive'
 
 export default class Benefits extends Component {
@@ -30,12 +31,33 @@ export default class Benefits extends Component {
   }
 
   image (image, index, total) {
-    return renderResponsive('image', <img src={`/assets/${image}`} style={{
-      width: '90vw'
-    }} />,
-      <img src={`/assets/${image}`} style={{
-        width: `${100 / total}vw`
-      }} />)
+    const fileType = image.split('.')[image.split('.').length - 1]
+    
+    if (fileType === 'svg') {
+      return renderResponsive('image', 
+        <AnimatedSvg
+          id={`${image}`}
+          src={`/assets/${image}`}
+          duration={300}
+          style={{
+            width: '90vw'
+          }} />,
+        <AnimatedSvg 
+          id={`${image}`}
+          src={`/assets/${image}`} 
+          duration={300}
+          style={{
+            width: `${100 / total}vw`
+          }} 
+        />)
+    } else {
+      return renderResponsive('image', <img src={`/assets/${image}`} style={{
+        width: '90vw'
+      }} />,
+        <img src={`/assets/${image}`} style={{
+          width: `${100 / total}vw`
+        }} />)
+    }
   }
 
   renderBlock (block, index, total) {
