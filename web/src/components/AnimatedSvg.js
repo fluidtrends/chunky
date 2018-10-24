@@ -14,13 +14,20 @@ import ReactVivus from 'react-vivus'
  *
  * @param {*} { style, path, type, duration, animTimingFunction, id }
  */
+
+const animatedTimingFunctions = ['EASE_OUT_BOUNCE', 'EASE', 'EASE_IN', 'EASE_OUT']
+const typeOfAnimation = ['delayed', 'sync', 'oneByOne', 'script', 'scenario', 'scenario-sync']
+
+const randomTimingFunction = animatedTimingFunctions[Math.floor(Math.random() * animatedTimingFunctions.length)]
+const randomType = typeOfAnimation[Math.floor(Math.random() * typeOfAnimation.length)]
+
 const AnimatedSvg = ({ style, src, type, duration, animTimingFunction, id }) => (
   <ReactVivus
     id={id}
     option={{
       file: src,
-      type,
-      animTimingFunction,
+      type: type ? type : randomType,
+      animTimingFunction: animTimingFunction ? animTimingFunction : randomTimingFunction,
       duration
     }}
     style={style}

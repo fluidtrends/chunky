@@ -32,11 +32,6 @@ export default class Benefits extends Component {
 
   image (image, index, total) {
     const fileType = image.split('.')[image.split('.').length - 1]
-    const animatedTimingFunctions = ['EASE_OUT_BOUNCE', 'EASE', 'EASE_IN', 'EASE_OUT']
-    const typeOfAnimation = ['delayed', 'sync', 'oneByOne', 'script', 'scenario', 'scenario-sync']
-
-    const randomTimingFunction = animatedTimingFunctions[Math.floor(Math.random() * animatedTimingFunctions.length)]
-    const randomType = typeOfAnimation[Math.floor(Math.random() * typeOfAnimation.length)]
     
     if (fileType === 'svg') {
       return renderResponsive('image', 
@@ -44,8 +39,6 @@ export default class Benefits extends Component {
           id={`${image}`}
           src={`/assets/${image}`}
           duration={300}
-          type={randomType}
-          animTimingFunction={randomTimingFunction}
           style={{
             width: '90vw'
           }} />,
@@ -53,8 +46,6 @@ export default class Benefits extends Component {
           id={`${image}`}
           src={`/assets/${image}`} 
           duration={300}
-          type={randomType}
-          animTimingFunction={randomTimingFunction}
           style={{
             width: `${100 / total}vw`
           }} 
