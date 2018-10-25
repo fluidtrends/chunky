@@ -5,7 +5,7 @@ import ReactVivus from 'react-vivus'
  *  Animates a svg based on vivus.js
  * style -> style of the image ( CSS IN JS )
  * path -> the path to the SVG
- * type -> Defines what kind of animation will be used: delayed, sync, oneByOne, script, scenario or scenario-sync. [Default: delayed]
+ * type -> Defines what kind of animation will be used: delayed, sync, oneByOne, scenario. [Default: delayed]
  * duration -> Animation duration, in frames. [Default: 200]
  * Timing animation function for the complete SVG. Options are: EASE, EASE_IN, EASE_OUT and EASE_OUT_BOUNCE
  * id -> an id must be provided in order for the react wrapper to work
@@ -16,10 +16,11 @@ import ReactVivus from 'react-vivus'
  */
 
 const animatedTimingFunctions = ['EASE_OUT_BOUNCE', 'EASE', 'EASE_IN', 'EASE_OUT']
-const typeOfAnimation = ['delayed', 'sync', 'oneByOne', 'script', 'scenario', 'scenario-sync']
+const typeOfAnimation = ['delayed', 'sync', 'oneByOne', 'scenario']
 
 const randomTimingFunction = animatedTimingFunctions[Math.floor(Math.random() * animatedTimingFunctions.length)]
 const randomType = typeOfAnimation[Math.floor(Math.random() * typeOfAnimation.length)]
+
 
 const AnimatedSvg = ({ style, src, type, duration, animTimingFunction, id }) => (
   <ReactVivus

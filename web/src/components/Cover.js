@@ -6,16 +6,6 @@ import Timer from './Timer'
 import { Icon } from 'antd'
 import { Button } from '@rmwc/button'
 import { Typography } from '@rmwc/typography'
-import {
-  Card,
-  CardPrimaryAction,
-  CardMedia,
-  CardAction,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-} from '@rmwc/card'
-import { relative } from 'path'
 
 export default class Cover extends Component {
 
