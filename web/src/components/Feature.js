@@ -1,13 +1,14 @@
 import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
+import AnimatedSection from './AnimatedSection'
 import { renderResponsive } from '../utils/responsive'
 import { Button } from '@rmwc/button'
 
 export default class Feature extends Component {
   constructor (props) {
     super(props)
-    this.state = { ...this.state }
+    this.state = { ...this.state, startAnimation: false }
   }
 
   componentDidMount () {
@@ -15,17 +16,26 @@ export default class Feature extends Component {
   }
 
   renderContent (compact) {
-    return <div style={{
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingBottom: `${compact ? 100 : 0}px`
-    }}>
-      { this.text()}
-      { this.button()}
-    </div>
+    const animationType = this.props.reversed ? 'slideFromLeft' : 'slideFromRight'
+
+    return <AnimatedSection 
+      animationType={animationType}
+      startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+    >
+      <div 
+          style={{
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingBottom: `${compact ? 100 : 0}px`
+        }}>
+        
+          { this.text()}
+          { this.button()}
+      </div>
+    </AnimatedSection>
   }
 
   text () {
@@ -53,20 +63,29 @@ export default class Feature extends Component {
   }
 
   image () {
-    return renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
-      width: '90vw',
-      marginTop: '60px',
-      marginBottom: '-30px'
-    }} />,
+    const animationType = this.props.reversed ? 'slideFromRight' : 'slideFromLeft'
+
+    return <AnimatedSection 
+      animationType={animationType}
+      startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+    >
+      {renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
+        width: '90vw',
+        marginTop: '60px',
+        marginBottom: '-30px'
+      }} />,
       <img src={`/assets/${this.props.image}`} style={{
         width: '40vw',
         marginTop: '60px',
         marginBottom: '60px'
-      }} />)
+      }} />)}
+    </AnimatedSection>
+    
   }
 
   renderBlock (block, index) {
     return <div
+      onMouseOver={() => {this.setState({startAnimation: true})}}
       key={`block${index}`}
       style={{
         display: 'flex',
