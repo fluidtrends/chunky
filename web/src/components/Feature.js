@@ -18,24 +18,42 @@ export default class Feature extends Component {
   renderContent (compact) {
     const animationType = this.props.reversed ? 'slideFromLeft' : 'slideFromRight'
 
-    return <AnimatedSection 
-      animationType={animationType}
-      startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
-    >
-      <div 
-          style={{
-          display: 'flex',
-          flex: 1,
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          paddingBottom: `${compact ? 100 : 0}px`
-        }}>
-        
-          { this.text()}
-          { this.button()}
+    if (this.props.animation) {
+      return <AnimatedSection 
+        animationType={animationType}
+        startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+      >
+        <div 
+            style={{
+            display: 'flex',
+            flex: 1,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingBottom: `${compact ? 100 : 0}px`
+          }}>
+          
+            { this.text()}
+            { this.button()}
+        </div>
+      </AnimatedSection>
+    } else {
+      return <div 
+        style={{
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: `${compact ? 100 : 0}px`
+      }}>
+      
+        { this.text()}
+        { this.button()}
       </div>
-    </AnimatedSection>
+    }
+
+    
   }
 
   text () {
@@ -65,11 +83,24 @@ export default class Feature extends Component {
   image () {
     const animationType = this.props.reversed ? 'slideFromRight' : 'slideFromLeft'
 
-    return <AnimatedSection 
-      animationType={animationType}
-      startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
-    >
-      {renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
+    if (this.props.animation) {
+      return <AnimatedSection 
+        animationType={animationType}
+        startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+      >
+        {renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
+          width: '90vw',
+          marginTop: '60px',
+          marginBottom: '-30px'
+        }} />,
+        <img src={`/assets/${this.props.image}`} style={{
+          width: '40vw',
+          marginTop: '60px',
+          marginBottom: '60px'
+        }} />)}
+      </AnimatedSection>
+    } else {
+      return renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
         width: '90vw',
         marginTop: '60px',
         marginBottom: '-30px'
@@ -78,9 +109,8 @@ export default class Feature extends Component {
         width: '40vw',
         marginTop: '60px',
         marginBottom: '60px'
-      }} />)}
-    </AnimatedSection>
-    
+      }} />)
+    }
   }
 
   renderBlock (block, index) {
