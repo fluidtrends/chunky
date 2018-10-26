@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
-import Text from './Text'
 import Media from './Media'
 import Timer from './Timer'
 import { Icon } from 'antd'
