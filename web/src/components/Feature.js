@@ -3,16 +3,28 @@ import Component from '../core/Component'
 import Text from './Text'
 import AnimatedSection from './AnimatedSection'
 import { renderResponsive } from '../utils/responsive'
+import { isAnyPartOfElementInViewport } from '../utils/isElementVisible'
 import { Button } from '@rmwc/button'
+
 
 export default class Feature extends Component {
   constructor (props) {
     super(props)
     this.state = { ...this.state, startAnimation: false }
+    this.handleScrollToElement = this.handleScrollToElement.bind(this)
   }
 
   componentDidMount () {
     super.componentDidMount()
+    window.addEventListener('scroll', this.handleScrollToElement);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScrollToElement);
+  }
+
+  handleScrollToElement() {
+    if (isAnyPartOfElementInViewport(this.blockRef) && !this.state.startAnimation) this.setState({startAnimation: true})
   }
 
   renderContent (compact) {
@@ -20,8 +32,8 @@ export default class Feature extends Component {
 
     if (this.props.animation) {
       return <AnimatedSection 
-        animationType={animationType}
-        startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+        animationType={window.innerWidth > 1224 ? animationType : 'slideFromLeft'}
+        startAnimation={this.state.startAnimation}
       >
         <div 
             style={{
@@ -52,8 +64,6 @@ export default class Feature extends Component {
         { this.button()}
       </div>
     }
-
-    
   }
 
   text () {
@@ -85,8 +95,8 @@ export default class Feature extends Component {
 
     if (this.props.animation) {
       return <AnimatedSection 
-        animationType={animationType}
-        startAnimation={window.innerWidth > 1224 ? this.state.startAnimation : true}
+        animationType={window.innerWidth > 1224 ? animationType : 'slideFromLeft'}
+        startAnimation={this.state.startAnimation}
       >
         {renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
           width: '90vw',
@@ -115,8 +125,8 @@ export default class Feature extends Component {
 
   renderBlock (block, index) {
     return <div
-      onMouseOver={() => {this.setState({startAnimation: true})}}
       key={`block${index}`}
+      ref={ref => this.blockRef = ref}
       style={{
         display: 'flex',
         flex: 1,
@@ -128,17 +138,21 @@ export default class Feature extends Component {
     </div>
   }
 
-  renderBlocks (blocks, compact) {
+  renderBlocks (blocks, compact) {   
     var index = 0
-    return <div style={{
-      color: '#607D8B',
-      position: 'relative',
-      display: 'flex',
-      flex: 1,
-      flexDirection: (compact ? 'column' : 'row'),
-      alignItems: 'center',
-      backgroundColor: this.props.backgroundColor,
-      justifyContent: 'center' }}>
+
+    return <div 
+      style={{
+        color: '#607D8B',
+        position: 'relative',
+        display: 'flex',
+        flex: 1,
+        flexDirection: (compact ? 'column' : 'row'),
+        alignItems: 'center',
+        backgroundColor: this.props.backgroundColor,
+        justifyContent: 'center' 
+      }}
+      >
       { blocks.map(b => this.renderBlock(b, index++)) }
     </div>
   }

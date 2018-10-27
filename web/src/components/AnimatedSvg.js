@@ -18,12 +18,13 @@ import ReactVivus from 'react-vivus'
 const animatedTimingFunctions = ['EASE_OUT_BOUNCE', 'EASE', 'EASE_IN', 'EASE_OUT']
 const typeOfAnimation = ['delayed', 'sync', 'oneByOne', 'scenario']
 
-const randomTimingFunction = animatedTimingFunctions[Math.floor(Math.random() * animatedTimingFunctions.length)]
-const randomType = typeOfAnimation[Math.floor(Math.random() * typeOfAnimation.length)]
 
 
-const AnimatedSvg = ({ style, src, type, duration, animTimingFunction, id }) => (
-  <ReactVivus
+const AnimatedSvg = ({ style, src, type, duration, animTimingFunction, id }) => {
+  const randomTimingFunction = animatedTimingFunctions[Math.floor(Math.random() * animatedTimingFunctions.length)]
+  const randomType = typeOfAnimation[Math.floor(Math.random() * typeOfAnimation.length)]
+
+  return <ReactVivus
     id={id}
     option={{
       file: src,
@@ -33,6 +34,6 @@ const AnimatedSvg = ({ style, src, type, duration, animTimingFunction, id }) => 
     }}
     style={style}
   />
-);
+};
 
 export default AnimatedSvg;
