@@ -24,7 +24,10 @@ export default class Feature extends Component {
   }
 
   handleScrollToElement() {
-    if (isAnyPartOfElementInViewport(this.blockRef) && !this.state.startAnimation) this.setState({startAnimation: true})
+    if (isAnyPartOfElementInViewport(this.blockRef) && !this.state.startAnimation) {
+      this.setState({startAnimation: true})
+      window.removeEventListener('scroll', this.handleScrollToElement)
+    }
   }
 
   renderContent (compact) {

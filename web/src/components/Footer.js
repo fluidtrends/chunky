@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
+import SocialIcons from './SocialIcons'
 import {
   List,
   ListItem,
@@ -81,6 +82,9 @@ export default class Footer extends Component {
   }
 
   renderDefault () {
+    const isSmallScreen = this.props.width < 1224
+    const respFooterWrapper = isSmallScreen ? 'column' : 'row'
+
     return (<div style={{backgroundColor: this.props.theme.footerColor,
       minHeight: '80px',
       padding: '0px',
@@ -88,19 +92,41 @@ export default class Footer extends Component {
       flexWrap: 'wrap',
       flex: 1,
       alignItems: 'flex-start',
-      flexDirection: 'column',
+      flexDirection: `${respFooterWrapper}`,
       justifyContent: 'center',
       color: '#ECEFF1'}}>
+      <div style={{
+        minHeight: '80px',
+        padding: '10px',
+        display: 'flex',
+        alignSelf: 'center',
+        flex: 1,
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+      }}>
+        <img src={`assets/${this.props.theme.logoLightImage}`} style={{width: '150px'}}/>
+      </div>
+      <div style={{
+        minHeight: '80px',
+        padding: '10px',
+        display: 'flex',
+        alignSelf: 'center',
+        flex: 1,
+      }}>
+        <SocialIcons isSmallScreen={isSmallScreen} socialMediaLinks={this.props.socialMediaLinks} />
+      </div>
       <div style={{
         backgroundColor: this.props.theme.footerColor,
         minHeight: '80px',
         padding: '10px',
         display: 'flex',
         flexWrap: 'wrap',
+        alignSelf: 'flex-end',
         flex: 1,
         alignItems: 'start',
         flexDirection: 'row',
-        justifyContent: 'start',
+        justifyContent: 'center',
         color: '#ECEFF1'
       }}>
         { this.renderFooterSections() }
