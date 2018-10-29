@@ -102,7 +102,7 @@ export default class Feature extends Component {
           width: '90vw',
           marginTop: '60px',
           boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
-          marginBottom: '-30px'
+          marginBottom: '10px'
         }} />,
         <img src={`/assets/${this.props.image}`} style={{
           width: '40vw',
@@ -116,7 +116,7 @@ export default class Feature extends Component {
         width: '90vw',
         marginTop: '60px',
         boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
-        marginBottom: '-30px'
+        marginBottom: '10px'
       }} />,
       <img src={`/assets/${this.props.image}`} style={{
         width: '40vw',
