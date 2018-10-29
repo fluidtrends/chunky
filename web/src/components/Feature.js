@@ -101,11 +101,13 @@ export default class Feature extends Component {
         {renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
           width: '90vw',
           marginTop: '60px',
+          boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
           marginBottom: '-30px'
         }} />,
         <img src={`/assets/${this.props.image}`} style={{
           width: '40vw',
           marginTop: '60px',
+          boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
           marginBottom: '60px'
         }} />)}
       </AnimatedSection>
@@ -113,11 +115,13 @@ export default class Feature extends Component {
       return renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
         width: '90vw',
         marginTop: '60px',
+        boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
         marginBottom: '-30px'
       }} />,
       <img src={`/assets/${this.props.image}`} style={{
         width: '40vw',
         marginTop: '60px',
+        boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)',
         marginBottom: '60px'
       }} />)
     }

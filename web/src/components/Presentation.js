@@ -31,25 +31,27 @@ export default class Presentation extends Component {
     
     return renderResponsive('image', <img src={`/assets/${this.props.image}`} style={{
         width: '80vw',
+        opacity: 0.5, 
         boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)'
       }} />,
       <img src={`/assets/${this.props.image}`} style={{
-        width: '600px',
+        width: '700px',
+        opacity: 0.5, 
         boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)'
       }} />
     ) 
   }
 
   renderThumbnail () {
-    const fontSize = this.props.isSmallScreen? 30 : 60
+    const fontSize = this.props.isSmallScreen? 40 : 70
 
     return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <div style={{opacity: 0.5, width: '90vw', height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      <div style={{width: '90vw', height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         { this.renderImage() }
           <Button type="primary" onClick={this._showModal} shape="circle" icon="play-circle" className='icon' theme="filled" size="large" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}}>
             <style jsx>{`
                 div :global(.icon) {
-                  color: ${'#212121'}
+                  color: ${'#f44336'}
                 }
                 div :global(.icon):hover {
                   color: ${'#00bcd4'}
