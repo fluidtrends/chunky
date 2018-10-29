@@ -47,7 +47,7 @@ export default class Benefits extends Component {
           src={`/assets/${image}`} 
           duration={300}
           style={{
-            width: `${100 / total}vw`
+            width: `${90 / total}vw`
           }} 
         />)
     } else {
@@ -67,6 +67,7 @@ export default class Benefits extends Component {
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
+        padding: '0 20px',
         alignItems: 'center',
         justifyContent: 'center'
       }}>
