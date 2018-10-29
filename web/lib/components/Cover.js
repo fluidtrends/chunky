@@ -326,7 +326,7 @@ var Cover = function (_Component) {
           { use: 'headline5', style: { margin: '20px', color: this.props.color } },
           ' ',
           title,
-          ' 2222'
+          ''
         )
       );
     }
