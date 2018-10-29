@@ -148,4 +148,22 @@ Object.defineProperty(exports, 'Loading', {
   }
 });
 
+var _Presentation = require('./Presentation');
+
+Object.defineProperty(exports, 'Presentation', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Presentation).default;
+  }
+});
+
+var _SocialIcons = require('./SocialIcons');
+
+Object.defineProperty(exports, 'SocialIcons', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SocialIcons).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

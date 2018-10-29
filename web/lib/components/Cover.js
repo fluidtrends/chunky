@@ -20,10 +20,6 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _Text = require('./Text');
-
-var _Text2 = _interopRequireDefault(_Text);
-
 var _Media = require('./Media');
 
 var _Media2 = _interopRequireDefault(_Media);
@@ -37,10 +33,6 @@ var _antd = require('antd');
 var _button = require('@rmwc/button');
 
 var _typography = require('@rmwc/typography');
-
-var _card = require('@rmwc/card');
-
-var _path = require('path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -206,8 +198,7 @@ var Cover = function (_Component) {
         _typography.Typography,
         { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
-        this.props.title,
-        ' '
+        this.props.title
       );
     }
   }, {
@@ -235,8 +226,7 @@ var Cover = function (_Component) {
         _typography.Typography,
         { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
-        this.props.title,
-        ' ffffffff'
+        this.props.title
       );
     }
   }, {
@@ -258,13 +248,8 @@ var Cover = function (_Component) {
   }, {
     key: 'renderLogos',
     value: function renderLogos() {
-      return _react2.default.createElement(
-        'div',
-        { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-3069546275'
-        },
-        ' ',
-        _react2.default.createElement(Eos, null)
-      );
+      return _react2.default.createElement('div', { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-3069546275'
+      });
     }
   }, {
     key: 'renderVideo',
@@ -323,10 +308,10 @@ var Cover = function (_Component) {
         },
         _react2.default.createElement(
           _typography.Typography,
-          { use: 'headline5', style: { margin: '20px', color: this.props.color } },
+          { use: 'headline3', style: { margin: '20px', color: this.props.color } },
           ' ',
           title,
-          ''
+          ' '
         )
       );
     }

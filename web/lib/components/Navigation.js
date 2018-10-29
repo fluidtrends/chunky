@@ -68,7 +68,7 @@ var Navigation = function (_PureComponent) {
         { raised: true, theme: 'secondary-bg text-primary-on-secondary',
           onClick: this._onMenuItem(item),
           style: {
-            color: this.props.theme.navigationTintColor,
+            color: this.props.theme.nanvigationTextButton,
             marginRight: '0px'
           } },
         '' + item.title
