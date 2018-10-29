@@ -51,7 +51,7 @@ export default class Presentation extends Component {
           <Button type="primary" onClick={this._showModal} shape="circle" icon="play-circle" className='icon' theme="filled" size="large" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}}>
             <style jsx>{`
                 div :global(.icon) {
-                  color: ${'#f44336'}
+                  color: ${'#546E7A'}
                 }
                 div :global(.icon):hover {
                   color: ${'#00bcd4'}
