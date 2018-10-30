@@ -122,7 +122,7 @@ export default class Footer extends Component {
         padding: '10px',
         display: 'flex',
         flexWrap: 'wrap',
-        alignSelf: 'flex-end',
+        alignSelf: isSmallScreen ? 'center' : 'flex-end',
         flex: 1,
         alignItems: 'start',
         flexDirection: 'row',
