@@ -27,3 +27,15 @@ Object.keys(_security).forEach(function (key) {
     }
   });
 });
+
+var _isElementVisible = require('./isElementVisible');
+
+Object.keys(_isElementVisible).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _isElementVisible[key];
+    }
+  });
+});

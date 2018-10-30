@@ -16,6 +16,10 @@ var _Component3 = _interopRequireDefault(_Component2);
 
 var _responsive = require('../utils/responsive');
 
+var _SocialIcons = require('./SocialIcons');
+
+var _SocialIcons2 = _interopRequireDefault(_SocialIcons);
+
 var _list = require('@rmwc/list');
 
 var _icon = require('@rmwc/icon');
@@ -158,6 +162,9 @@ var Footer = function (_Component) {
   }, {
     key: 'renderDefault',
     value: function renderDefault() {
+      var isSmallScreen = this.props.width < 1224;
+      var respFooterWrapper = isSmallScreen ? 'column' : 'row';
+
       return _react2.default.createElement(
         'div',
         { style: { backgroundColor: this.props.theme.footerColor,
@@ -167,9 +174,34 @@ var Footer = function (_Component) {
             flexWrap: 'wrap',
             flex: 1,
             alignItems: 'flex-start',
-            flexDirection: 'column',
+            flexDirection: '' + respFooterWrapper,
             justifyContent: 'center',
             color: '#ECEFF1' } },
+        _react2.default.createElement(
+          'div',
+          { style: {
+              minHeight: '80px',
+              padding: '10px',
+              display: 'flex',
+              alignSelf: 'center',
+              flex: 1,
+              alignItems: 'center',
+              flexDirection: 'row',
+              justifyContent: 'center'
+            } },
+          _react2.default.createElement('img', { src: 'assets/' + this.props.theme.logoLightImage, style: { width: '150px' } })
+        ),
+        _react2.default.createElement(
+          'div',
+          { style: {
+              minHeight: '80px',
+              padding: '10px',
+              display: 'flex',
+              alignSelf: 'center',
+              flex: 1
+            } },
+          _react2.default.createElement(_SocialIcons2.default, { isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
+        ),
         _react2.default.createElement(
           'div',
           { style: {
@@ -178,10 +210,11 @@ var Footer = function (_Component) {
               padding: '10px',
               display: 'flex',
               flexWrap: 'wrap',
+              alignSelf: 'flex-end',
               flex: 1,
               alignItems: 'start',
               flexDirection: 'row',
-              justifyContent: 'start',
+              justifyContent: 'center',
               color: '#ECEFF1'
             } },
           this.renderFooterSections()
