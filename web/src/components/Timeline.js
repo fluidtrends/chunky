@@ -45,15 +45,38 @@ export default class Timeline extends Component {
     window.open(url, '_blank')
   }
 
-  renderMilestone (item, index) {
-    let iconBackground = moment().isAfter(item.until)
-      ? this.props.pastColor
-      : this.props.inProgressColor
+  renderMilestone (item) {
+    const {
+      doneColor,
+      progressColor,
+      todoColor,
+      doneIcon,
+      progressIcon,
+      todoIcon
+    } = this.props
+    let iconBackground, iconType
+
+    switch (item.status) {
+      case 'done':
+        iconBackground = doneColor
+        iconType = doneIcon
+        break;
+      case 'progress':
+        iconBackground = progressColor
+        iconType = progressIcon
+        break;
+      case 'todo':
+        iconBackground = todoColor
+        iconType = todoIcon
+        break;
+      default:
+        break;
+    }
+
     return (
       <VerticalTimelineElement
-        key={index}
+        key={item.id}
         className='vertical-timeline-element--work'
-        date={item.date}
         iconStyle={{
           background: iconBackground,
           color: item.color,
@@ -61,10 +84,10 @@ export default class Timeline extends Component {
           justifyContent: 'center',
           alignItems: 'center'
         }}
-        icon={<Icon use={item.icon} />}>
+        icon={<Icon icon={iconType} />}
+        position={'left'}
+        >
         <h3 className='vertical-timeline-element-title'>{item.title}</h3>
-        <h4 className='vertical-timeline-element-subtitle'>{item.subtitle}</h4>
-        <p className='vertical-timeline-element-subtitle'>{item.text}</p>
         <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
           <Button onClick={() => this.triggerRawRedirect(item.link)}>
             More...
@@ -79,11 +102,10 @@ export default class Timeline extends Component {
       return
     }
 
-    var index = 0
     return (
-      <VerticalTimeline style={{ marginTop: 0 }}>
+      <VerticalTimeline style={{ marginTop: 0 }} layout={'one-column'}>
         {this.props.milestones.map(milestone =>
-          this.renderMilestone(milestone, index++)
+          this.renderMilestone(milestone)
         )}
       </VerticalTimeline>
     )
