@@ -77,7 +77,7 @@ export default class Timeline extends Component {
       <VerticalTimelineElement
         key={item.id}
         className='vertical-timeline-element--work'
-        iconStyle={{
+        iconStyle={{ 
           background: iconBackground,
           color: item.color,
           display: 'flex',
@@ -103,7 +103,7 @@ export default class Timeline extends Component {
     }
 
     return (
-      <VerticalTimeline style={{ marginTop: 0 }} layout={'one-column'}>
+      <VerticalTimeline style={{ marginTop: 0 }}>
         {this.props.milestones.map(milestone =>
           this.renderMilestone(milestone)
         )}
