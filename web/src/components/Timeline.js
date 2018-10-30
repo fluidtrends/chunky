@@ -2,12 +2,10 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import { Icon } from '@rmwc/icon'
 import { Button } from '@rmwc/button'
 import { LinearProgress } from '@rmwc/linear-progress'
-import moment from 'moment'
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component'
-import 'react-vertical-timeline-component/style.min.css'
+import { Timeline as AntdTimeline, Icon } from 'antd';
+
 
 import { Card } from 'rmwc/Card'
 
@@ -74,27 +72,35 @@ export default class Timeline extends Component {
     }
 
     return (
-      <VerticalTimelineElement
-        key={item.id}
-        className='vertical-timeline-element--work'
-        iconStyle={{ 
-          background: iconBackground,
-          color: item.color,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}
-        icon={<Icon icon={iconType} />}
-        position={'left'}
-        >
-        <h3 className='vertical-timeline-element-title'>{item.title}</h3>
-        <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
-          <Button onClick={() => this.triggerRawRedirect(item.link)}>
-            More...
-          </Button>
-        </div>
-      </VerticalTimelineElement>
-    )
+        <AntdTimeline.Item dot={<Icon type="clock-circle-o" style={{ fontSize: '16px' }} />}>
+          <h3 className='vertical-timeline-element-title'>{item.title}</h3>
+          <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+            <Button onClick={() => this.triggerRawRedirect(item.link)}>
+              More...
+            </Button>
+          </div>
+        </AntdTimeline.Item>
+      )
+      // <VerticalTimelineElement
+      //   key={item.id}
+      //   className='vertical-timeline-element--work'
+      //   iconStyle={{ 
+      //     background: iconBackground,
+      //     color: item.color,
+      //     display: 'flex',
+      //     justifyContent: 'center',
+      //     alignItems: 'center'
+      //   }}
+      //   icon={<Icon icon={iconType} />}
+      //   position={'left'}
+      //   >
+        // <h3 className='vertical-timeline-element-title'>{item.title}</h3>
+        // <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+        //   <Button onClick={() => this.triggerRawRedirect(item.link)}>
+        //     More...
+        //   </Button>
+        // </div>
+      // </VerticalTimelineElement>
   }
 
   renderTimeline () {
@@ -103,11 +109,11 @@ export default class Timeline extends Component {
     }
 
     return (
-      <VerticalTimeline style={{ marginTop: 0 }}>
+      <AntdTimeline mode="alternate">
         {this.props.milestones.map(milestone =>
           this.renderMilestone(milestone)
         )}
-      </VerticalTimeline>
+      </AntdTimeline>
     )
   }
 
