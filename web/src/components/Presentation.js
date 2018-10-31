@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
-import { Icon, Modal, Button } from 'antd'
+import { Modal, Button } from 'antd'
 import Media from './Media'
 
 export default class Presentation extends Component {
