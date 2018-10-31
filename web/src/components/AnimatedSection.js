@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AnimatedValue, Spring, animated, interpolate } from 'react-spring'
+import { Spring, animated, interpolate } from 'react-spring'
 
 const animationChecker = ['opacity', 'slideFromLeft', 'slideFromRight']
 /**
