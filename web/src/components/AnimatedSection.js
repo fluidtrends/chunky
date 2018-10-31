@@ -1,19 +1,7 @@
 import React, { Component } from 'react'
-import { AnimatedValue, Spring, animated, interpolate, controller as spring } from 'react-spring'
+import { AnimatedValue, Spring, animated, interpolate } from 'react-spring'
 
-const animation = new AnimatedValue(1)
 const animationChecker = ['opacity', 'slideFromLeft', 'slideFromRight']
-
-const animations = Object.freeze({
-  opacity: {
-    opacity: animation.interpolate({ range: [1, 2], output: ['0', '1'] })
-  }
-})
-
-const animationMap = (animationType) => {
-  return animations[animationType]
-}
-
 /**
  * Component for animating children.
  * For now it only supports opacity and slide form left or slide from right. More to be added
@@ -45,42 +33,36 @@ export default class AnimatedSection extends Component {
     if (!animationChecker.includes(animationType)) this.handleError('animationType')
     if (!children) this.handleError('children')
 
-
-    const hover = () => spring(animation, { to: 2, tension: 30, friction: 40 }).start()
-
-    if(animationType === 'opacity') {
-      return (
-        <animated.div
-          className="item"
-          style={animationMap(animationType)}
-          onMouseOver={hover}
-          >
-          {children}
-        </animated.div>
-      )
-    }
-
     const xValue = animationType  === 'slideFromLeft' ? '-100%' : '100%'
 
     return (
       <React.Fragment>
         {
           startAnimation ?
-          <Spring 
-            native 
-            from={{ x: xValue}} to={{ x: '0'}}
+          animationType === 'opacity' ?
+            <Spring  
+            from={{ opacity: 0 }}
+            to={{ opacity: 1 }}
             config={config ? config : { tension: 30, friction: 40 }}
-          >
-          {({x}) => (
-            <animated.div
-              style={{
-                transform: interpolate([x], (x) => `translate(${x}`)
-              }}
             >
-              {children}
-            </animated.div>
-          )}
-          </Spring>
+            {props => <div style={props}>{children}</div>}
+            </Spring>
+            :
+            <Spring 
+              native 
+              from={{ x: xValue}} to={{ x: '0'}}
+              config={config ? config : { tension: 30, friction: 40 }}
+            >
+            {({x}) => (
+              <animated.div
+                style={{
+                  transform: interpolate([x], (x) => `translate(${x}`)
+                }}
+              >
+                {children}
+              </animated.div>
+            )}
+            </Spring>
           :
           <div style={{height: '400px'}}/>
         }
