@@ -166,4 +166,13 @@ Object.defineProperty(exports, 'SocialIcons', {
   }
 });
 
+var _Preview = require('./Preview');
+
+Object.defineProperty(exports, 'Preview', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Preview).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

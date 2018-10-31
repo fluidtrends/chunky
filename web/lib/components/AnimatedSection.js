@@ -20,19 +20,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var animation = new _reactSpring.AnimatedValue(1);
 var animationChecker = ['opacity', 'slideFromLeft', 'slideFromRight'];
-
-var animations = Object.freeze({
-  opacity: {
-    opacity: animation.interpolate({ range: [1, 2], output: ['0', '1'] })
-  }
-});
-
-var animationMap = function animationMap(animationType) {
-  return animations[animationType];
-};
-
 /**
  * Component for animating children.
  * For now it only supports opacity and slide form left or slide from right. More to be added
@@ -75,28 +63,26 @@ var AnimatedSection = function (_Component) {
       if (!animationChecker.includes(animationType)) this.handleError('animationType');
       if (!children) this.handleError('children');
 
-      var hover = function hover() {
-        return (0, _reactSpring.controller)(animation, { to: 2, tension: 30, friction: 40 }).start();
-      };
-
-      if (animationType === 'opacity') {
-        return _react2.default.createElement(
-          _reactSpring.animated.div,
-          {
-            className: 'item',
-            style: animationMap(animationType),
-            onMouseOver: hover
-          },
-          children
-        );
-      }
-
       var xValue = animationType === 'slideFromLeft' ? '-100%' : '100%';
 
       return _react2.default.createElement(
         _react2.default.Fragment,
         null,
-        startAnimation ? _react2.default.createElement(
+        startAnimation ? animationType === 'opacity' ? _react2.default.createElement(
+          _reactSpring.Spring,
+          {
+            from: { opacity: 0 },
+            to: { opacity: 1 },
+            config: config ? config : { tension: 30, friction: 40 }
+          },
+          function (props) {
+            return _react2.default.createElement(
+              'div',
+              { style: props },
+              children
+            );
+          }
+        ) : _react2.default.createElement(
           _reactSpring.Spring,
           {
             native: true,
