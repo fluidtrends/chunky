@@ -66,15 +66,19 @@ export default class ChunkyTimeline extends Component {
         break;
     }
 
+    const strikeStyle = item.status === 'done' ? 'line-through' : '',
+          opacity = item.status === 'todo' ? 0.5 : 1,
+          backgroundColor = item.status === 'progress' ? '#80CBC4' : ''
+    
     return (
         <Timeline.Item dot={<Icon type={iconType} style={{ fontSize: '20px', color: iconColor }} />}>
-          <div style={{boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px', display: 'flex', alignItems: 'center', padding: '15px'}}>
-            <Typography use="headline5" style={{paddingRight: '5px', paddingLeft: '5px'}}>{item.title}</Typography>
-            <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
-              <Button style={{backgroundColor: '#009688'}} type="primary" href={item.link} target={'_blank'}>
+          <div style={{boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px', display: 'flex', alignItems: 'center', padding: '15px', opacity, backgroundColor}}>
+            <Typography use="headline5" style={{paddingRight: '5px', paddingLeft: '5px', textDecoration: strikeStyle }}>{item.title}</Typography>
+            {/* <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+              <Button style={{backgroundColor: '#009688', borderColor: '#009688'}} type="primary" href={item.link} target={'_blank'}>
                 Find out more<Icon type="right" />
               </Button>
-            </div>
+            </div> */}
           </div>
         </Timeline.Item>
       )
@@ -119,6 +123,11 @@ export default class ChunkyTimeline extends Component {
           backgroundColor: this.props.backgroundColor
         }}>
         {this.renderTimeline()}
+         <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+            <Button style={{backgroundColor: '#009688', borderColor: '#009688', width: '50%'}} type="primary" href={'https://github.com/fluidtrends/carmel/projects/1?fullscreen=true'} target={'_blank'}>
+              Our progress so far<Icon type="setting" spin={true} />
+            </Button>
+          </div>
       </div>
     )
   }
