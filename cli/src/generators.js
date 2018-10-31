@@ -135,43 +135,17 @@ function _generateProductPackage (name, template) {
 }
 
 function _generateProductChunkyManifest (name, template) {
-  return {
-    name,
-    template,
-    env: 'dev',
-    id: 'io.chunky',
-    androidSdkDir: '~/Library/Android/sdk',
-    sections: {
-      start: {
-        stack: [ 'intro', 'posts', 'docs' ]
-      }
-    },
-    transitions: ['replace://start'],
-    provisioning: {},
-    theme: {
-      logoImage: 'logo.png',
-      logoLightImage: 'logo.png',
-      headerColor: '#FF5722',
-      textColor: '#546E7A',
-      linkColor: '#0288D1',
-      linkHoverColor: '#64B5F6',
-      linkHoverBackgroundColor: '#F5F5F5',
-      progressColor: 'rgba(50,50,50,0.9)',
-      primaryColor: '#0097A7',
-      statusBarLight: false,
-      navigationColor: '#FFFFFF',
-      navigationTintColor: '#37474F',
-      backgroundColor: '#999999',
-      footerTintColor: '#CFD8DC',
-      footerHeaderColor: '#90A4AE',
-      footerColor: '#546E7A',
-      footerBottomColor: '#37474F'
-    },
-    info: {
-      copyright: '© 2018',
-      watermark: 'Created with Chunky.'
-    }
+
+  var manifestJsonObject = require('../assets/templates/fixtures/default.json');
+
+  if(template){
+    manifestJsonObject = require('../assets/templates/fixtures/' + template + '.json');
   }
+
+  manifestJsonObject['name'] = name
+  manifestJsonObject['template'] = template
+
+  return manifestJsonObject;
 }
 
 function _generateProductStrings (data) {
