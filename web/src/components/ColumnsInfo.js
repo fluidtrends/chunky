@@ -68,7 +68,7 @@ export default class Summary extends Component {
 			</div>
 		}
 		return (<div 
-			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '50px 15px' }} 
+			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px' }} 
 			>
       { this.renderText() }	
 			{ this.renderRowsAndColumns() }
