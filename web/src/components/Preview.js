@@ -7,7 +7,7 @@ import AnimatedSection from './AnimatedSection'
 import { Button, Icon } from 'antd'
 
 
-export default class Summary extends Component {
+export default class Preview extends Component {
 
   constructor (props) {
     super(props)
