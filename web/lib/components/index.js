@@ -193,4 +193,13 @@ Object.defineProperty(exports, 'Carousel', {
   }
 });
 
+var _BuyInfo = require('./BuyInfo');
+
+Object.defineProperty(exports, 'Buy', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_BuyInfo).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

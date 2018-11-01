@@ -407,7 +407,7 @@ var App = function (_PureComponent) {
         null,
         _react2.default.createElement(
           'div',
-          { style: { overflowX: 'hidden' } },
+          { style: {} },
           this.renderRoutes()
         )
       );
