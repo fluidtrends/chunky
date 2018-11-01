@@ -78,13 +78,13 @@ var Benefits = function (_Component) {
         return (0, _responsive.renderResponsive)('image', _react2.default.createElement(_AnimatedSvg2.default, {
           id: '' + _image,
           src: '/assets/' + _image,
-          duration: 300,
+          duration: 200,
           style: {
             width: '90vw'
           } }), _react2.default.createElement(_AnimatedSvg2.default, {
           id: '' + _image,
           src: '/assets/' + _image,
-          duration: 300,
+          duration: 200,
           style: {
             width: 90 / total + 'vw'
           }

@@ -5,58 +5,22 @@ import { renderResponsive } from '../utils/responsive'
 import { Typography } from '@rmwc/typography'
 import { Row, Col } from 'antd'
 import { Icon } from '@rmwc/icon'
+import { CircularProgress } from '@rmwc/circular-progress'
 
-
-const data = {
-	rows: [
-		{
-			columns: [
-				{
-					title: 'aaa',
-					subtitle: 'bbb2',
-					icon: 'done'
-				},
-				{
-					title: 'aaa2',
-					subtitle: 'bbb2',
-					icon: 'face'
-				},
-				{
-					title: 'aaa3',
-					subtitle: 'bbb2',
-					icon: 'extension'
-				}
-			]
-		},
-		{
-			columns: [
-				{
-					title: 'aaa',
-					subtitle: 'bbb2',
-					icon: 'done'
-				},
-				{
-					title: 'aaa2',
-					subtitle: 'bbb2',
-					icon: 'face'
-				},
-				{
-					title: 'aaa3',
-					subtitle: 'bbb2',
-					icon: 'extension'
-				}
-			]
-		}
-	]
-}
 export default class Summary extends Component {
   constructor (props) {
     super(props)
-		this.state = { ...this.state}
+		this.state = { ...this.state, tokenData: null}
   }
 
   componentDidMount () {
 		super.componentDidMount()		
+		fetch(this.props.data)
+		.then(response => response.json())
+		.then(tokenData => {
+			this.setState({ tokenData })
+		})
+		.catch(error => console.error(error))
 	}
 	
 	renderText () {
@@ -73,12 +37,13 @@ export default class Summary extends Component {
 	}
 
 	renderRowsAndColumns() {
-		return data.rows.map(row => this.renderRow(row))
+		const { tokenData } = this.state
+		return tokenData && tokenData.rows.map(row => this.renderRow(row))
 	}
 
 	renderRow(row) {
 		return <Row gutter={96}>
-			{row.columns.map( column => this.renderColumn(column))}
+			{row && row.columns.map( column => this.renderColumn(column))}
 		</Row>
 	}
 
@@ -97,8 +62,13 @@ export default class Summary extends Component {
 	}
 
   renderComponent () {
+		if (!this.state.tokenData) {
+			return <div>
+				<CircularProgress size="large" />
+			</div>
+		}
 		return (<div 
-			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }} 
+			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px' }} 
 			>
       { this.renderText() }	
 			{ this.renderRowsAndColumns() }
