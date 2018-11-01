@@ -40,23 +40,23 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Summary = function (_Component) {
-		_inherits(Summary, _Component);
+var Preview = function (_Component) {
+		_inherits(Preview, _Component);
 
-		function Summary(props) {
-				_classCallCheck(this, Summary);
+		function Preview(props) {
+				_classCallCheck(this, Preview);
 
-				var _this = _possibleConstructorReturn(this, (Summary.__proto__ || Object.getPrototypeOf(Summary)).call(this, props));
+				var _this = _possibleConstructorReturn(this, (Preview.__proto__ || Object.getPrototypeOf(Preview)).call(this, props));
 
 				_this.state = _extends({}, _this.state, { startAnimation: false });
 				_this.handleScrollToElement = _this.handleScrollToElement.bind(_this);
 				return _this;
 		}
 
-		_createClass(Summary, [{
+		_createClass(Preview, [{
 				key: 'componentDidMount',
 				value: function componentDidMount() {
-						_get(Summary.prototype.__proto__ || Object.getPrototypeOf(Summary.prototype), 'componentDidMount', this).call(this);
+						_get(Preview.prototype.__proto__ || Object.getPrototypeOf(Preview.prototype), 'componentDidMount', this).call(this);
 						window.addEventListener('scroll', this.handleScrollToElement);
 				}
 		}, {
@@ -141,7 +141,7 @@ var Summary = function (_Component) {
 				}
 		}]);
 
-		return Summary;
+		return Preview;
 }(_Component3.default);
 
-exports.default = Summary;
+exports.default = Preview;

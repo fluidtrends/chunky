@@ -350,7 +350,7 @@ export default class App extends PureComponent {
     }
 
     return (<BrowserRouter>
-      <div style={{overflowX: 'hidden'}}>
+      <div style={{}}>
         { this.renderRoutes() }
       </div>
     </BrowserRouter>)
