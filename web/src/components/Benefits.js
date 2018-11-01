@@ -38,14 +38,14 @@ export default class Benefits extends Component {
         <AnimatedSvg
           id={`${image}`}
           src={`/assets/${image}`}
-          duration={300}
+          duration={200}
           style={{
             width: '90vw'
           }} />,
         <AnimatedSvg 
           id={`${image}`}
           src={`/assets/${image}`} 
-          duration={300}
+          duration={200}
           style={{
             width: `${90 / total}vw`
           }} 

@@ -24,17 +24,11 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _icon = require('@rmwc/icon');
-
-var _button = require('@rmwc/button');
-
 var _linearProgress = require('@rmwc/linear-progress');
 
-var _moment = require('moment');
+var _antd = require('antd');
 
-var _moment2 = _interopRequireDefault(_moment);
-
-var _reactVerticalTimelineComponent = require('react-vertical-timeline-component');
+var _typography = require('@rmwc/typography');
 
 var _Card = require('rmwc/Card');
 
@@ -46,22 +40,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Timeline = function (_Component) {
-  _inherits(Timeline, _Component);
+var ChunkyTimeline = function (_Component) {
+  _inherits(ChunkyTimeline, _Component);
 
-  function Timeline(props) {
-    _classCallCheck(this, Timeline);
+  function ChunkyTimeline(props) {
+    _classCallCheck(this, ChunkyTimeline);
 
-    var _this = _possibleConstructorReturn(this, (Timeline.__proto__ || Object.getPrototypeOf(Timeline)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ChunkyTimeline.__proto__ || Object.getPrototypeOf(ChunkyTimeline)).call(this, props));
 
     _this.state = _extends({}, _this.state, { loading: false });
     return _this;
   }
 
-  _createClass(Timeline, [{
+  _createClass(ChunkyTimeline, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      _get(Timeline.prototype.__proto__ || Object.getPrototypeOf(Timeline.prototype), 'componentDidMount', this).call(this);
+      _get(ChunkyTimeline.prototype.__proto__ || Object.getPrototypeOf(ChunkyTimeline.prototype), 'componentDidMount', this).call(this);
     }
   }, {
     key: 'renderText',
@@ -81,54 +75,50 @@ var Timeline = function (_Component) {
       }));
     }
   }, {
-    key: 'triggerRawRedirect',
-    value: function triggerRawRedirect(url) {
-      window.open(url, '_blank');
-    }
-  }, {
     key: 'renderMilestone',
-    value: function renderMilestone(item, index) {
-      var _this2 = this;
+    value: function renderMilestone(item) {
+      var _props = this.props,
+          doneColor = _props.doneColor,
+          progressColor = _props.progressColor,
+          todoColor = _props.todoColor,
+          doneIcon = _props.doneIcon,
+          progressIcon = _props.progressIcon,
+          todoIcon = _props.todoIcon;
 
-      var iconBackground = (0, _moment2.default)().isAfter(item.until) ? this.props.pastColor : this.props.inProgressColor;
+      var iconColor = void 0,
+          iconType = void 0;
+
+      switch (item.status) {
+        case 'done':
+          iconColor = doneColor;
+          iconType = doneIcon;
+          break;
+        case 'progress':
+          iconColor = progressColor;
+          iconType = progressIcon;
+          break;
+        case 'todo':
+          iconColor = todoColor;
+          iconType = todoIcon;
+          break;
+        default:
+          break;
+      }
+
+      var strikeStyle = item.status === 'done' ? 'line-through' : '',
+          opacity = item.status === 'todo' ? 0.5 : 1,
+          backgroundColor = item.status === 'progress' ? '#80CBC4' : '';
+
       return _react2.default.createElement(
-        _reactVerticalTimelineComponent.VerticalTimelineElement,
-        {
-          key: index,
-          className: 'vertical-timeline-element--work',
-          date: item.date,
-          iconStyle: {
-            background: iconBackground,
-            color: item.color,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          },
-          icon: _react2.default.createElement(_icon.Icon, { use: item.icon }) },
-        _react2.default.createElement(
-          'h3',
-          { className: 'vertical-timeline-element-title' },
-          item.title
-        ),
-        _react2.default.createElement(
-          'h4',
-          { className: 'vertical-timeline-element-subtitle' },
-          item.subtitle
-        ),
-        _react2.default.createElement(
-          'p',
-          { className: 'vertical-timeline-element-subtitle' },
-          item.text
-        ),
+        _antd.Timeline.Item,
+        { dot: _react2.default.createElement(_antd.Icon, { type: iconType, style: { fontSize: '20px', color: iconColor } }) },
         _react2.default.createElement(
           'div',
-          { style: { display: 'flex', flex: 1, justifyContent: 'flex-end' } },
+          { style: { boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px', display: 'flex', alignItems: 'center', padding: '15px', opacity: opacity, backgroundColor: backgroundColor } },
           _react2.default.createElement(
-            _button.Button,
-            { onClick: function onClick() {
-                return _this2.triggerRawRedirect(item.link);
-              } },
-            'More...'
+            _typography.Typography,
+            { use: 'headline5', style: { paddingRight: '5px', paddingLeft: '5px', textDecoration: strikeStyle } },
+            item.title
           )
         )
       );
@@ -136,18 +126,17 @@ var Timeline = function (_Component) {
   }, {
     key: 'renderTimeline',
     value: function renderTimeline() {
-      var _this3 = this;
+      var _this2 = this;
 
       if (!this.props.milestones) {
         return;
       }
 
-      var index = 0;
       return _react2.default.createElement(
-        _reactVerticalTimelineComponent.VerticalTimeline,
-        { style: { marginTop: 0 } },
+        _antd.Timeline,
+        { mode: 'alternate' },
         this.props.milestones.map(function (milestone) {
-          return _this3.renderMilestone(milestone, index++);
+          return _this2.renderMilestone(milestone);
         })
       );
     }
@@ -182,12 +171,22 @@ var Timeline = function (_Component) {
             color: this.props.textColor,
             backgroundColor: this.props.backgroundColor
           } },
-        this.renderTimeline()
+        this.renderTimeline(),
+        _react2.default.createElement(
+          'div',
+          { style: { display: 'flex', flex: 1, justifyContent: 'center' } },
+          _react2.default.createElement(
+            _antd.Button,
+            { style: { backgroundColor: '#009688', borderColor: '#009688', width: '50%' }, type: 'primary', href: 'https://github.com/fluidtrends/carmel/projects/1?fullscreen=true', target: '_blank' },
+            'Our progress so far',
+            _react2.default.createElement(_antd.Icon, { type: 'setting', spin: true })
+          )
+        )
       );
     }
   }]);
 
-  return Timeline;
+  return ChunkyTimeline;
 }(_Component3.default);
 
-exports.default = Timeline;
+exports.default = ChunkyTimeline;
