@@ -38,12 +38,12 @@ export default class Summary extends Component {
 
 	renderRowsAndColumns() {
 		const { tokenData } = this.state
-		return tokenData.rows.map(row => this.renderRow(row))
+		return tokenData && tokenData.rows.map(row => this.renderRow(row))
 	}
 
 	renderRow(row) {
 		return <Row gutter={96}>
-			{row.columns.map( column => this.renderColumn(column))}
+			{row && row.columns.map( column => this.renderColumn(column))}
 		</Row>
 	}
 
@@ -68,7 +68,7 @@ export default class Summary extends Component {
 			</div>
 		}
 		return (<div 
-			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }} 
+			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '50px 15px' }} 
 			>
       { this.renderText() }	
 			{ this.renderRowsAndColumns() }
