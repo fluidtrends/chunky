@@ -63,7 +63,7 @@ module.exports = (options) => {
           }
         },
         {
-          test: /\.svg$/,
+          test: /\.(svg|ttf|eot|woff)$/,
           use: {
             loader: 'raw-loader'
           }
