@@ -14,7 +14,7 @@ export default class ColumnsInfo extends Component {
   }
 
   componentDidMount () {
-		super.componentDidMount()		
+		super.componentDidMount()
 		fetch(this.props.data)
 		.then(response => response.json())
 		.then(tokenData => {
@@ -22,7 +22,7 @@ export default class ColumnsInfo extends Component {
 		})
 		.catch(error => console.error(error))
 	}
-	
+
 	renderText () {
     return renderResponsive('text',
       <Text source={this.props.text} style={{
@@ -50,12 +50,12 @@ export default class ColumnsInfo extends Component {
 	renderColumn(column) {
 		return <Col md={8} sm={24} xs={24}>
 			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center'}}>
-				<Icon icon={column.icon} style={{fontSize: '60px'}} />
+				<Icon icon={column.icon} style={{fontSize: '38px', color: this.props.iconColor}} />
 				<div>
-					<Typography use="headline3" style={{padding: '15px', display: 'block'}}>{column.title}</Typography>
+					<Typography use="headline5" style={{padding: '10px', display: 'block', color: this.props.iconColor}}>{column.title.toUpperCase()}</Typography>
 				</div>
 				<div>
-					<Typography use="headline5" style={{padding: '15px', display: 'block'}}>{column.subtitle}</Typography>
+					<Typography use="headline6" style={{padding: '10px', display: 'block'}}>{column.subtitle}</Typography>
 				</div>
 			</div>
 		</Col>
@@ -67,10 +67,10 @@ export default class ColumnsInfo extends Component {
 				<CircularProgress size="large" />
 			</div>
 		}
-		return (<div 
-			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px' }} 
+		return (<div
+			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "30px", backgroundColor: this.props.backgroundColor }}
 			>
-      { this.renderText() }	
+      { this.renderText() }
 			{ this.renderRowsAndColumns() }
     </div>)
   }

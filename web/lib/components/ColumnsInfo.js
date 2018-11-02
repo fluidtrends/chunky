@@ -111,14 +111,14 @@ var ColumnsInfo = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					{ style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center' } },
-					_react2.default.createElement(_icon.Icon, { icon: column.icon, style: { fontSize: '60px' } }),
+					_react2.default.createElement(_icon.Icon, { icon: column.icon, style: { fontSize: '38px', color: this.props.iconColor } }),
 					_react2.default.createElement(
 						'div',
 						null,
 						_react2.default.createElement(
 							_typography.Typography,
-							{ use: 'headline3', style: { padding: '15px', display: 'block' } },
-							column.title
+							{ use: 'headline5', style: { padding: '10px', display: 'block', color: this.props.iconColor } },
+							column.title.toUpperCase()
 						)
 					),
 					_react2.default.createElement(
@@ -126,7 +126,7 @@ var ColumnsInfo = function (_Component) {
 						null,
 						_react2.default.createElement(
 							_typography.Typography,
-							{ use: 'headline5', style: { padding: '15px', display: 'block' } },
+							{ use: 'headline6', style: { padding: '10px', display: 'block' } },
 							column.subtitle
 						)
 					)
@@ -146,7 +146,7 @@ var ColumnsInfo = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{
-					style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px' }
+					style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "30px", backgroundColor: this.props.backgroundColor }
 				},
 				this.renderText(),
 				this.renderRowsAndColumns()

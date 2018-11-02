@@ -32,9 +32,9 @@ export default class Benefits extends Component {
 
   image (image, index, total) {
     const fileType = image.split('.')[image.split('.').length - 1]
-    
+
     if (fileType === 'svg') {
-      return renderResponsive('image', 
+      return renderResponsive('image',
         <AnimatedSvg
           id={`${image}`}
           src={`/assets/${image}`}
@@ -42,13 +42,13 @@ export default class Benefits extends Component {
           style={{
             width: '90vw'
           }} />,
-        <AnimatedSvg 
+        <AnimatedSvg
           id={`${image}`}
-          src={`/assets/${image}`} 
+          src={`/assets/${image}`}
           duration={200}
           style={{
             width: `${90 / total}vw`
-          }} 
+          }}
         />)
     } else {
       return renderResponsive('image', <img src={`/assets/${image}`} style={{
@@ -67,7 +67,6 @@ export default class Benefits extends Component {
         display: 'flex',
         flex: 1,
         flexDirection: 'column',
-        padding: '0 20px',
         alignItems: 'center',
         justifyContent: 'center'
       }}>
@@ -85,7 +84,7 @@ export default class Benefits extends Component {
       display: 'flex',
       flex: 1,
       flexDirection: (compact ? 'column' : 'row'),
-      alignItems: (compact ? 'center' : 'flex-start'),
+      alignItems: (compact ? 'center' : 'center'),
       backgroundColor: this.props.backgroundColor,
       justifyContent: 'center' }}>
       { benefits.map(b => this.renderBlock(b, index++, total)) }
