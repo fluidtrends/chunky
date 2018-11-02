@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
-import { Modal, Button } from 'antd'
+import { Modal, Icon } from 'antd'
 import Media from './Media'
 
 export default class Presentation extends Component {
@@ -48,33 +48,34 @@ export default class Presentation extends Component {
     return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
       <div style={{width: '90vw', height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         { this.renderImage() }
-          <Button type="primary" onClick={this._showModal} shape="circle" icon="play-circle" className='icon' theme="filled" size="large" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}}>
-            <style jsx>{`
-                div :global(.icon) {
-                  color: ${'#546E7A'}
-                }
-                div :global(.icon):hover {
-                  color: ${'#00bcd4'}
-                }
-              `}
-            </style>
-          </Button>
+          <Icon onClick={this._showModal} type="play-circle" className='icon' theme="filled" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}} />
+          <style jsx>{`
+              div :global(.icon) {
+                color: ${'#546E7A'}
+              }
+              div :global(.icon):hover {
+                color: ${'#00bcd4'}
+              }
+            `}
+          </style>
       </div>
     </div>
   }
 
   renderModal() {
-    const width = this.props.isSmallScreen? '90vw' : 900
-    const height = this.props.isSmallScreen? 300 : 500
+    const width = this.props.isSmallScreen? '80vw' : 1200
+    const marginTop = this.props.isSmallScreen? 150 : 0
+    const paddingTop = '56.25%'
+    // const height = this.props.isSmallScreen? 300 : 500
     
-    return <Modal centered cancelButtonProps={{shape: 'circle', type: 'danger'}} onCancel={this._hideModal} width={width} bodyStyle={{ height, marginTop: 150 }} footer={null} visible={this.state.modalVisible} >
+    return <Modal centered cancelButtonProps={{shape: 'circle', type: 'danger'}} onCancel={this._hideModal} width={width} bodyStyle={{ paddingTop, marginTop }} footer={null} visible={this.state.modalVisible} >
       <Media video={this.props.url} width='100%' height='100%' style={{ position: 'absolute', top: 0, left: 0 }} playing={this.state.videoPlaying} />
     </Modal>
   }
 
   renderComponent () {
     
-    return <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    return <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: '100px 0' }}>
       <div style={{ marginTop: 75, height: 350, textAlign: 'center'}}>
           { this.renderThumbnail() }
           { this.renderModal() }
