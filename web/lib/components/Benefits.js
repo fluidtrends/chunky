@@ -108,7 +108,6 @@ var Benefits = function (_Component) {
             display: 'flex',
             flex: 1,
             flexDirection: 'column',
-            padding: '0 20px',
             alignItems: 'center',
             justifyContent: 'center'
           } },
@@ -131,7 +130,7 @@ var Benefits = function (_Component) {
             display: 'flex',
             flex: 1,
             flexDirection: compact ? 'column' : 'row',
-            alignItems: compact ? 'center' : 'flex-start',
+            alignItems: compact ? 'center' : 'center',
             backgroundColor: this.props.backgroundColor,
             justifyContent: 'center' } },
         benefits.map(function (b) {

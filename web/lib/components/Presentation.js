@@ -89,10 +89,10 @@ var Presentation = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+        { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px" } },
         _react2.default.createElement(
           'div',
-          { style: { width: '90vw', height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
           this.renderImage(),
           _react2.default.createElement(
             _antd.Button,
@@ -123,11 +123,11 @@ var Presentation = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center' }, className: 'jsx-2882560980'
+        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: 'jsx-2882560980'
         },
         _react2.default.createElement(
           'div',
-          { style: { marginTop: 75, height: 350, textAlign: 'center' }, className: 'jsx-2882560980'
+          { style: { textAlign: 'center' }, className: 'jsx-2882560980'
           },
           this.renderThumbnail(),
           this.renderModal()

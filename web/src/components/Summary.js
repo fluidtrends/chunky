@@ -31,7 +31,9 @@ export default class Summary extends Component {
     return (<div style={{
       color: this.props.textColor,
       position: 'relative',
+      padding: '60px 0',
       display: 'flex',
+      padding: '40px 0',
       flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
