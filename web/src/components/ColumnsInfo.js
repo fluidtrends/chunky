@@ -7,7 +7,7 @@ import { Row, Col } from 'antd'
 import { Icon } from '@rmwc/icon'
 import { CircularProgress } from '@rmwc/circular-progress'
 
-export default class Summary extends Component {
+export default class ColumnsInfo extends Component {
   constructor (props) {
     super(props)
 		this.state = { ...this.state, tokenData: null}
@@ -49,13 +49,13 @@ export default class Summary extends Component {
 
 	renderColumn(column) {
 		return <Col md={8} sm={24} xs={24}>
-			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px'}}>
+			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center'}}>
 				<Icon icon={column.icon} style={{fontSize: '60px'}} />
 				<div>
-					<Typography use="headline3" style={{paddingRight: '5px', paddingLeft: '5px'}}>{column.title}</Typography>
+					<Typography use="headline3" style={{padding: '15px', display: 'block'}}>{column.title}</Typography>
 				</div>
 				<div>
-					<Typography use="headline5" style={{paddingRight: '5px', paddingLeft: '5px'}}>{column.subtitle}</Typography>
+					<Typography use="headline5" style={{padding: '15px', display: 'block'}}>{column.subtitle}</Typography>
 				</div>
 			</div>
 		</Col>

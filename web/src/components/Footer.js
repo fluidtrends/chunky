@@ -114,7 +114,7 @@ export default class Footer extends Component {
         alignSelf: 'center',
         flex: 1,
       }}>
-        <SocialIcons isSmallScreen={isSmallScreen} socialMediaLinks={this.props.socialMediaLinks} />
+        <SocialIcons iconColor={this.props.theme.footerSocialIconsColor} iconColorHover={this.props.theme.footerSocialIconsColorHover} isSmallScreen={isSmallScreen} socialMediaLinks={this.props.socialMediaLinks} />
       </div>
       <div style={{
         backgroundColor: this.props.theme.footerColor,

@@ -43,9 +43,10 @@ export default class SocialIcons extends PureComponent {
             }} />
           <style jsx>{`
               div :global(.icon) {
+                color: ${this.props.iconColor}
               }
               div :global(.icon):hover {  
-                color: ${'#00bcd4'}
+                color: ${this.props.iconColorHover}
               }
             `}</style>
         </div>
