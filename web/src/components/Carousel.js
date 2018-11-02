@@ -1,6 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
+import Media from './Media'
 import { renderResponsive } from '../utils/responsive'
 import { Typography } from '@rmwc/typography'
 import { Carousel } from 'antd'
@@ -44,19 +45,30 @@ export default class ChunkyCarousel extends Component {
 	}
 
 	renderCarouselItem(item) {
+		const style = {
+      alignSelf: 'center',
+      marginTop: '20px',
+      objectFit: 'cover',
+      height: 150,
+      width: 150,
+      borderRadius: '50%',
+      objectPosition: 'center center'
+    }
 		return <div>
 				<div style={{
-						display: 'flex', 
+						display: 'flex',
+						flex: 2, 
 						justifyContent: 'space-evenly', 
 						alignItems: 'center', 
+						padding: 20,
 						flexDirection: 'row',
 						height: '280px'
 					}}
 				>
-					<div>
-						<img src={item.imageUrl} style={{borderRadius: '50%', maxWidth: '150px'}}/>
+					<div style={{display: 'flex', flex: 1, justifyContent: 'center'}}>
+						<Media cache={this.props.cache} roundImg image={item.imageUrl} style={style} />
 					</div>
-					<div>
+					<div style={{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 						<Typography use='subtitle1' tag='h2' style={{
 							color: this.props.textColor,
 						}}>
