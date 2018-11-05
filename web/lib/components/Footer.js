@@ -200,7 +200,7 @@ var Footer = function (_Component) {
               alignSelf: 'center',
               flex: 1
             } },
-          _react2.default.createElement(_SocialIcons2.default, { isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
+          _react2.default.createElement(_SocialIcons2.default, { iconColor: this.props.theme.footerSocialIconsColor, iconColorHover: this.props.theme.footerSocialIconsColorHover, isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
         ),
         _react2.default.createElement(
           'div',

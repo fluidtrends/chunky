@@ -57,7 +57,7 @@ var SocialIcons = function (_PureComponent) {
           return _react2.default.createElement(
             'div',
             {
-              className: 'jsx-2969916561' + ' ' + 'jsx-2969916561'
+              className: _style2.default.dynamic([['1055089053', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['1055089053', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
             },
             _react2.default.createElement(_antd.Icon, {
               key: key,
@@ -72,8 +72,9 @@ var SocialIcons = function (_PureComponent) {
                 padding: padding
               } }),
             _react2.default.createElement(_style2.default, {
-              styleId: '2969916561',
-              css: 'div.jsx-2969916561 .icon:hover{color:' + '#00bcd4' + ';}'
+              styleId: '1055089053',
+              css: 'div.__jsx-style-dynamic-selector .icon{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + _this2.props.iconColorHover + ';}',
+              dynamic: [_this2.props.iconColor, _this2.props.iconColorHover]
             })
           );
         })
