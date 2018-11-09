@@ -57,18 +57,18 @@ export default class ChunkyCarousel extends Component {
 		return <div>
 				<div style={{
 						display: 'flex',
-						flex: 2, 
+						flex: 3, 
 						justifyContent: 'space-evenly', 
 						alignItems: 'center', 
 						padding: 20,
 						flexDirection: 'row',
-						height: '280px'
+						height: '300px'
 					}}
 				>
 					<div style={{display: 'flex', flex: 1, justifyContent: 'center'}}>
 						<Media cache={this.props.cache} roundImg image={item.imageUrl} style={style} />
 					</div>
-					<div style={{display: 'flex', flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+					<div style={{display: 'flex', flex: 2, flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
 						<Typography use='subtitle1' tag='h2' style={{
 							color: this.props.textColor,
 						}}>
