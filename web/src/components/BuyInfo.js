@@ -31,7 +31,8 @@ export default class BuyInfo extends Component {
 	}
 
 	renderButton () {
-		return <Button href={this.props.path} type="primary" style={{backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px'}} onMouseEnter={() => {this.setState({hovered: true})}}  onMouseLeave={() => {this.setState({hovered: false})}}>
+    const { path, link } = this.props.components.getAccess
+		return <Button href={path? path : link} type="primary" style={{backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px'}} onMouseEnter={() => {this.setState({hovered: true})}}  onMouseLeave={() => {this.setState({hovered: false})}}>
 			{this.props.action}<Icon type="arrow-right" style={{marginLeft: this.state.hovered ? '30px' : '5px'}} />
 		</Button>
 	}
