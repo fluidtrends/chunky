@@ -46,7 +46,7 @@ export default class Presentation extends Component {
   renderThumbnail () {
     const fontSize = this.props.isSmallScreen? 40 : 70
 
-    return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px"}}>
+    return <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px 0"}}>
       <div style={{width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         { this.renderImage() }
           <Icon onClick={this._showModal} type="play-circle" className='icon' theme="filled" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}} />
