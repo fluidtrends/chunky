@@ -3,17 +3,17 @@ import React from 'react'
 import MediaQuery from 'react-responsive'
 
 export const breakpoints = {
-  main: 1224
+  main: 768
 }
 
 export function renderResponsiveLarge (component) {
-  return (<MediaQuery minDeviceWidth={breakpoints.main}>
+  return (<MediaQuery minWidth={breakpoints.main}>
     { component }
   </MediaQuery>)
 }
 
 export function renderResponsiveSmall (component) {
-  return (<MediaQuery maxDeviceWidth={breakpoints.main}>
+  return (<MediaQuery maxWidth={breakpoints.main}>
     { component }
   </MediaQuery>)
 }

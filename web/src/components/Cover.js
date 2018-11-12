@@ -172,8 +172,16 @@ export default class Cover extends Component {
     if (!this.props.primaryActionTitle) {
       return <div />
     }
-    return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
+    return <Button onClick={this.triggerAction.bind(this)} raised theme='secondary-bg text-primary-on-secondary'
       style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
+  }
+  
+  triggerAction() {
+    const link = this.props.cover.link
+    if (link) {
+      this.onLinkClick(link)
+    }
+    this.triggerEvent()
   }
 
   get presentationHeight () {

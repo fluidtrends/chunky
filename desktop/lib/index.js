@@ -99,7 +99,7 @@ var createWindow = function () {
             });
 
             mainWindow = new _electron.BrowserWindow({
-              width: 1024,
+              width: 1400,
               height: 800,
               center: true,
               minWidth: 1024,

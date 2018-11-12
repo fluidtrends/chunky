@@ -200,7 +200,7 @@ var Footer = function (_Component) {
               alignSelf: 'center',
               flex: 1
             } },
-          _react2.default.createElement(_SocialIcons2.default, { isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
+          _react2.default.createElement(_SocialIcons2.default, { iconColor: this.props.theme.footerSocialIconsColor, iconColorHover: this.props.theme.footerSocialIconsColorHover, isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
         ),
         _react2.default.createElement(
           'div',
@@ -210,7 +210,7 @@ var Footer = function (_Component) {
               padding: '10px',
               display: 'flex',
               flexWrap: 'wrap',
-              alignSelf: 'flex-end',
+              alignSelf: isSmallScreen ? 'center' : 'flex-end',
               flex: 1,
               alignItems: 'start',
               flexDirection: 'row',
