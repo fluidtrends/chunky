@@ -5,16 +5,26 @@ const fs = require('fs-extra')
 const generators = require('../../src/generators')
 
 function update (name, template, data) {
-  return Promise.all([generators.generateChunk('intro', 'intro', Object.assign({}, data, { name: 'intro'})),
-    generators.generateChunk('posts', 'posts', Object.assign({}, data, { name: 'posts'})),
-    generators.generateChunk('docs', 'docs', Object.assign({}, data, { name: 'docs'}))])
-                    .then(() => generators.generateiOS(name, template, data))
-                    .then(() => generators.generateAndroid(name, template, data))
-                    .then(() => generators.generateWeb(name, template, data))
-                    .then(() => generators.generateAssets(name, template, data))
-                    .then(() => generators.generateCloud(name, template, data))
-                    .then(() => generators.generateProvisioning(name, template, data))
-                    .catch(e => coreutils.logger.fail(e.message))
+  var chunky = data.chunky
+
+  try {
+    // genreate chunks based on template
+    const chunks = chunky.sections.start.stack;
+
+    return Promise.all(chunks.map((chunkName) =>
+      generators.generateChunk(chunkName, chunkName, Object.assign({}, data, { name: chunkName}))))
+      .then(() => generators.generateiOS(name, template, data))
+      .then(() => generators.generateAndroid(name, template, data))
+      .then(() => generators.generateWeb(name, template, data))
+      .then(() => generators.generateAssets(name, template, data))
+      .then(() => generators.generateCloud(name, template, data))
+      .then(() => generators.generateProvisioning(name, template, data))
+      .catch(e => coreutils.logger.fail(e.message))
+
+  } catch (e) {
+    // chunky file is broken
+    return Promise.reject(e)
+  }
 }
 
 function install () {
