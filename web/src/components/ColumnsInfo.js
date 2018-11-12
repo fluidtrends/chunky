@@ -42,13 +42,13 @@ export default class ColumnsInfo extends Component {
 	}
 
 	renderRow(row) {
-		return <Row gutter={96}>
+		return <Row gutter={96} style={{margin: 0}}>
 			{row && row.columns.map( column => this.renderColumn(column))}
 		</Row>
 	}
 
 	renderColumn(column) {
-		return <Col md={8} sm={24} xs={24}>
+		return <Col md={8} sm={24} xs={24} style={{padding: 0}}>
 			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center'}}>
 				<Icon icon={column.icon} style={{fontSize: '38px', color: this.props.iconColor}} />
 				<div>
