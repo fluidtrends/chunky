@@ -36,6 +36,7 @@ export default class Presentation extends Component {
       }} />,
       <img src={`/assets/${this.props.image}`} style={{
         width: '700px',
+        maxWidth: '90vw',
         opacity: 0.5,
         boxShadow:' 0 5px 20px 0 rgba(0,0,0,.15)'
       }} />
