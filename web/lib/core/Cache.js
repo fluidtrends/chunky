@@ -28,7 +28,7 @@ var Cache = function () {
   }, {
     key: 'loadContext',
     value: function loadContext() {
-        return this.loadDesktopContext();
+      return this.loadDesktopContext();
     }
   }, {
     key: 'hasImage',

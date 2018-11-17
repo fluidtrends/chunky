@@ -64,7 +64,7 @@ var LoadingComponent = function (_Component) {
         _react2.default.createElement(_antd.Spin, { indicator: indicator, style: { padding: '40px' } }),
         _react2.default.createElement(
           _typography.Typography,
-          { use: 'title', style: { color: '#B0BEC5' }, tag: 'h1' },
+          { use: 'headline', style: { color: '#B0BEC5' }, tag: 'h2' },
           this.props.message
         )
       );

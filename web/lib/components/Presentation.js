@@ -78,6 +78,7 @@ var Presentation = function (_Component) {
           boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)'
         } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
           width: '700px',
+          maxWidth: '90vw',
           opacity: 0.5,
           boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)'
         } }));
@@ -89,31 +90,30 @@ var Presentation = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px" } },
+        { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px 0" } },
         _react2.default.createElement(
           'div',
-          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }, className: 'jsx-1391143237' + ' ' + 'jsx-1391143237'
+          },
           this.renderImage(),
-          _react2.default.createElement(
-            _antd.Button,
-            { type: 'primary', onClick: this._showModal, shape: 'circle', icon: 'play-circle', className: 'icon', theme: 'filled', size: 'large', style: { fontSize: fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent' } },
-            _react2.default.createElement(_style2.default, {
-              styleId: '2882560980',
-              css: 'div.jsx-2882560980 .icon{color:' + '#f44336' + ';}div.jsx-2882560980 .icon:hover{color:' + '#00bcd4' + ';}'
-            })
-          )
+          _react2.default.createElement(_antd.Icon, { onClick: this._showModal, type: 'play-circle', className: 'icon', theme: 'filled', style: { fontSize: fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent' } }),
+          _react2.default.createElement(_style2.default, {
+            styleId: '1391143237',
+            css: 'div.jsx-1391143237 .icon{color:' + '#546E7A' + ';}div.jsx-1391143237 .icon:hover{color:' + '#00bcd4' + ';}'
+          })
         )
       );
     }
   }, {
     key: 'renderModal',
     value: function renderModal() {
-      var width = this.props.isSmallScreen ? '90vw' : 900;
-      var height = this.props.isSmallScreen ? 300 : 500;
+      var width = this.props.isSmallScreen ? '80vw' : 1200;
+      var marginTop = this.props.isSmallScreen ? 150 : 0;
+      var paddingTop = '56.25%';
 
       return _react2.default.createElement(
         _antd.Modal,
-        { centered: true, cancelButtonProps: { shape: 'circle', type: 'danger' }, onCancel: this._hideModal, width: width, bodyStyle: { height: height, marginTop: 150 }, footer: null, visible: this.state.modalVisible },
+        { centered: true, cancelButtonProps: { shape: 'circle', type: 'danger' }, onCancel: this._hideModal, width: width, bodyStyle: { paddingTop: paddingTop, marginTop: marginTop }, footer: null, visible: this.state.modalVisible },
         _react2.default.createElement(_Media2.default, { video: this.props.url, width: '100%', height: '100%', style: { position: 'absolute', top: 0, left: 0 }, playing: this.state.videoPlaying })
       );
     }
@@ -123,11 +123,11 @@ var Presentation = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: 'jsx-2882560980'
+        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: 'jsx-1391143237'
         },
         _react2.default.createElement(
           'div',
-          { style: { textAlign: 'center' }, className: 'jsx-2882560980'
+          { style: { textAlign: 'center' }, className: 'jsx-1391143237'
           },
           this.renderThumbnail(),
           this.renderModal()
