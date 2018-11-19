@@ -22,6 +22,10 @@ var _Text = require('./Text');
 
 var _Text2 = _interopRequireDefault(_Text);
 
+var _Media = require('./Media');
+
+var _Media2 = _interopRequireDefault(_Media);
+
 var _responsive = require('../utils/responsive');
 
 var _typography = require('@rmwc/typography');
@@ -94,6 +98,15 @@ var ChunkyCarousel = function (_Component) {
 	}, {
 		key: 'renderCarouselItem',
 		value: function renderCarouselItem(item) {
+			var style = {
+				alignSelf: 'center',
+				marginTop: '20px',
+				objectFit: 'cover',
+				height: 150,
+				width: 150,
+				borderRadius: '50%',
+				objectPosition: 'center center'
+			};
 			return _react2.default.createElement(
 				'div',
 				null,
@@ -101,20 +114,22 @@ var ChunkyCarousel = function (_Component) {
 					'div',
 					{ style: {
 							display: 'flex',
+							flex: 3,
 							justifyContent: 'space-evenly',
 							alignItems: 'center',
+							padding: 20,
 							flexDirection: 'row',
-							height: '280px'
+							height: '300px'
 						}
 					},
 					_react2.default.createElement(
 						'div',
-						null,
-						_react2.default.createElement('img', { src: item.imageUrl, style: { borderRadius: '50%', maxWidth: '150px' } })
+						{ style: { display: 'flex', flex: 1, justifyContent: 'center' } },
+						_react2.default.createElement(_Media2.default, { cache: this.props.cache, roundImg: true, image: item.imageUrl, style: style })
 					),
 					_react2.default.createElement(
 						'div',
-						null,
+						{ style: { display: 'flex', flex: 2, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' } },
 						_react2.default.createElement(
 							_typography.Typography,
 							{ use: 'subtitle1', tag: 'h2', style: {

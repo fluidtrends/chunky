@@ -96,7 +96,7 @@ var ColumnsInfo = function (_Component) {
 
 			return _react2.default.createElement(
 				_antd.Row,
-				{ gutter: 96 },
+				{ gutter: 96, style: { margin: 0 } },
 				row && row.columns.map(function (column) {
 					return _this4.renderColumn(column);
 				})
@@ -107,7 +107,7 @@ var ColumnsInfo = function (_Component) {
 		value: function renderColumn(column) {
 			return _react2.default.createElement(
 				_antd.Col,
-				{ md: 8, sm: 24, xs: 24 },
+				{ md: 8, sm: 24, xs: 24, style: { padding: 0 } },
 				_react2.default.createElement(
 					'div',
 					{ style: { display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center' } },

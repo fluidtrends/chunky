@@ -280,12 +280,21 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _button.Button,
-        { onClick: this.triggerEvent(), raised: true, theme: 'secondary-bg text-primary-on-secondary',
+        { onClick: this.triggerAction.bind(this), raised: true, theme: 'secondary-bg text-primary-on-secondary',
           style: { margin: '20px' } },
         ' ',
         this.props.primaryActionTitle,
         ' '
       );
+    }
+  }, {
+    key: 'triggerAction',
+    value: function triggerAction() {
+      var link = this.props.cover.link;
+      if (link) {
+        this.onLinkClick(link);
+      }
+      this.triggerEvent();
     }
   }, {
     key: 'renderSimpleContent',

@@ -57,9 +57,11 @@ var BuyInfo = function (_Component) {
       return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
           width: '90vw',
           padding: '10px',
+          color: '#455A64',
           paddingBottom: '60px'
         } }), _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
           width: '70vw',
+          color: '#455A64',
           paddingBottom: '60px'
         } }));
     }
@@ -68,14 +70,18 @@ var BuyInfo = function (_Component) {
     value: function renderButton() {
       var _this2 = this;
 
+      var _props$components$get = this.props.components.getAccess,
+          path = _props$components$get.path,
+          link = _props$components$get.link;
+
       return _react2.default.createElement(
         _antd.Button,
-        { href: 'tokens', type: 'primary', style: { backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px' }, onMouseEnter: function onMouseEnter() {
+        { href: path ? path : link, type: 'primary', style: { backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px' }, onMouseEnter: function onMouseEnter() {
             _this2.setState({ hovered: true });
           }, onMouseLeave: function onMouseLeave() {
             _this2.setState({ hovered: false });
           } },
-        'Get Carmel Tokens',
+        this.props.action,
         _react2.default.createElement(_antd.Icon, { type: 'arrow-right', style: { marginLeft: this.state.hovered ? '30px' : '5px' } })
       );
     }
