@@ -141,14 +141,20 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title}</Typography>
+
+    const titleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {} 
+
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color, ...titleAdditionalStyle }}> {this.props.title}</Typography>
   }
 
   renderCoverSubtitle () {
     if (!this.props.subtitle) {
       return <div />
     }
-    return <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
+
+    const subtitleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {}
+
+    return <Typography use='headline5' style={{ margin: '20px', color: this.props.color, ...subtitleAdditionalStyle }}> {this.props.subtitle} </Typography>
   }
 
   renderLogos () {
