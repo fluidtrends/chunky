@@ -83,6 +83,7 @@ export default class Feature extends Component {
   }
 
   button () {
+    if (!this.props.actionTitle) return null
     return <Button style={{
       marginBottom: '30px'
     }}
