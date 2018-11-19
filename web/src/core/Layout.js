@@ -78,7 +78,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   get theme () {
-    const navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    let navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    navigationColor = this.props.theme.stickyNavigation ? this.props.theme.navigationColor : navigationColor
     const navigationTintColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
