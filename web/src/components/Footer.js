@@ -84,7 +84,6 @@ export default class Footer extends Component {
   renderDefault () {
     const isSmallScreen = this.props.width < 1224
     const respFooterWrapper = isSmallScreen ? 'column' : 'row'
-
     return (<div style={{backgroundColor: this.props.theme.footerColor,
       minHeight: '80px',
       padding: '0px',
@@ -114,7 +113,7 @@ export default class Footer extends Component {
         alignSelf: 'center',
         flex: 1,
       }}>
-        <SocialIcons iconColor={this.props.theme.footerSocialIconsColor} iconColorHover={this.props.theme.footerSocialIconsColorHover} isSmallScreen={isSmallScreen} socialMediaLinks={this.props.socialMediaLinks} />
+        <SocialIcons iconColor={this.props.theme.footerSocialIconsColor} iconColorHover={this.props.theme.footerSocialIconsColorHover} isSmallScreen={isSmallScreen} socialMediaLinks={this.props.footer.socialMediaLinks} />
       </div>
       <div style={{
         backgroundColor: this.props.theme.footerColor,

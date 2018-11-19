@@ -19,14 +19,16 @@ export default class SocialIcons extends PureComponent {
       'facebook',
       'medium',
       'instagram'
-		]
-		
+    ]
+    
 		const align = this.props.isSmallScreen ? 'center' : 'center'
     const overflow = this.props.isSmallScreen ? 'auto' : 'unset'
-    const fontSize = this.props.isSmallScreen? 20: 36
+    const fontSize = this.props.isSmallScreen? 20: (this.props.size || 36)
 		const padding = this.props.isSmallScreen? 6: 10
-		
-		return <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: align, overflow }}>
+    
+    const direction = this.props.vertical? 'column': 'row'
+
+		return <div style={{ display: 'flex', flexDirection: direction, alignItems: 'center', alignSelf: align, overflow }}>
       {socialNetworks.map(key => {
         return <div>
           <Icon
