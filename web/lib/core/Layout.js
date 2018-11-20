@@ -372,6 +372,7 @@ var DefaultLayout = function (_PureComponent) {
     key: 'theme',
     get: function get() {
       var navigationColor = this.navigationUncover || this.props.forceNavigation && this.hasCover ? 'rgba(0,0,0,0)' : this.props.theme.navigationColor;
+      navigationColor = this.props.theme.stickyNavigation ? this.props.theme.navigationColor : navigationColor;
       var navigationTintColor = this.navigationUncover || this.props.forceNavigation && this.hasCover ? '#FFFFFF' : this.props.theme.navigationTintColor;
 
       return Object.assign({}, this.props.theme, {

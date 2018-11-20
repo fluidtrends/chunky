@@ -164,7 +164,6 @@ var Footer = function (_Component) {
     value: function renderDefault() {
       var isSmallScreen = this.props.width < 1224;
       var respFooterWrapper = isSmallScreen ? 'column' : 'row';
-
       return _react2.default.createElement(
         'div',
         { style: { backgroundColor: this.props.theme.footerColor,
@@ -200,7 +199,7 @@ var Footer = function (_Component) {
               alignSelf: 'center',
               flex: 1
             } },
-          _react2.default.createElement(_SocialIcons2.default, { iconColor: this.props.theme.footerSocialIconsColor, iconColorHover: this.props.theme.footerSocialIconsColorHover, isSmallScreen: isSmallScreen, socialMediaLinks: this.props.socialMediaLinks })
+          _react2.default.createElement(_SocialIcons2.default, { iconColor: this.props.theme.footerSocialIconsColor, iconColorHover: this.props.theme.footerSocialIconsColorHover, isSmallScreen: isSmallScreen, socialMediaLinks: this.props.footer.socialMediaLinks })
         ),
         _react2.default.createElement(
           'div',

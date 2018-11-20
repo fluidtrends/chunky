@@ -47,12 +47,14 @@ var SocialIcons = function (_PureComponent) {
 
       var align = this.props.isSmallScreen ? 'center' : 'center';
       var overflow = this.props.isSmallScreen ? 'auto' : 'unset';
-      var fontSize = this.props.isSmallScreen ? 20 : 36;
+      var fontSize = this.props.isSmallScreen ? 20 : this.props.size || 36;
       var padding = this.props.isSmallScreen ? 6 : 10;
+
+      var direction = this.props.vertical ? 'column' : 'row';
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', flexDirection: 'row', alignItems: 'center', alignSelf: align, overflow: overflow } },
+        { style: { display: 'flex', flexDirection: direction, alignItems: 'center', alignSelf: align, overflow: overflow } },
         socialNetworks.map(function (key) {
           return _react2.default.createElement(
             'div',
