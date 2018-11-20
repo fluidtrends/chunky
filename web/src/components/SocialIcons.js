@@ -30,6 +30,7 @@ export default class SocialIcons extends PureComponent {
 
 		return <div style={{ display: 'flex', flexDirection: direction, alignItems: 'center', alignSelf: align, overflow }}>
       {socialNetworks.map(key => {
+        if (!this.props.socialMediaLinks[key]) return null
         return <div>
           <Icon
             key={key}
