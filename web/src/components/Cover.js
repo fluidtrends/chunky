@@ -40,6 +40,26 @@ export default class Cover extends Component {
     </div>)
   }
 
+  renderSectionContent () {
+    if (this.props.video) {
+      return <div />
+    }
+
+    return (<div style={{
+      position: 'absolute',
+      backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'
+    }}>
+      {this.renderCoverTitle()}
+      {this.renderCoverSubtitle()}
+      {this.renderCoverAction()}
+    </div>)
+  }
+
   renderIcons () {
     if (!this.props.social) {
       return
@@ -108,7 +128,8 @@ export default class Cover extends Component {
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        textAlign: 'center'
       }}>
         {this.renderCoverTitle()}
         {this.renderCoverSubtitle()}
@@ -323,6 +344,26 @@ export default class Cover extends Component {
     </div>)
   }
 
+  renderSection () {
+    const height = this.props.height
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverPlaying = (this.props.scroll < 200)
+
+    return (<div style={{
+      backgroundColor: this.props.backgroundColor,
+      marginTop: `${this.props.offset}px`,
+      height: `${height}px`,
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}>
+      {this.renderMedia(coverStyle, coverPlaying)}
+      {this.renderSectionContent()}
+    </div>)
+  }
+
   renderIco (title) {
     const height = this.props.height
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
@@ -361,6 +402,8 @@ export default class Cover extends Component {
         return this.renderMenu()
       case 'ico':
         return this.renderIco(this.props.title)
+      case 'section':
+        return this.renderSection()
       default:
         return this.renderDefault()
     }
