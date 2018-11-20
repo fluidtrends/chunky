@@ -76,7 +76,8 @@ var Screen = function (_Core$Screen) {
       loading: true,
       height: window.innerHeight,
       width: window.innerWidth,
-      scroll: 0
+      scroll: 0,
+      unCoveredHeader: false
     });
 
     _this._updateScroll = _this.updateScroll.bind(_this);
@@ -173,7 +174,11 @@ var Screen = function (_Core$Screen) {
     key: 'updateScroll',
     value: function updateScroll() {
       var scroll = window.scrollY;
-      this.setState({ scroll: scroll });
+      if (scroll > 10 && !this.state.unCoveredHeader) {
+        this.setState({ scroll: scroll, unCoveredHeader: true });
+      } else if (scroll < 10) {
+        this.setState({ scroll: scroll, unCoveredHeader: false });
+      }
     }
   }, {
     key: 'handleLocalEvent',
