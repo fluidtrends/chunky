@@ -1,21 +1,10 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
-import Text from './Text'
 import Media from './Media'
 import Timer from './Timer'
 import { Icon } from 'antd'
 import { Button } from '@rmwc/button'
 import { Typography } from '@rmwc/typography'
-import {
-  Card,
-  CardPrimaryAction,
-  CardMedia,
-  CardAction,
-  CardActions,
-  CardActionButtons,
-  CardActionIcons
-} from '@rmwc/card'
-import { relative } from 'path'
 
 export default class Cover extends Component {
 
@@ -39,6 +28,26 @@ export default class Cover extends Component {
       height: '100vh',
       top: 0,
       left: 0,
+      display: 'flex',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column'
+    }}>
+      {this.renderCoverTitle()}
+      {this.renderCoverSubtitle()}
+      {this.renderCoverAction()}
+    </div>)
+  }
+
+  renderSectionContent () {
+    if (this.props.video) {
+      return <div />
+    }
+
+    return (<div style={{
+      position: 'absolute',
+      backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
       display: 'flex',
       flex: 1,
       justifyContent: 'center',
@@ -119,7 +128,8 @@ export default class Cover extends Component {
         flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        textAlign: 'center'
       }}>
         {this.renderCoverTitle()}
         {this.renderCoverSubtitle()}
@@ -136,7 +146,7 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} fffffssddddd</Typography>
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title}</Typography>
   }
 
   renderCoverTimeline () {
@@ -152,18 +162,24 @@ export default class Cover extends Component {
     if (!this.props.title) {
       return <div />
     }
-    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color }}> {this.props.title} ffffffff</Typography>
+
+    const titleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {} 
+
+    return <Typography use='headline4' style={{ margin: '20px', color: this.props.color, ...titleAdditionalStyle }}> {this.props.title}</Typography>
   }
 
   renderCoverSubtitle () {
     if (!this.props.subtitle) {
       return <div />
     }
-    return <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {this.props.subtitle} </Typography>
+
+    const subtitleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {}
+
+    return <Typography use='headline5' style={{ margin: '20px', color: this.props.color, ...subtitleAdditionalStyle }}> {this.props.subtitle} </Typography>
   }
 
   renderLogos () {
-    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} > <Eos /></div>
+    return <div style={{ position: 'absolute', left: '5%', top: '55%' }} ></div>
   }
 
   renderVideo () {
@@ -183,8 +199,16 @@ export default class Cover extends Component {
     if (!this.props.primaryActionTitle) {
       return <div />
     }
-    return <Button onClick={this.triggerEvent()} raised theme='secondary-bg text-primary-on-secondary'
+    return <Button onClick={this.triggerAction.bind(this)} raised theme='secondary-bg text-primary-on-secondary'
       style={{ margin: '20px' }}> {this.props.primaryActionTitle} </Button>
+  }
+  
+  triggerAction() {
+    const link = this.props.cover.link
+    if (link) {
+      this.onLinkClick(link)
+    }
+    this.triggerEvent()
   }
 
   get presentationHeight () {
@@ -213,7 +237,7 @@ export default class Cover extends Component {
       alignItems: 'center',
       flexDirection: 'column'
     }}>
-      <Typography use='headline5' style={{ margin: '20px', color: this.props.color }}> {title} 2222</Typography>
+      <Typography use='headline3' style={{ margin: '20px', color: this.props.color }}> {title} </Typography>
     </div>)
   }
 
@@ -320,6 +344,26 @@ export default class Cover extends Component {
     </div>)
   }
 
+  renderSection () {
+    const height = this.props.height
+    const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
+    const coverPlaying = (this.props.scroll < 200)
+
+    return (<div style={{
+      backgroundColor: this.props.backgroundColor,
+      marginTop: `${this.props.offset}px`,
+      height: `${height}px`,
+      display: 'flex',
+      flex: 1,
+      alignItems: 'center',
+      flexDirection: 'column',
+      justifyContent: 'center'
+    }}>
+      {this.renderMedia(coverStyle, coverPlaying)}
+      {this.renderSectionContent()}
+    </div>)
+  }
+
   renderIco (title) {
     const height = this.props.height
     const coverStyle = { width: '100%', height: `${height}px`, objectFit: 'cover', objectPosition: 'center center' }
@@ -358,6 +402,8 @@ export default class Cover extends Component {
         return this.renderMenu()
       case 'ico':
         return this.renderIco(this.props.title)
+      case 'section':
+        return this.renderSection()
       default:
         return this.renderDefault()
     }

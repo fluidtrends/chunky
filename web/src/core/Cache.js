@@ -28,11 +28,7 @@ export default class Cache {
   }
 
   loadContext () {
-    if (this.isDesktop) {
-      return this.loadDesktopContext()
-    }
-
-    this._context = require.context('assets', false, /\.(png|jpe?g|svg)$/)
+    return this.loadDesktopContext()
   }
 
   get images () {

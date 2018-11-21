@@ -148,4 +148,58 @@ Object.defineProperty(exports, 'Loading', {
   }
 });
 
+var _Presentation = require('./Presentation');
+
+Object.defineProperty(exports, 'Presentation', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Presentation).default;
+  }
+});
+
+var _SocialIcons = require('./SocialIcons');
+
+Object.defineProperty(exports, 'SocialIcons', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_SocialIcons).default;
+  }
+});
+
+var _Preview = require('./Preview');
+
+Object.defineProperty(exports, 'Preview', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Preview).default;
+  }
+});
+
+var _ColumnsInfo = require('./ColumnsInfo');
+
+Object.defineProperty(exports, 'Columns', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_ColumnsInfo).default;
+  }
+});
+
+var _Carousel = require('./Carousel');
+
+Object.defineProperty(exports, 'Carousel', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_Carousel).default;
+  }
+});
+
+var _BuyInfo = require('./BuyInfo');
+
+Object.defineProperty(exports, 'Buy', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_BuyInfo).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

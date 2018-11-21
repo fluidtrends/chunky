@@ -18,7 +18,11 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _typography = require('@rmwc/typography');
+var _Text = require('./Text');
+
+var _Text2 = _interopRequireDefault(_Text);
+
+var _responsive = require('../utils/responsive');
 
 var _antd = require('antd');
 
@@ -30,48 +34,72 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var LoadingComponent = function (_Component) {
-  _inherits(LoadingComponent, _Component);
+var BuyInfo = function (_Component) {
+  _inherits(BuyInfo, _Component);
 
-  function LoadingComponent(props) {
-    _classCallCheck(this, LoadingComponent);
+  function BuyInfo(props) {
+    _classCallCheck(this, BuyInfo);
 
-    var _this = _possibleConstructorReturn(this, (LoadingComponent.__proto__ || Object.getPrototypeOf(LoadingComponent)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (BuyInfo.__proto__ || Object.getPrototypeOf(BuyInfo)).call(this, props));
 
-    _this.state = _extends({}, _get(LoadingComponent.prototype.__proto__ || Object.getPrototypeOf(LoadingComponent.prototype), 'state', _this));
+    _this.state = _extends({}, _this.state, { hovered: false });
     return _this;
   }
 
-  _createClass(LoadingComponent, [{
-    key: 'render',
-    value: function render() {
-      var indicator = _react2.default.createElement(_antd.Icon, { type: 'loading', style: { fontSize: 48, color: '#039BE5' }, spin: true });
+  _createClass(BuyInfo, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _get(BuyInfo.prototype.__proto__ || Object.getPrototypeOf(BuyInfo.prototype), 'componentDidMount', this).call(this);
+    }
+  }, {
+    key: 'renderText',
+    value: function renderText() {
+      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+          width: '90vw',
+          padding: '10px',
+          color: '#455A64',
+          paddingBottom: '60px'
+        } }), _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+          width: '70vw',
+          color: '#455A64',
+          paddingBottom: '60px'
+        } }));
+    }
+  }, {
+    key: 'renderButton',
+    value: function renderButton() {
+      var _this2 = this;
 
+      var _props$components$get = this.props.components.getAccess,
+          path = _props$components$get.path,
+          link = _props$components$get.link;
+
+      return _react2.default.createElement(
+        _antd.Button,
+        { href: path ? path : link, type: 'primary', style: { backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px' }, onMouseEnter: function onMouseEnter() {
+            _this2.setState({ hovered: true });
+          }, onMouseLeave: function onMouseLeave() {
+            _this2.setState({ hovered: false });
+          } },
+        this.props.action,
+        _react2.default.createElement(_antd.Icon, { type: 'arrow-right', style: { marginLeft: this.state.hovered ? '30px' : '5px' } })
+      );
+    }
+  }, {
+    key: 'renderComponent',
+    value: function renderComponent() {
       return _react2.default.createElement(
         'div',
         {
-          style: {
-            display: 'flex',
-            flex: 1,
-            height: '300px',
-            margin: '10px',
-            backgroundColor: '#ffffff',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }
+          style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px', backgroundColor: '#FBFBFB' }
         },
-        _react2.default.createElement(_antd.Spin, { indicator: indicator, style: { padding: '40px' } }),
-        _react2.default.createElement(
-          _typography.Typography,
-          { use: 'headline', style: { color: '#B0BEC5' }, tag: 'h2' },
-          this.props.message
-        )
+        this.renderText(),
+        this.renderButton()
       );
     }
   }]);
 
-  return LoadingComponent;
+  return BuyInfo;
 }(_Component3.default);
 
-exports.default = LoadingComponent;
+exports.default = BuyInfo;

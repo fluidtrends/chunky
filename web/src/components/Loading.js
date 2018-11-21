@@ -26,7 +26,7 @@ export default class LoadingComponent extends Component {
         }}
       >
         <Spin indicator={indicator} style={{padding: '40px'}} />
-        <Typography use='title' style={{ color: '#B0BEC5' }} tag='h1'>
+        <Typography use='headline' style={{ color: '#B0BEC5' }} tag='h2'>
           {this.props.message}
         </Typography>
       </div>

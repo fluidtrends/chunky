@@ -28,11 +28,7 @@ var Cache = function () {
   }, {
     key: 'loadContext',
     value: function loadContext() {
-      if (this.isDesktop) {
-        return this.loadDesktopContext();
-      }
-
-      this._context = require.context('assets', false, /\.(png|jpe?g|svg)$/);
+      return this.loadDesktopContext();
     }
   }, {
     key: 'hasImage',

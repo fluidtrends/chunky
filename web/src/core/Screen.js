@@ -30,9 +30,10 @@ export default class Screen extends Core.Screen {
     this.state = {
       ...this.state,
       loading: true,
-      height: 0,
-      width: 0,
-      scroll: 0
+      height: window.innerHeight,
+      width: window.innerWidth,
+      scroll: 0,
+      unCoveredHeader: false
     }
 
     this._updateScroll = this.updateScroll.bind(this)
@@ -162,7 +163,11 @@ export default class Screen extends Core.Screen {
 
   updateScroll () {
     const scroll = window.scrollY
-    this.setState({ scroll })
+    if (scroll > 10 && !this.state.unCoveredHeader) {
+      this.setState({ scroll, unCoveredHeader: true })
+    } else if(scroll < 10) {
+      this.setState({ scroll, unCoveredHeader: false })
+    }
   }
 
   handleLocalEvent (fullPath) {
@@ -363,11 +368,11 @@ export default class Screen extends Core.Screen {
   }
 
   get width () {
-    return this.state.width
+    return this.state.width || window.innerWidth
   }
 
   get height () {
-    return this.state.height
+    return this.state.height || window.innerHeight
   }
 
   get scroll () {

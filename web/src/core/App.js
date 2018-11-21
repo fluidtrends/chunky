@@ -19,6 +19,15 @@ export default class App extends PureComponent {
 
   componentDidMount () {
     this.checkAuth()
+    const ele = document.getElementById('ipl-progress-indicator')
+      if(ele){
+        // fade out
+        ele.classList.add('available')
+        setTimeout(() => {
+          // remove from DOM
+          ele.outerHTML = ''
+        }, 2000)
+      }
   }
 
   checkAuth () {
@@ -161,8 +170,8 @@ export default class App extends PureComponent {
           }
         }
       } else {
-        route.icon = rootRoute.icon
-        route.menuTitle = rootRoute.menuTitle
+        // route.icon = rootRoute.icon
+        // route.menuTitle = rootRoute.menuTitle
       }
 
       // Let's build up the transitions, if any
@@ -341,7 +350,7 @@ export default class App extends PureComponent {
     }
 
     return (<BrowserRouter>
-      <div>
+      <div style={{}}>
         { this.renderRoutes() }
       </div>
     </BrowserRouter>)

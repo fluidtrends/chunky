@@ -19,13 +19,13 @@ var _reactResponsive2 = _interopRequireDefault(_reactResponsive);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var breakpoints = exports.breakpoints = {
-  main: 1224
+  main: 768
 };
 
 function renderResponsiveLarge(component) {
   return _react2.default.createElement(
     _reactResponsive2.default,
-    { minDeviceWidth: breakpoints.main },
+    { minWidth: breakpoints.main },
     component
   );
 }
@@ -33,7 +33,7 @@ function renderResponsiveLarge(component) {
 function renderResponsiveSmall(component) {
   return _react2.default.createElement(
     _reactResponsive2.default,
-    { maxDeviceWidth: breakpoints.main },
+    { maxWidth: breakpoints.main },
     component
   );
 }

@@ -1,6 +1,5 @@
 node_modules
 .git
-web
 cli
 mobile
 coverage

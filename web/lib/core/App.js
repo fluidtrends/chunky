@@ -59,6 +59,15 @@ var App = function (_PureComponent) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.checkAuth();
+      var ele = document.getElementById('ipl-progress-indicator');
+      if (ele) {
+        // fade out
+        ele.classList.add('available');
+        setTimeout(function () {
+          // remove from DOM
+          ele.outerHTML = '';
+        }, 2000);
+      }
     }
   }, {
     key: 'checkAuth',
@@ -213,10 +222,10 @@ var App = function (_PureComponent) {
               this._menu = this._menu.concat(route.extendedMenu);
             }
           }
-        } else {
-          route.icon = rootRoute.icon;
-          route.menuTitle = rootRoute.menuTitle;
-        }
+        } else {}
+        // route.icon = rootRoute.icon
+        // route.menuTitle = rootRoute.menuTitle
+
 
         // Let's build up the transitions, if any
         var transitions = {};
@@ -398,7 +407,7 @@ var App = function (_PureComponent) {
         null,
         _react2.default.createElement(
           'div',
-          null,
+          { style: {} },
           this.renderRoutes()
         )
       );

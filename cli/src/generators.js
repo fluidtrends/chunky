@@ -123,7 +123,10 @@ function _generateProductPackage (name, template) {
     },
     homepage: 'http://www.chunky.io',
     dependencies: {
-      'react-dom-chunky': '0.9.x'
+      'react-dom-chunky': '0.9.x',
+      'react-spring': "^5.5.1",
+      'react-vivus': "0.0.2",
+      "vivus": "^0.4.4"
     },
     devDependencies: {
       'react-savor': '0.x'

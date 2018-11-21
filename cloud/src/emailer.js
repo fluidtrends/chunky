@@ -34,7 +34,7 @@ function send ({ to, from, subject, text, html }) {
 
     aws.ses.sendEmail(request, (error, data) => {
       if (error) {
-        resolve({ sent: false })
+        resolve({ sent: false, error })
         return
       }
       resolve({ sent: true })

@@ -28,7 +28,7 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _Menu = require('@rmwc/Menu');
+var _menu = require('@rmwc/menu');
 
 var _button = require('@rmwc/button');
 
@@ -110,7 +110,7 @@ var Dashboard = function (_Component) {
     key: 'renderCompactSection',
     value: function renderCompactSection(section, index) {
       return _react2.default.createElement(
-        _Menu.MenuItem,
+        _menu.MenuItem,
         {
           key: 'section' + index },
         section.menuTitle
@@ -164,7 +164,7 @@ var Dashboard = function (_Component) {
             paddingLeft: '20px'
           } },
         _react2.default.createElement(
-          _Menu.MenuAnchor,
+          _menu.MenuAnchor,
           { style: {
               padding: '10px'
             } },
@@ -186,7 +186,7 @@ var Dashboard = function (_Component) {
               } })
           ),
           _react2.default.createElement(
-            _Menu.SimpleMenu,
+            _menu.SimpleMenu,
             {
               onSelected: this._onCompactSectionSelect,
               open: this.state.compactMenuIsOpen,

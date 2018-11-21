@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
@@ -20,10 +22,6 @@ var _Component2 = require('../core/Component');
 
 var _Component3 = _interopRequireDefault(_Component2);
 
-var _Text = require('./Text');
-
-var _Text2 = _interopRequireDefault(_Text);
-
 var _Media = require('./Media');
 
 var _Media2 = _interopRequireDefault(_Media);
@@ -37,10 +35,6 @@ var _antd = require('antd');
 var _button = require('@rmwc/button');
 
 var _typography = require('@rmwc/typography');
-
-var _card = require('@rmwc/card');
-
-var _path = require('path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -206,8 +200,7 @@ var Cover = function (_Component) {
         _typography.Typography,
         { use: 'headline4', style: { margin: '20px', color: this.props.color } },
         ' ',
-        this.props.title,
-        ' fffffssddddd'
+        this.props.title
       );
     }
   }, {
@@ -231,12 +224,14 @@ var Cover = function (_Component) {
           className: 'jsx-3069546275'
         });
       }
+
+      var titleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {};
+
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'headline4', style: { margin: '20px', color: this.props.color } },
+        { use: 'headline4', style: _extends({ margin: '20px', color: this.props.color }, titleAdditionalStyle) },
         ' ',
-        this.props.title,
-        ' ffffffff'
+        this.props.title
       );
     }
   }, {
@@ -247,9 +242,12 @@ var Cover = function (_Component) {
           className: 'jsx-3069546275'
         });
       }
+
+      var subtitleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {};
+
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'headline5', style: { margin: '20px', color: this.props.color } },
+        { use: 'headline5', style: _extends({ margin: '20px', color: this.props.color }, subtitleAdditionalStyle) },
         ' ',
         this.props.subtitle,
         ' '
@@ -258,13 +256,8 @@ var Cover = function (_Component) {
   }, {
     key: 'renderLogos',
     value: function renderLogos() {
-      return _react2.default.createElement(
-        'div',
-        { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-3069546275'
-        },
-        ' ',
-        _react2.default.createElement(Eos, null)
-      );
+      return _react2.default.createElement('div', { style: { position: 'absolute', left: '5%', top: '55%' }, className: 'jsx-3069546275'
+      });
     }
   }, {
     key: 'renderVideo',
@@ -295,12 +288,21 @@ var Cover = function (_Component) {
       }
       return _react2.default.createElement(
         _button.Button,
-        { onClick: this.triggerEvent(), raised: true, theme: 'secondary-bg text-primary-on-secondary',
+        { onClick: this.triggerAction.bind(this), raised: true, theme: 'secondary-bg text-primary-on-secondary',
           style: { margin: '20px' } },
         ' ',
         this.props.primaryActionTitle,
         ' '
       );
+    }
+  }, {
+    key: 'triggerAction',
+    value: function triggerAction() {
+      var link = this.props.cover.link;
+      if (link) {
+        this.onLinkClick(link);
+      }
+      this.triggerEvent();
     }
   }, {
     key: 'renderSimpleContent',
@@ -323,10 +325,10 @@ var Cover = function (_Component) {
         },
         _react2.default.createElement(
           _typography.Typography,
-          { use: 'headline5', style: { margin: '20px', color: this.props.color } },
+          { use: 'headline3', style: { margin: '20px', color: this.props.color } },
           ' ',
           title,
-          ' 2222'
+          ' '
         )
       );
     }

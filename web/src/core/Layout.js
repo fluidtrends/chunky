@@ -78,7 +78,8 @@ export default class DefaultLayout extends PureComponent {
   }
 
   get theme () {
-    const navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    let navigationColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? `rgba(0,0,0,0)` : this.props.theme.navigationColor)
+    navigationColor = this.props.theme.stickyNavigation ? this.props.theme.navigationColor : navigationColor
     const navigationTintColor = (this.navigationUncover || (this.props.forceNavigation && this.hasCover) ? '#FFFFFF' : this.props.theme.navigationTintColor)
 
     return Object.assign({}, this.props.theme, {
@@ -318,13 +319,22 @@ export default class DefaultLayout extends PureComponent {
           text-align: left;
         }
 
-        .animation-fadeIn-appear {
+        .transition-enter {
           opacity: 0.01;
         }
 
-        .animation-fadeIn-appear.animation-fadeIn-appear-active {
+        .transition-enter.transition-enter-active {
           opacity: 1;
-          transition: opacity .5s ease-in;
+          transition: opacity 500ms ease-in;
+        }
+
+        .transition-exit {
+          opacity: 1;
+        }
+
+        .transition-exit.transition-exit-active {
+          opacity: 0.01;
+          transition: opacity 300ms ease-in;
         }
       }`}
         </style>

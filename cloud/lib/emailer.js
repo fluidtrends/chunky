@@ -48,7 +48,7 @@ function send(_ref2) {
 
     aws.ses.sendEmail(request, function (error, data) {
       if (error) {
-        resolve({ sent: false });
+        resolve({ sent: false, error: error });
         return;
       }
       resolve({ sent: true });

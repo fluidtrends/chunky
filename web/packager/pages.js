@@ -13,6 +13,11 @@ function generateDevPage (options, route) {
 }
 
 function generateStaticPage (options, route) {
+  var filename = `${(route.path && route.path !== '/') ? route.path + '/' : ''}index.html`
+  if (filename[0] === '/') {
+    filename = filename.substring(1)
+  }
+
   return new HtmlWebpackPlugin({
     cache: false,
     route,
@@ -24,7 +29,7 @@ function generateStaticPage (options, route) {
       conservativeCollapse: true,
       removeComments: true
     },
-    filename: `${(route.path && route.path !== '/') ? route.path + '/' : ''}index.html`,
+    filename,
     template: path.resolve(options.root || options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', `${route.template || 'default'}.html`)
   })
 }

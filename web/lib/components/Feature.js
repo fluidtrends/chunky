@@ -22,7 +22,13 @@ var _Text = require('./Text');
 
 var _Text2 = _interopRequireDefault(_Text);
 
+var _AnimatedSection = require('./AnimatedSection');
+
+var _AnimatedSection2 = _interopRequireDefault(_AnimatedSection);
+
 var _responsive = require('../utils/responsive');
+
+var _isElementVisible = require('../utils/isElementVisible');
 
 var _button = require('@rmwc/button');
 
@@ -42,7 +48,8 @@ var Feature = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Feature.__proto__ || Object.getPrototypeOf(Feature)).call(this, props));
 
-    _this.state = _extends({}, _this.state);
+    _this.state = _extends({}, _this.state, { startAnimation: false });
+    _this.handleScrollToElement = _this.handleScrollToElement.bind(_this);
     return _this;
   }
 
@@ -50,23 +57,64 @@ var Feature = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _get(Feature.prototype.__proto__ || Object.getPrototypeOf(Feature.prototype), 'componentDidMount', this).call(this);
+      window.addEventListener('scroll', this.handleScrollToElement);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      window.removeEventListener('scroll', this.handleScrollToElement);
+    }
+  }, {
+    key: 'handleScrollToElement',
+    value: function handleScrollToElement() {
+      if ((0, _isElementVisible.isAnyPartOfElementInViewport)(this.blockRef) && !this.state.startAnimation) {
+        this.setState({ startAnimation: true });
+        window.removeEventListener('scroll', this.handleScrollToElement);
+      }
     }
   }, {
     key: 'renderContent',
     value: function renderContent(compact) {
-      return _react2.default.createElement(
-        'div',
-        { style: {
-            display: 'flex',
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            paddingBottom: (compact ? 100 : 0) + 'px'
-          } },
-        this.text(),
-        this.button()
-      );
+      var animationType = this.props.reversed ? 'slideFromLeft' : 'slideFromRight';
+
+      if (this.props.animation) {
+        return _react2.default.createElement(
+          _AnimatedSection2.default,
+          {
+            animationType: window.innerWidth > 1224 ? animationType : 'slideFromLeft',
+            startAnimation: this.state.startAnimation
+          },
+          _react2.default.createElement(
+            'div',
+            {
+              style: {
+                display: 'flex',
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingBottom: (compact ? 100 : 0) + 'px'
+              } },
+            this.text(),
+            this.button()
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          {
+            style: {
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              paddingBottom: (compact ? 100 : 0) + 'px'
+            } },
+          this.text(),
+          this.button()
+        );
+      }
     }
   }, {
     key: 'text',
@@ -97,23 +145,53 @@ var Feature = function (_Component) {
   }, {
     key: 'image',
     value: function image() {
-      return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
-          width: '90vw',
-          marginTop: '60px',
-          marginBottom: '-30px'
-        } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
-          width: '40vw',
-          marginTop: '60px',
-          marginBottom: '60px'
-        } }));
+      var animationType = this.props.reversed ? 'slideFromRight' : 'slideFromLeft';
+
+      if (this.props.animation) {
+        return _react2.default.createElement(
+          _AnimatedSection2.default,
+          {
+            animationType: window.innerWidth > 1224 ? animationType : 'slideFromLeft',
+            startAnimation: this.state.startAnimation
+          },
+          (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+              width: '90vw',
+              marginTop: '60px',
+              boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+              marginBottom: '10px'
+            } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+              width: '40vw',
+              marginTop: '60px',
+              boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+              marginBottom: '60px'
+            } }))
+        );
+      } else {
+        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+            width: '90vw',
+            marginTop: '60px',
+            boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+            marginBottom: '10px'
+          } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+            width: '40vw',
+            marginTop: '60px',
+            boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+            marginBottom: '60px'
+          } }));
+      }
     }
   }, {
     key: 'renderBlock',
     value: function renderBlock(block, index) {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         {
           key: 'block' + index,
+          ref: function ref(_ref) {
+            return _this2.blockRef = _ref;
+          },
           style: {
             display: 'flex',
             flex: 1,
@@ -127,12 +205,14 @@ var Feature = function (_Component) {
   }, {
     key: 'renderBlocks',
     value: function renderBlocks(blocks, compact) {
-      var _this2 = this;
+      var _this3 = this;
 
       var index = 0;
+
       return _react2.default.createElement(
         'div',
-        { style: {
+        {
+          style: {
             color: '#607D8B',
             position: 'relative',
             display: 'flex',
@@ -140,9 +220,11 @@ var Feature = function (_Component) {
             flexDirection: compact ? 'column' : 'row',
             alignItems: 'center',
             backgroundColor: this.props.backgroundColor,
-            justifyContent: 'center' } },
+            justifyContent: 'center'
+          }
+        },
         blocks.map(function (b) {
-          return _this2.renderBlock(b, index++);
+          return _this3.renderBlock(b, index++);
         })
       );
     }

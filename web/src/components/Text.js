@@ -43,7 +43,8 @@ export default class Text extends Component {
   }
 
   loadContent() {
-    const url = this.parseUrl(this.props.source)
+    const source = this.props.source === 'text' ? this.props.textSource : this.props.source
+    const url = this.parseUrl(source)
 
     if (!url) {
       return

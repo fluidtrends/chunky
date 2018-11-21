@@ -22,6 +22,10 @@ var _Text = require('./Text');
 
 var _Text2 = _interopRequireDefault(_Text);
 
+var _AnimatedSvg = require('./AnimatedSvg');
+
+var _AnimatedSvg2 = _interopRequireDefault(_AnimatedSvg);
+
 var _responsive = require('../utils/responsive');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -68,11 +72,30 @@ var Benefits = function (_Component) {
   }, {
     key: 'image',
     value: function image(_image, index, total) {
-      return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + _image, style: {
-          width: '90vw'
-        } }), _react2.default.createElement('img', { src: '/assets/' + _image, style: {
-          width: 100 / total + 'vw'
-        } }));
+      var fileType = _image.split('.')[_image.split('.').length - 1];
+
+      if (fileType === 'svg') {
+        return (0, _responsive.renderResponsive)('image', _react2.default.createElement(_AnimatedSvg2.default, {
+          id: '' + _image,
+          src: '/assets/' + _image,
+          duration: 200,
+          style: {
+            width: '90vw'
+          } }), _react2.default.createElement(_AnimatedSvg2.default, {
+          id: '' + _image,
+          src: '/assets/' + _image,
+          duration: 200,
+          style: {
+            width: 90 / total + 'vw'
+          }
+        }));
+      } else {
+        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + _image, style: {
+            width: '90vw'
+          } }), _react2.default.createElement('img', { src: '/assets/' + _image, style: {
+            width: 100 / total + 'vw'
+          } }));
+      }
     }
   }, {
     key: 'renderBlock',
@@ -107,7 +130,7 @@ var Benefits = function (_Component) {
             display: 'flex',
             flex: 1,
             flexDirection: compact ? 'column' : 'row',
-            alignItems: compact ? 'center' : 'flex-start',
+            alignItems: compact ? 'center' : 'center',
             backgroundColor: this.props.backgroundColor,
             justifyContent: 'center' } },
         benefits.map(function (b) {
