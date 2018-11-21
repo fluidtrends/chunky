@@ -131,6 +131,7 @@ var Feature = function (_Component) {
   }, {
     key: 'button',
     value: function button() {
+      if (!this.props.actionTitle) return null;
       return _react2.default.createElement(
         _button.Button,
         { style: {
@@ -146,6 +147,7 @@ var Feature = function (_Component) {
     key: 'image',
     value: function image() {
       var animationType = this.props.reversed ? 'slideFromRight' : 'slideFromLeft';
+      var boxShadow = this.props.noBoxShadow ? '' : '0 5px 20px 0 rgba(0,0,0,.15)';
 
       if (this.props.animation) {
         return _react2.default.createElement(
@@ -157,12 +159,12 @@ var Feature = function (_Component) {
           (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
               width: '90vw',
               marginTop: '60px',
-              boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+              boxShadow: boxShadow,
               marginBottom: '10px'
             } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
               width: '40vw',
               marginTop: '60px',
-              boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+              boxShadow: boxShadow,
               marginBottom: '60px'
             } }))
         );
@@ -170,12 +172,12 @@ var Feature = function (_Component) {
         return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
             width: '90vw',
             marginTop: '60px',
-            boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+            boxShadow: boxShadow,
             marginBottom: '10px'
           } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
             width: '40vw',
             marginTop: '60px',
-            boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)',
+            boxShadow: boxShadow,
             marginBottom: '60px'
           } }));
       }
