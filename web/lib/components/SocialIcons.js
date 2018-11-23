@@ -56,6 +56,7 @@ var SocialIcons = function (_PureComponent) {
         'div',
         { style: { display: 'flex', flexDirection: direction, alignItems: 'center', alignSelf: align, overflow: overflow } },
         socialNetworks.map(function (key) {
+          if (!_this2.props.socialMediaLinks[key]) return null;
           return _react2.default.createElement(
             'div',
             {

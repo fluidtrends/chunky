@@ -86,6 +86,29 @@ var Cover = function (_Component) {
       );
     }
   }, {
+    key: 'renderSectionContent',
+    value: function renderSectionContent() {
+      if (this.props.video) {
+        return _react2.default.createElement('div', null);
+      }
+
+      return _react2.default.createElement(
+        'div',
+        { style: {
+            position: 'absolute',
+            backgroundColor: 'rgba(0,0,0,' + this.props.opacity + ')',
+            display: 'flex',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexDirection: 'column'
+          } },
+        this.renderCoverTitle(),
+        this.renderCoverSubtitle(),
+        this.renderCoverAction()
+      );
+    }
+  }, {
     key: 'renderIcons',
     value: function renderIcons() {
       var _this2 = this;
@@ -172,7 +195,8 @@ var Cover = function (_Component) {
               flex: 3,
               justifyContent: 'center',
               alignItems: 'center',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              textAlign: 'center'
             }, className: 'jsx-3069546275'
           },
           this.renderCoverTitle(),
@@ -461,6 +485,30 @@ var Cover = function (_Component) {
       );
     }
   }, {
+    key: 'renderSection',
+    value: function renderSection() {
+      var height = this.props.height;
+      var coverStyle = { width: '100%', height: height + 'px', objectFit: 'cover', objectPosition: 'center center' };
+      var coverPlaying = this.props.scroll < 200;
+
+      return _react2.default.createElement(
+        'div',
+        { style: {
+            backgroundColor: this.props.backgroundColor,
+            marginTop: this.props.offset + 'px',
+            height: height + 'px',
+            display: 'flex',
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }, className: 'jsx-3069546275'
+        },
+        this.renderMedia(coverStyle, coverPlaying),
+        this.renderSectionContent()
+      );
+    }
+  }, {
     key: 'renderIco',
     value: function renderIco(title) {
       var height = this.props.height;
@@ -501,6 +549,8 @@ var Cover = function (_Component) {
           return this.renderMenu();
         case 'ico':
           return this.renderIco(this.props.title);
+        case 'section':
+          return this.renderSection();
         default:
           return this.renderDefault();
       }

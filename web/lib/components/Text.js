@@ -92,7 +92,8 @@ var Text = function (_Component) {
     value: function loadContent() {
       var _this2 = this;
 
-      var url = this.parseUrl(this.props.source);
+      var source = this.props.source === 'text' ? this.props.textSource : this.props.source;
+      var url = this.parseUrl(source);
 
       if (!url) {
         return;
