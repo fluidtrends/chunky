@@ -1,13 +1,18 @@
 import React, { PureComponent } from 'react'
 import { Switch } from 'react-router'
-import { StaticRouter, HashRouter, BrowserRouter, Route } from 'react-router-dom'
+import {
+  StaticRouter,
+  HashRouter,
+  BrowserRouter,
+  Route
+} from 'react-router-dom'
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
 import { createSectionRoutes } from './Router'
 import Cache from './Cache'
 
 export default class App extends PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { loading: true }
     this._menu = []
@@ -17,70 +22,88 @@ export default class App extends PureComponent {
     this._userLoggedIn = this.userLoggedIn.bind(this)
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.checkAuth()
     const ele = document.getElementById('ipl-progress-indicator')
-      if(ele){
-        // fade out
-        ele.classList.add('available')
-        setTimeout(() => {
-          // remove from DOM
-          ele.outerHTML = ''
-        }, 2000)
+    if (ele) {
+      // fade out
+      ele.classList.add('available')
+      setTimeout(() => {
+        // remove from DOM
+        ele.outerHTML = ''
+      }, 2000)
+    }
+    const { additionalScripts } = this.props
+    if (additionalScripts) {
+      for (let i = 0; i < additionalScripts.length; i++) {
+        let { rel, href, integrity, crossOrigin } = additionalScripts[i]
+        let link = document.createElement('link')
+        link.rel = rel
+        link.href = href
+        link.integrity = integrity
+        link.crossOrigin = crossOrigin
+        document.head.appendChild(link)
       }
+    }
   }
 
-  checkAuth () {
+  checkAuth() {
     return new Promise((resolve, reject) => {
       Data.Cache.retrieveAuth()
-      .then(account => {
-        this._resolve(account)
-        resolve()
-      })
-      .catch((e) => {
-        this._resolve()
-        resolve()
-      })
+        .then(account => {
+          this._resolve(account)
+          resolve()
+        })
+        .catch(e => {
+          this._resolve()
+          resolve()
+        })
     })
   }
 
-  get cache () {
+  get cache() {
     return this._cache
   }
 
-  userLoggedIn (account) {
+  userLoggedIn(account) {
     return new Promise((resolve, reject) => {
       const user = firebase.auth().currentUser
-      const combined = Object.assign({}, {
-        uid: user.uid,
-        emailVerified: user.emailVerified
-      }, account)
-      return Data.Cache.cacheAuth({ user: combined }).then(() => resolve(combined))
+      const combined = Object.assign(
+        {},
+        {
+          uid: user.uid,
+          emailVerified: user.emailVerified
+        },
+        account
+      )
+      return Data.Cache.cacheAuth({ user: combined }).then(() =>
+        resolve(combined)
+      )
+    }).then(() => this.checkAuth())
+  }
+
+  userLogout() {
+    Data.Cache.clearAuth().then(() => {
+      this._resolve()
+      firebase && firebase.auth().signOut()
     })
-    .then(() => this.checkAuth())
   }
 
-  userLogout () {
-    Data.Cache.clearAuth()
-              .then(() => {
-                this._resolve()
-                firebase && firebase.auth().signOut()
-              })
-  }
-
-  _resolveTransitionFromURI (uri) {
+  _resolveTransitionFromURI(uri) {
     const url = new URL(uri, true)
     return {
-      name: `show${url.hostname.charAt(0).toUpperCase()}${url.hostname.substring(1).toLowerCase()}`,
+      name: `show${url.hostname
+        .charAt(0)
+        .toUpperCase()}${url.hostname.substring(1).toLowerCase()}`,
       type: url.protocol.slice(0, -1).toLowerCase(),
       route: url.hostname
     }
   }
 
-  _createSectionNavigatorRoutes (element, section) {
+  _createSectionNavigatorRoutes(element, section) {
     // We want to look at a stack element and figure out its parent chunk;
     // Note that chunks may also have flavours so this looks for the flavor, if any
-    const [ chunkName, chunkFlavorName ] = element.split('/')
+    const [chunkName, chunkFlavorName] = element.split('/')
 
     // This is our chunk, if it actually exists
     const chunk = this.props.chunks[chunkName]
@@ -90,7 +113,10 @@ export default class App extends PureComponent {
       return
     }
 
-    if (chunkFlavorName && (!chunk.flavors || !chunk.flavors[chunkFlavorName])) {
+    if (
+      chunkFlavorName &&
+      (!chunk.flavors || !chunk.flavors[chunkFlavorName])
+    ) {
       // Great, let's check the flavor now
       return
     }
@@ -110,7 +136,7 @@ export default class App extends PureComponent {
 
     if (this.props.transitions) {
       this.props.transitions.forEach(transitionUri => {
-          // Let's resolve global transitions
+        // Let's resolve global transitions
         const transition = this._resolveTransitionFromURI(transitionUri)
         globalTransitions[transition.name] = transition
       })
@@ -132,7 +158,10 @@ export default class App extends PureComponent {
       const screenId = `${chunkName}/${routeName}`
       const screenPath = route.path || `/${routeName}`
       const routeKey = `${screenId}${screenPath}`
-      const routeMenuTitle = ((this.props.desktop && route.desktopTitle) ? route.desktopTitle : route.title)
+      const routeMenuTitle =
+        this.props.desktop && route.desktopTitle
+          ? route.desktopTitle
+          : route.title
 
       if (section.private && route.private) {
         route.sidebarIndex = this.sidebar.length
@@ -165,7 +194,10 @@ export default class App extends PureComponent {
             action: route.action,
             path: link
           })
-          if (route.extendedMenu && !(route.skipExtendedMenuOnDesktop && this.props.desktop)) {
+          if (
+            route.extendedMenu &&
+            !(route.skipExtendedMenuOnDesktop && this.props.desktop)
+          ) {
             this._menu = this._menu.concat(route.extendedMenu)
           }
         }
@@ -185,14 +217,19 @@ export default class App extends PureComponent {
           if (transition.route && routeData) {
             // This is a local transition, so let's resolve locally
             transition.data = Object.assign({}, routeData)
-            transition.route = `${section.name}/${chunkName}/${transition.route}`
+            transition.route = `${section.name}/${chunkName}/${
+              transition.route
+            }`
             transitions[transition.name] = transition
             return
           }
 
           if (globalTransitions[transition.name]) {
             // Let's look through the global transitions, if any
-            transitions[transition.name] = Object.assign({}, globalTransitions[transition.name])
+            transitions[transition.name] = Object.assign(
+              {},
+              globalTransitions[transition.name]
+            )
           }
         })
       }
@@ -201,43 +238,63 @@ export default class App extends PureComponent {
       const theme = this.props.theme
 
       // For each route, we want to compose its properties
-      const screenProps = Object.assign({
-        // Defaults
-        cache: this.cache,
-        strings: {},
-        desktop: this.props.desktop,
-        account: section.account,
-        env: this.props.env,
-        provisioning: this.props.provisioning,
-        analytics: this.props.analytics,
-        onUserLogout: this._userLogout,
-        onUserLoggedIn: this._userLoggedIn,
-        info: this.props.info,
-        session: this.props.session,
-        startOperationsOnMount: true
-      }, {
-        theme,
-        transitions,
-        ...route,
-        chunkName,
-        menu: this.menu,
-        sidebar: this.sidebar,
-        private: route.private,
-        sidebarIndex: route.sidebarIndex
-      }, this.props.web)
+      const screenProps = Object.assign(
+        {
+          // Defaults
+          cache: this.cache,
+          strings: {},
+          desktop: this.props.desktop,
+          account: section.account,
+          env: this.props.env,
+          provisioning: this.props.provisioning,
+          analytics: this.props.analytics,
+          onUserLogout: this._userLogout,
+          onUserLoggedIn: this._userLoggedIn,
+          info: this.props.info,
+          session: this.props.session,
+          startOperationsOnMount: true
+        },
+        {
+          theme,
+          transitions,
+          ...route,
+          chunkName,
+          menu: this.menu,
+          sidebar: this.sidebar,
+          private: route.private,
+          sidebarIndex: route.sidebarIndex
+        },
+        this.props.web
+      )
 
       // Resolve strings
       var resolvedStrings = {}
       for (const string in screenProps.strings) {
-        resolvedStrings[string] = this.props.strings[screenProps.strings[string]] || `??${screenProps.strings[string]}??`
+        resolvedStrings[string] =
+          this.props.strings[screenProps.strings[string]] ||
+          `??${screenProps.strings[string]}??`
       }
-      screenProps.strings = Object.assign({}, this.props.strings, resolvedStrings)
+      screenProps.strings = Object.assign(
+        {},
+        this.props.strings,
+        resolvedStrings
+      )
 
-      const ScreenRoute = this._makeScreenRoute(screenPath, screenId, route, screenProps)
+      const ScreenRoute = this._makeScreenRoute(
+        screenPath,
+        screenId,
+        route,
+        screenProps
+      )
       routes.push(ScreenRoute)
 
       if (route.variants) {
-        const ScreenVariantRoute = this._makeScreenRoute(`${screenPath}/:variant`, screenId, route, screenProps)
+        const ScreenVariantRoute = this._makeScreenRoute(
+          `${screenPath}/:variant`,
+          screenId,
+          route,
+          screenProps
+        )
         routes.push(ScreenVariantRoute)
       }
     }
@@ -246,9 +303,9 @@ export default class App extends PureComponent {
     return routes
   }
 
-  _makeScreenRoute (screenPath, screenId, route, screenProps) {
+  _makeScreenRoute(screenPath, screenId, route, screenProps) {
     const RouteScreen = route.screen
-    const Screen = (props) => {
+    const Screen = props => {
       var skip = false
       if (route.skipPaths) {
         route.skipPaths.forEach(r => {
@@ -258,25 +315,27 @@ export default class App extends PureComponent {
         })
       }
 
-      const allProps = Object.assign({}, props, screenProps, { session: this.props.session })
-      return (skip ? <div /> : <RouteScreen {...allProps} />)
+      const allProps = Object.assign({}, props, screenProps, {
+        session: this.props.session
+      })
+      return skip ? <div /> : <RouteScreen {...allProps} />
     }
 
     const routeKey = `${screenId}${screenPath}`
 
-    return <Route
-      exact
-      refresh
-      key={routeKey}
-      path={screenPath}
-      render={Screen} />
+    return (
+      <Route exact refresh key={routeKey} path={screenPath} render={Screen} />
+    )
   }
 
-  _createSectionNavigator (section) {
-    return createSectionRoutes(section, this._createSectionNavigatorRoutes.bind(this))
+  _createSectionNavigator(section) {
+    return createSectionRoutes(
+      section,
+      this._createSectionNavigatorRoutes.bind(this)
+    )
   }
 
-  _refreshRoutes (account) {
+  _refreshRoutes(account) {
     this._routes = []
     this._sections = []
     this._menu = []
@@ -294,47 +353,53 @@ export default class App extends PureComponent {
     }
   }
 
-  _resolve (account) {
+  _resolve(account) {
     this._refreshRoutes(account)
-    this.setState({ loading: false, account: account || undefined, authstamp: `${Date.now()}` })
+    this.setState({
+      loading: false,
+      account: account || undefined,
+      authstamp: `${Date.now()}`
+    })
   }
 
-  get menu () {
+  get menu() {
     return this._menu || {}
   }
 
-  get routes () {
+  get routes() {
     return this._routes || []
   }
 
-  get sidebar () {
+  get sidebar() {
     return this._sidebar || []
   }
 
-  get sections () {
+  get sections() {
     return this._sections || []
   }
 
-  renderStatic () {
+  renderStatic() {
     return (
-      <StaticRouter location={this.props.route.location} context={this.props.route}>
-        <div>
-          { this.routes }
-        </div>
-      </StaticRouter>)
+      <StaticRouter
+        location={this.props.route.location}
+        context={this.props.route}
+      >
+        <div>{this.routes}</div>
+      </StaticRouter>
+    )
   }
 
-  renderRoutes () {
+  renderRoutes() {
     return this.routes
   }
 
-  render () {
+  render() {
     if (this.props.route && !this.props.redirect) {
       return this.renderStatic()
     }
 
     if (!this.routes || this.routes.length === 0) {
-      return (<div />)
+      return <div />
     }
 
     if (this.props.autoRefresh) {
@@ -342,17 +407,17 @@ export default class App extends PureComponent {
     }
 
     if (this.props.desktop) {
-      return (<HashRouter>
-        <Switch>
-          { this.renderRoutes() }
-        </Switch>
-      </HashRouter>)
+      return (
+        <HashRouter>
+          <Switch>{this.renderRoutes()}</Switch>
+        </HashRouter>
+      )
     }
 
-    return (<BrowserRouter>
-      <div style={{}}>
-        { this.renderRoutes() }
-      </div>
-    </BrowserRouter>)
+    return (
+      <BrowserRouter>
+        <div style={{}}>{this.renderRoutes()}</div>
+      </BrowserRouter>
+    )
   }
 }
