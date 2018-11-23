@@ -123,7 +123,8 @@
     "webpack-dev-server": "^2.2.0",
     "webpack-obfuscator": "^0.15.0",
     "vivus": "^0.4.4",
-    "react-vivus": "0.0.2"
+    "react-vivus": "0.0.2",
+    "react-spring": "^5.5.1"
   },
   "devDependencies": {
     "react-savor": "0.x"
