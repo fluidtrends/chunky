@@ -72,6 +72,7 @@
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "styled-jsx": "^2.2.6",
+    "styled-components": "^4.0.3",
     "url-parse": "^1.1.9",
     "validator": "^8.1.0"
   },
