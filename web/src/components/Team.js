@@ -35,16 +35,16 @@ import moment from 'moment'
 import Media from './Media'
 
 export default class Team extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { ...this.state, detailDialogOpen: false, item: null }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     super.componentDidMount()
   }
 
-  renderText (text) {
+  renderText(text) {
     return renderResponsive(
       'text',
       <Text
@@ -62,7 +62,7 @@ export default class Team extends Component {
     )
   }
 
-  renderCardMedia (item) {
+  renderCardMedia(item) {
     const image = item.image
 
     if (!image) {
@@ -94,11 +94,11 @@ export default class Team extends Component {
     )
   }
 
-  onLinkClick (url) {
+  onLinkClick(url) {
     window.open(url, '_blank')
   }
 
-  renderCard (item, index) {
+  renderCard(item, index) {
     const { linkedIn, github, website, text } = item
 
     const width = this.props.small ? 230 : 320
@@ -122,13 +122,13 @@ export default class Team extends Component {
             }}
           >
             <Typography
-              use='headline'
-              tag='h2'
+              use="headline"
+              tag="h2"
               style={{ textAlign: 'center', fontWeight: 700 }}
             >
               {item.name}
             </Typography>
-            <Typography use='title' tag='h3' style={{ textAlign: 'center' }}>
+            <Typography use="title" tag="h3" style={{ textAlign: 'center' }}>
               {item.title}
             </Typography>
           </div>
@@ -181,7 +181,7 @@ export default class Team extends Component {
     )
   }
 
-  renderDetails () {
+  renderDetails() {
     const { item } = this.state
     if (!item) {
       return
@@ -189,7 +189,7 @@ export default class Team extends Component {
     return this.renderText(item.text)
   }
 
-  renderDetailsTitle () {
+  renderDetailsTitle() {
     const { item } = this.state
     if (!item) {
       return
@@ -198,7 +198,7 @@ export default class Team extends Component {
     return this.renderCardMedia(item)
   }
 
-  renderTeamMemebers (members) {
+  renderTeamMemebers(members) {
     var index = 0
 
     if (!members || members.length == 0) {
@@ -208,14 +208,16 @@ export default class Team extends Component {
     return members.map(member => this.renderCard(member, index++))
   }
 
-  renderSection (section, index) {
-    const style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : {}
+  renderSection(section, index) {
+    const style = this.props.small
+      ? { color: 'white', textShadow: '2px 2px 5px #607D8B' }
+      : { color: this.props.textColor ? this.props.textColor : '#000' }
     return (
       <div
         key={'section' + index}
         style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}
       >
-        <Typography use='display1' tag='h1' style={style} >
+        <Typography use="display1" tag="h1" style={style}>
           {section.title}
         </Typography>
         <div
@@ -234,14 +236,14 @@ export default class Team extends Component {
     )
   }
 
-  renderTeamSections () {
+  renderTeamSections() {
     var index = 0
     return this.props.sections.map((section, index) =>
       this.renderSection(section, index)
     )
   }
 
-  renderSections () {
+  renderSections() {
     return (
       <div
         style={{
@@ -258,21 +260,24 @@ export default class Team extends Component {
     )
   }
 
-  renderDialog () {
-    return <Dialog
-      open={this.state.detailDialogOpen}
-      onClose={evt => {
-        this.setState({detailDialogOpen: false})
-      }}>
-      <DialogTitle>{this.renderDetailsTitle()}</DialogTitle>
-      <DialogContent>{this.renderDetails()}</DialogContent>
-      <DialogActions style={{display: 'flex', justifyContent: 'center'}} >
-        <DialogButton action='close'>Back</DialogButton>
-      </DialogActions>
-    </Dialog>
+  renderDialog() {
+    return (
+      <Dialog
+        open={this.state.detailDialogOpen}
+        onClose={evt => {
+          this.setState({ detailDialogOpen: false })
+        }}
+      >
+        <DialogTitle>{this.renderDetailsTitle()}</DialogTitle>
+        <DialogContent>{this.renderDetails()}</DialogContent>
+        <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
+          <DialogButton action="close">Back</DialogButton>
+        </DialogActions>
+      </Dialog>
+    )
   }
 
-  renderComponent () {
+  renderComponent() {
     if (!this.props.sections) {
       return <div />
     }
@@ -281,6 +286,9 @@ export default class Team extends Component {
       <div
         style={{
           color: this.props.textColor,
+          backgroundColor: this.props.backgroundColor
+            ? this.props.backgroundColor
+            : '#fff',
           position: 'relative',
           display: 'flex',
           flex: 1,
@@ -292,7 +300,7 @@ export default class Team extends Component {
         }}
       >
         {this.renderSections()}
-        { this.renderDialog()}
+        {this.renderDialog()}
       </div>
     )
   }

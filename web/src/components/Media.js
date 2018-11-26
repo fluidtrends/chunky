@@ -4,17 +4,17 @@ import ReactPlayer from 'react-player'
 import { renderResponsive } from '../utils/responsive'
 
 export default class Media extends PureComponent {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  renderImage (name, src, placeholder) {
+  renderImage(name, src, placeholder) {
     return (
       <ProgressiveImage src={src} placeholder={placeholder}>
         {(src, loading) => {
           const { innerHeight, innerWidth } = this.props
           const style = Object.assign({}, this.props.style, {
-            opacity: 1,
+            opacity: this.props.style.opacity ? this.props.style.opacity : 1,
             height: this.props.style.height,
             width: innerWidth || '100vw'
           })
@@ -33,14 +33,21 @@ export default class Media extends PureComponent {
     )
   }
 
-  renderResponsiveImage (image) {
-    const placeholderImage = `${this.props.desktop ? '../../../../' : '/'}assets/placeholder.jpg`
+  renderResponsiveImage(image) {
+    const placeholderImage = `${
+      this.props.desktop ? '../../../../' : '/'
+    }assets/placeholder.jpg`
 
     if (!image) {
       return renderResponsive(
         'media',
-        this.renderImage('', this.props.imageSmall ? this.props.imageSmall : this.props.image, placeholderImage),
-        this.renderImage('', this.props.image, placeholderImage))
+        this.renderImage(
+          '',
+          this.props.imageSmall ? this.props.imageSmall : this.props.image,
+          placeholderImage
+        ),
+        this.renderImage('', this.props.image, placeholderImage)
+      )
     }
 
     return renderResponsive(
@@ -58,21 +65,25 @@ export default class Media extends PureComponent {
     )
   }
 
-  onVideoPlayerEvent (type, data) {
+  onVideoPlayerEvent(type, data) {
     this.props.onVideoPlayerEvent && this.props.onVideoPlayerEvent(type, data)
   }
 
-  render () {
+  render() {
     if (this.props.video) {
       return (
         <ReactPlayer
           ref={player => {
             this.coverPlayer = player
           }}
-          onReady={() => this.onVideoPlayerEvent('ready', { player: this.coverPlayer })}
-          onProgress={(progress) => this.onVideoPlayerEvent('progress', { progress })}
-          onEnded={() => this.onVideoPlayerEvent('done', { })}
-          onError={(error) => this.onVideoPlayerEvent('error', { error })}
+          onReady={() =>
+            this.onVideoPlayerEvent('ready', { player: this.coverPlayer })
+          }
+          onProgress={progress =>
+            this.onVideoPlayerEvent('progress', { progress })
+          }
+          onEnded={() => this.onVideoPlayerEvent('done', {})}
+          onError={error => this.onVideoPlayerEvent('error', { error })}
           url={this.props.video}
           playing={this.props.playing}
           width={this.props.width || '100vw'}

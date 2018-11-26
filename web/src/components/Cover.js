@@ -500,6 +500,7 @@ export default class Cover extends Component {
       width: '100%',
       height: `${height}px`,
       objectFit: 'cover',
+      opacity: 0.8,
       objectPosition: 'center center'
     }
     const coverPlaying = this.props.scroll < 200
