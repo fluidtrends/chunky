@@ -198,10 +198,14 @@ export default class Screen extends Core.Screen {
 
   _loadVariants () {
     return new Promise((resolve, reject) => {
+      if (!this.props.variants || !Array.isArray(this.props.variants) || this.props.variants.length === 0) {
+        resolve([])
+        return
+      }
+
       if (
         this.props.variants.split('http://').length > 1 ||
-        this.props.variants.split('https://').length > 1
-      ) {
+        this.props.variants.split('https://').length > 1) {
         fetch(this.props.variants).then(response => resolve(response.json()))
         return
       }
@@ -241,6 +245,10 @@ export default class Screen extends Core.Screen {
   _updateVariants () {
     if (!this.hasVariants) {
       throw new Error('Missing expected variant')
+    }
+
+    if (this.variants.length === 0) {
+      return
     }
 
     const variantPath = this.path.substring(this.props.path.length + 1)
@@ -291,6 +299,8 @@ export default class Screen extends Core.Screen {
     this.scrollToTop()
     this._path = props.location.pathname
 
+
+    console.log(this.constructor.name)
     this._loadSections()
     const section = this._loadSection()
 
