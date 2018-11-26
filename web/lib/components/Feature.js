@@ -94,7 +94,8 @@ var Feature = function (_Component) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingBottom: (compact ? 100 : 0) + 'px'
-              } },
+              }
+            },
             this.text(),
             this.button()
           )
@@ -110,7 +111,8 @@ var Feature = function (_Component) {
               alignItems: 'center',
               justifyContent: 'center',
               paddingBottom: (compact ? 100 : 0) + 'px'
-            } },
+            }
+          },
           this.text(),
           this.button()
         );
@@ -119,14 +121,20 @@ var Feature = function (_Component) {
   }, {
     key: 'text',
     value: function text() {
-      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, {
+        source: this.props.text,
+        style: {
           width: '90vw',
           marginBottom: '20px',
           color: this.props.textColor
-        } }), _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+        }
+      }), _react2.default.createElement(_Text2.default, {
+        source: this.props.text,
+        style: {
           width: '40vw',
           color: this.props.textColor
-        } }));
+        }
+      }));
     }
   }, {
     key: 'button',
@@ -134,12 +142,14 @@ var Feature = function (_Component) {
       if (!this.props.actionTitle) return null;
       return _react2.default.createElement(
         _button.Button,
-        { style: {
+        {
+          style: {
             marginBottom: '30px'
           },
           onClick: this.triggerEvent(),
           raised: true,
-          theme: 'secondary-bg text-primary-on-secondary' },
+          theme: 'secondary-bg text-primary-on-secondary'
+        },
         this.props.actionTitle
       );
     }
@@ -156,30 +166,42 @@ var Feature = function (_Component) {
             animationType: window.innerWidth > 1224 ? animationType : 'slideFromLeft',
             startAnimation: this.state.startAnimation
           },
-          (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+          (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', {
+            src: '/assets/' + this.props.image,
+            style: {
               width: '90vw',
               marginTop: '60px',
               boxShadow: boxShadow,
               marginBottom: '10px'
-            } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+            }
+          }), _react2.default.createElement('img', {
+            src: '/assets/' + this.props.image,
+            style: {
               width: '40vw',
               marginTop: '60px',
               boxShadow: boxShadow,
               marginBottom: '60px'
-            } }))
+            }
+          }))
         );
       } else {
-        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', {
+          src: '/assets/' + this.props.image,
+          style: {
             width: '90vw',
             marginTop: '60px',
             boxShadow: boxShadow,
             marginBottom: '10px'
-          } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+          }
+        }), _react2.default.createElement('img', {
+          src: '/assets/' + this.props.image,
+          style: {
             width: '40vw',
             marginTop: '60px',
             boxShadow: boxShadow,
             marginBottom: '60px'
-          } }));
+          }
+        }));
       }
     }
   }, {
@@ -200,7 +222,8 @@ var Feature = function (_Component) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center'
-          } },
+          }
+        },
         block
       );
     }

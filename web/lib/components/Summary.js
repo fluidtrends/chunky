@@ -54,14 +54,33 @@ var Summary = function (_Component) {
   }, {
     key: 'renderText',
     value: function renderText() {
-      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, {
+        source: this.props.text,
+        style: {
           width: '90vw',
           padding: '10px',
           paddingBottom: '60px'
-        } }), _react2.default.createElement(_Text2.default, { source: this.props.text, style: {
+        }
+      }), _react2.default.createElement(_Text2.default, {
+        source: this.props.text,
+        style: {
           width: '70vw',
           paddingBottom: '60px'
-        } }));
+        }
+      }));
+    }
+  }, {
+    key: 'renderImg',
+    value: function renderImg() {
+      if (!this.props.image) return null;
+      return _react2.default.createElement('img', {
+        src: '/assets/' + this.props.image,
+        style: {
+          width: '200px',
+          marginTop: '20px',
+          marginBottom: '-20px'
+        }
+      });
     }
   }, {
     key: 'renderComponent',
@@ -70,17 +89,15 @@ var Summary = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: (_ref = {
+        {
+          style: (_ref = {
             color: this.props.textColor,
             position: 'relative',
             padding: '60px 0',
             display: 'flex'
-          }, _defineProperty(_ref, 'padding', '40px 0'), _defineProperty(_ref, 'flex', 1), _defineProperty(_ref, 'flexDirection', 'column'), _defineProperty(_ref, 'alignItems', 'center'), _defineProperty(_ref, 'justifyContent', 'center'), _ref) },
-        _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
-            width: '200px',
-            marginTop: '20px',
-            marginBottom: '-20px'
-          } }),
+          }, _defineProperty(_ref, 'padding', '40px 0'), _defineProperty(_ref, 'flex', 1), _defineProperty(_ref, 'flexDirection', 'column'), _defineProperty(_ref, 'alignItems', 'center'), _defineProperty(_ref, 'justifyContent', 'center'), _ref)
+        },
+        this.renderImg(),
         this.renderText()
       );
     }
