@@ -1,6 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
+import { Typography } from '@rmwc/typography'
 import { Modal, Icon } from 'antd'
 import Media from './Media'
 
@@ -77,6 +78,20 @@ export default class Presentation extends Component {
 
     return <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }}>
       <div style={{ textAlign: 'center'}}>
+          {
+            this.props.title &&
+            <Typography
+                use="headline2"
+                style={{
+                  margin: '20px',
+                  color: this.props.textColor,
+                  ...this.props.titleAdditionalStyle
+                }}
+              >
+                {' '}
+                {this.props.title}
+            </Typography>
+          }
           { this.renderThumbnail() }
           { this.renderModal() }
       </div>
