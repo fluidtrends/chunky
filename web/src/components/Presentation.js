@@ -56,7 +56,7 @@ export default class Presentation extends Component {
                 color: ${'#546E7A'}
               }
               div :global(.icon):hover {
-                color: ${'#00bcd4'}
+                color: ${this.props.hoverColor ? this.props.hoverColor : '#00bcd4'}
               }
             `}
           </style>
