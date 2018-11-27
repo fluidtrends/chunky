@@ -265,7 +265,7 @@ var Team = function (_Component) {
   }, {
     key: 'renderSection',
     value: function renderSection(section, index) {
-      var style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : {};
+      var style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : { color: this.props.textColor ? this.props.textColor : '#000' };
       return _react2.default.createElement(
         'div',
         {
@@ -332,7 +332,8 @@ var Team = function (_Component) {
           open: this.state.detailDialogOpen,
           onClose: function onClose(evt) {
             _this5.setState({ detailDialogOpen: false });
-          } },
+          }
+        },
         _react2.default.createElement(
           _dialog.DialogTitle,
           null,
@@ -366,6 +367,7 @@ var Team = function (_Component) {
         {
           style: {
             color: this.props.textColor,
+            backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : '#fff',
             position: 'relative',
             display: 'flex',
             flex: 1,

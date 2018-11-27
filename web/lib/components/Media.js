@@ -51,7 +51,7 @@ var Media = function (_PureComponent) {
               innerWidth = _props.innerWidth;
 
           var style = Object.assign({}, _this2.props.style, {
-            opacity: 1,
+            opacity: _this2.props.style.opacity ? _this2.props.style.opacity : 1,
             height: _this2.props.style.height,
             width: innerWidth || '100vw'
           });

@@ -68,6 +68,24 @@ var App = function (_PureComponent) {
           ele.outerHTML = '';
         }, 2000);
       }
+      var additionalScripts = this.props.additionalScripts;
+
+      if (additionalScripts) {
+        for (var i = 0; i < additionalScripts.length; i++) {
+          var _additionalScripts$i = additionalScripts[i],
+              rel = _additionalScripts$i.rel,
+              href = _additionalScripts$i.href,
+              integrity = _additionalScripts$i.integrity,
+              crossOrigin = _additionalScripts$i.crossOrigin;
+
+          var link = document.createElement('link');
+          link.rel = rel;
+          link.href = href;
+          link.integrity = integrity;
+          link.crossOrigin = crossOrigin;
+          document.head.appendChild(link);
+        }
+      }
     }
   }, {
     key: 'checkAuth',
@@ -314,18 +332,15 @@ var App = function (_PureComponent) {
           });
         }
 
-        var allProps = Object.assign({}, props, screenProps, { session: _this6.props.session });
+        var allProps = Object.assign({}, props, screenProps, {
+          session: _this6.props.session
+        });
         return skip ? _react2.default.createElement('div', null) : _react2.default.createElement(RouteScreen, allProps);
       };
 
       var routeKey = '' + screenId + screenPath;
 
-      return _react2.default.createElement(_reactRouterDom.Route, {
-        exact: true,
-        refresh: true,
-        key: routeKey,
-        path: screenPath,
-        render: Screen });
+      return _react2.default.createElement(_reactRouterDom.Route, { exact: true, refresh: true, key: routeKey, path: screenPath, render: Screen });
     }
   }, {
     key: '_createSectionNavigator',
@@ -355,14 +370,21 @@ var App = function (_PureComponent) {
     key: '_resolve',
     value: function _resolve(account) {
       this._refreshRoutes(account);
-      this.setState({ loading: false, account: account || undefined, authstamp: '' + Date.now() });
+      this.setState({
+        loading: false,
+        account: account || undefined,
+        authstamp: '' + Date.now()
+      });
     }
   }, {
     key: 'renderStatic',
     value: function renderStatic() {
       return _react2.default.createElement(
         _reactRouterDom.StaticRouter,
-        { location: this.props.route.location, context: this.props.route },
+        {
+          location: this.props.route.location,
+          context: this.props.route
+        },
         _react2.default.createElement(
           'div',
           null,

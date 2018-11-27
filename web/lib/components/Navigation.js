@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -49,28 +51,39 @@ var Navigation = function (_PureComponent) {
   }, {
     key: 'renderNavigationMenuItem',
     value: function renderNavigationMenuItem(item, index) {
-      var MenuIcon = _react2.default.createElement(_toolbar.ToolbarMenuIcon, { onClick: this._onMenuItem(item), use: item.icon, style: {
+      var MenuIcon = _react2.default.createElement(_toolbar.ToolbarMenuIcon, {
+        onClick: this._onMenuItem(item),
+        use: item.icon,
+        style: {
           color: this.props.theme.navigationTintColor,
           marginRight: '0px'
-        } });
+        }
+      });
+      var buttonAdditionalStyle = this.props.theme.navigationButtonStyle ? this.props.theme.navigationButtonStyle : {};
       var MenuButton = _react2.default.createElement(
         _button.Button,
-        { onClick: this._onMenuItem(item),
-          style: {
+        {
+          onClick: this._onMenuItem(item),
+          style: _extends({
             color: this.props.theme.navigationTintColor,
             textShadow: this.props.theme.textShadow,
             marginRight: '0px'
-          } },
+          }, buttonAdditionalStyle)
+        },
         item.title
       );
+      var actionButtonAdditionalStyle = this.props.theme.navigationActionButtonStyle ? this.props.theme.navigationActionButtonStyle : {};
       var MenuActionButton = _react2.default.createElement(
         _button.Button,
-        { raised: true, theme: 'secondary-bg text-primary-on-secondary',
+        {
+          raised: true,
+          theme: 'secondary-bg text-primary-on-secondary',
           onClick: this._onMenuItem(item),
-          style: {
+          style: _extends({
             color: this.props.theme.nanvigationTextButton,
             marginRight: '0px'
-          } },
+          }, actionButtonAdditionalStyle)
+        },
         '' + item.title
       );
       return (0, _responsive.renderResponsive)('menuItem' + index++, _react2.default.createElement('div', null), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : MenuButton);
@@ -96,39 +109,57 @@ var Navigation = function (_PureComponent) {
       var image = this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage;
       var height = this.props.navigationUncover ? 64 : 64;
 
-      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_toolbar.ToolbarMenuIcon, { use: 'menu', style: { color: this.props.theme.navigationTintColor }, onClick: this._onMenuOpen }), _react2.default.createElement('img', { src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image, style: { height: height + 'px', marginLeft: '20px' } }));
+      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_toolbar.ToolbarMenuIcon, {
+        use: 'menu',
+        style: { color: this.props.theme.navigationTintColor },
+        onClick: this._onMenuOpen
+      }), _react2.default.createElement('img', {
+        src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
+        style: { height: height + 'px', marginLeft: '20px' }
+      }));
     }
   }, {
     key: 'renderDefault',
     value: function renderDefault() {
+      var wrapperAdditionalStyle = this.props.theme.navigationWrapperStyle ? this.props.theme.navigationWrapperStyle : {};
       return _react2.default.createElement(
         _toolbar.Toolbar,
-        { waterfall: true, fixed: this.props.layout.fixed, style: {
+        {
+          waterfall: true,
+          fixed: this.props.layout.fixed,
+          style: _extends({
             backgroundColor: this.props.theme.navigationColor
-          } },
+          }, wrapperAdditionalStyle)
+        },
         _react2.default.createElement(
           _toolbar.ToolbarRow,
           null,
           _react2.default.createElement(
             _toolbar.ToolbarSection,
-            { alignStart: true, style: {
+            {
+              alignStart: true,
+              style: {
                 flex: 1,
                 display: 'flex',
                 justifyContent: 'left',
                 flexDirection: 'row',
                 alignItems: 'center'
-              } },
+              }
+            },
             this.renderNavigationLogo()
           ),
           _react2.default.createElement(
             _toolbar.ToolbarSection,
-            { alignEnd: true, style: {
+            {
+              alignEnd: true,
+              style: {
                 flex: 4,
                 display: 'flex',
                 justifyContent: 'flex-end',
                 flexDirection: 'row',
                 alignItems: 'center'
-              } },
+              }
+            },
             this.renderNavigationMenu()
           )
         )

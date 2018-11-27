@@ -54,13 +54,21 @@ var SocialIcons = function (_PureComponent) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', flexDirection: direction, alignItems: 'center', alignSelf: align, overflow: overflow } },
+        {
+          style: {
+            display: 'flex',
+            flexDirection: direction,
+            alignItems: 'center',
+            alignSelf: align,
+            overflow: overflow
+          }
+        },
         socialNetworks.map(function (key) {
           if (!_this2.props.socialMediaLinks[key]) return null;
           return _react2.default.createElement(
             'div',
             {
-              className: _style2.default.dynamic([['1055089053', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['1055089053', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
+              className: _style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
             },
             _react2.default.createElement(_antd.Icon, {
               key: key,
@@ -73,9 +81,10 @@ var SocialIcons = function (_PureComponent) {
                 cursor: 'pointer',
                 fontSize: fontSize,
                 padding: padding
-              } }),
+              }
+            }),
             _react2.default.createElement(_style2.default, {
-              styleId: '1055089053',
+              styleId: '288785935',
               css: 'div.__jsx-style-dynamic-selector .icon{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + _this2.props.iconColorHover + ';}',
               dynamic: [_this2.props.iconColor, _this2.props.iconColorHover]
             })

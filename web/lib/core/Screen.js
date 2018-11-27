@@ -217,6 +217,11 @@ var Screen = function (_Core$Screen) {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
+        if (!_this2.props.variants || !Array.isArray(_this2.props.variants) || _this2.props.variants.length === 0) {
+          resolve([]);
+          return;
+        }
+
         if (_this2.props.variants.split('http://').length > 1 || _this2.props.variants.split('https://').length > 1) {
           fetch(_this2.props.variants).then(function (response) {
             return resolve(response.json());
@@ -254,6 +259,10 @@ var Screen = function (_Core$Screen) {
 
       if (!this.hasVariants) {
         throw new Error('Missing expected variant');
+      }
+
+      if (this.variants.length === 0) {
+        return;
       }
 
       var variantPath = this.path.substring(this.props.path.length + 1);
@@ -311,6 +320,7 @@ var Screen = function (_Core$Screen) {
       this.scrollToTop();
       this._path = props.location.pathname;
 
+      console.log(this.constructor.name);
       this._loadSections();
       var section = this._loadSection();
 
