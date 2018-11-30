@@ -300,7 +300,6 @@ export default class Screen extends Core.Screen {
     this._path = props.location.pathname
 
 
-    console.log(this.constructor.name)
     this._loadSections()
     const section = this._loadSection()
 
