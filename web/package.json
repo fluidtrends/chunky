@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.145",
+  "version": "0.9.146",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -121,7 +121,6 @@
     "video-react": "^0.9.4",
     "webpack": "^2.2.0",
     "webpack-dev-server": "^2.2.0",
-    "webpack-obfuscator": "^0.15.0",
     "vivus": "^0.4.4",
     "react-vivus": "0.0.2",
     "react-spring": "^5.5.1"

@@ -24,6 +24,8 @@ var _Component3 = _interopRequireDefault(_Component2);
 
 var _responsive = require('../utils/responsive');
 
+var _typography = require('@rmwc/typography');
+
 var _antd = require('antd');
 
 var _Media = require('./Media');
@@ -93,13 +95,14 @@ var Presentation = function (_Component) {
         { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px 0" } },
         _react2.default.createElement(
           'div',
-          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }, className: 'jsx-1391143237' + ' ' + 'jsx-1391143237'
+          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]]) + ' ' + (_style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]]) || '')
           },
           this.renderImage(),
           _react2.default.createElement(_antd.Icon, { onClick: this._showModal, type: 'play-circle', className: 'icon', theme: 'filled', style: { fontSize: fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent' } }),
           _react2.default.createElement(_style2.default, {
-            styleId: '1391143237',
-            css: 'div.jsx-1391143237 .icon{color:' + '#546E7A' + ';}div.jsx-1391143237 .icon:hover{color:' + '#00bcd4' + ';}'
+            styleId: '2929084194',
+            css: 'div.__jsx-style-dynamic-selector .icon{color:' + '#546E7A' + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + (this.props.hoverColor ? this.props.hoverColor : '#00bcd4') + ';}',
+            dynamic: ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']
           })
         )
       );
@@ -123,12 +126,24 @@ var Presentation = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: 'jsx-1391143237'
+        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]])
         },
         _react2.default.createElement(
           'div',
-          { style: { textAlign: 'center' }, className: 'jsx-1391143237'
+          { style: { textAlign: 'center' }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]])
           },
+          this.props.title && _react2.default.createElement(
+            _typography.Typography,
+            {
+              use: 'headline2',
+              style: _extends({
+                margin: '20px',
+                color: this.props.textColor
+              }, this.props.titleAdditionalStyle)
+            },
+            ' ',
+            this.props.title
+          ),
           this.renderThumbnail(),
           this.renderModal()
         )

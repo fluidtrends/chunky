@@ -76,14 +76,24 @@ var App = function (_PureComponent) {
               rel = _additionalScripts$i.rel,
               href = _additionalScripts$i.href,
               integrity = _additionalScripts$i.integrity,
-              crossOrigin = _additionalScripts$i.crossOrigin;
+              crossOrigin = _additionalScripts$i.crossOrigin,
+              type = _additionalScripts$i.type,
+              src = _additionalScripts$i.src;
 
-          var link = document.createElement('link');
-          link.rel = rel;
-          link.href = href;
-          link.integrity = integrity;
-          link.crossOrigin = crossOrigin;
-          document.head.appendChild(link);
+          if (type === 'style') {
+            var link = document.createElement('link');
+            link.rel = rel;
+            link.href = href;
+            link.integrity = integrity;
+            link.crossOrigin = crossOrigin;
+            document.head.appendChild(link);
+          }
+          if (type === 'text/javascript') {
+            var script = document.createElement('script');
+            script.src = src;
+            script.type = type;
+            document.body.appendChild(script);
+          }
         }
       }
     }
