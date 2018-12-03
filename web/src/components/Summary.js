@@ -36,13 +36,17 @@ export default class Summary extends Component {
 
   renderImg() {
     if (!this.props.image) return null
+    const imageAdditionalStyle = this.props.imageStyle
+      ? this.props.imageStyle
+      : {}
     return (
       <img
         src={`/assets/${this.props.image}`}
         style={{
           width: '200px',
           marginTop: '20px',
-          marginBottom: '-20px'
+          marginBottom: '-20px',
+          ...imageAdditionalStyle
         }}
       />
     )
