@@ -66,8 +66,6 @@ export default class Text extends Component {
       return
     }
 
-    console.log('URL', url)
-
     this.loadFromUrl(url)
       .then(text => {
         this.setState({ loading: false, text })
