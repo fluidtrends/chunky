@@ -205,7 +205,9 @@ export default class Cover extends Component {
       : {}
 
     const translatedTitle =
-      this.props.translation && this.state.strings
+      this.props.translation &&
+      this.state.strings &&
+      this.state.selectedLanguage
         ? this.state.strings[this.state.selectedLanguage].title
         : this.props.title
     return (
@@ -274,7 +276,9 @@ export default class Cover extends Component {
       : {}
 
     const translatedSubtitle =
-      this.props.translation && this.state.strings
+      this.props.translation &&
+      this.state.strings &&
+      this.state.selectedLanguage
         ? this.state.strings[this.state.selectedLanguage].subtitle
         : this.props.subtitle
 
