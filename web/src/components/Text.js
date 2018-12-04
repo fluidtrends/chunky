@@ -37,9 +37,9 @@ export default class Text extends Component {
 
     switch (type) {
       case 'local':
-        return `${this.isDesktop ? '../../../../' : '/'}assets/text/${
-          this.state.selectedLanguage ? this.state.selectedLanguage : ''
-        }/${fullPath}.md`
+        return `${
+          this.isDesktop ? '../../../../' : '/'
+        }assets/text/${fullPath}.md`
       case 'github':
         return `https://raw.githubusercontent.com/${fullPath}.md`
       case 'dropbox':

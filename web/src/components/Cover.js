@@ -5,14 +5,32 @@ import Timer from './Timer'
 import { Icon } from 'antd'
 import { Button } from '@rmwc/button'
 import { Typography } from '@rmwc/typography'
+import { Data } from 'react-chunky'
 
 export default class Cover extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      strings: null,
+      selectedLanguage: null
+    }
   }
 
   componentDidMount() {
     super.componentDidMount()
+    Data.Cache.retrieveCachedItem('selectedLanguage')
+      .then(selectedLanguage => {
+        this.setState({ selectedLanguage })
+      })
+      .catch(() => {
+        return
+      })
+    fetch(this.props.theme.translatedStrings)
+      .then(response => response.json())
+      .then(translatedTexts => {
+        this.setState({ strings: translatedTexts[this.props.translationKey] })
+      })
+      .catch(() => '')
   }
 
   renderDefaultContent() {
@@ -185,6 +203,11 @@ export default class Cover extends Component {
     const titleAdditionalStyle = this.props.titleStyle
       ? this.props.titleStyle
       : {}
+
+    const translatedTitle =
+      this.props.translation && this.state.strings
+        ? this.state.strings[this.state.selectedLanguage]
+        : this.props.title
     return (
       <Typography
         use="headline4"
@@ -195,7 +218,7 @@ export default class Cover extends Component {
         }}
       >
         {' '}
-        {this.props.title}
+        {translatedTitle.title}
       </Typography>
     )
   }
@@ -250,6 +273,11 @@ export default class Cover extends Component {
       ? this.props.subtitleStyle
       : {}
 
+    const translatedSubtitle =
+      this.props.translation && this.state.strings
+        ? this.state.strings[this.state.selectedLanguage]
+        : this.props.subtitle
+
     return (
       <Typography
         use="headline5"
@@ -260,7 +288,7 @@ export default class Cover extends Component {
         }}
       >
         {' '}
-        {this.props.subtitle}{' '}
+        {translatedSubtitle.subtitle}{' '}
       </Typography>
     )
   }
