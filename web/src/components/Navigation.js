@@ -7,17 +7,38 @@ import {
   ToolbarSection
 } from '@rmwc/toolbar'
 import { Button } from '@rmwc/button'
-import { Icon } from '@rmwc/icon'
+import { Select } from '@rmwc/select'
+import { Data } from 'react-chunky'
 
 export default class Navigation extends PureComponent {
   constructor(props) {
     super(props)
+    this.state = {
+      selectedLanguage: 'en'
+    }
     this._onMenuOpen = this.onMenuOpen.bind(this)
     this._onMenuItem = item => this.onMenuItem.bind(this, item)
+    this._changeLanguage = language => this.changeLanguage.bind(this, language)
+  }
+
+  componentDidMount() {
+    Data.Cache.retrieveCachedItem('selectedLanguage')
+      .then(lang => {
+        this.setState({ selectedLanguage: lang })
+      })
+      .catch(() => {
+        return
+      })
   }
 
   onMenuItem(item) {
     this.props.onMenuItem && this.props.onMenuItem(item)
+  }
+
+  changeLanguage(language) {
+    Data.Cache.cacheItem('selectedLanguage', language).then(() => {
+      window.location.reload()
+    })
   }
 
   renderNavigationMenuItem(item, index) {
@@ -57,13 +78,30 @@ export default class Navigation extends PureComponent {
         theme="secondary-bg text-primary-on-secondary"
         onClick={this._onMenuItem(item)}
         style={{
-          color: this.props.theme.nanvigationTextButton,
+          color: this.props.theme.navigationTextButton,
           marginRight: '0px',
           ...actionButtonAdditionalStyle
         }}
       >
         {`${item.title}`}
       </Button>
+    )
+    const { languages } = this.props.theme
+    const dropdownAdditionalStyle = this.props.theme.dropdownStyle
+      ? this.props.theme.dropdownStyle
+      : {}
+
+    const MenuDropdown = (
+      <Select
+        label={item.title}
+        options={languages}
+        onChange={evt => this.changeLanguage(evt.target.value)}
+        value={this.state.selectedLanguage}
+        style={{
+          color: this.props.theme.navigationTextButton,
+          ...dropdownAdditionalStyle
+        }}
+      />
     )
     return renderResponsive(
       `menuItem${index++}`,
@@ -72,6 +110,8 @@ export default class Navigation extends PureComponent {
         ? MenuIcon
         : item.action
         ? MenuActionButton
+        : item.id === 'translation'
+        ? MenuDropdown
         : MenuButton
     )
   }

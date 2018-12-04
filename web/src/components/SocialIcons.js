@@ -38,34 +38,36 @@ export default class SocialIcons extends PureComponent {
           overflow
         }}
       >
-        {socialNetworks.map(key => {
-          if (!this.props.socialMediaLinks[key]) return null
-          return (
-            <div>
-              <Icon
-                key={key}
-                theme="twoTone"
-                type={key}
-                twoToneColor="#00bcd4"
-                className="icon"
-                onClick={this.goto.bind(this, key)}
-                style={{
-                  cursor: 'pointer',
-                  fontSize,
-                  padding
-                }}
-              />
-              <style jsx>{`
-                div :global(.icon) {
-                  color: ${this.props.iconColor};
-                }
-                div :global(.icon):hover {
-                  color: ${this.props.iconColorHover};
-                }
-              `}</style>
-            </div>
-          )
-        })}
+        {this.props &&
+          this.props.socialMediaLinks &&
+          socialNetworks.map(key => {
+            if (!this.props && !this.props.socialMediaLinks[key]) return null
+            return (
+              <div>
+                <Icon
+                  key={key}
+                  theme="twoTone"
+                  type={key}
+                  twoToneColor="#00bcd4"
+                  className="icon"
+                  onClick={this.goto.bind(this, key)}
+                  style={{
+                    cursor: 'pointer',
+                    fontSize,
+                    padding
+                  }}
+                />
+                <style jsx>{`
+                  div :global(.icon) {
+                    color: ${this.props.iconColor};
+                  }
+                  div :global(.icon):hover {
+                    color: ${this.props.iconColorHover};
+                  }
+                `}</style>
+              </div>
+            )
+          })}
       </div>
     )
   }
