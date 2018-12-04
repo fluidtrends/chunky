@@ -206,7 +206,7 @@ export default class Cover extends Component {
 
     const translatedTitle =
       this.props.translation && this.state.strings
-        ? this.state.strings[this.state.selectedLanguage]
+        ? this.state.strings[this.state.selectedLanguage].title
         : this.props.title
     return (
       <Typography
@@ -218,7 +218,7 @@ export default class Cover extends Component {
         }}
       >
         {' '}
-        {translatedTitle.title}
+        {translatedTitle}
       </Typography>
     )
   }
@@ -275,7 +275,7 @@ export default class Cover extends Component {
 
     const translatedSubtitle =
       this.props.translation && this.state.strings
-        ? this.state.strings[this.state.selectedLanguage]
+        ? this.state.strings[this.state.selectedLanguage].subtitle
         : this.props.subtitle
 
     return (
@@ -288,7 +288,7 @@ export default class Cover extends Component {
         }}
       >
         {' '}
-        {translatedSubtitle.subtitle}{' '}
+        {translatedSubtitle}{' '}
       </Typography>
     )
   }
