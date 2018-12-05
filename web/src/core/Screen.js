@@ -163,6 +163,7 @@ export default class Screen extends Core.Screen {
 
   updateScroll () {
     const scroll = window.scrollY
+    if ( this.props.theme.keepNavigatorSticky ) return
     if (scroll > 10 && !this.state.unCoveredHeader) {
       this.setState({ scroll, unCoveredHeader: true })
     } else if(scroll < 10) {
