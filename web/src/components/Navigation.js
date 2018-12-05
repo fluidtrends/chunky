@@ -14,7 +14,8 @@ export default class Navigation extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      selectedLanguage: 'en'
+      selectedLanguage: 'en',
+      strings: null
     }
     this._onMenuOpen = this.onMenuOpen.bind(this)
     this._onMenuItem = item => this.onMenuItem.bind(this, item)
@@ -29,6 +30,12 @@ export default class Navigation extends PureComponent {
       .catch(() => {
         return
       })
+    fetch(this.props.theme.translatedStrings)
+      .then(response => response.json())
+      .then(translatedTexts => {
+        this.setState({ strings: translatedTexts['navigation'] })
+      })
+      .catch(() => '')
   }
 
   onMenuItem(item) {
@@ -42,6 +49,13 @@ export default class Navigation extends PureComponent {
   }
 
   renderNavigationMenuItem(item, index) {
+    const translatedTitle =
+      this.props.theme.headerTranslation &&
+      this.state.strings &&
+      this.state.selectedLanguage
+        ? this.state.strings[this.state.selectedLanguage][`title${index}`]
+        : item.title
+
     const MenuIcon = (
       <ToolbarMenuIcon
         onClick={this._onMenuItem(item)}
@@ -65,7 +79,7 @@ export default class Navigation extends PureComponent {
           ...buttonAdditionalStyle
         }}
       >
-        {item.title}
+        {translatedTitle}
       </Button>
     )
     const actionButtonAdditionalStyle = this.props.theme
@@ -83,7 +97,7 @@ export default class Navigation extends PureComponent {
           ...actionButtonAdditionalStyle
         }}
       >
-        {`${item.title}`}
+        {`${translatedTitle}`}
       </Button>
     )
     const { languages } = this.props.theme
