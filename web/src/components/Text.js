@@ -52,9 +52,10 @@ export default class Text extends Component {
   }
 
   loadFromUrl(url) {
-    const translatedUrl = this.state.selectedLanguage
-      ? url.replace('/text/', `/text/${this.state.selectedLanguage}/`)
-      : url
+    const translatedUrl =
+      this.state.selectedLanguage && !url.includes('json')
+        ? url.replace('/text/', `/text/${this.state.selectedLanguage}/`)
+        : url
     return fetch(translatedUrl)
       .then(response => response.text())
       .then(markdown => marked(markdown, {}))
