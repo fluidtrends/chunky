@@ -13,6 +13,11 @@ import {
   ListItemPrimaryText
 } from '@rmwc/list'
 
+import { Select } from '@rmwc/select'
+
+import { Data } from 'react-chunky'
+
+
 /**
  *  This is the Chunky Web Navigation Drawer that is usually used with a navigator
  *  to control opening and closing the drawer.
@@ -51,10 +56,38 @@ export default class DrawerComponent extends PureComponent {
   constructor (props) {
     super(props)
 
+    this.state = {
+      selectedLanguage: 'en',
+      strings: null
+    }
+
     /** Will be called when the drawer is closed **/
     this._onClosePressed = this._onClose.bind(this)
 
     this._onMenuItem = (item) => this.onMenuItem.bind(this, item)
+    this._changeLanguage = language => this.changeLanguage.bind(this, language)
+  }
+
+  componentDidMount() {
+    Data.Cache.retrieveCachedItem('selectedLanguage')
+      .then(lang => {
+        this.setState({ selectedLanguage: lang })
+      })
+      .catch(() => {
+        return
+      })
+    fetch(this.props.theme.translatedStrings)
+      .then(response => response.json())
+      .then(translatedTexts => {
+        this.setState({ strings: translatedTexts['navigation'] })
+      })
+      .catch(() => '')
+  }
+
+  changeLanguage(language) {
+    Data.Cache.cacheItem('selectedLanguage', language).then(() => {
+      window.location.reload()
+    })
   }
 
   renderDrawerMenu () {
@@ -123,10 +156,24 @@ export default class DrawerComponent extends PureComponent {
    */
   renderMenu () {
     var index = 0
+    const { languages } = this.props.theme
     return this._menu.map(item => (<ListItem
       onClick={this._onMenuItem(item)}
       key={`menuItem${index++}`}>
-      <ListItemPrimaryText>{ item.title }</ListItemPrimaryText>
+      {
+        item.id === 'translation' ?
+        <Select
+          label={item.title}
+          options={languages}
+          onChange={evt => this.changeLanguage(evt.target.value)}
+          value={this.state.selectedLanguage}
+          style={{
+            color: this.props.theme.navigationTextButton
+          }}
+        />
+        :
+        <ListItemPrimaryText>{ item.title }</ListItemPrimaryText>
+      }
     </ListItem>))
   }
 }
