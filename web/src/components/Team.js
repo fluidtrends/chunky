@@ -1,25 +1,8 @@
 import React from 'react'
 
 import { Typography } from '@rmwc/typography'
-import { Icon } from '@rmwc/icon'
-import { Chip, ChipText, ChipIcon, ChipSet } from '@rmwc/chip'
 import { Button, ButtonIcon } from '@rmwc/button'
-import { LinearProgress } from '@rmwc/linear-progress'
-import {
-  Card,
-  CardMedia,
-  CardMediaItem,
-  CardPrimary,
-  CardTitle,
-  CardActions,
-  CardActionButtons,
-  CardAction,
-  CardPrimaryAction,
-  CardActionIcons,
-  CardSubtitle,
-  CardSupportingText,
-  CardHorizontalBlock
-} from '@rmwc/card'
+import { Card, CardMedia } from '@rmwc/card'
 import {
   Dialog,
   DialogTitle,
@@ -31,17 +14,36 @@ import {
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
-import moment from 'moment'
 import Media from './Media'
+import { Data } from 'react-chunky'
 
 export default class Team extends Component {
   constructor(props) {
     super(props)
-    this.state = { ...this.state, detailDialogOpen: false, item: null }
+    this.state = {
+      ...this.state,
+      detailDialogOpen: false,
+      item: null,
+      selectedLanguage: null,
+      strings: null
+    }
   }
 
   componentDidMount() {
     super.componentDidMount()
+    Data.Cache.retrieveCachedItem('selectedLanguage')
+      .then(lang => {
+        this.setState({ selectedLanguage: lang })
+      })
+      .catch(() => {
+        return
+      })
+    fetch(this.props.theme.translatedStrings)
+      .then(response => response.json())
+      .then(translatedTexts => {
+        this.setState({ strings: translatedTexts['team'] })
+      })
+      .catch(() => '')
   }
 
   renderText(text) {
@@ -112,7 +114,12 @@ export default class Team extends Component {
 
     const width = this.props.small ? 230 : 320
     const height = this.props.small ? 340 : 540
-
+    const translatedBtnSeeMoreText =
+      this.props.translation &&
+      this.state.strings &&
+      this.state.selectedLanguage
+        ? this.state.strings[this.state.selectedLanguage][`btnTextDetails`]
+        : 'See more'
     return (
       <Card
         style={{
@@ -181,7 +188,7 @@ export default class Team extends Component {
                   this.setState({ detailDialogOpen: true, item })
                 }}
               >
-                See More
+                {translatedBtnSeeMoreText}
               </Button>
             )}
           </div>
@@ -221,13 +228,21 @@ export default class Team extends Component {
     const style = this.props.small
       ? { color: 'white', textShadow: '2px 2px 5px #607D8B' }
       : { color: this.props.textColor ? this.props.textColor : '#000' }
+    const translatedTitle =
+      this.props.translation &&
+      this.state.strings &&
+      this.state.selectedLanguage
+        ? this.state.strings[this.state.selectedLanguage][`section${index}`][
+            `title`
+          ]
+        : section.title
     return (
       <div
         key={'section' + index}
         style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}
       >
         <Typography use="display1" tag="h1" style={style}>
-          {section.title}
+          {translatedTitle}
         </Typography>
         <div
           style={{
@@ -270,6 +285,12 @@ export default class Team extends Component {
   }
 
   renderDialog() {
+    const translatedBtnBackText =
+      this.props.translation &&
+      this.state.strings &&
+      this.state.selectedLanguage
+        ? this.state.strings[this.state.selectedLanguage][`btnTextGoBack`]
+        : 'Back'
     return (
       <Dialog
         open={this.state.detailDialogOpen}
@@ -280,7 +301,7 @@ export default class Team extends Component {
         <DialogTitle>{this.renderDetailsTitle()}</DialogTitle>
         <DialogContent>{this.renderDetails()}</DialogContent>
         <DialogActions style={{ display: 'flex', justifyContent: 'center' }}>
-          <DialogButton action="close">Back</DialogButton>
+          <DialogButton action="close">{translatedBtnBackText}</DialogButton>
         </DialogActions>
       </Dialog>
     )
