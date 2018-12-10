@@ -157,24 +157,32 @@ export default class DrawerComponent extends PureComponent {
   renderMenu () {
     var index = 0
     const { languages } = this.props.theme
-    return this._menu.map(item => (<ListItem
-      onClick={this._onMenuItem(item)}
-      key={`menuItem${index++}`}>
-      {
-        item.id === 'translation' ?
-        <Select
-          label={item.title}
-          options={languages}
-          onChange={evt => this.changeLanguage(evt.target.value)}
-          value={this.state.selectedLanguage}
-          style={{
-            color: this.props.theme.navigationTextButton
-          }}
-        />
-        :
-        <ListItemPrimaryText>{ item.title }</ListItemPrimaryText>
-      }
-    </ListItem>))
+    return this._menu.map(item => {
+      const translatedTitle =
+      this.props.theme.headerTranslation &&
+      this.state.strings &&
+      this.state.selectedLanguage
+        ? this.state.strings[this.state.selectedLanguage][`title${index}`]
+        : item.title
+      return (<ListItem
+        onClick={this._onMenuItem(item)}
+        key={`menuItem${index++}`}>
+        {
+          item.id === 'translation' ?
+          <Select
+            label={item.title}
+            options={languages}
+            onChange={evt => this.changeLanguage(evt.target.value)}
+            value={this.state.selectedLanguage}
+            style={{
+              color: this.props.theme.navigationTextButton
+            }}
+          />
+          :
+          <ListItemPrimaryText>{ translatedTitle }</ListItemPrimaryText>
+        }
+      </ListItem>)
+    })
   }
 }
 

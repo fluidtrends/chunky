@@ -206,6 +206,7 @@ export default class App extends PureComponent {
             icon: route.icon.replace('-', '_'),
             title: route.menuTitle,
             alwaysShowIcon: route.alwaysShowIcon,
+            navigationLogo: route.navigationLogo,
             action: route.action,
             path: link
           })

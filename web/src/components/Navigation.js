@@ -156,7 +156,8 @@ export default class Navigation extends PureComponent {
       />,
       <img
         src={`${this.props.desktop ? '../../../../' : '/'}assets/${image}`}
-        style={{ height: `${height}px`, marginLeft: '20px' }}
+        onClick={this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false}
+        style={{ height: `${height}px`, marginLeft: '20px', cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial' }}
       />
     )
   }
