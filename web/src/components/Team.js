@@ -86,7 +86,16 @@ export default class Team extends Component {
     return (
       <CardMedia
         style={{
-          backgroundColor: item.backgroundColor
+          backgroundColor: item.backgroundColor,
+          cursor:
+            this.props.imageClickable && !this.state.detailDialogOpen
+              ? 'pointer'
+              : 'initial'
+        }}
+        onClick={() => {
+          this.props.imageClickable
+            ? this.setState({ detailDialogOpen: true, item })
+            : false
         }}
       >
         <Media cache={this.props.cache} roundImg image={image} style={style} />
@@ -115,7 +124,7 @@ export default class Team extends Component {
         key={`item${index}`}
       >
         {this.renderCardMedia(item)}
-        <div style={{ padding: '0 1rem 1rem 1rem', textAlign: 'right' }}>
+        <div style={{ padding: '15px 1rem 1rem 1rem', textAlign: 'right' }}>
           <div
             style={{
               height: 140
