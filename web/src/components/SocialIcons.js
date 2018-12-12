@@ -96,6 +96,7 @@ export default class SocialIcons extends PureComponent {
               `}</style>
             </div>
           ))}
+        {this.props.children}
       </div>
     )
   }
