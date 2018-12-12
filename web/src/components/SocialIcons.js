@@ -27,7 +27,7 @@ export default class SocialIcons extends PureComponent {
     const padding = this.props.isSmallScreen ? 6 : 10
 
     const direction = this.props.vertical ? 'column' : 'row'
-
+    console.log(this.props.socialMediaLinks.customItems)
     return (
       <div
         style={{
@@ -68,6 +68,34 @@ export default class SocialIcons extends PureComponent {
               </div>
             )
           })}
+        {this.props &&
+          this.props.socialMediaLinks &&
+          this.props.socialMediaLinks.customItems &&
+          this.props.socialMediaLinks.customItems.map(item => (
+            <div>
+              <a
+                href={item.link}
+                target={'_blank'}
+                className="social-anchor"
+                style={{
+                  cursor: 'pointer',
+                  padding: 10,
+                  fontSize: 24,
+                  textDecoration: 'none'
+                }}
+              >
+                {item.title}
+              </a>
+              <style jsx>{`
+                div :global(.social-anchor) {
+                  color: ${this.props.iconColor};
+                }
+                div :global(.social-anchor):hover {
+                  color: ${this.props.iconColorHover};
+                }
+              `}</style>
+            </div>
+          ))}
       </div>
     )
   }

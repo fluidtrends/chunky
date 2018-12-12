@@ -140,7 +140,11 @@ export default class Team extends Component {
             <Typography
               use="headline"
               tag="h2"
-              style={{ textAlign: 'center', fontWeight: 700 }}
+              style={{
+                textAlign: 'center',
+                fontWeight: 700,
+                paddingBottom: '10px'
+              }}
             >
               {item.name}
             </Typography>
