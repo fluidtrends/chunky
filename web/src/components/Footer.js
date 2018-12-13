@@ -45,11 +45,14 @@ export default class Footer extends Component {
   renderFooterLegal (compact) {
     return (<div style={{display: 'flex',
       flex: '1',
+      cursor: 'pointer',
       alignSelf: 'center',
       justifyContent: 'center',
       width: '100vw',
       backgroundColor: this.props.theme.footerBottomColor,
-      flexDirection: (compact ? 'row' : 'column')}}>
+      flexDirection: (compact ? 'row' : 'column')}}
+      onClick={() => {window.open('https://carmel.io')}}
+      >
       <List style={{
         display: 'flex',
         flex: '1',
