@@ -101,6 +101,7 @@ var DefaultLayout = function (_PureComponent) {
         open: this.state.menuOpened,
         onMenuItem: this._onMenuItem,
         onEvent: this._onEvent,
+        theme: this.theme,
         menu: this.props.sideMenu
       });
     }

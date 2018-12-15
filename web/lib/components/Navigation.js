@@ -18,7 +18,9 @@ var _toolbar = require('@rmwc/toolbar');
 
 var _button = require('@rmwc/button');
 
-var _icon = require('@rmwc/icon');
+var _select = require('@rmwc/select');
+
+var _reactChunky = require('react-chunky');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36,21 +38,57 @@ var Navigation = function (_PureComponent) {
 
     var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
 
+    _this.state = {
+      selectedLanguage: 'en',
+      strings: null
+    };
     _this._onMenuOpen = _this.onMenuOpen.bind(_this);
     _this._onMenuItem = function (item) {
       return _this.onMenuItem.bind(_this, item);
+    };
+    _this._changeLanguage = function (language) {
+      return _this.changeLanguage.bind(_this, language);
     };
     return _this;
   }
 
   _createClass(Navigation, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
+        _this2.setState({ selectedLanguage: lang });
+      }).catch(function () {
+        return;
+      });
+      fetch(this.props.theme.translatedStrings).then(function (response) {
+        return response.json();
+      }).then(function (translatedTexts) {
+        _this2.setState({ strings: translatedTexts['navigation'] });
+      }).catch(function () {
+        return '';
+      });
+    }
+  }, {
     key: 'onMenuItem',
     value: function onMenuItem(item) {
       this.props.onMenuItem && this.props.onMenuItem(item);
     }
   }, {
+    key: 'changeLanguage',
+    value: function changeLanguage(language) {
+      _reactChunky.Data.Cache.cacheItem('selectedLanguage', language).then(function () {
+        window.location.reload();
+      });
+    }
+  }, {
     key: 'renderNavigationMenuItem',
     value: function renderNavigationMenuItem(item, index) {
+      var _this3 = this;
+
+      var translatedTitle = this.props.theme.headerTranslation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage]['title' + index] : item.title;
+
       var MenuIcon = _react2.default.createElement(_toolbar.ToolbarMenuIcon, {
         onClick: this._onMenuItem(item),
         use: item.icon,
@@ -70,7 +108,7 @@ var Navigation = function (_PureComponent) {
             marginRight: '0px'
           }, buttonAdditionalStyle)
         },
-        item.title
+        translatedTitle
       );
       var actionButtonAdditionalStyle = this.props.theme.navigationActionButtonStyle ? this.props.theme.navigationActionButtonStyle : {};
       var MenuActionButton = _react2.default.createElement(
@@ -80,13 +118,28 @@ var Navigation = function (_PureComponent) {
           theme: 'secondary-bg text-primary-on-secondary',
           onClick: this._onMenuItem(item),
           style: _extends({
-            color: this.props.theme.nanvigationTextButton,
+            color: this.props.theme.navigationTextButton,
             marginRight: '0px'
           }, actionButtonAdditionalStyle)
         },
-        '' + item.title
+        '' + translatedTitle
       );
-      return (0, _responsive.renderResponsive)('menuItem' + index++, _react2.default.createElement('div', null), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : MenuButton);
+      var languages = this.props.theme.languages;
+
+      var dropdownAdditionalStyle = this.props.theme.dropdownStyle ? this.props.theme.dropdownStyle : {};
+
+      var MenuDropdown = _react2.default.createElement(_select.Select, {
+        label: item.title,
+        options: languages,
+        onChange: function onChange(evt) {
+          return _this3.changeLanguage(evt.target.value);
+        },
+        value: this.state.selectedLanguage,
+        style: _extends({
+          color: this.props.theme.navigationTextButton
+        }, dropdownAdditionalStyle)
+      });
+      return (0, _responsive.renderResponsive)('menuItem' + index++, _react2.default.createElement('div', null), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : item.id === 'translation' ? MenuDropdown : MenuButton);
     }
   }, {
     key: 'onMenuOpen',
@@ -96,11 +149,11 @@ var Navigation = function (_PureComponent) {
   }, {
     key: 'renderNavigationMenu',
     value: function renderNavigationMenu() {
-      var _this2 = this;
+      var _this4 = this;
 
       var index = 0;
       return this.props.menu.map(function (item) {
-        return _this2.renderNavigationMenuItem(item, index++);
+        return _this4.renderNavigationMenuItem(item, index++);
       });
     }
   }, {
@@ -115,7 +168,8 @@ var Navigation = function (_PureComponent) {
         onClick: this._onMenuOpen
       }), _react2.default.createElement('img', {
         src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
-        style: { height: height + 'px', marginLeft: '20px' }
+        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false,
+        style: { height: height + 'px', marginLeft: '20px', cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial' }
       }));
     }
   }, {

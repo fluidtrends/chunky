@@ -73,13 +73,14 @@ var Summary = function (_Component) {
     key: 'renderImg',
     value: function renderImg() {
       if (!this.props.image) return null;
+      var imageAdditionalStyle = this.props.imageStyle ? this.props.imageStyle : {};
       return _react2.default.createElement('img', {
         src: '/assets/' + this.props.image,
-        style: {
+        style: _extends({
           width: '200px',
           marginTop: '20px',
           marginBottom: '-20px'
-        }
+        }, imageAdditionalStyle)
       });
     }
   }, {

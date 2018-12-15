@@ -32,6 +32,8 @@ var _urlParse = require('url-parse');
 
 var _urlParse2 = _interopRequireDefault(_urlParse);
 
+var _reactChunky = require('react-chunky');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -48,14 +50,21 @@ var Text = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Text.__proto__ || Object.getPrototypeOf(Text)).call(this, props));
 
-    _this.state = _extends({}, _this.state, { loading: true });
+    _this.state = _extends({}, _this.state, { loading: true, selectedLanguage: null });
     return _this;
   }
 
   _createClass(Text, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       _get(Text.prototype.__proto__ || Object.getPrototypeOf(Text.prototype), 'componentDidMount', this).call(this);
+      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
+        _this2.setState({ selectedLanguage: lang });
+      }).catch(function () {
+        return;
+      });
       this.loadContent();
     }
   }, {
@@ -81,7 +90,8 @@ var Text = function (_Component) {
   }, {
     key: 'loadFromUrl',
     value: function loadFromUrl(url) {
-      return fetch(url).then(function (response) {
+      var translatedUrl = this.state.selectedLanguage && !url.includes('json') ? url.replace('/text/', '/text/' + this.state.selectedLanguage + '/') : url;
+      return fetch(translatedUrl).then(function (response) {
         return response.text();
       }).then(function (markdown) {
         return (0, _marked2.default)(markdown, {});
@@ -90,7 +100,7 @@ var Text = function (_Component) {
   }, {
     key: 'loadContent',
     value: function loadContent() {
-      var _this2 = this;
+      var _this3 = this;
 
       var source = this.props.source === 'text' ? this.props.textSource : this.props.source;
       var url = this.parseUrl(source);
@@ -100,9 +110,9 @@ var Text = function (_Component) {
       }
 
       this.loadFromUrl(url).then(function (text) {
-        _this2.setState({ loading: false, text: text });
+        _this3.setState({ loading: false, text: text });
       }).catch(function (error) {
-        _this2.setState({ error: error });
+        _this3.setState({ error: error });
       });
     }
   }, {
@@ -115,7 +125,10 @@ var Text = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('div', { className: className, dangerouslySetInnerHTML: { __html: this.state.text } })
+        _react2.default.createElement('div', {
+          className: className,
+          dangerouslySetInnerHTML: { __html: this.state.text }
+        })
       );
     }
   }, {
@@ -124,20 +137,26 @@ var Text = function (_Component) {
       this.loadContent();
       return _react2.default.createElement(
         'div',
-        { style: Object.assign({}, {
+        {
+          style: Object.assign({}, {
             textAlign: 'center',
             padding: '20px',
             maxWidth: '90vw',
             overflow: 'hidden'
-          }, this.props.style) },
+          }, this.props.style)
+        },
         _react2.default.createElement(
           _reactPlaceholder2.default,
           {
             showLoadingAnimation: true,
             rows: 7,
             ready: !this.state.loading,
-            customPlaceholder: this.placeholder },
-          this.renderComponentContent({ titleColor: '#263238', textColor: '#455A64' })
+            customPlaceholder: this.placeholder
+          },
+          this.renderComponentContent({
+            titleColor: '#263238',
+            textColor: '#455A64'
+          })
         )
       );
     }

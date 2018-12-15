@@ -174,6 +174,7 @@ var Screen = function (_Core$Screen) {
     key: 'updateScroll',
     value: function updateScroll() {
       var scroll = window.scrollY;
+      if (this.props.theme.keepNavigatorSticky) return;
       if (scroll > 10 && !this.state.unCoveredHeader) {
         this.setState({ scroll: scroll, unCoveredHeader: true });
       } else if (scroll < 10) {
@@ -320,7 +321,6 @@ var Screen = function (_Core$Screen) {
       this.scrollToTop();
       this._path = props.location.pathname;
 
-      console.log(this.constructor.name);
       this._loadSections();
       var section = this._loadSection();
 

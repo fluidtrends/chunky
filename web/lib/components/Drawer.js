@@ -14,6 +14,10 @@ var _drawer = require('@rmwc/drawer');
 
 var _list = require('@rmwc/list');
 
+var _select = require('@rmwc/select');
+
+var _reactChunky = require('react-chunky');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61,18 +65,50 @@ var DrawerComponent = function (_PureComponent) {
   function DrawerComponent(props) {
     _classCallCheck(this, DrawerComponent);
 
-    /** Will be called when the drawer is closed **/
     var _this = _possibleConstructorReturn(this, (DrawerComponent.__proto__ || Object.getPrototypeOf(DrawerComponent)).call(this, props));
 
-    _this._onClosePressed = _this._onClose.bind(_this);
+    _this.state = {
+      selectedLanguage: 'en',
+      strings: null
+
+      /** Will be called when the drawer is closed **/
+    };_this._onClosePressed = _this._onClose.bind(_this);
 
     _this._onMenuItem = function (item) {
       return _this.onMenuItem.bind(_this, item);
+    };
+    _this._changeLanguage = function (language) {
+      return _this.changeLanguage.bind(_this, language);
     };
     return _this;
   }
 
   _createClass(DrawerComponent, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
+        _this2.setState({ selectedLanguage: lang });
+      }).catch(function () {
+        return;
+      });
+      fetch(this.props.theme.translatedStrings).then(function (response) {
+        return response.json();
+      }).then(function (translatedTexts) {
+        _this2.setState({ strings: translatedTexts['navigation'] });
+      }).catch(function () {
+        return '';
+      });
+    }
+  }, {
+    key: 'changeLanguage',
+    value: function changeLanguage(language) {
+      _reactChunky.Data.Cache.cacheItem('selectedLanguage', language).then(function () {
+        window.location.reload();
+      });
+    }
+  }, {
     key: 'renderDrawerMenu',
     value: function renderDrawerMenu() {
       var index = 0;
@@ -142,19 +178,32 @@ var DrawerComponent = function (_PureComponent) {
   }, {
     key: 'renderMenu',
     value: function renderMenu() {
-      var _this2 = this;
+      var _this3 = this;
 
       var index = 0;
+      var languages = this.props.theme.languages;
+
       return this._menu.map(function (item) {
+        var translatedTitle = _this3.props.theme.headerTranslation && _this3.state.strings && _this3.state.selectedLanguage ? _this3.state.strings[_this3.state.selectedLanguage]['title' + index] : item.title;
         return _react2.default.createElement(
           _list.ListItem,
           {
-            onClick: _this2._onMenuItem(item),
+            onClick: _this3._onMenuItem(item),
             key: 'menuItem' + index++ },
-          _react2.default.createElement(
+          item.id === 'translation' ? _react2.default.createElement(_select.Select, {
+            label: item.title,
+            options: languages,
+            onChange: function onChange(evt) {
+              return _this3.changeLanguage(evt.target.value);
+            },
+            value: _this3.state.selectedLanguage,
+            style: {
+              color: _this3.props.theme.navigationTextButton
+            }
+          }) : _react2.default.createElement(
             _list.ListItemPrimaryText,
             null,
-            item.title
+            translatedTitle
           )
         );
       });

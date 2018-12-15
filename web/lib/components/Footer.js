@@ -104,11 +104,16 @@ var Footer = function (_Component) {
         'div',
         { style: { display: 'flex',
             flex: '1',
+            cursor: 'pointer',
             alignSelf: 'center',
             justifyContent: 'center',
             width: '100vw',
             backgroundColor: this.props.theme.footerBottomColor,
-            flexDirection: compact ? 'row' : 'column' } },
+            flexDirection: compact ? 'row' : 'column' },
+          onClick: function onClick() {
+            window.open('https://carmel.io');
+          }
+        },
         _react2.default.createElement(
           _list.List,
           { style: {

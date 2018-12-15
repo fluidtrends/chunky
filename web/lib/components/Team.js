@@ -16,13 +16,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _typography = require('@rmwc/typography');
 
-var _icon = require('@rmwc/icon');
-
-var _chip = require('@rmwc/chip');
-
 var _button = require('@rmwc/button');
-
-var _linearProgress = require('@rmwc/linear-progress');
 
 var _card = require('@rmwc/card');
 
@@ -38,13 +32,11 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
 var _Media = require('./Media');
 
 var _Media2 = _interopRequireDefault(_Media);
+
+var _reactChunky = require('react-chunky');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,14 +54,33 @@ var Team = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Team.__proto__ || Object.getPrototypeOf(Team)).call(this, props));
 
-    _this.state = _extends({}, _this.state, { detailDialogOpen: false, item: null });
+    _this.state = _extends({}, _this.state, {
+      detailDialogOpen: false,
+      item: null,
+      selectedLanguage: null,
+      strings: null
+    });
     return _this;
   }
 
   _createClass(Team, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       _get(Team.prototype.__proto__ || Object.getPrototypeOf(Team.prototype), 'componentDidMount', this).call(this);
+      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
+        _this2.setState({ selectedLanguage: lang });
+      }).catch(function () {
+        return;
+      });
+      fetch(this.props.theme.translatedStrings).then(function (response) {
+        return response.json();
+      }).then(function (translatedTexts) {
+        _this2.setState({ strings: translatedTexts['team'] });
+      }).catch(function () {
+        return '';
+      });
     }
   }, {
     key: 'renderText',
@@ -89,6 +100,8 @@ var Team = function (_Component) {
   }, {
     key: 'renderCardMedia',
     value: function renderCardMedia(item) {
+      var _this3 = this;
+
       var image = item.image;
 
       if (!image) {
@@ -113,7 +126,11 @@ var Team = function (_Component) {
         _card.CardMedia,
         {
           style: {
-            backgroundColor: item.backgroundColor
+            backgroundColor: item.backgroundColor,
+            cursor: this.props.imageClickable && !this.state.detailDialogOpen ? 'pointer' : 'initial'
+          },
+          onClick: function onClick() {
+            _this3.props.imageClickable ? _this3.setState({ detailDialogOpen: true, item: item }) : false;
           }
         },
         _react2.default.createElement(_Media2.default, { cache: this.props.cache, roundImg: true, image: image, style: style })
@@ -127,7 +144,7 @@ var Team = function (_Component) {
   }, {
     key: 'renderCard',
     value: function renderCard(item, index) {
-      var _this2 = this;
+      var _this4 = this;
 
       var linkedIn = item.linkedIn,
           github = item.github,
@@ -137,7 +154,7 @@ var Team = function (_Component) {
 
       var width = this.props.small ? 230 : 320;
       var height = this.props.small ? 340 : 540;
-
+      var translatedBtnSeeMoreText = this.props.translation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage]['btnTextDetails'] : 'See more';
       return _react2.default.createElement(
         _card.Card,
         {
@@ -152,7 +169,7 @@ var Team = function (_Component) {
         this.renderCardMedia(item),
         _react2.default.createElement(
           'div',
-          { style: { padding: '0 1rem 1rem 1rem', textAlign: 'right' } },
+          { style: { padding: '15px 1rem 1rem 1rem', textAlign: 'right' } },
           _react2.default.createElement(
             'div',
             {
@@ -165,7 +182,11 @@ var Team = function (_Component) {
               {
                 use: 'headline',
                 tag: 'h2',
-                style: { textAlign: 'center', fontWeight: 700 }
+                style: {
+                  textAlign: 'center',
+                  fontWeight: 700,
+                  paddingBottom: '10px'
+                }
               },
               item.name
             ),
@@ -186,7 +207,7 @@ var Team = function (_Component) {
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
-                    _this2.onLinkClick(item.github);
+                    _this4.onLinkClick(item.github);
                   }
                 },
                 _react2.default.createElement('img', { src: this.props.githubIcon })
@@ -196,7 +217,7 @@ var Team = function (_Component) {
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
-                    _this2.onLinkClick(item.linkedIn);
+                    _this4.onLinkClick(item.linkedIn);
                   }
                 },
                 _react2.default.createElement('img', { src: this.props.linkedinIcon })
@@ -206,7 +227,7 @@ var Team = function (_Component) {
                 {
                   style: { cursor: 'pointer' },
                   onClick: function onClick() {
-                    _this2.onLinkClick(item.website);
+                    _this4.onLinkClick(item.website);
                   }
                 },
                 _react2.default.createElement('img', { src: this.props.webIcon })
@@ -217,10 +238,10 @@ var Team = function (_Component) {
               {
                 style: { marginTop: 10 },
                 onClick: function onClick() {
-                  _this2.setState({ detailDialogOpen: true, item: item });
+                  _this4.setState({ detailDialogOpen: true, item: item });
                 }
               },
-              'See More'
+              translatedBtnSeeMoreText
             )
           )
         )
@@ -250,7 +271,7 @@ var Team = function (_Component) {
   }, {
     key: 'renderTeamMemebers',
     value: function renderTeamMemebers(members) {
-      var _this3 = this;
+      var _this5 = this;
 
       var index = 0;
 
@@ -259,13 +280,14 @@ var Team = function (_Component) {
       }
 
       return members.map(function (member) {
-        return _this3.renderCard(member, index++);
+        return _this5.renderCard(member, index++);
       });
     }
   }, {
     key: 'renderSection',
     value: function renderSection(section, index) {
       var style = this.props.small ? { color: 'white', textShadow: '2px 2px 5px #607D8B' } : { color: this.props.textColor ? this.props.textColor : '#000' };
+      var translatedTitle = this.props.translation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage]['section' + index]['title'] : section.title;
       return _react2.default.createElement(
         'div',
         {
@@ -275,7 +297,7 @@ var Team = function (_Component) {
         _react2.default.createElement(
           _typography.Typography,
           { use: 'display1', tag: 'h1', style: style },
-          section.title
+          translatedTitle
         ),
         _react2.default.createElement(
           'div',
@@ -296,11 +318,11 @@ var Team = function (_Component) {
   }, {
     key: 'renderTeamSections',
     value: function renderTeamSections() {
-      var _this4 = this;
+      var _this6 = this;
 
       var index = 0;
       return this.props.sections.map(function (section, index) {
-        return _this4.renderSection(section, index);
+        return _this6.renderSection(section, index);
       });
     }
   }, {
@@ -324,14 +346,15 @@ var Team = function (_Component) {
   }, {
     key: 'renderDialog',
     value: function renderDialog() {
-      var _this5 = this;
+      var _this7 = this;
 
+      var translatedBtnBackText = this.props.translation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage]['btnTextGoBack'] : 'Back';
       return _react2.default.createElement(
         _dialog.Dialog,
         {
           open: this.state.detailDialogOpen,
           onClose: function onClose(evt) {
-            _this5.setState({ detailDialogOpen: false });
+            _this7.setState({ detailDialogOpen: false });
           }
         },
         _react2.default.createElement(
@@ -350,7 +373,7 @@ var Team = function (_Component) {
           _react2.default.createElement(
             _dialog.DialogButton,
             { action: 'close' },
-            'Back'
+            translatedBtnBackText
           )
         )
       );

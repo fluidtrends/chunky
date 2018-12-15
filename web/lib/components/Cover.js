@@ -36,6 +36,8 @@ var _button = require('@rmwc/button');
 
 var _typography = require('@rmwc/typography');
 
+var _reactChunky = require('react-chunky');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50,13 +52,33 @@ var Cover = function (_Component) {
   function Cover(props) {
     _classCallCheck(this, Cover);
 
-    return _possibleConstructorReturn(this, (Cover.__proto__ || Object.getPrototypeOf(Cover)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Cover.__proto__ || Object.getPrototypeOf(Cover)).call(this, props));
+
+    _this.state = {
+      strings: null,
+      selectedLanguage: null
+    };
+    return _this;
   }
 
   _createClass(Cover, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       _get(Cover.prototype.__proto__ || Object.getPrototypeOf(Cover.prototype), 'componentDidMount', this).call(this);
+      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (selectedLanguage) {
+        _this2.setState({ selectedLanguage: selectedLanguage });
+      }).catch(function () {
+        return;
+      });
+      fetch(this.props.theme.translatedStrings).then(function (response) {
+        return response.json();
+      }).then(function (translatedTexts) {
+        _this2.setState({ strings: translatedTexts[_this2.props.translationKey] });
+      }).catch(function () {
+        return '';
+      });
     }
   }, {
     key: 'renderDefaultContent',
@@ -115,7 +137,7 @@ var Cover = function (_Component) {
   }, {
     key: 'renderIcons',
     value: function renderIcons() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (!this.props.social) {
         return;
@@ -137,7 +159,7 @@ var Cover = function (_Component) {
           }
         },
         Object.keys(social).map(function (key) {
-          return _this2.renderIcon(social[key], key);
+          return _this3.renderIcon(social[key], key);
         })
       );
     }
@@ -247,6 +269,8 @@ var Cover = function (_Component) {
       }
 
       var titleAdditionalStyle = this.props.titleStyle ? this.props.titleStyle : {};
+
+      var translatedTitle = this.props.translation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage].title : this.props.title;
       return _react2.default.createElement(
         _typography.Typography,
         {
@@ -257,7 +281,7 @@ var Cover = function (_Component) {
           }, titleAdditionalStyle)
         },
         ' ',
-        this.props.title
+        translatedTitle
       );
     }
   }, {
@@ -314,6 +338,8 @@ var Cover = function (_Component) {
 
       var subtitleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {};
 
+      var translatedSubtitle = this.props.translation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage].subtitle : this.props.subtitle;
+
       return _react2.default.createElement(
         _typography.Typography,
         {
@@ -324,7 +350,7 @@ var Cover = function (_Component) {
           }, subtitleAdditionalStyle)
         },
         ' ',
-        this.props.subtitle,
+        translatedSubtitle,
         ' '
       );
     }

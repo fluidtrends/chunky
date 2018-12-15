@@ -51,24 +51,24 @@ var SocialIcons = function (_PureComponent) {
       var padding = this.props.isSmallScreen ? 6 : 10;
 
       var direction = this.props.vertical ? 'column' : 'row';
-
+      console.log(this.props);
       return _react2.default.createElement(
         'div',
         {
           style: {
             display: 'flex',
-            flexDirection: direction,
+            flexDirection: window.outerWidth < 840 && this.props.socialMediaLinks.customItems && this.props.children ? 'column' : direction,
             alignItems: 'center',
             alignSelf: align,
             overflow: overflow
           }
         },
-        socialNetworks.map(function (key) {
-          if (!_this2.props.socialMediaLinks[key]) return null;
+        this.props && this.props.socialMediaLinks && socialNetworks.map(function (key) {
+          if (!_this2.props && !_this2.props.socialMediaLinks[key]) return null;
           return _react2.default.createElement(
             'div',
             {
-              className: _style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
+              className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
             },
             _react2.default.createElement(_antd.Icon, {
               key: key,
@@ -84,12 +84,42 @@ var SocialIcons = function (_PureComponent) {
               }
             }),
             _react2.default.createElement(_style2.default, {
-              styleId: '288785935',
+              styleId: '1986911350',
               css: 'div.__jsx-style-dynamic-selector .icon{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + _this2.props.iconColorHover + ';}',
               dynamic: [_this2.props.iconColor, _this2.props.iconColorHover]
             })
           );
-        })
+        }),
+        this.props && this.props.socialMediaLinks && this.props.socialMediaLinks.customItems && this.props.socialMediaLinks.customItems.map(function (item) {
+          return _react2.default.createElement(
+            'div',
+            {
+              className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['3262010126', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
+            },
+            _react2.default.createElement(
+              'a',
+              {
+                href: item.link,
+                target: '_blank',
+
+                style: {
+                  cursor: 'pointer',
+                  padding: 10,
+                  fontSize: 24,
+                  textDecoration: 'none'
+                },
+                className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['3262010126', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + 'social-anchor' || '')
+              },
+              item.title
+            ),
+            _react2.default.createElement(_style2.default, {
+              styleId: '3262010126',
+              css: 'div.__jsx-style-dynamic-selector .social-anchor{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .social-anchor:hover{color:' + _this2.props.iconColorHover + ';}',
+              dynamic: [_this2.props.iconColor, _this2.props.iconColorHover]
+            })
+          );
+        }),
+        this.props.children
       );
     }
   }]);
