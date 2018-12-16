@@ -18,7 +18,7 @@ export default class Footer extends Component {
   }
 
   renderFooterSectionElement (element) {
-    return (<ListItem key={element.id} style={{}}>
+    return (<ListItem key={element.id} style={{cursor: 'pointer'}} onClick={this.triggerEvent(element.id, {handler: element.link})} >
       <Button onClick={this.triggerEvent(element.id, {handler: element.link})} style={{color: this.props.theme.footerTintColor, textAlign: 'left'}}>
         { element.title }
       </Button>
