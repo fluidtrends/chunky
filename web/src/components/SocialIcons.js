@@ -27,7 +27,7 @@ export default class SocialIcons extends PureComponent {
     const padding = this.props.isSmallScreen ? 6 : 10
 
     const direction = this.props.vertical ? 'column' : 'row'
-    console.log(this.props)
+
     return (
       <div
         style={{
