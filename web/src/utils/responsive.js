@@ -3,7 +3,7 @@ import React from 'react'
 import MediaQuery from 'react-responsive'
 
 export const breakpoints = {
-  main: 768
+  main: 1140
 }
 
 export function renderResponsiveLarge (component) {
