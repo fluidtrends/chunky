@@ -25,12 +25,13 @@ export default class Cover extends Component {
       .catch(() => {
         return
       })
-    fetch(this.props.theme.translatedStrings)
-      .then(response => response.json())
-      .then(translatedTexts => {
-        this.setState({ strings: translatedTexts[this.props.translationKey] })
-      })
-      .catch(() => '')
+    if (this.props.theme && this.props.theme.translatedStrings)
+      fetch(this.props.theme.translatedStrings)
+        .then(response => response.json())
+        .then(translatedTexts => {
+          this.setState({ strings: translatedTexts[this.props.translationKey] })
+        })
+        .catch(() => '')
   }
 
   renderDefaultContent() {
@@ -44,7 +45,7 @@ export default class Cover extends Component {
           position: 'absolute',
           backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
           width: '100vw',
-          height: '100vh',
+          height: '100%',
           top: 0,
           left: 0,
           display: 'flex',
