@@ -86,12 +86,21 @@ export default class Dashboard extends PureComponent {
     const {
       lightThemeBackgroundColor,
       darkThemeBackgroundColor,
-      selectionBackgroundColor
+      selectionBackgroundColor,
+      lightThemeTextColor,
+      darkThemeTextColor
     } = this.props
+
     return item.subSection ? (
       <SubMenu
         key={`submenu-${index}`}
-        style={{ margin: '10px 0' }}
+        style={{ 
+          margin: '10px 0',
+          color:
+            this.state.theme === 'dark'
+              ? darkThemeTextColor
+              : lightThemeTextColor 
+        }}
         title={
           <span>
             {item.icon ? <Icon type={item.icon} /> : null}
@@ -114,7 +123,13 @@ export default class Dashboard extends PureComponent {
               : lightThemeBackgroundColor
         }}
       >
-        <div onClick={() => this.onSectionSelect(item)}>
+        <div onClick={() => this.onSectionSelect(item)}
+          style= {{
+            color:
+            this.state.theme === 'dark'
+              ? darkThemeTextColor
+              : lightThemeTextColor
+          }} >
           {item.icon ? <Icon type={item.icon} /> : null}
           <span>{item.title}</span>
         </div>
