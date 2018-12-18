@@ -1,0 +1,64 @@
+strong {
+  font-weight: bold;
+}
+body {
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+}
+
+table {
+  font-size: 14px;
+  line-height: 1.5;
+  border-width: 0;
+  margin: 2em 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
+  border: 1px solid #ebedf0;
+  width: 100%;
+}
+table th {
+  border-width: 0 0 2px;
+  padding: 14px 16px;
+  border-color: #e8e8e8;
+  border: 1px solid #ebedf0;
+  text-align: left;
+}
+table td {
+  padding: 14px 16px;
+  border-width: 1px 0;
+  border-color: #e8e8e8;
+  border: 1px solid #ebedf0;
+  text-align: left;
+}
+table td:first-child {
+  font-weight: 500;
+  width: 20%;
+}
+table td:nth-child(3) {
+  width: 22%;
+  font-size: 13px;
+  color: #d32f2f;
+  word-break: break-all;
+}
+table td:last-child {
+  width: 13%;
+  font-size: 13px;
+}
+
+.ant-menu-submenu > .ant-menu {
+  background-color: inherit;
+}
+
+.ant-menu-inline .ant-menu-item,
+.ant-menu-inline .ant-menu-submenu-title {
+  width: calc(100% + 0px);
+}

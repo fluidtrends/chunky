@@ -1,0 +1,26 @@
+{
+  "textDefaults": {
+    "source": "text",
+    "textSource": "github://fluidtrends/chunky-website/master/assets/text/defaults/components/text",
+    "style": {
+      "color": "red",
+      "margin": "30px"
+    }
+  },
+  "coverDefaults": {
+    "source": "cover",
+    "image": "https://github.com/fluidtrends/chunky-website/blob/master/assets/castle.r.jpg?raw=true",
+    "opacity": 0.5,
+    "title": "Cover Example",
+    "subtitle": "Subtitle",
+    "type": "default",
+    "titleStyle": {
+      "margin": 20,
+      "color": "#fff"
+    },
+    "subtitleStyle": {
+      "margin": 20,
+      "color": "#ff0000"
+    }
+  }
+}
