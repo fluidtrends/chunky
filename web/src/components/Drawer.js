@@ -2,13 +2,10 @@ import React, { PureComponent } from 'react'
 import {
   Drawer,
   DrawerHeader,
-  DrawerContent,
-  DrawerTitle,
-  DrawerSubtitle
+  DrawerContent
 } from '@rmwc/drawer'
 
 import {
-  List,
   ListItem,
   ListItemPrimaryText
 } from '@rmwc/list'
@@ -69,6 +66,8 @@ export default class DrawerComponent extends PureComponent {
   }
 
   componentDidMount() {
+    const { theme = {} } = this.props
+
     Data.Cache.retrieveCachedItem('selectedLanguage')
       .then(lang => {
         this.setState({ selectedLanguage: lang })
@@ -76,7 +75,7 @@ export default class DrawerComponent extends PureComponent {
       .catch(() => {
         return
       })
-    fetch(this.props.theme.translatedStrings)
+    fetch(theme.translatedStrings)
       .then(response => response.json())
       .then(translatedTexts => {
         this.setState({ strings: translatedTexts['navigation'] })
@@ -105,7 +104,9 @@ export default class DrawerComponent extends PureComponent {
       modal
       open={this._open}
       onClose={this._onClosePressed}>
-      <DrawerHeader style={this._headerStyle} />
+      <DrawerHeader style={this._headerStyle}>
+        {this.props.theme? <img src={`assets/${this.props.theme.logoLightImage}`} style={{width: '120px', marginTop: 10}}/>: <div />}
+      </DrawerHeader>
       <DrawerContent>
         { this.renderMenu() }
       </DrawerContent>
@@ -156,7 +157,9 @@ export default class DrawerComponent extends PureComponent {
    */
   renderMenu () {
     var index = 0
-    const { languages } = this.props.theme
+    const { theme = {} } = this.props
+    const { languages } = theme
+
     return this._menu.map(item => {
       const translatedTitle =
       this.props.theme.headerTranslation &&
