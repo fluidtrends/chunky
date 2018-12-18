@@ -52,12 +52,15 @@ function installFiles(name, template, fixtureBase) {
         // Generate the main manifest file
         createFile({ root: dir, filepath: 'chunky.json', data: fixture.manifest, json: true })
 
+        // Generate the main package file
+        createFile({ root: dir, filepath: 'package.json', data: fixture.package, json: true })
+
         // Generate the web firebase config - empty for now
         createFile({ root: webRoot, filepath: 'firebase-config.json', data: {}, json: true })
 
         // Generate the main strings file
         createFile({ root: assetsDir, filepath: 'strings.json', data: fixture.strings || {}, json: true })
-        
+
         // const bundleImages = fixture.images.map(image => path.resolve(template.assetsDir, image))
         // const bundleText = fixture.text.map(t => path.resolve(template.assetsDir, 'text', t))
         //
