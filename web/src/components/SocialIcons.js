@@ -20,9 +20,8 @@ export default class SocialIcons extends PureComponent {
       'medium',
       'instagram'
     ]
-
     const align = this.props.isSmallScreen ? 'center' : 'center'
-    const overflow = this.props.isSmallScreen ? 'auto' : 'scroll'
+    const overflow = this.props.isSmallScreen ? 'auto' : 'unset'
     const fontSize = this.props.isSmallScreen ? 20 : this.props.size || 36
     const padding = this.props.isSmallScreen ? 6 : 10
 
@@ -39,6 +38,7 @@ export default class SocialIcons extends PureComponent {
               ? 'column'
               : direction,
           alignItems: 'center',
+          flexWrap: 'wrap',
           alignSelf: align,
           overflow
         }}
