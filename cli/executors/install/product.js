@@ -74,7 +74,7 @@ function install () {
 
   return loadStoreIndex()
          .then((index) => {
-           console.log(store)
+           console.log(index)
          })
 
   // const packageFile = path.resolve(process.cwd(), 'package.json')
