@@ -22,7 +22,7 @@ export default class SocialIcons extends PureComponent {
     ]
 
     const align = this.props.isSmallScreen ? 'center' : 'center'
-    const overflow = this.props.isSmallScreen ? 'auto' : 'unset'
+    const overflow = this.props.isSmallScreen ? 'auto' : 'scroll'
     const fontSize = this.props.isSmallScreen ? 20 : this.props.size || 36
     const padding = this.props.isSmallScreen ? 6 : 10
 
@@ -81,7 +81,7 @@ export default class SocialIcons extends PureComponent {
               <a
                 href={item.link}
                 target={'_blank'}
-                className="social-anchor"
+                className="icon"
                 style={{
                   cursor: 'pointer',
                   padding: 10,
@@ -92,10 +92,10 @@ export default class SocialIcons extends PureComponent {
                 {item.title}
               </a>
               <style jsx>{`
-                div :global(.social-anchor) {
+                div :global(.icon) {
                   color: ${this.props.iconColor};
                 }
-                div :global(.social-anchor):hover {
+                div :global(.icon):hover {
                   color: ${this.props.iconColorHover};
                 }
               `}</style>
