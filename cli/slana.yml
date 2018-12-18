@@ -10,7 +10,7 @@ commands:
   options:
   - name: template
     description: The product template to use
-    default: default
+    default: personal
     type: string
   examples:
   - command: init MyProduct

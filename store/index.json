@@ -1,0 +1,14 @@
+{
+  "assets": [{
+    "id": "default"
+  }],
+  "chunks": [{
+    "id": "intro"
+  }],
+  "fixtures": [{
+    "id": "starter"
+  }],
+  "templates": [{
+    "id": "personal"
+   }]
+}

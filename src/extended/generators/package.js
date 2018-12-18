@@ -8,15 +8,14 @@ export function generatePackage ({ name }) {
       lint: 'react-savor lint',
       coverage: 'react-savor coverage',
       codeclimate: 'react-savor codeclimate',
-      deployweb: 'aws s3 sync web/build s3://www.chunky.io'
     },
     repository: {
       type: 'git',
-      url: 'git+https://github.com/react-chunky/react-chunky-product.git'
+      url: 'git+https://github.com/fluidtrends/chunky.git'
     },
     homepage: 'http://www.chunky.io',
     dependencies: {
-      'react-dom-chunky': '0.9.x'
+      'react-dom-chunky': '0.x'
     },
     devDependencies: {
       'react-savor': '0.x'
