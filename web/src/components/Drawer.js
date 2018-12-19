@@ -162,7 +162,7 @@ export default class DrawerComponent extends PureComponent {
 
     return this._menu.map(item => {
       const translatedTitle =
-      this.props.theme.headerTranslation &&
+      theme.headerTranslation &&
       this.state.strings &&
       this.state.selectedLanguage
         ? this.state.strings[this.state.selectedLanguage][`title${index}`]
@@ -178,7 +178,7 @@ export default class DrawerComponent extends PureComponent {
             onChange={evt => this.changeLanguage(evt.target.value)}
             value={this.state.selectedLanguage}
             style={{
-              color: this.props.theme.navigationTextButton
+              color: theme.navigationTextButton
             }}
           />
           :
