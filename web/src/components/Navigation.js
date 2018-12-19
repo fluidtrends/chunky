@@ -150,18 +150,54 @@ export default class Navigation extends PureComponent {
       ? this.props.theme.logoImage
       : this.props.theme.logoLightImage
     const height = this.props.navigationUncover ? 64 : 64
+    const responsiveBurger =
+      this.props.theme && this.props.theme.logoOnMobile
+        ? [
+            <ToolbarMenuIcon
+              use="menu"
+              style={{ color: this.props.theme.navigationTintColor }}
+              onClick={this._onMenuOpen}
+            />,
+            <img
+              src={`${
+                this.props.desktop ? '../../../../' : '/'
+              }assets/${image}`}
+              onClick={
+                this.props.menu[0].navigationLogo
+                  ? this._onMenuItem(this.props.menu[0])
+                  : false
+              }
+              style={{
+                height: `${height}px`,
+                position: 'absolute',
+                top: 0,
+                left: '70px'
+              }}
+            />
+          ]
+        : [
+            <ToolbarMenuIcon
+              use="menu"
+              style={{ color: this.props.theme.navigationTintColor }}
+              onClick={this._onMenuOpen}
+            />
+          ]
 
     return renderResponsive(
       'logo',
-      <ToolbarMenuIcon
-        use="menu"
-        style={{ color: this.props.theme.navigationTintColor }}
-        onClick={this._onMenuOpen}
-      />,
+      responsiveBurger,
       <img
         src={`${this.props.desktop ? '../../../../' : '/'}assets/${image}`}
-        onClick={this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false}
-        style={{ height: `${height}px`, marginLeft: '20px', cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial' }}
+        onClick={
+          this.props.menu[0].navigationLogo
+            ? this._onMenuItem(this.props.menu[0])
+            : false
+        }
+        style={{
+          height: `${height}px`,
+          marginLeft: '20px',
+          cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial'
+        }}
       />
     )
   }
