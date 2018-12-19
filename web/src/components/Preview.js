@@ -17,17 +17,17 @@ export default class Preview extends Component {
 
   componentDidMount () {
 		super.componentDidMount()
-    window.addEventListener('scroll', this.handleScrollToElement);		
+    window.addEventListener('scroll', this.handleScrollToElement, true);		
 	}
 	
 	componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScrollToElement);
+    window.removeEventListener('scroll', this.handleScrollToElement, true);
   }
 
   handleScrollToElement() {
     if (isAnyPartOfElementInViewport(this.previewRef) && !this.state.startAnimation) {
       this.setState({startAnimation: true})
-      window.removeEventListener('scroll', this.handleScrollToElement)
+      window.removeEventListener('scroll', this.handleScrollToElement, true)
     }
   }
 
