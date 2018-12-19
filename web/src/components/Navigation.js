@@ -23,6 +23,10 @@ export default class Navigation extends PureComponent {
   }
 
   componentDidMount() {
+
+    const { theme = {} } = this.props
+    const { translatedStrings = 'en' } = theme 
+
     Data.Cache.retrieveCachedItem('selectedLanguage')
       .then(lang => {
         this.setState({ selectedLanguage: lang })
@@ -30,7 +34,7 @@ export default class Navigation extends PureComponent {
       .catch(() => {
         return
       })
-    fetch(this.props.theme.translatedStrings)
+    fetch(translatedStrings)
       .then(response => response.json())
       .then(translatedTexts => {
         this.setState({ strings: translatedTexts['navigation'] })
