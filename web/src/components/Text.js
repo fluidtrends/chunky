@@ -62,7 +62,11 @@ export default class Text extends Component {
   }
 
   loadContent() {
-    if (this.props.textSource && !this.props.textSource.includes('github://')) {
+    if (
+      this.props.textSource &&
+      !this.props.textSource.includes('github://') &&
+      !this.props.textSource.includes('local://')
+    ) {
       this.setState({ text: this.props.textSource })
       return false
     }
