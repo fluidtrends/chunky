@@ -62,6 +62,10 @@ export default class Text extends Component {
   }
 
   loadContent() {
+    if (this.props.textSource && !this.props.textSource.includes('github://')) {
+      this.setState({ text: this.props.textSource })
+      return false
+    }
     const source =
       this.props.source === 'text' ? this.props.textSource : this.props.source
     const url = this.parseUrl(source)
