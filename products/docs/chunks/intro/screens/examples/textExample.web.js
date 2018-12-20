@@ -77,6 +77,7 @@ export default class TextExampleScreen extends Screen {
 
   renderContent() {
     const { error, defaults } = this.state
+    console.log(defaults)
     return (
       <Row
         gutter={16}
