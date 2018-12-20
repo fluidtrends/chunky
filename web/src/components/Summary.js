@@ -2,6 +2,7 @@ import React from 'react'
 import Component from '../core/Component'
 import Text from './Text'
 import { renderResponsive } from '../utils/responsive'
+import Zoom from 'react-reveal/Zoom'
 
 export default class Summary extends Component {
   constructor(props) {
@@ -53,6 +54,28 @@ export default class Summary extends Component {
   }
 
   renderComponent() {
+    if (this.props.animation && this.props.animation === 'zoom') {
+      return (
+        <Zoom>
+          <div
+            style={{
+              color: this.props.textColor,
+              position: 'relative',
+              padding: '60px 0',
+              display: 'flex',
+              padding: '40px 0',
+              flex: 1,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            {this.renderImg()}
+            {this.renderText()}
+          </div>
+        </Zoom>
+      )
+    }
     return (
       <div
         style={{
