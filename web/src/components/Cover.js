@@ -333,7 +333,10 @@ export default class Cover extends Component {
         onClick={this.triggerAction.bind(this)}
         raised
         theme="secondary-bg text-primary-on-secondary"
-        style={{ margin: '20px' }}
+        style={{
+          margin: '20px',
+          color: this.props.theme.mainActionTextColor || '#fff'
+        }}
       >
         {' '}
         {this.props.primaryActionTitle}{' '}
