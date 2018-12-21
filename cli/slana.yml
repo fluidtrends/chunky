@@ -12,11 +12,17 @@ commands:
     description: The product template to use
     default: personal
     type: string
+  - name: bundle
+    description: The product bundle where the template resides
+    default: fluidtrends/chunky-bananas
+    type: string
   examples:
   - command: init MyProduct
     description: Create a new product using the default template
   - command: init MyProduct --template some-template
-    description: Create a new product using the specified template
+    description: Create a new product using the specified template from the default bundle
+  - command: init MyProduct --template some-template --bundle some-bundle
+    description: Create a new product using the specified template from the specified bundle
 
 - name: install
   more: Install all dependencies, if any are required

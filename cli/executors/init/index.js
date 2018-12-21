@@ -9,7 +9,7 @@ function parseCommand (command) {
     command.name = 'Chunky'
   }
 
-  product.create(command.name, command.template)
+  product.create({ name: command.name, template: command.template, bundle: command.bundle })
 }
 
 module.exports = function (command) {
