@@ -15,11 +15,11 @@ export default class Feature extends Component {
 
   componentDidMount() {
     super.componentDidMount()
-    window.addEventListener('scroll', this.handleScrollToElement)
+    window.addEventListener('scroll', this.handleScrollToElement, true)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScrollToElement)
+    window.removeEventListener('scroll', this.handleScrollToElement, true)
   }
 
   handleScrollToElement() {
@@ -28,7 +28,7 @@ export default class Feature extends Component {
       !this.state.startAnimation
     ) {
       this.setState({ startAnimation: true })
-      window.removeEventListener('scroll', this.handleScrollToElement)
+      window.removeEventListener('scroll', this.handleScrollToElement, true)
     }
   }
 
