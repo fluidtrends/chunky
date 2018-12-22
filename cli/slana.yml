@@ -24,19 +24,6 @@ commands:
   - command: init MyProduct --template some-template --bundle some-bundle
     description: Create a new product using the specified template from the specified bundle
 
-- name: install
-  more: Install all dependencies, if any are required
-  description: Install all product dependencies
-  executor: executors/install
-  options:
-  - name: verbose
-    description: Print installation details
-    default: false
-    type: boolean
-  examples:
-  - command: install
-    description: Install all the dependencies
-
 - name: start [platforms..]
   description: Start the packagers for one or more platforms
   more: The supported platforms are web and mobile

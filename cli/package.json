@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "0.9.19",
+  "version": "1.0.0-alpha.1",
   "description": "The Chunky CLI",
   "preferGlobal": true,
   "scripts": {
@@ -39,6 +39,7 @@
     "firebase-tools": "git://github.com/react-chunky/firebase-tools.git",
     "firebaseline": "0.x",
     "googleapis": "^21.2.0",
+    "image-downloader": "^3.4.2",
     "js-yaml": "^3.9.0",
     "json2xls": "^0.1.2",
     "lali": "^0.3.2",

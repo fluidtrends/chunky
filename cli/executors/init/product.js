@@ -2,8 +2,8 @@ const coreutils = require('coreutils')
 const path = require('path')
 const fs = require('fs-extra')
 const cache = require('../../src/cache')
-const generators = require('../../src/generators')
 const cpy = require('cpy')
+const download = require('image-downloader')
 
 function hasFile (filepath) {
   return fs.existsSync(path.resolve(process.cwd(), filepath))
@@ -48,6 +48,23 @@ function generateChunks(template) {
   })
 }
 
+function generateAssets(c, template) {
+  const dir = process.cwd()
+    var remoteAssets = []
+
+    Object.keys(template.assets).map(asset => {
+      const target = template.assets[asset]
+      if (target === 'local') {
+        fs.copySync(path.resolve(template.bundlePath, 'assets', asset), path.resolve(dir, 'assets', asset))
+        return
+      }
+
+      remoteAssets.push({ url: target, dest: path.resolve(dir, 'assets', asset) })
+    })
+
+    return Promise.all(remoteAssets.map(a => download.image(a)))
+}
+
 function createFiles (c, template) {
   const dir = process.cwd()
 
@@ -67,6 +84,9 @@ function createFiles (c, template) {
 
   // Create the chunks and the indexes
   generateChunks(template)
+
+  // Add the assets in
+  return generateAssets(c, template)
 }
 
 function create({ name, template, bundle }) {
@@ -91,7 +111,7 @@ function create({ name, template, bundle }) {
    .then((data) => createFiles(c, data))
 
    // Use the dependencies
-   .then(() => c.addDeps())
+   // .then(() => c.addDeps())
 
    .then(() => {
      // All done
