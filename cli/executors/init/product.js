@@ -111,7 +111,7 @@ function create({ name, template, bundle }) {
    .then((data) => createFiles(c, data))
 
    // Use the dependencies
-   // .then(() => c.addDeps())
+   .then(() => c.addDeps())
 
    .then(() => {
      // All done
