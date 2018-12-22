@@ -45,6 +45,9 @@ const _bundleFixture = (props) => (bundleUri, fixtureId) => {
 
 const _bundleTemplate = (props) => (bundleUri, templateId) => {
   return new Promise((resolve, reject) => {
+
+    _info(props)(`Looking for the ${templateId} template inside the bundle ...`)
+
     if (!_bundleExists(props)(bundleUri)) {
       throw new Error(`The ${bundleUri} bundle is not cached`)
     }
@@ -59,6 +62,7 @@ const _bundleTemplate = (props) => (bundleUri, templateId) => {
     const bundlePath = _bundlePath(props)(bundleUri)
     const data = template.data(fixture)
 
+    _ok(props)(`Using the ${templateId} template from the ${bundleUri} bundle`)
     resolve(Object.assign({}, data, { bundleUri, bundlePath }))
   })
 }
@@ -87,6 +91,9 @@ const _error = (props) => (message) => coreutils.logger.error(message)
 
 const _findRemoteBundle = (props) => (uri) => {
     const [owner, repo, version] = uri.split("/")
+
+    _info(props)(`Looking for bundle ${owner}/${repo} ...`)
+
     if (version) {
       return octokit.repos.getReleaseByTag({ owner, repo, tag: `v${version}` })
                     .then((release) => {
@@ -107,7 +114,7 @@ const _downloadBundle = (props) => (uri) => {
   return new Promise((resolve, reject) => {
     if (_bundleExists(props)(uri)) {
       // No need to download if it already exists
-      _ok(props)(`Found cached ${uri} bundle`)
+      _ok(props)(`Using cached ${uri} bundle`)
       resolve(uri)
       return
     }
@@ -120,6 +127,8 @@ const _downloadBundle = (props) => (uri) => {
 
     const cachedPath = _bundlePath(props)(uri)
     const info = _bundleInfo(props)(uri)
+
+    _info(props)(`Downloading the remote bundle ...`)
 
     // Look up the bundle archive
     const link = `https://github.com/${info.username}/${info.repo}/archive/v${info.version}.tar.gz`
@@ -154,7 +163,7 @@ const _downloadDeps = (props) => (type) => {
    const cachedPath = path.resolve(dir, type)
 
    if (fs.existsSync(cachedPath)) {
-     _ok(props)(`Using ${type} deps from cache`)
+     _ok(props)(`Using cached ${type} dependencies`)
      resolve()
      return
    }
@@ -162,28 +171,37 @@ const _downloadDeps = (props) => (type) => {
    // Prepare the deps cache location
    fs.mkdirsSync(cachedPath)
 
-    // Look up the deps archive
-    const link = (part) => `https://raw.githubusercontent.com/fluidtrends/chunky-deps/master/${type}/${part}.tar.gz`
+   _ok(props)(`Found remote ${type} dependencies. Downloading archive ...`)
 
-    // Attempt to download the bundle
-    Promise.all([lali.link(link(0)).install(cachedPath),
+   // Look up the deps archive
+   const link = (part) => `https://raw.githubusercontent.com/fluidtrends/chunky-deps/master/${type}/${part}.tar.gz`
+
+   // Attempt to download the bundle
+   Promise.all([lali.link(link(0)).install(cachedPath),
                  lali.link(link(1)).install(cachedPath),
                  lali.link(link(2)).install(cachedPath)])
         .then((data) => {
-          _ok(props)(`The ${type} deps archive was successfully cached`)
+          _ok(props)(`The ${type} dependencies are now successfully cached`)
           resolve()
         })
         .catch((error) => {
           // Clean up the bundle cache location
-          _error(props)(`The ${type} deps archive does exist`)
+          _error(props)(`The ${type} dependencies archive does not exist`)
           fs.removeSync(cachedPath)
         })
    })
 }
 
 const _addDeps = (props) => () => {
+  _info(props)(`Adding dependencies ...`)
+
   return Promise.all([_downloadDeps(props)("web")])
-                .then(() => fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules")))
+                .then(() => {
+                  _ok(props)(`The cached web dependencies are ready. Copying ...`)
+                  fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules"))
+                  _ok(props)(`The local web dependencies are ready`)
+                })
+
 }
 
 module.exports = (props) => ({

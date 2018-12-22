@@ -26,6 +26,8 @@ function createFile (filepath, data, json) {
 function generateChunks(template) {
   const dir = process.cwd()
 
+  coreutils.logger.info(`Generating product chunks ...`)
+
   const chunksExportsHeader = '// AUTO-GENERATED FILE. PLEASE DO NOT MODIFY. CHUNKY WILL CRY.'
   const chunksExports = Object.keys(template.chunks).map(chunk => `export { default as ${chunk} } from './${chunk}'`).join('\n')
   const chunksExportsWeb = Object.keys(template.chunks).map(chunk => `export { default as ${chunk} } from './${chunk}/index.web'`).join('\n')
@@ -34,6 +36,8 @@ function generateChunks(template) {
   fs.writeFileSync(path.resolve(dir, "chunks", 'index.js'), `${chunksExportsHeader}\n\n${chunksExports}`)
   fs.writeFileSync(path.resolve(dir, "chunks", 'index.web.js'), `${chunksExportsHeader}\n\n${chunksExportsWeb}`)
   fs.writeFileSync(path.resolve(dir, "chunks", 'index.desktop.js'), `${chunksExportsHeader}\n\n${chunksExportsDesktop}`)
+
+  coreutils.logger.ok(`Generated chunks indexes`)
 
   const chunkIndex = (platform) => `import config from "./chunk.json"\nimport * as screens from "./screens/index${platform||""}"\nconst chunk = { screens, ...config }\nexport default chunk`
 
@@ -45,6 +49,8 @@ function generateChunks(template) {
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.js"), `${chunksExportsHeader}\n\n${chunkIndex()}`)
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.web.js"), `${chunksExportsHeader}\n\n${chunkIndex(".web")}`)
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.desktop.js"), `${chunksExportsHeader}\n\n${chunkIndex(".desktop")}`)
+
+    coreutils.logger.ok(`Added chunk ${chunkName}, including chunk indexes`)
   })
 }
 
@@ -52,21 +58,28 @@ function generateAssets(c, template) {
   const dir = process.cwd()
     var remoteAssets = []
 
+    coreutils.logger.info(`Generating local product assets ...`)
+
     Object.keys(template.assets).map(asset => {
       const target = template.assets[asset]
       if (target === 'local') {
         fs.copySync(path.resolve(template.bundlePath, 'assets', asset), path.resolve(dir, 'assets', asset))
+        coreutils.logger.ok(asset)
         return
       }
 
       remoteAssets.push({ url: target, dest: path.resolve(dir, 'assets', asset) })
     })
 
+    coreutils.logger.info(`Generating remote product assets ...`)
     return Promise.all(remoteAssets.map(a => download.image(a)))
+                  .then(() => coreutils.logger.ok(`Downloaded ${remoteAssets.length} remote assets`))
 }
 
 function createFiles (c, template) {
   const dir = process.cwd()
+
+  coreutils.logger.info(`Generating product files ...`)
 
   // Generate the basic structure
   fs.mkdirsSync(path.resolve(dir, ".chunky", "web"))
@@ -75,12 +88,21 @@ function createFiles (c, template) {
   fs.mkdirsSync(path.resolve(dir, "chunks"))
   fs.mkdirsSync(path.resolve(dir, "assets", "text"))
 
+  // Generate hidden file
+  createFile(".gitignore", "node_modules\n.DS_Store\n")
+
   // Generate the main json files
   createFile("package.json", template.package, true)
   createFile("chunky.json", template.manifest, true)
   createFile("web/index.json", template.web, true)
   createFile("web/firebase-config.json", Object.assign({}, template.firebase), true)
   createFile("assets/strings.json", Object.assign({}, template.strings), true)
+
+  coreutils.logger.ok(`package.json`)
+  coreutils.logger.ok(`chunky.json`)
+  coreutils.logger.ok(`web/index.json`)
+  coreutils.logger.ok(`web/firebase-config.json`)
+  coreutils.logger.ok(`assets/strings.json`)
 
   // Create the chunks and the indexes
   generateChunks(template)
@@ -90,13 +112,13 @@ function createFiles (c, template) {
 }
 
 function create({ name, template, bundle }) {
-  if (isAlreadyInit()) {
-    coreutils.logger.skip("Easy there, this is a Chunky Product already.")
-    return
-  }
+  // if (isAlreadyInit()) {
+  //   coreutils.logger.skip("Easy there, this is a Chunky Product already.")
+  //   return
+  // }
 
   const c = cache({ log: true, name })
-  coreutils.logger.info("Creating your new Chunky Product ...")
+  coreutils.logger.header("Creating your new Chunky Product")
 
   // Make sure the bundle exists
   c.findRemoteBundle(bundle)
@@ -115,7 +137,7 @@ function create({ name, template, bundle }) {
 
    .then(() => {
      // All done
-     coreutils.logger.ok("Amazing! Your new Chunky Product is ready!")
+     coreutils.logger.footer("Amazing! Your new Chunky Product is ready!")
      coreutils.logger.info("Wanna see it in action? Type this: chunky start web")
    })
 
