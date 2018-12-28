@@ -9,7 +9,7 @@ const emotions = require('./emotions.json')
 class Plugin {
   constructor (context) {
     this._context = context
-    this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
+    this._spinner = new Ora({ text: chalk.green('111Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
   }
 
   emotion (type) {
@@ -85,10 +85,12 @@ class Plugin {
     const route = Object.assign({}, data.plugin.options.route, html ? { html } : {})
     const info = this.context.config.info
     const web = this.context.config.web
+    const scripts = this.context.config.scripts
+    const styles = this.context.config.styles
 
     const vars = JSON.stringify({ route: data.plugin.options.route })
 
-    const chunky = { route, info, web, vars }
+    const chunky = { route, info, web, vars, scripts, styles }
 
     data.html = ejs.render(data.html, { chunky })
 

@@ -6,7 +6,7 @@ module.exports = function (port) {
   const file = path.resolve(process.cwd(), 'node_modules', 'react-electron-chunky', 'bin', 'start.js')
   const start = require(file)
 
-  coreutils.logger.info(`Starting the desktop packager ...`)
+  coreutils.logger.info(`Starting your desktop app ...`)
 
   const config = loaders.loadMainConfig()
   const chunks = loaders.loadChunkConfigs()
@@ -15,7 +15,6 @@ module.exports = function (port) {
   try {
     secure = loaders.loadSecureConfig()
   } catch (e) {
-    coreutils.logger.skip(`This product is not provisioned. Continuing anyways.`)
   }
 
   start({ port, dir: process.cwd(), config, secure, chunks }).then(result => {

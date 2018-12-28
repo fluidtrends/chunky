@@ -7,7 +7,7 @@ module.exports = function (port) {
   const file = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'bin', 'start.js')
   const start = require(file)
 
-  coreutils.logger.info(`Starting the web packager ...`)
+  coreutils.logger.info(`Starting your web app ...`)
 
   const config = loaders.loadMainConfig()
   const chunks = loaders.loadChunkConfigs()

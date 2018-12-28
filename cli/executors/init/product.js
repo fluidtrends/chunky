@@ -4,6 +4,7 @@ const fs = require('fs-extra')
 const cache = require('../../src/cache')
 const cpy = require('cpy')
 const download = require('image-downloader')
+const merge = require('deepmerge')
 
 function hasFile (filepath) {
   return fs.existsSync(path.resolve(process.cwd(), filepath))
@@ -49,6 +50,20 @@ function generateChunks(template) {
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.js"), `${chunksExportsHeader}\n\n${chunkIndex()}`)
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.web.js"), `${chunksExportsHeader}\n\n${chunkIndex(".web")}`)
     fs.writeFileSync(path.resolve(dir, "chunks", chunkName, "index.desktop.js"), `${chunksExportsHeader}\n\n${chunkIndex(".desktop")}`)
+
+    try {
+      // Override the template chunk manifest
+      const targetManifestFile = path.resolve(dir, "chunks", chunkName, "chunk.json")
+      var targetManifest = JSON.parse(fs.readFileSync(targetManifestFile, 'utf-8'))
+      console.log(targetManifest)
+      targetManifest = merge(targetManifest, template.chunks[chunkName])
+      console.log(template.chunks[chunkName])
+      console.log(targetManifest)
+      fs.writeFileSync(targetManifestFile, JSON.stringify(targetManifest, null, 2))
+    } catch (e) {
+      console.log(e)
+      // this should not happen, but just in case
+    }
 
     coreutils.logger.ok(`Added chunk ${chunkName}, including chunk indexes`)
   })
@@ -112,10 +127,10 @@ function createFiles (c, template) {
 }
 
 function create({ name, template, bundle }) {
-  // if (isAlreadyInit()) {
-  //   coreutils.logger.skip("Easy there, this is a Chunky Product already.")
-  //   return
-  // }
+  if (isAlreadyInit()) {
+    coreutils.logger.skip("Easy there, this is a Chunky Product already.")
+    // return
+  }
 
   const c = cache({ log: true, name })
   coreutils.logger.header("Creating your new Chunky Product")

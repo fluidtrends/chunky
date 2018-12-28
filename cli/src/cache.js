@@ -93,7 +93,7 @@ const _findRemoteBundle = (props) => (uri) => {
     const [owner, repo, version] = uri.split("/")
 
     _info(props)(`Looking for bundle ${owner}/${repo} ...`)
-
+    
     if (version) {
       return octokit.repos.getReleaseByTag({ owner, repo, tag: `v${version}` })
                     .then((release) => {
@@ -201,7 +201,6 @@ const _addDeps = (props) => () => {
                   fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules"))
                   _ok(props)(`The local web dependencies are ready`)
                 })
-
 }
 
 module.exports = (props) => ({
