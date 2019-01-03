@@ -18,47 +18,10 @@
     />
     <meta name="theme-color" content="#ffffff" />
 
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/antd@3.4.5/dist/antd.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/material-components-web@0.40.1/dist/material-components-web.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://unpkg.com/react-placeholder@2.0.0/lib/reactPlaceholder.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      charset="UTF-8"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-    />
-
-    <link href="/assets/style.css" rel="stylesheet" />
+    <%if (chunky.styles) { %>
+    <% chunky.styles.forEach(function(s){ %>
+    <link href="<%- s %>" type="text/css" charset="UTF-8" rel="stylesheet"/>
+    <% })} %>
 
     <title><%= chunky.info.title || "Chunky" %></title>
 
@@ -230,27 +193,12 @@
     </div>
     <div id="chunky"><%- chunky.route.html %></div>
 
-    <script
-      crossorigin
-      src="https://unpkg.com/react@16/umd/react.production.min.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.4.0/react-transition-group.min.js"></script>
-    <script src="https://unpkg.com/react-media/umd/react-media.min.js"></script>
-    <script src="https://unpkg.com/react-router/umd/react-router.min.js"></script>
-    <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
-    <script src="https://unpkg.com/material-components-web@0.40.1/dist/material-components-web.min.js"></script>
-    <script src="https://unpkg.com/react-progressive-image@0.1.0/umd/react-progressive-image.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://js.braintreegateway.com/web/dropin/1.14.1/js/dropin.min.js"></script>
+    <%if (chunky.scripts) { %>
+    <% chunky.scripts.forEach(function(s){ %>
+    <script crossorigin async defer src="<%- s %>"></script>
+    <% })} %>
 
-    <%if (chunky) { %>
+    <%if (chunky.vars) { %>
     <script type="text/javascript">
       var chunky = JSON.parse('<%- chunky.vars %>')
     </script>
