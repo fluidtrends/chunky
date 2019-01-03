@@ -393,7 +393,7 @@ export default class Cover extends Component {
   }
 
   renderPresentationContent() {
-    const title = this.props.title
+    const { title, subtitle } = this.props
     return (
       <div
         style={{
@@ -408,7 +408,7 @@ export default class Cover extends Component {
         }}
       >
         <Typography
-          use="headline4"
+          use="headline3"
           style={{
             margin: '20px',
             position: 'absolute',
@@ -419,6 +419,19 @@ export default class Cover extends Component {
           {' '}
           {title}{' '}
         </Typography>
+        {subtitle && (
+          <Typography
+            use="headline4"
+            style={{
+              margin: '20px',
+              position: 'absolute',
+              bottom: '-210px',
+              color: this.props.color
+            }}
+          >
+            {subtitle}
+          </Typography>
+        )}
       </div>
     )
   }
