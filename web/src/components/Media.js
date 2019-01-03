@@ -73,6 +73,7 @@ export default class Media extends PureComponent {
     if (this.props.video) {
       return (
         <ReactPlayer
+          className={'video-wrapper'}
           ref={player => {
             this.coverPlayer = player
           }}
