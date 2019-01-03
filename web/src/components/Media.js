@@ -89,6 +89,7 @@ export default class Media extends PureComponent {
           width={this.props.width || '100vw'}
           height={this.props.height || '100vh'}
           style={this.props.style}
+          loop={this.props.loop}
         />
       )
     }

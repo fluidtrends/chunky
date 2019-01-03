@@ -353,7 +353,7 @@ export default class Cover extends Component {
   }
 
   get presentationHeight() {
-    return 500
+    return this.props.presentationHeight || 500
   }
 
   get simpleHeight() {
@@ -423,7 +423,7 @@ export default class Cover extends Component {
     )
   }
 
-  renderMedia(style, playing, innerHeight) {
+  renderMedia(style, playing, innerHeight, loopVideo) {
     if (!this.props.image && !this.props.video) {
       return <div />
     }
@@ -437,6 +437,11 @@ export default class Cover extends Component {
         playing={playing}
         innerHeight={innerHeight}
         style={style}
+        loop={loopVideo}
+        height={
+          (this.props.additionalProps && this.props.additionalProps.height) ||
+          null
+        }
       />
     )
   }
@@ -509,6 +514,7 @@ export default class Cover extends Component {
       objectPosition: 'center center'
     }
     const coverPlaying = this.props.scroll < 200
+    const loopVideo = true
 
     return (
       <div
@@ -524,7 +530,12 @@ export default class Cover extends Component {
           justifyContent: 'center'
         }}
       >
-        {this.renderMedia(coverStyle, coverPlaying, `${height - 100}px`)}
+        {this.renderMedia(
+          coverStyle,
+          coverPlaying,
+          `${height - 100}px`,
+          loopVideo
+        )}
         {this.renderPresentationContent()}
       </div>
     )
