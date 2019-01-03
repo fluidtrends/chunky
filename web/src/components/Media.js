@@ -90,6 +90,16 @@ export default class Media extends PureComponent {
           height={this.props.height || '100vh'}
           style={this.props.style}
           loop={this.props.loop}
+          muted={true}
+          volume={0}
+          config={{
+            file: {
+              attributes: {
+                autoPlay: true,
+                muted: true
+              }
+            }
+          }}
         />
       )
     }
