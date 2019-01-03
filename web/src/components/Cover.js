@@ -394,6 +394,12 @@ export default class Cover extends Component {
 
   renderPresentationContent() {
     const { title, subtitle } = this.props
+    const titleAdditionalStyle = this.props.titleStyle
+      ? this.props.titleStyle
+      : {}
+    const subtitleAdditionalStyle = this.props.subtitleStyle
+      ? this.props.subtitleStyle
+      : {}
     return (
       <div
         style={{
@@ -413,7 +419,8 @@ export default class Cover extends Component {
             margin: '20px',
             position: 'absolute',
             bottom: '-100px',
-            color: this.props.color
+            color: this.props.color,
+            ...titleAdditionalStyle
           }}
         >
           {' '}
@@ -426,7 +433,8 @@ export default class Cover extends Component {
               margin: '20px',
               position: 'absolute',
               bottom: '-210px',
-              color: this.props.color
+              color: this.props.color,
+              ...subtitleAdditionalStyle
             }}
           >
             {subtitle}
