@@ -4,12 +4,14 @@ import {
   StaticRouter,
   HashRouter,
   BrowserRouter,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
 import { createSectionRoutes } from './Router'
 import Cache from './Cache'
+import NotFoundPage from '../components/404'
 
 export default class App extends PureComponent {
   constructor(props) {
@@ -432,7 +434,12 @@ export default class App extends PureComponent {
 
     return (
       <BrowserRouter>
-        <div style={{}}>{this.renderRoutes()}</div>
+        <Switch style={{}}>
+          {this.renderRoutes()}
+          {this.props.theme && this.props.theme.notFoundPageText && (
+            <Route component={() => <NotFoundPage {...this.props.theme} />} />
+          )}
+        </Switch>
       </BrowserRouter>
     )
   }
