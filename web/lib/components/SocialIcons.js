@@ -44,14 +44,13 @@ var SocialIcons = function (_PureComponent) {
       var _this2 = this;
 
       var socialNetworks = ['twitter', 'youtube', 'github', 'linkedin', 'facebook', 'medium', 'instagram'];
-
       var align = this.props.isSmallScreen ? 'center' : 'center';
       var overflow = this.props.isSmallScreen ? 'auto' : 'unset';
       var fontSize = this.props.isSmallScreen ? 20 : this.props.size || 36;
       var padding = this.props.isSmallScreen ? 6 : 10;
 
       var direction = this.props.vertical ? 'column' : 'row';
-      console.log(this.props);
+
       return _react2.default.createElement(
         'div',
         {
@@ -59,6 +58,7 @@ var SocialIcons = function (_PureComponent) {
             display: 'flex',
             flexDirection: window.outerWidth < 840 && this.props.socialMediaLinks.customItems && this.props.children ? 'column' : direction,
             alignItems: 'center',
+            flexWrap: 'wrap',
             alignSelf: align,
             overflow: overflow
           }
@@ -94,7 +94,7 @@ var SocialIcons = function (_PureComponent) {
           return _react2.default.createElement(
             'div',
             {
-              className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['3262010126', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
+              className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) || '')
             },
             _react2.default.createElement(
               'a',
@@ -108,13 +108,13 @@ var SocialIcons = function (_PureComponent) {
                   fontSize: 24,
                   textDecoration: 'none'
                 },
-                className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['3262010126', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + 'social-anchor' || '')
+                className: _style2.default.dynamic([['1986911350', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + (_style2.default.dynamic([['288785935', [_this2.props.iconColor, _this2.props.iconColorHover]]]) + ' ' + 'icon' || '')
               },
               item.title
             ),
             _react2.default.createElement(_style2.default, {
-              styleId: '3262010126',
-              css: 'div.__jsx-style-dynamic-selector .social-anchor{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .social-anchor:hover{color:' + _this2.props.iconColorHover + ';}',
+              styleId: '288785935',
+              css: 'div.__jsx-style-dynamic-selector .icon{color:' + _this2.props.iconColor + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + _this2.props.iconColorHover + ';}',
               dynamic: [_this2.props.iconColor, _this2.props.iconColorHover]
             })
           );

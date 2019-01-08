@@ -88,12 +88,16 @@ var DrawerComponent = function (_PureComponent) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var _props$theme = this.props.theme,
+          theme = _props$theme === undefined ? {} : _props$theme;
+
+
       _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
         _this2.setState({ selectedLanguage: lang });
       }).catch(function () {
         return;
       });
-      fetch(this.props.theme.translatedStrings).then(function (response) {
+      fetch(theme.translatedStrings).then(function (response) {
         return response.json();
       }).then(function (translatedTexts) {
         _this2.setState({ strings: translatedTexts['navigation'] });
@@ -138,7 +142,11 @@ var DrawerComponent = function (_PureComponent) {
           modal: true,
           open: this._open,
           onClose: this._onClosePressed },
-        _react2.default.createElement(_drawer.DrawerHeader, { style: this._headerStyle }),
+        _react2.default.createElement(
+          _drawer.DrawerHeader,
+          { style: this._headerStyle },
+          this.props.theme ? _react2.default.createElement('img', { src: 'assets/' + this.props.theme.logoLightImage, style: { width: '120px', marginTop: 10 } }) : _react2.default.createElement('div', null)
+        ),
         _react2.default.createElement(
           _drawer.DrawerContent,
           null,
@@ -181,10 +189,13 @@ var DrawerComponent = function (_PureComponent) {
       var _this3 = this;
 
       var index = 0;
-      var languages = this.props.theme.languages;
+      var _props$theme2 = this.props.theme,
+          theme = _props$theme2 === undefined ? {} : _props$theme2;
+      var languages = theme.languages;
+
 
       return this._menu.map(function (item) {
-        var translatedTitle = _this3.props.theme.headerTranslation && _this3.state.strings && _this3.state.selectedLanguage ? _this3.state.strings[_this3.state.selectedLanguage]['title' + index] : item.title;
+        var translatedTitle = theme.headerTranslation && _this3.state.strings && _this3.state.selectedLanguage ? _this3.state.strings[_this3.state.selectedLanguage]['title' + index] : item.title;
         return _react2.default.createElement(
           _list.ListItem,
           {
@@ -198,7 +209,7 @@ var DrawerComponent = function (_PureComponent) {
             },
             value: _this3.state.selectedLanguage,
             style: {
-              color: _this3.props.theme.navigationTextButton
+              color: theme.navigationTextButton
             }
           }) : _react2.default.createElement(
             _list.ListItemPrimaryText,

@@ -102,6 +102,10 @@ var Text = function (_Component) {
     value: function loadContent() {
       var _this3 = this;
 
+      if (this.props.textSource && !this.props.textSource.includes('github://') && !this.props.textSource.includes('local://')) {
+        this.setState({ text: this.props.textSource });
+        return false;
+      }
       var source = this.props.source === 'text' ? this.props.textSource : this.props.source;
       var url = this.parseUrl(source);
 

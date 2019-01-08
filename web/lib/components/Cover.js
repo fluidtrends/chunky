@@ -72,7 +72,7 @@ var Cover = function (_Component) {
       }).catch(function () {
         return;
       });
-      fetch(this.props.theme.translatedStrings).then(function (response) {
+      if (this.props.theme && this.props.theme.translatedStrings) fetch(this.props.theme.translatedStrings).then(function (response) {
         return response.json();
       }).then(function (translatedTexts) {
         _this2.setState({ strings: translatedTexts[_this2.props.translationKey] });
@@ -94,7 +94,7 @@ var Cover = function (_Component) {
             position: 'absolute',
             backgroundColor: 'rgba(0,0,0,' + this.props.opacity + ')',
             width: '100vw',
-            height: '100vh',
+            height: '100%',
             top: 0,
             left: 0,
             display: 'flex',
@@ -400,7 +400,10 @@ var Cover = function (_Component) {
           onClick: this.triggerAction.bind(this),
           raised: true,
           theme: 'secondary-bg text-primary-on-secondary',
-          style: { margin: '20px' }
+          style: {
+            margin: '20px',
+            color: this.props.theme.mainActionTextColor || '#fff'
+          }
         },
         ' ',
         this.props.primaryActionTitle,
@@ -452,7 +455,12 @@ var Cover = function (_Component) {
   }, {
     key: 'renderPresentationContent',
     value: function renderPresentationContent() {
-      var title = this.props.title;
+      var _props = this.props,
+          title = _props.title,
+          subtitle = _props.subtitle;
+
+      var titleAdditionalStyle = this.props.titleStyle ? this.props.titleStyle : {};
+      var subtitleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {};
       return _react2.default.createElement(
         'div',
         {
@@ -471,23 +479,36 @@ var Cover = function (_Component) {
         _react2.default.createElement(
           _typography.Typography,
           {
-            use: 'headline4',
-            style: {
+            use: 'headline3',
+            style: _extends({
               margin: '20px',
               position: 'absolute',
               bottom: '-100px',
               color: this.props.color
-            }
+            }, titleAdditionalStyle)
           },
           ' ',
           title,
           ' '
+        ),
+        subtitle && _react2.default.createElement(
+          _typography.Typography,
+          {
+            use: 'headline4',
+            style: _extends({
+              margin: '20px',
+              position: 'absolute',
+              bottom: '-210px',
+              color: this.props.color
+            }, subtitleAdditionalStyle)
+          },
+          subtitle
         )
       );
     }
   }, {
     key: 'renderMedia',
-    value: function renderMedia(style, playing, innerHeight) {
+    value: function renderMedia(style, playing, innerHeight, loopVideo) {
       if (!this.props.image && !this.props.video) {
         return _react2.default.createElement('div', {
           className: 'jsx-869534894'
@@ -501,7 +522,9 @@ var Cover = function (_Component) {
         imageSmall: this.props.imageSmall,
         playing: playing,
         innerHeight: innerHeight,
-        style: style
+        style: style,
+        loop: loopVideo,
+        height: this.props.additionalProps && this.props.additionalProps.height || null
       });
     }
   }, {
@@ -578,6 +601,7 @@ var Cover = function (_Component) {
         objectPosition: 'center center'
       };
       var coverPlaying = this.props.scroll < 200;
+      var loopVideo = true;
 
       return _react2.default.createElement(
         'div',
@@ -595,7 +619,7 @@ var Cover = function (_Component) {
           },
           className: 'jsx-869534894'
         },
-        this.renderMedia(coverStyle, coverPlaying, height - 100 + 'px'),
+        this.renderMedia(coverStyle, coverPlaying, height - 100 + 'px', loopVideo),
         this.renderPresentationContent()
       );
     }
@@ -688,7 +712,7 @@ var Cover = function (_Component) {
   }, {
     key: 'presentationHeight',
     get: function get() {
-      return 500;
+      return this.props.presentationHeight || 500;
     }
   }, {
     key: 'simpleHeight',

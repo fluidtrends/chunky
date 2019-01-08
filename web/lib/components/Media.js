@@ -91,6 +91,7 @@ var Media = function (_PureComponent) {
 
       if (this.props.video) {
         return _react2.default.createElement(_reactPlayer2.default, {
+          className: 'video-wrapper',
           ref: function ref(player) {
             _this3.coverPlayer = player;
           },
@@ -110,7 +111,18 @@ var Media = function (_PureComponent) {
           playing: this.props.playing,
           width: this.props.width || '100vw',
           height: this.props.height || '100vh',
-          style: this.props.style
+          style: this.props.style,
+          loop: this.props.loop,
+          muted: true,
+          volume: 0,
+          config: {
+            file: {
+              attributes: {
+                autoPlay: true,
+                muted: true
+              }
+            }
+          }
         });
       }
 

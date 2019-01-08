@@ -57,19 +57,19 @@ var Preview = function (_Component) {
 				key: 'componentDidMount',
 				value: function componentDidMount() {
 						_get(Preview.prototype.__proto__ || Object.getPrototypeOf(Preview.prototype), 'componentDidMount', this).call(this);
-						window.addEventListener('scroll', this.handleScrollToElement);
+						window.addEventListener('scroll', this.handleScrollToElement, true);
 				}
 		}, {
 				key: 'componentWillUnmount',
 				value: function componentWillUnmount() {
-						window.removeEventListener('scroll', this.handleScrollToElement);
+						window.removeEventListener('scroll', this.handleScrollToElement, true);
 				}
 		}, {
 				key: 'handleScrollToElement',
 				value: function handleScrollToElement() {
 						if ((0, _isElementVisible.isAnyPartOfElementInViewport)(this.previewRef) && !this.state.startAnimation) {
 								this.setState({ startAnimation: true });
-								window.removeEventListener('scroll', this.handleScrollToElement);
+								window.removeEventListener('scroll', this.handleScrollToElement, true);
 						}
 				}
 		}, {

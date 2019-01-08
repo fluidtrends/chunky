@@ -24,6 +24,10 @@ var _Text2 = _interopRequireDefault(_Text);
 
 var _responsive = require('../utils/responsive');
 
+var _AnimatedWrapper = require('./AnimatedWrapper');
+
+var _AnimatedWrapper2 = _interopRequireDefault(_AnimatedWrapper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -84,19 +88,64 @@ var Summary = function (_Component) {
       });
     }
   }, {
-    key: 'renderComponent',
-    value: function renderComponent() {
+    key: 'renderAnimation',
+    value: function renderAnimation() {
       var _ref;
+
+      return _react2.default.createElement(
+        _AnimatedWrapper2.default,
+        this.props,
+        _react2.default.createElement(
+          'div',
+          {
+            style: (_ref = {
+              color: this.props.textColor,
+              position: 'relative',
+              padding: '60px 0',
+              display: 'flex'
+            }, _defineProperty(_ref, 'padding', '40px 0'), _defineProperty(_ref, 'flex', 1), _defineProperty(_ref, 'flexDirection', 'column'), _defineProperty(_ref, 'alignItems', 'center'), _defineProperty(_ref, 'justifyContent', 'center'), _ref)
+          },
+          this.renderImg(),
+          this.renderText()
+        )
+      );
+    }
+  }, {
+    key: 'renderWrapper',
+    value: function renderWrapper() {
+      var _ref2;
 
       return _react2.default.createElement(
         'div',
         {
-          style: (_ref = {
+          style: (_ref2 = {
             color: this.props.textColor,
             position: 'relative',
             padding: '60px 0',
             display: 'flex'
-          }, _defineProperty(_ref, 'padding', '40px 0'), _defineProperty(_ref, 'flex', 1), _defineProperty(_ref, 'flexDirection', 'column'), _defineProperty(_ref, 'alignItems', 'center'), _defineProperty(_ref, 'justifyContent', 'center'), _ref)
+          }, _defineProperty(_ref2, 'padding', '40px 0'), _defineProperty(_ref2, 'flex', 1), _defineProperty(_ref2, 'flexDirection', 'column'), _defineProperty(_ref2, 'alignItems', 'center'), _defineProperty(_ref2, 'justifyContent', 'center'), _ref2)
+        },
+        this.renderImg(),
+        this.renderText()
+      );
+    }
+  }, {
+    key: 'renderComponent',
+    value: function renderComponent() {
+      var _ref3;
+
+      if (this.props.animation) {
+        return this.renderAnimation();
+      }
+      return _react2.default.createElement(
+        'div',
+        {
+          style: (_ref3 = {
+            color: this.props.textColor,
+            position: 'relative',
+            padding: '60px 0',
+            display: 'flex'
+          }, _defineProperty(_ref3, 'padding', '40px 0'), _defineProperty(_ref3, 'flex', 1), _defineProperty(_ref3, 'flexDirection', 'column'), _defineProperty(_ref3, 'alignItems', 'center'), _defineProperty(_ref3, 'justifyContent', 'center'), _ref3)
         },
         this.renderImg(),
         this.renderText()

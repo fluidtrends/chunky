@@ -19,7 +19,7 @@ var _reactResponsive2 = _interopRequireDefault(_reactResponsive);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var breakpoints = exports.breakpoints = {
-  main: 768
+  main: 1140
 };
 
 function renderResponsiveLarge(component) {

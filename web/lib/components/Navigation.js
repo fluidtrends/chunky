@@ -57,12 +57,18 @@ var Navigation = function (_PureComponent) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var _props$theme = this.props.theme,
+          theme = _props$theme === undefined ? {} : _props$theme;
+      var _theme$translatedStri = theme.translatedStrings,
+          translatedStrings = _theme$translatedStri === undefined ? 'en' : _theme$translatedStri;
+
+
       _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
         _this2.setState({ selectedLanguage: lang });
       }).catch(function () {
         return;
       });
-      fetch(this.props.theme.translatedStrings).then(function (response) {
+      fetch(translatedStrings).then(function (response) {
         return response.json();
       }).then(function (translatedTexts) {
         _this2.setState({ strings: translatedTexts['navigation'] });
@@ -161,15 +167,33 @@ var Navigation = function (_PureComponent) {
     value: function renderNavigationLogo() {
       var image = this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage;
       var height = this.props.navigationUncover ? 64 : 64;
-
-      return (0, _responsive.renderResponsive)('logo', _react2.default.createElement(_toolbar.ToolbarMenuIcon, {
+      var responsiveBurger = this.props.theme && this.props.theme.logoOnMobile ? [_react2.default.createElement(_toolbar.ToolbarMenuIcon, {
         use: 'menu',
         style: { color: this.props.theme.navigationTintColor },
         onClick: this._onMenuOpen
       }), _react2.default.createElement('img', {
         src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
         onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false,
-        style: { height: height + 'px', marginLeft: '20px', cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial' }
+        style: {
+          height: height + 'px',
+          position: 'absolute',
+          top: 0,
+          left: '70px'
+        }
+      })] : [_react2.default.createElement(_toolbar.ToolbarMenuIcon, {
+        use: 'menu',
+        style: { color: this.props.theme.navigationTintColor },
+        onClick: this._onMenuOpen
+      })];
+
+      return (0, _responsive.renderResponsive)('logo', responsiveBurger, _react2.default.createElement('img', {
+        src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
+        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false,
+        style: {
+          height: height + 'px',
+          marginLeft: '20px',
+          cursor: this.props.menu[0].navigationLogo ? 'pointer' : 'initial'
+        }
       }));
     }
   }, {
@@ -182,7 +206,8 @@ var Navigation = function (_PureComponent) {
           waterfall: true,
           fixed: this.props.layout.fixed,
           style: _extends({
-            backgroundColor: this.props.theme.navigationColor
+            backgroundColor: this.props.theme.navigationColor,
+            zIndex: 10
           }, wrapperAdditionalStyle)
         },
         _react2.default.createElement(

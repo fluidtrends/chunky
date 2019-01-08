@@ -28,6 +28,10 @@ var _AnimatedSvg2 = _interopRequireDefault(_AnimatedSvg);
 
 var _responsive = require('../utils/responsive');
 
+var _Zoom = require('react-reveal/Zoom');
+
+var _Zoom2 = _interopRequireDefault(_Zoom);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -56,13 +60,19 @@ var Benefits = function (_Component) {
   }, {
     key: 'text',
     value: function text(name, index, total) {
-      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, { source: name, style: {
+      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, {
+        source: name,
+        style: {
           width: '90vw',
           color: this.props.textColor
-        } }), _react2.default.createElement(_Text2.default, { source: name, style: {
+        }
+      }), _react2.default.createElement(_Text2.default, {
+        source: name,
+        style: {
           width: 80 / total + 'vw',
           color: this.props.textColor
-        } }));
+        }
+      }));
     }
   }, {
     key: 'button',
@@ -81,7 +91,8 @@ var Benefits = function (_Component) {
           duration: 200,
           style: {
             width: '90vw'
-          } }), _react2.default.createElement(_AnimatedSvg2.default, {
+          }
+        }), _react2.default.createElement(_AnimatedSvg2.default, {
           id: '' + _image,
           src: '/assets/' + _image,
           duration: 200,
@@ -90,11 +101,17 @@ var Benefits = function (_Component) {
           }
         }));
       } else {
-        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + _image, style: {
+        return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', {
+          src: '/assets/' + _image,
+          style: {
             width: '90vw'
-          } }), _react2.default.createElement('img', { src: '/assets/' + _image, style: {
+          }
+        }), _react2.default.createElement('img', {
+          src: '/assets/' + _image,
+          style: {
             width: 100 / total + 'vw'
-          } }));
+          }
+        }));
       }
     }
   }, {
@@ -110,7 +127,8 @@ var Benefits = function (_Component) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center'
-          } },
+          }
+        },
         this.image(block.image, index, total),
         this.text(block.text, index, total)
       );
@@ -122,21 +140,50 @@ var Benefits = function (_Component) {
 
       var index = 0;
       var total = benefits.length;
-      return _react2.default.createElement(
-        'div',
-        { style: {
-            color: this.props.textColor,
-            position: 'relative',
-            display: 'flex',
-            flex: 1,
-            flexDirection: compact ? 'column' : 'row',
-            alignItems: compact ? 'center' : 'center',
-            backgroundColor: this.props.backgroundColor,
-            justifyContent: 'center' } },
-        benefits.map(function (b) {
-          return _this2.renderBlock(b, index++, total);
-        })
-      );
+      if (this.props.animation === 'zoom') {
+        //TODO: ADD DYNAMICALLY OPTIONS FROM CHUNK.JSON
+        return _react2.default.createElement(
+          _Zoom2.default,
+          { cascade: true, top: true },
+          _react2.default.createElement(
+            'div',
+            {
+              style: {
+                color: this.props.textColor,
+                position: 'relative',
+                display: 'flex',
+                flex: 1,
+                flexDirection: compact ? 'column' : 'row',
+                alignItems: compact ? 'center' : 'center',
+                backgroundColor: this.props.backgroundColor,
+                justifyContent: 'center'
+              }
+            },
+            benefits.map(function (b) {
+              return _this2.renderBlock(b, index++, total);
+            })
+          )
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          {
+            style: {
+              color: this.props.textColor,
+              position: 'relative',
+              display: 'flex',
+              flex: 1,
+              flexDirection: compact ? 'column' : 'row',
+              alignItems: compact ? 'center' : 'center',
+              backgroundColor: this.props.backgroundColor,
+              justifyContent: 'center'
+            }
+          },
+          benefits.map(function (b) {
+            return _this2.renderBlock(b, index++, total);
+          })
+        );
+      }
     }
   }, {
     key: 'renderDefault',

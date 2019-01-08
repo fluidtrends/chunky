@@ -50,7 +50,7 @@ var Footer = function (_Component) {
     value: function renderFooterSectionElement(element) {
       return _react2.default.createElement(
         _list.ListItem,
-        { key: element.id, style: {} },
+        { key: element.id, style: { cursor: 'pointer' }, onClick: this.triggerEvent(element.id, { handler: element.link }) },
         _react2.default.createElement(
           _button.Button,
           { onClick: this.triggerEvent(element.id, { handler: element.link }), style: { color: this.props.theme.footerTintColor, textAlign: 'left' } },
