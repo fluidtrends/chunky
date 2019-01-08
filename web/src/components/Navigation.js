@@ -23,9 +23,8 @@ export default class Navigation extends PureComponent {
   }
 
   componentDidMount() {
-
     const { theme = {} } = this.props
-    const { translatedStrings = 'en' } = theme 
+    const { translatedStrings = 'en' } = theme
 
     Data.Cache.retrieveCachedItem('selectedLanguage')
       .then(lang => {
@@ -212,6 +211,7 @@ export default class Navigation extends PureComponent {
         fixed={this.props.layout.fixed}
         style={{
           backgroundColor: this.props.theme.navigationColor,
+          zIndex: 10,
           ...wrapperAdditionalStyle
         }}
       >
