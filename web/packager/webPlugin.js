@@ -9,7 +9,7 @@ const emotions = require('./emotions.json')
 class Plugin {
   constructor (context) {
     this._context = context
-    this._spinner = new Ora({ text: chalk.green('111Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
+    this._spinner = new Ora({ text: chalk.green('Chunky is getting ready to start packing'), spinner: 'dots', color: 'yellow', stream: process.stdout })
   }
 
   emotion (type) {
