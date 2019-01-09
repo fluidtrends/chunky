@@ -1,7 +1,7 @@
 name: chunky
 footer:
   suffix: "Chunky says:"
-  text: "enjoy and check out more info at http://chunky.io"
+  text: "join me on Carmel.io and I'll help you grow your skillset"
 commands:
 - name: init [name]
   more: Specify a custom name or go with the default generated name
@@ -214,10 +214,12 @@ commands:
   - command: package site android --optimize
     description: Package the site and the Android app and optimize then
 
-- name: carmel
+- name: carmel [actions..]
   description: Connects to the Carmel Platform
   more: Manage your Carmel account
   executor: executors/carmel
   examples:
   - command: carmel
     description: Check the current status of your account
+  - command: carmel logout
+    description: Logout of your Carmel account

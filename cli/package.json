@@ -1,7 +1,7 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.0-alpha.5",
-  "description": "The Chunky CLI",
+  "version": "1.0.0",
+  "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
     "test": "savor test",

@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -37,6 +37,7 @@
   "dependencies": {
     "@sendgrid/client": "^6.2.1",
     "@sendgrid/mail": "^6.2.1",
+    "antd": "^3.4.5",
     "autoprefixer": "7.1.1",
     "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
