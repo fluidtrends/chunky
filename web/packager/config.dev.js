@@ -3,6 +3,8 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const pages = require('./pages')
 const WebPlugin = require('./webPlugin')
+const DynamicCdnWebpackPlugin = require('dynamic-cdn-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = (options) => {
   const root = (options.root || options.dir)
@@ -38,6 +40,14 @@ module.exports = (options) => {
         path.resolve(root, 'node_modules'),
         'node_modules'
       ]
+    },
+
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      moment: 'moment',
+      antd: 'antd',
+      firebase: 'firebase'
     },
 
     module: {
@@ -128,6 +138,7 @@ module.exports = (options) => {
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
+      new DynamicCdnWebpackPlugin(),
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       new CopyWebpackPlugin([
         { from: { glob: path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
