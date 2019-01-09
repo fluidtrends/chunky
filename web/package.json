@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -90,7 +90,6 @@
     "react-chunky": "^1.0.0",
     "react-countdown-now": "^1.3.0",
     "react-css-modules": "^4.7.1",
-    "react-dom": "^16.2.0",
     "react-hot-loader": "^4.3.3",
     "react-placeholder": "^1.0.7",
     "react-player": "^0.25.3",
