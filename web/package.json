@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "0.9.148",
+  "version": "1.0.0-alpha.1",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -66,10 +66,10 @@
     "eslint-plugin-import": "2.2.0",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.1.0",
-    "grpc": "1.13.1",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "0.11.2",
     "firebase": "4.12.1",
+    "grpc": "1.13.1",
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.29.0",
     "image-loader": "0.0.1",
@@ -101,10 +101,13 @@
     "react-progressive-image": "^0.3.0",
     "react-recaptcha": "^2.3.7",
     "react-responsive": "^1.3.4",
+    "react-reveal": "^1.2.2",
     "react-router-dom": "^4.2.2",
     "react-sliding-pane": "3.0.1",
+    "react-spring": "^5.5.1",
     "react-transition-group": "^2.2.1",
     "react-vertical-timeline-component": "^2.0.5",
+    "react-vivus": "0.0.2",
     "recharts": "^1.0.0-alpha.4",
     "require-from-string": "^2.0.1",
     "responsive-loader": "^1.1.0",
@@ -119,11 +122,9 @@
     "uglifyjs-webpack-plugin": "^1.2.4",
     "url-loader": "0.5.9",
     "video-react": "^0.9.4",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
     "vivus": "^0.4.4",
-    "react-vivus": "0.0.2",
-    "react-spring": "^5.5.1"
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0"
   },
   "devDependencies": {
     "react-savor": "0.x"
