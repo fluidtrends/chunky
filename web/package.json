@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -108,7 +108,6 @@
     "rimraf": "^2.6.0",
     "rmwc": "^3.0.4",
     "sass-loader": "^6.0.6",
-    "sharp": "^0.20.1",
     "static-site-generator-webpack-plugin": "^3.4.1",
     "style-loader": "^0.18.2",
     "styled-jsx": "^2.2.1",
