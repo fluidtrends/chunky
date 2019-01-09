@@ -60,8 +60,7 @@ module.exports = (options) => {
             options: {
               sizes: [600, 2000],
               placeholder: true,
-              placeholderSize: 50,
-              adapter: require('responsive-loader/sharp')
+              placeholderSize: 50
             }
           }]
         },
