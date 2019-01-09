@@ -6,17 +6,24 @@ const cpy = require('cpy')
 const deepmerge = require('deepmerge')
 const lali = require('lali')
 const octokit = require('@octokit/rest')()
+const cassi = require('cassi')
 
 const HOME_DIR = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
 const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
 const CHUNKY_REPO_URL = `https://raw.githubusercontent.com/fluidtrends/chunky/master`
+const CARMEL_VAULT_PASSWORD = `_chunky_carmel_`
+const MASTER_VAULT_PASSWORD = `_chunky_master_`
 
 const _dir = (props) => CHUNKY_HOME_DIR
 const _bundlesDir = (props) => path.resolve(_dir(props), 'bundles')
+const _vaultsDir = (props) => path.resolve(_dir(props), 'vaults')
 const _depsDir = (props) => path.resolve(_dir(props), 'deps')
 const _exists = (props) => fs.existsSync(_dir(props))
 const _bundlePath = (props) => (uri) => path.resolve(_bundlesDir(props), uri)
 const _bundleExists = (props) => (uri) => fs.existsSync(_bundlePath(props)(uri))
+
+const _carmelVault = new cassi.Vault({ name: 'carmel', root: _vaultsDir() })
+const _masterVault = new cassi.Vault({ name: 'master', root: _vaultsDir() })
 
 const _create = (props) => {
   if (_exists(props)) {
@@ -28,6 +35,10 @@ const _create = (props) => {
   fs.mkdirsSync(_dir(props))
   fs.mkdirsSync(_bundlesDir(props))
   fs.mkdirsSync(_depsDir(props))
+
+  // Create the vaults
+  _carmelVault.create(CARMEL_VAULT_PASSWORD)
+  _masterVault.create(MASTER_VAULT_PASSWORD)
 }
 
 const _bundleFixture = (props) => (bundleUri, fixtureId) => {
@@ -93,7 +104,7 @@ const _findRemoteBundle = (props) => (uri) => {
     const [owner, repo, version] = uri.split("/")
 
     _info(props)(`Looking for bundle ${owner}/${repo} ...`)
-    
+
     if (version) {
       return octokit.repos.getReleaseByTag({ owner, repo, tag: `v${version}` })
                     .then((release) => {
@@ -203,6 +214,20 @@ const _addDeps = (props) => () => {
                 })
 }
 
+const _setup = (props) => () => {
+  if (!_exists(props)){
+    // Initialize the cache if this is the first time using it
+    _create(props)
+  }
+
+  return Promise.all([_carmelVault.load(), _masterVault.load()])
+}
+
+const _vaults = (props) => ({
+  carmel: _carmelVault,
+  master: _masterVault
+})
+
 module.exports = (props) => ({
   dir: _dir(props),
   bundlesDir: _bundlesDir(props),
@@ -218,5 +243,7 @@ module.exports = (props) => ({
   bundleInfo: _bundleInfo(props),
   downloadBundle: _downloadBundle(props),
   downloadDeps: _downloadDeps(props),
-  addDeps: _addDeps(props)
+  addDeps: _addDeps(props),
+  setup: _setup(props),
+  vaults: _vaults(props)
 })

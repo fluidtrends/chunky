@@ -213,3 +213,11 @@ commands:
     description: Package the iOS app only
   - command: package site android --optimize
     description: Package the site and the Android app and optimize then
+
+- name: carmel
+  description: Connects to the Carmel Platform
+  more: Manage your Carmel account
+  executor: executors/carmel
+  examples:
+  - command: carmel
+    description: Check the current status of your account
