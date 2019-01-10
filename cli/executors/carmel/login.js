@@ -32,6 +32,7 @@ function skipLogin(account) {
 }
 
 function login(account, cache, e, p) {
+  console.log(cache)
   if (account) {
     return skipLogin(account)
   }
@@ -47,7 +48,7 @@ function login(account, cache, e, p) {
               .catch((error) => {
                 coreutils.logger.fail(error.message)
                 coreutils.logger.skip("Give it another shot")
-                return login()
+                return login(account, cache, e, p)
               })
 }
 

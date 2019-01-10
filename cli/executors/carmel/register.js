@@ -46,7 +46,7 @@ function register(account, cache) {
               .catch((error) => {
                 coreutils.logger.fail(error.message)
                 coreutils.logger.skip("Give it another shot")
-                return login()
+                return register(account, cache)
               })
 }
 
