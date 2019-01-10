@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
     "@firebase/app": "^0.3.5",
+    "@firebase/util": "^0.2.3",
     "@octokit/rest": "^16.3.0",
     "aws-sdk": "^2.97.0",
     "browser-sync": "^2.18.13",
