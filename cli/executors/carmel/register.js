@@ -5,22 +5,8 @@ const input = require('./input')
 const login = require('./login')
 
 function doRegister({ account, cache, email, password, name }) {
-  return new Promise((resolve, reject) => {
-           firebaseline.operations.register(firebase, { email, password, name, appAuth: true, fromChunky: true })
-           .then(() => login(account, cache, email, password))
-           .then((account) => {
-              firebase.auth().onAuthStateChanged((user) => {
-                const combined = Object.assign({}, {
-                  uid: user.uid,
-                  emailVerified: user.emailVerified
-                }, account)
-                resolve(combined)
-              })
-            })
-            .catch((e) => {
-              reject(e)
-            })
-        })
+    return firebaseline.operations.register(firebase, { email, password, name, appAuth: true, fromChunky: true })
+           .then(() => login(account, cache, email, password, true))
 }
 
 function skipRegister(account) {
@@ -40,8 +26,7 @@ function register(account, cache) {
               .then(({ name, email }) => input.getNewPassword()
               .then((password) => doRegister({ account, cache, email, password, name })))
               .then((account) => {
-                coreutils.logger.ok("Awesome! Welcome to the Carmel family! Now let's slay ourselves some dragons.")
-                cache.vaults.carmel.write('account', account)
+                coreutils.logger.ok("Welcome to the Carmel family :)")
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)

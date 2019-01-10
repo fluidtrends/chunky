@@ -31,17 +31,17 @@ function skipLogin(account) {
   return Promise.resolve()
 }
 
-function login(account, cache, e, p) {
+function login(account, cache, e, p, silent) {
   if (account) {
     return skipLogin(account)
   }
 
-  coreutils.logger.info(`Let's get you back on track :)`)
+  silent || coreutils.logger.info(`Let's get you back on track :)`)
 
   return getUserCredentials(e, p)
               .then(({ email, password }) => doLogin({ email, password }))
               .then((account) => {
-                coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
+                silent || coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
                 cache.vaults.carmel.write('account', account)
               })
               .catch((error) => {
