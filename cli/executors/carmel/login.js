@@ -32,7 +32,6 @@ function skipLogin(account) {
 }
 
 function login(account, cache, e, p) {
-  console.log(cache)
   if (account) {
     return skipLogin(account)
   }
