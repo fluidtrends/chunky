@@ -1,77 +1,29 @@
-const coreutils = require('coreutils')
-const path = require('path')
-const fs = require('fs-extra')
-const cache = require('../../src/cache')
-const cpy = require('cpy')
-const firebase = require('firebase')
-const carmelFirebaseConfig = require('../../assets/carmel.firebase.json')
-const firebaseline = require('firebaseline')
 const inquirer = require('inquirer')
+const coreutils = require('coreutils')
+const input = require('./input')
+const login = require('./login')
+const register = require('./register')
 
-function getCredentials() {
-  var questions = [{
-    type: 'input',
-    name: 'email',
-    message: "Email:",
-  },
-  {
-    type: 'password',
-    name: 'password',
-    message: "Password:",
-  }]
-
-  coreutils.logger.info(`Please login to your Carmel account`)
-
-  return inquirer.prompt(questions)
+function accountStatus(account) {
+  coreutils.logger.ok(`You are logged in as ${account.name} (${account.email})`)
+  return Promise.resolve()
 }
 
-function login({ email, password }) {
-  return new Promise((resolve, reject) => {
-           firebaseline.operations.login(firebase, ({ email, password }))
-           .then((account) => {
-              firebase.auth().onAuthStateChanged((user) => {
-                const combined = Object.assign({}, {
-                  uid: user.uid,
-                  emailVerified: user.emailVerified
-                }, account)
-                coreutils.logger.ok(`You are now logged in to Carmel`)
-                resolve(combined)
-              })
-            })
-            .catch((e) => {
-              reject(e)
-              coreutils.logger.fail(e.message)
-            })
-        })
+function main(account, cache, help) {
+  if (account) {
+    return accountStatus(account)
+  }
+
+  coreutils.logger.info(`Hey you, welcome to Carmel!`)
+  coreutils.logger.info(`Carmel is a Decentralized Platform that helps you grow your tech skills`)
+  coreutils.logger.info(`Get a free account right now or sign if you're already part of the family`)
+
+  return inquirer.prompt([{
+    type: 'confirm',
+    name: "hasAccount",
+    message: 'Do you have a Carmel account?'
+  }])
+  .then(({ hasAccount }) => hasAccount ? login(account, cache) : register(account, cache))
 }
 
-
-function check(command) {
-  coreutils.logger.header(`Carmel`)
-  firebase.initializeApp(carmelFirebaseConfig)
-
-  const c = cache({})
-  c.setup()
-   .then(() => {
-     try {
-       return c.vaults.carmel.read('account')
-     } catch (e) {
-       return
-     }
-   })
-   .then((account) => {
-     if (!account) {
-       return getCredentials()
-                .then((credentials) => login(credentials))
-                .then((account) => c.vaults.carmel.write('account', account))
-                .then(() => process.exit(0))
-     }
-
-     coreutils.logger.ok(`You are logged in to Carmel (${account.name})`)
-   })
-   .catch((error) => {
-      console.log(error)
-   })
-}
-
-module.exports = { check }
+module.exports = main

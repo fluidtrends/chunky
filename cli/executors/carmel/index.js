@@ -1,8 +1,8 @@
 const coreutils = require('coreutils')
-const status = require('./status')
+const start = require('./start')
 
 function parseCommand (command) {
-  status.check(command)
+  start(command)
 }
 
 module.exports = function (command) {

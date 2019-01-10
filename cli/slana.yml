@@ -215,9 +215,14 @@ commands:
     description: Package the site and the Android app and optimize then
 
 - name: carmel [actions..]
-  description: Connects to the Carmel Platform
-  more: Manage your Carmel account
+  description: Interact with the Carmel Platform
+  more: Available actions include hello, login, logout, register
   executor: executors/carmel
+  options:
+  - name: testnet
+    description: Connect to the testnet instead of the mainnet
+    default: false
+    type: boolean
   examples:
   - command: carmel
     description: Check the current status of your account
