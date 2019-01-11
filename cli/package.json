@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {

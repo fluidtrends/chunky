@@ -1,15 +1,15 @@
 const coreutils = require('coreutils')
 const cache = require('../../src/cache')
 const firebase = require('firebase')
+const fs = require('fs-extra')
 const carmelFirebaseConfig = require('../../assets/carmel.firebase.json')
 const path = require('path')
 
 const HOME_DIR = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
-const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
 
 if (typeof localStorage === "undefined" || localStorage === null) {
   const LocalStorage = require('node-localstorage').LocalStorage
-  localStorage = new LocalStorage(path.resolve(CHUNKY_HOME_DIR, '.localStorage'))
+  localStorage = new LocalStorage(path.resolve(HOME_DIR, '.chunkyLocalStorage'))
 }
 
 function setup() {
