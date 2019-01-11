@@ -34,6 +34,7 @@ const _create = (props) => {
   // Create the cache structure
   fs.mkdirsSync(_dir(props))
   fs.mkdirsSync(_bundlesDir(props))
+  fs.mkdirsSync(_vaultsDir(props))
   fs.mkdirsSync(_depsDir(props))
 
   // Create the vaults
