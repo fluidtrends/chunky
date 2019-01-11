@@ -5,6 +5,7 @@ const cache = require('../../src/cache')
 const cpy = require('cpy')
 const download = require('image-downloader')
 const merge = require('deepmerge')
+const operation = require('../carmel/operation')
 
 function hasFile (filepath) {
   return fs.existsSync(path.resolve(process.cwd(), filepath))
@@ -55,10 +56,8 @@ function generateChunks(template) {
       // Override the template chunk manifest
       const targetManifestFile = path.resolve(dir, "chunks", chunkName, "chunk.json")
       var targetManifest = JSON.parse(fs.readFileSync(targetManifestFile, 'utf-8'))
-      console.log(targetManifest)
       targetManifest = merge(targetManifest, template.chunks[chunkName])
       console.log(template.chunks[chunkName])
-      console.log(targetManifest)
       fs.writeFileSync(targetManifestFile, JSON.stringify(targetManifest, null, 2))
     } catch (e) {
       console.log(e)
@@ -126,10 +125,10 @@ function createFiles (c, template) {
   return generateAssets(c, template)
 }
 
-function create({ name, template, bundle }) {
+function create({ name, template, bundle }, account, mainCache) {
   if (isAlreadyInit()) {
     coreutils.logger.skip("Easy there, this is a Chunky Product already.")
-    // return
+    return
   }
 
   const c = cache({ log: true, name })
@@ -147,13 +146,11 @@ function create({ name, template, bundle }) {
    // Alright, time to generate the files
    .then((data) => createFiles(c, data))
 
-   // Use the dependencies
-   // .then(() => c.addDeps())
+   .then(() => operation.send({ type: "init", name, template, bundle, pwd: process.cwd() }, account, mainCache))
 
    .then(() => {
      // All done
      coreutils.logger.footer("Amazing! Your new Chunky Product is ready!")
-     coreutils.logger.info("Wanna see it in action? Type this: chunky start web")
    })
 
    // Something went wrong

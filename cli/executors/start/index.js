@@ -2,8 +2,9 @@ const coreutils = require('coreutils')
 const web = require('./web')
 const mobile = require('./mobile')
 const desktop = require('./desktop')
+const setup = require('../carmel/setup')
 
-function parseCommand (command) {
+function parseCommand (command, account, cache) {
   if (command.platforms.length === 0) {
     command.platforms = ['mobile', 'web', 'desktop']
   }
@@ -11,13 +12,13 @@ function parseCommand (command) {
   command.platforms.forEach(platform => {
     switch (platform) {
       case 'mobile':
-        mobile(command.mobilePackagerPort)
+        mobile(command.mobilePackagerPort, account, cache)
         break
       case 'web':
-        web(command.webPackagerPort)
+        web(command.webPackagerPort, account, cache)
         break
       case 'desktop':
-        desktop(command.desktopPackagerPort)
+        desktop(command.desktopPackagerPort, account, cache)
         break
     }
   })
@@ -25,7 +26,7 @@ function parseCommand (command) {
 
 module.exports = function (command) {
   try {
-    parseCommand(command)
+    setup().then(({ account, cache }) => parseCommand(command, account, cache))
   } catch (error) {
     coreutils.logger.error(error)
   }

@@ -3,6 +3,7 @@ const firebase = require('firebase')
 const firebaseline = require('firebaseline')
 const input = require('./input')
 const login = require('./login')
+const operation = require('./operation')
 
 function doRegister({ account, cache, email, password, name }) {
     return firebaseline.operations.register(firebase, { email, password, name, appAuth: true, fromChunky: true })
@@ -11,7 +12,7 @@ function doRegister({ account, cache, email, password, name }) {
 
 function skipRegister(account) {
   coreutils.logger.info(`Hey, you aready have an account :)`)
-  coreutils.logger.ok(`You're logged in as ${account.name} (${account.email})`)
+  coreutils.logger.ok(`You're logged in now (${account.email})`)
   return Promise.resolve()
 }
 
@@ -27,6 +28,7 @@ function register(account, cache) {
               .then((password) => doRegister({ account, cache, email, password, name })))
               .then((account) => {
                 coreutils.logger.ok("Welcome to the Carmel family :)")
+                return operation.send({ type: "register" }, account, cache)
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)

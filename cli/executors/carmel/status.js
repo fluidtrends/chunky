@@ -4,14 +4,14 @@ const input = require('./input')
 const login = require('./login')
 const register = require('./register')
 
-function accountStatus(account) {
-  coreutils.logger.ok(`You are logged in as ${account.name} (${account.email})`)
+function accountStatus(account, cache) {
+  coreutils.logger.ok(`You are logged in (${account.email})`)
   return Promise.resolve()
 }
 
 function main(account, cache, help) {
   if (account) {
-    return accountStatus(account)
+    return accountStatus(account, cache)
   }
 
   coreutils.logger.info(`Hey you, welcome to Carmel!`)

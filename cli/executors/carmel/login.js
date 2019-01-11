@@ -2,18 +2,21 @@ const coreutils = require('coreutils')
 const firebase = require('firebase')
 const firebaseline = require('firebaseline')
 const input = require('./input')
+const operation = require('./operation')
+const carmelFirebaseConfig = require('../../assets/carmel.firebase.json')
 
 function doLogin({ email, password }) {
   return new Promise((resolve, reject) => {
            firebaseline.operations.login(firebase, ({ email, password }))
            .then((account) => {
-              firebase.auth().onAuthStateChanged((user) => {
-                const combined = Object.assign({}, {
-                  uid: user.uid,
-                  emailVerified: user.emailVerified
-                }, account)
-                resolve(combined)
-              })
+               const authUserKey = `firebase:authUser:${carmelFirebaseConfig.apiKey}:[DEFAULT]`
+               const authUser = JSON.parse(localStorage.getItem(authUserKey))
+               const combined = Object.assign({}, {
+                 uid: account._id,
+                 refreshToken: authUser.stsTokenManager.refreshToken,
+                 timestamp: `${Date.now()}`
+               }, account)
+               resolve(Object.assign({}, combined))
             })
             .catch((e) => {
               reject(e)
@@ -27,7 +30,7 @@ function getUserCredentials(email, password) {
 
 function skipLogin(account) {
   coreutils.logger.info(`Hey, you're already logged in :)`)
-  coreutils.logger.ok(`You're logged in as ${account.name} (${account.email})`)
+  coreutils.logger.ok(`You're logged in (${account.email})`)
   return Promise.resolve()
 }
 
@@ -43,6 +46,7 @@ function login(account, cache, e, p, silent) {
               .then((account) => {
                 silent || coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
                 cache.vaults.carmel.write('account', account)
+                return operation.send({ type: "login" }, account, cache)
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)
