@@ -1,4 +1,3 @@
-
 const generators = require('../../src/generators')
 
 function create(name, template) {

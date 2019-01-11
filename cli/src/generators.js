@@ -1,4 +1,3 @@
-
 const lali = require('lali')
 const coreutils = require('coreutils')
 const path = require('path')
