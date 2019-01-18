@@ -146,7 +146,7 @@ function create({ name, template, bundle }, account, mainCache) {
    // Alright, time to generate the files
    .then((data) => createFiles(c, data))
 
-   .then(() => operation.send({ type: "init", name, template, bundle, pwd: process.cwd() }, account, mainCache))
+   .then(() => operation.send({ target: "journeys", type: "init", name, template, bundle, pwd: process.cwd() }, account, mainCache))
 
    .then(() => {
      // All done

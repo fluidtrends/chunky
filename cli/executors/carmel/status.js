@@ -1,8 +1,8 @@
 const inquirer = require('inquirer')
 const coreutils = require('coreutils')
 const input = require('./input')
-const login = require('./login')
-const register = require('./register')
+const login = require('./actions/login')
+const register = require('./actions/register')
 
 function accountStatus(account, cache) {
   coreutils.logger.ok(`You are logged in (${account.email})`)

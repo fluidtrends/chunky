@@ -1,9 +1,9 @@
 const coreutils = require('coreutils')
 const firebase = require('firebase')
 const firebaseline = require('firebaseline')
-const input = require('./input')
+const input = require('../input')
 const login = require('./login')
-const operation = require('./operation')
+const operation = require('../operation')
 
 function doRegister({ account, cache, email, password, name }) {
     return firebaseline.operations.register(firebase, { email, password, name, appAuth: true, fromChunky: true })
@@ -28,7 +28,7 @@ function register(account, cache) {
               .then((password) => doRegister({ account, cache, email, password, name })))
               .then((account) => {
                 coreutils.logger.ok("Welcome to the Carmel family :)")
-                return operation.send({ type: "register" }, account, cache)
+                return operation.send({ target: "journeys", type: "register" }, account, cache)
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)

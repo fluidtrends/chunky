@@ -1,6 +1,32 @@
 const inquirer = require('inquirer')
 const coreutils = require('coreutils')
 
+function getNewChallengeDetails() {
+  return inquirer.prompt([{
+    type: 'list',
+    choices: ["Professional", "Studio", "Playground"],
+    default: "Professional",
+    name: 'type',
+    message: "What kind of a challenge will this be?"
+  }, {
+    type: 'list',
+    choices: ["Apprentice", "Journeyman", "Master"],
+    default: "Apprentice",
+    name: 'level',
+    message: "What will be the difficulty level?"
+  }, {
+    type: 'input',
+    name: 'name',
+    validate: (s) => s.length > 10 && s.length < 60 || "10 to 60 characters please :)",
+    message: "Great, now give this challenge a good name"
+  }, {
+   type: 'input',
+   name: 'source',
+   validate: (s) => s && s.split("/").length === 3 || "Use this as an example: idancali/carmel-challenges/first-product",
+   message: "And finally, where is the source code located (<github username>/<repo>/<dir>)?"
+ }])
+}
+
 function getNewPassword() {
   return inquirer.prompt([{
     type: 'password',
@@ -48,5 +74,6 @@ function getUserCredentials() {
 module.exports = {
   getUserCredentials,
   getNewPassword,
-  getNewUserInfo
+  getNewUserInfo,
+  getNewChallengeDetails
 }

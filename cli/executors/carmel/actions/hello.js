@@ -1,10 +1,10 @@
 const coreutils = require('coreutils')
-const status = require('./status')
-const operation = require('./operation')
+const status = require('../status')
+const operation = require('../operation')
 
 function sayHello(account, cache) {
   coreutils.logger.info(`Hello right back at ya :)`)
-  return operation.send({ type: "hello" }, account, cache)
+  return operation.send({ target: "journeys", type: "hello" }, account, cache)
 }
 
 function hello(account, cache) {

@@ -1,9 +1,9 @@
 const coreutils = require('coreutils')
 const firebase = require('firebase')
 const firebaseline = require('firebaseline')
-const input = require('./input')
-const operation = require('./operation')
-const carmelFirebaseConfig = require('../../assets/carmel.firebase.json')
+const input = require('../input')
+const operation = require('../operation')
+const carmelFirebaseConfig = require('../../../assets/carmel.firebase.json')
 
 function doLogin({ email, password }) {
   return new Promise((resolve, reject) => {
@@ -46,7 +46,7 @@ function login(account, cache, e, p, silent) {
               .then((account) => {
                 silent || coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
                 cache.vaults.carmel.write('account', account)
-                return operation.send({ type: "login" }, account, cache)
+                return operation.send({ target: "journeys", type: "login" }, account, cache)
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)

@@ -26,18 +26,19 @@ function getUserAccessToken(account, cache) {
       }))
       return access.access_token
     })
-
 }
 
-function newActivity(args, account, accessToken) {
-   const data = Object.assign({}, args, {
-     source: "chunky",
-     userEmail: account.email,
-     userId: account.uid,
-     platform: process.platform
-   })
+function callAction(args, account, cache, accessToken) {
+  const target = args.target || 'activities'
 
-  return fetch('https://api.carmel.io/journey/activities', {
+  args.target && delete args.target
+
+  const data = Object.assign({}, args, {
+     platform: process.platform,
+     machineId: cache.vaults.carmel.read('id')
+  })
+
+  return fetch(`https://api.carmel.io/journey/${target}`, {
      method: 'post',
      body:    JSON.stringify(data),
      headers: {
@@ -45,7 +46,7 @@ function newActivity(args, account, accessToken) {
        'Accept': 'application/json',
        'Authorization': Base64.encode(accessToken)
      }})
-    .then(res => res.json())
+     .then(res => res.json())
 }
 
 function send(args, account, cache) {
@@ -55,7 +56,7 @@ function send(args, account, cache) {
   }
 
   return getUserAccessToken(account, cache)
-          .then((accessToken) => newActivity(args, account, accessToken))
+          .then((accessToken) => callAction(args, account, cache, accessToken))
 }
 
 module.exports = { send }

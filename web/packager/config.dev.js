@@ -42,10 +42,7 @@ module.exports = (options) => {
 
     externals: {
       react: 'React',
-      'react-dom': 'ReactDOM',
-      moment: 'moment',
-      antd: 'antd',
-      firebase: 'firebase'
+      'react-dom': 'ReactDOM'
     },
 
     module: {

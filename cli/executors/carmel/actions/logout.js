@@ -1,12 +1,12 @@
 const coreutils = require('coreutils')
 const inquirer = require('inquirer')
-const input = require('./input')
-const operation = require('./operation')
+const input = require('../input')
+const operation = require('../operation')
 
 function doLogout(account, cache) {
   cache.vaults.carmel.write('account', '')
   coreutils.logger.ok(`You are now logged out`)
-  return operation.send({ type: "logout" })
+  return operation.send({ target: "journeys", type: "logout" })
   return Promise.resolve()
 }
 

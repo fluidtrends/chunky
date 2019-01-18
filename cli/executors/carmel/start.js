@@ -1,16 +1,16 @@
 const coreutils = require('coreutils')
 const status = require('./status')
-const actions = require('./all')
+const actions = require('./actions')
 const setup = require('./setup')
 
 function performAction (command, account, c) {
   try {
-    const action = command.actions[0]
+    const action = command.actions.shift()
     if (!action || !actions[action]) {
       return status(account, c, true)
     }
 
-    return actions[action](account, c)
+    return actions[action](account, c, command.actions)
 
   } catch (e) {
     return status(account, c, true)
