@@ -30,6 +30,10 @@ var _Cache = require('./Cache');
 
 var _Cache2 = _interopRequireDefault(_Cache);
 
+var _ = require('../components/404');
+
+var _2 = _interopRequireDefault(_);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -411,6 +415,8 @@ var App = function (_PureComponent) {
   }, {
     key: 'render',
     value: function render() {
+      var _this7 = this;
+
       if (this.props.route && !this.props.redirect) {
         return this.renderStatic();
       }
@@ -439,9 +445,12 @@ var App = function (_PureComponent) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(
-          'div',
+          _reactRouter.Switch,
           { style: {} },
-          this.renderRoutes()
+          this.renderRoutes(),
+          this.props.theme && this.props.theme.notFoundPageText && _react2.default.createElement(_reactRouterDom.Route, { component: function component() {
+              return _react2.default.createElement(_2.default, _this7.props.theme);
+            } })
         )
       );
     }

@@ -34,7 +34,7 @@ class Plugin extends WebPlugin {
     const route = data.plugin.options.route
 
     main.renderStaticPage(route)
-         .then(html => done(null, this.resolveHtml(data, html)))
+         .then(html => done(null, this.resolveHtml(data, html, true)))
          .catch((error) => done(error))
   }
 }

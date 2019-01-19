@@ -1,6 +1,6 @@
 {
   "name": "react-dom-chunky",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "The Chunky Web Framework",
   "main": "lib/index.js",
   "scripts": {
@@ -86,6 +86,8 @@
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.6",
     "rc-slider": "^8.6.1",
+    "react-dom": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.0",
     "react-chunky": "^1.0.0",

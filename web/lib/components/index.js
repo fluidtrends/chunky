@@ -229,4 +229,13 @@ Object.defineProperty(exports, 'AnimatedWrapper', {
   }
 });
 
+var _ = require('./404');
+
+Object.defineProperty(exports, 'NotFoundPage', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

@@ -164,7 +164,7 @@ export default class Navigation extends PureComponent {
               onClick={
                 this.props.menu[0].navigationLogo
                   ? this._onMenuItem(this.props.menu[0])
-                  : false
+                  : () => {}
               }
               style={{
                 height: `${height}px`,
@@ -176,6 +176,7 @@ export default class Navigation extends PureComponent {
           ]
         : [
             <ToolbarMenuIcon
+              key="menu"
               use="menu"
               style={{ color: this.props.theme.navigationTintColor }}
               onClick={this._onMenuOpen}
@@ -190,7 +191,7 @@ export default class Navigation extends PureComponent {
         onClick={
           this.props.menu[0].navigationLogo
             ? this._onMenuItem(this.props.menu[0])
-            : false
+            : () => {}
         }
         style={{
           height: `${height}px`,

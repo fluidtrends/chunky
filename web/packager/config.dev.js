@@ -40,11 +40,6 @@ module.exports = (options) => {
       ]
     },
 
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM'
-    },
-
     module: {
       noParse: [/moment.js/],
       rules: [

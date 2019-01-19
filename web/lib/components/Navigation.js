@@ -173,7 +173,7 @@ var Navigation = function (_PureComponent) {
         onClick: this._onMenuOpen
       }), _react2.default.createElement('img', {
         src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
-        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false,
+        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : function () {},
         style: {
           height: height + 'px',
           position: 'absolute',
@@ -181,6 +181,7 @@ var Navigation = function (_PureComponent) {
           left: '70px'
         }
       })] : [_react2.default.createElement(_toolbar.ToolbarMenuIcon, {
+        key: 'menu',
         use: 'menu',
         style: { color: this.props.theme.navigationTintColor },
         onClick: this._onMenuOpen
@@ -188,7 +189,7 @@ var Navigation = function (_PureComponent) {
 
       return (0, _responsive.renderResponsive)('logo', responsiveBurger, _react2.default.createElement('img', {
         src: (this.props.desktop ? '../../../../' : '/') + 'assets/' + image,
-        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : false,
+        onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : function () {},
         style: {
           height: height + 'px',
           marginLeft: '20px',

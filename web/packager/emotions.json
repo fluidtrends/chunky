@@ -1,4 +1,13 @@
 {
+  "working": {
+    "expression": "Chunky is working.",
+    "moods": [
+      "Shhh. Don't interrupt him.",
+      "And he's making us all look lazy.",
+      "He's concentrating. Hold on a sec.",
+      "He's such a workaholic"
+    ]
+  },
   "happy": {
     "expression": "Chunky is happy.",
     "moods": [
