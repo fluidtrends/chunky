@@ -1,10 +1,29 @@
 const inquirer = require('inquirer')
 const coreutils = require('coreutils')
 
+function getChallengePublishLocation() {
+  return inquirer.prompt([{
+    type: 'input',
+    name: 'repo',
+    validate: (s) => (!s || s.split("/").length != 2) ? "Enter is as <github user>/<repo>" : true,
+    message: "In what github repo is this challenge?"
+  }, {
+    type: 'input',
+    name: 'path',
+    default: "/",
+    message: "At what path within this repo is the challenge?"
+  }, {
+    type: 'input',
+    validate: (s) => s ? true : "C'mon, enter a valid commit hash please :)",
+    name: 'hash',
+    message: "Ok, one last thing, what's the commit hash?"
+  }])
+}
+
 function getNewChallengeDetails() {
   return inquirer.prompt([{
     type: 'list',
-    choices: ["Professional", "Studio", "Playground"],
+    choices: ["Professional", "Playground"],
     default: "Professional",
     name: 'type',
     message: "What kind of a challenge will this be?"
@@ -19,12 +38,7 @@ function getNewChallengeDetails() {
     name: 'name',
     validate: (s) => s.length > 10 && s.length < 60 || "10 to 60 characters please :)",
     message: "Great, now give this challenge a good name"
-  }, {
-   type: 'input',
-   name: 'source',
-   validate: (s) => s && s.split("/").length === 3 || "Use this as an example: idancali/carmel-challenges/first-product",
-   message: "And finally, where is the source code located (<github username>/<repo>/<dir>)?"
- }])
+  }])
 }
 
 function getNewPassword() {
@@ -75,5 +89,6 @@ module.exports = {
   getUserCredentials,
   getNewPassword,
   getNewUserInfo,
-  getNewChallengeDetails
+  getNewChallengeDetails,
+  getChallengePublishLocation
 }

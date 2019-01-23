@@ -35,6 +35,7 @@ function callAction(args, account, cache, accessToken) {
 
   const data = Object.assign({}, args, {
      platform: process.platform,
+     email: account.email,
      machineId: cache.vaults.carmel.read('id')
   })
 

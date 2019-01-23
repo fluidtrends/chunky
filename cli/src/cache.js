@@ -7,6 +7,7 @@ const deepmerge = require('deepmerge')
 const lali = require('lali')
 const octokit = require('@octokit/rest')()
 const cassi = require('cassi')
+const download = require('download')
 
 const HOME_DIR = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
 const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
@@ -18,6 +19,7 @@ const _dir = (props) => CHUNKY_HOME_DIR
 const _bundlesDir = (props) => path.resolve(_dir(props), 'bundles')
 const _vaultsDir = (props) => path.resolve(_dir(props), 'vaults')
 const _depsDir = (props) => path.resolve(_dir(props), 'deps')
+const _challengesDir = (props) => path.resolve(_dir(props), 'challenges')
 const _exists = (props) => fs.existsSync(_dir(props))
 const _bundlePath = (props) => (uri) => path.resolve(_bundlesDir(props), uri)
 const _bundleExists = (props) => (uri) => fs.existsSync(_bundlePath(props)(uri))
@@ -36,6 +38,7 @@ const _create = (props) => {
   fs.mkdirsSync(_bundlesDir(props))
   fs.mkdirsSync(_vaultsDir(props))
   fs.mkdirsSync(_depsDir(props))
+  fs.mkdirsSync(_challengesDir(props))
 
   // Create the vaults
   _carmelVault.create(CARMEL_VAULT_PASSWORD)
@@ -215,6 +218,60 @@ const _addDeps = (props) => () => {
                 })
 }
 
+const _downloadChallenge = (props) => ({ repo, sha, id }) => {
+  return new Promise((resolve, reject) => {
+    if (!_exists(props)){
+      // Initialize the cache if this is the first time using it
+      _create(props)
+      _ok(props)(`Initialized the global cache`)
+    }
+
+   const dir = _challengesDir(props)
+   const cachedPath = path.resolve(dir, repo, sha, id)
+
+   if (fs.existsSync(cachedPath)) {
+     try {
+       const challenge = JSON.parse(fs.readFileSync(path.resolve(cachedPath, 'index.json'), 'utf8'))
+       resolve(Object.assign({}, challenge, { dir: cachedPath }))
+     } catch (e) {
+       reject(new Error("The challenge manifest is invalid"))
+     }
+   }
+
+   // Prepare the deps cache location
+   fs.mkdirsSync(cachedPath)
+
+   const baseUrl = `https://raw.githubusercontent.com/${repo}/${sha}/${id}`
+   const url = `${baseUrl}/index.json`
+
+   got.head(url)
+      .then((ok) => download(url, cachedPath))
+      .then(() => {
+        try {
+          const challenge = JSON.parse(fs.readFileSync(path.resolve(cachedPath, 'index.json'), 'utf8'))
+          const totalTasks = challenge.tasks.length
+          var downloads = []
+
+          for(var i = 0; i < totalTasks; i++) {
+            console.log(i)
+            downloads.push(`${baseUrl}/${i}.tutorial.md`)
+            downloads.push(`${baseUrl}/${i}.validate.js`)
+          }
+
+          Promise.all(downloads.map(f => download(f, cachedPath)))
+                 .then(() => {
+                   resolve(Object.assign({}, challenge, { dir: cachedPath }))
+                 })
+        } catch (e) {
+          reject(new Error("The challenge manifest is invalid"))
+        }
+      })
+      .catch((err) => {
+        reject(new Error("The challenge repository is missing"))
+      })
+  })
+}
+
 const _setup = (props) => () => {
   if (!_exists(props)){
     // Initialize the cache if this is the first time using it
@@ -245,6 +302,7 @@ module.exports = (props) => ({
   downloadBundle: _downloadBundle(props),
   downloadDeps: _downloadDeps(props),
   addDeps: _addDeps(props),
+  downloadChallenge: _downloadChallenge(props),
   setup: _setup(props),
   vaults: _vaults(props)
 })

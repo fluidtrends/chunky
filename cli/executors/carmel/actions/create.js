@@ -3,29 +3,31 @@ const status = require('../status')
 const operation = require('../operation')
 const input = require('../input')
 
-const ACTIONS = ["challenge"]
-
 function createChallenge(account, cache, args) {
   coreutils.logger.info(`This is gonna be great, let's create a new challenge :)`)
   return input.getNewChallengeDetails()
               .then((challenge) => operation.send(Object.assign({}, {
                 type: "create-challenge",
+                status: "created",
                 target: "challenges",
               }, challenge), account, cache))
               .then((response) => {
-                if (response.ok) {
-                  coreutils.logger.ok(`Great stuff! Now make sure the code works. :)`)
+                if (!response.ok) {
+                  coreutils.logger.fail("Oops, please try again")
                   return
                 }
-                coreutils.logger.fail("Oops, please try again")
+                coreutils.logger.info(`Great stuff! Now write the challenge and make history!`)
+                coreutils.logger.info(`When ready, just type:`)
+                coreutils.logger.skip(`chunky carmel publish challenge`)
+                coreutils.logger.info(`Take a look at this sample challenge and start writing your own :)`)
+                coreutils.logger.skip(`https://github.com/fluidtrends/carmel/contrib/sample-challenge`)
               })
               .catch((error) => coreutils.logger.fail(error.message))
 }
 
 function processCommand(account, cache, args) {
   if (!args || args.length === 0) {
-    coreutils.logger.fail(`What do you want to create? Choose one of: ${ACTIONS.join(", ")}`)
-    return Promise.resolve()
+    return createChallenge(account, cache, args)
   }
 
   // The action we want to create
@@ -37,8 +39,7 @@ function processCommand(account, cache, args) {
     default:
   }
 
-  coreutils.logger.fail(`What do you want to create? Choose one of: ${ACTIONS.join(", ")}`)
-  return Promise.resolve()
+  return createChallenge(account, cache, args)
 }
 
 function main(account, cache, args) {
