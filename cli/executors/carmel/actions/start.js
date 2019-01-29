@@ -13,13 +13,13 @@ function getChallenge(account, cache) {
               return
             }
 
-            const challenges = response.data.challenges
+            const challenges = Array.isArray(response.data.challenges) ? response.data.challenges : [response.data.challenges]
 
             if (challenges.length === 0) {
               throw new Error("There are no challenges available yet")
             }
 
-            const published = response.data.challenges.filter(c => c.status === 'published')
+            const published = challenges.filter(c => c.status === 'published')
 
             if (published.length === 0) {
               throw new Error(`There are no published challenges available yet`)
@@ -76,7 +76,10 @@ function processCommand(account, cache, args) {
               type: "start",
               challengeId: challenge.id
             }), account, cache)
-            .then(() => coreutils.logger.ok(`Alright, now. Go break something and have fun with it :)`))
+            .then(() => {
+              coreutils.logger.ok(`Alright, time to have sone fun :) Ready for the first task? Type:`)
+              coreutils.logger.skip(`chunky carmel next`)
+            })
           })
           .catch((error) => {
             coreutils.logger.fail(error.message)

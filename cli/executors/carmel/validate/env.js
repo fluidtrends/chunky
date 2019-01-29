@@ -89,6 +89,10 @@ const _loadChunks = () => {
   return Promise.all(_getChunks().map(chunk => _loadChunk(chunk)))
 }
 
+const _productExists = () => {
+  return _productFileExists("chunky.json")
+}
+
 const _loadProduct = () => {
   return _loadChunks().then((chunks) => ({ chunks, config: _readProductConfig(), dir: _dir() }))
 }
@@ -111,5 +115,6 @@ module.exports = {
   readProductConfig: _readProductConfig,
   loadChunk: _loadChunk,
   loadChunks: _loadChunks,
+  productExists: _productExists,
   loadProduct: _loadProduct
 }

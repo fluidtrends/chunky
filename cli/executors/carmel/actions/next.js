@@ -32,6 +32,7 @@ function prepareVerification({ challenge, taskIndex, totalTasks, account, cache 
   return operation.send(Object.assign({}, {
     target: "journeys",
     type: "next",
+    skills: challenge.content.skills,
     totalTasks,
     expected: Object.assign({}, task.expected),
   }), account, cache)
@@ -47,6 +48,7 @@ function validate({ challenge, task }) {
   mocha.addFile(specFile)
 
   return new Promise((resolve, reject) => {
+
     const captureStdout = new CaptureStdout()
     captureStdout.startCapture()
 
@@ -92,47 +94,81 @@ function verifyNextTask({ challenge, account, cache }) {
     return Promise.reject(new Error("Looks like this challenge is completed"))
   }
 
-  return prepareVerification({ challenge, taskIndex, totalTasks, account, cache })
-        .then((response) => {
-          if (!response.data.ok && response.data.error) {
-            return Promise.reject(new Error("Could not prepare the verification"))
-          }
+  const tutorialFile = path.resolve(challenge.content.dir, `${taskIndex}.tutorial.md`)
+  const tutorial = (exp) => {
+    try {
+      const tutorialRaw = fs.readFileSync(tutorialFile, 'utf8')
+      const tutorialCompiled = Handlebars.compile(tutorialRaw)(exp)
+      return marked(tutorialCompiled)
+    } catch (e) {
+      throw new Error("Invalid tutorial")
+    }
+  }
 
-          if (response.data.taskActive) {
+  if (!challenge.state.taskActive) {
+    return prepareVerification({ challenge, taskIndex, totalTasks, account, cache })
+          .then((response) => {
+            if (!response.ok || response.error || !response.data.taskActive) {
+              return Promise.reject(new Error("Could not prepare the verification"))
+            }
+
             coreutils.logger.info(`Started ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
             coreutils.logger.info(`Alright, time's ticking :) Go ahead and complete this task now. Here's what to do:\n`)
-            const tutorialFile = path.resolve(challenge.content.dir, `${taskIndex}.tutorial.md`)
-            try {
-              const tutorialRaw = fs.readFileSync(tutorialFile, 'utf8')
-              const tutorial = Handlebars.compile(tutorialRaw)(response.data.expected)
-              console.log(marked(tutorial))
-              coreutils.logger.info(`Ready? Go for it :)\n`)
-              return Promise.resolve()
-            } catch (e) {
-              throw new Error('Invalid tutorial')
-            }
-          }
+            console.log(tutorial(response.data.expected))
+            coreutils.logger.info(`Ready? Go for it :)\n`)
 
-          coreutils.logger.info(`Verifying ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+            return Promise.resolve()
+          })
+  }
 
-          const task = {
-            expected: Object.assign({}, response.data.expected),
-            index: taskIndex
-          }
+  coreutils.logger.info(`Verifying ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
 
-          return validate({ challenge: Object.assign({}, challenge, { totalTasks }), task })
-                        .then((result) => {
-                          if (!result.ok && result.error) {
-                            coreutils.logger.fail(result.error)
-                            return
-                          }
+  const task = {
+    expected: Object.assign({}, challenge.state.expectedTaskData),
+    index: taskIndex
+  }
 
-                          coreutils.logger.ok(`Amazing, you did it! Congrats!`)
-                        })
-      })
+  return validate({ challenge: Object.assign({}, challenge, { totalTasks }), task })
+                .then((result) => {
+                  if (!result || !result.ok || result.error) {
+                    coreutils.logger.fail(result.error)
+                    coreutils.logger.info(`Don't worry - it happens, try again :)\n`)
+                    console.log(tutorial(challenge.state.expectedTaskData))
+                    coreutils.logger.info(`Go ahead and try again and don't you worry about a thing :)\n`)
+                  } else {
+                    coreutils.logger.ok(`Amazing, you did it! Congrats! :)\n`)
+                    if ((totalTasks - challenge.state.taskIndex - 1) === 0) {
+                      coreutils.logger.info(`That was the last task - can you believe it? :)\n`)
+                    } else {
+                      coreutils.logger.info(`Keep going now, you have ${totalTasks - challenge.state.taskIndex - 1} tasks left\n`)
+                    }
+                  }
+
+                  return operation.send(Object.assign({}, {
+                    target: "journeys",
+                    type: "next",
+                    totalTasks,
+                    result: result,
+                  }), account, cache)
+                })
+                .then((response) => {
+                  if (!response.data.completed) {
+                    return Promise.resolve()
+                  }
+
+                  coreutils.logger.header(`Congratulations!`)
+                  coreutils.logger.ok(`You have successfully completed this challenge!\n`)
+                })
+                .catch((e) => {
+                  coreutils.logger.fail(`Something went wrong: ${result.error}`)
+                })
 }
 
 function processCommand(account, cache, args) {
+  if (!env.productExists()) {
+    return Promise.reject(new Error('Looks like this is not a Chunky product. Please run this inside a Chunky product'))
+  }
+
   return utils.getChallenge(account, cache)
           .then((challenge) => {
             if (!challenge || !challenge._id) {
@@ -152,7 +188,7 @@ function processCommand(account, cache, args) {
             })
             .then((content) => Object.assign({}, challenge, { content }))
           })
-          .then((challenge) => verifyNextTask({ challenge, account, cache }))
+          .then((challenge) => challenge && verifyNextTask({ challenge, account, cache }))
           .catch((error) => {
             coreutils.logger.fail(error.message)
           })

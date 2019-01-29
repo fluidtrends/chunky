@@ -252,7 +252,7 @@ const _getChallenge = (props) => ({ repo, sha, fragment }) => {
         try {
           const challenge = JSON.parse(fs.readFileSync(path.resolve(cachedPath, 'index.json'), 'utf8'))
           const totalTasks = challenge.tasks.length
-          var downloads = []
+          var downloads = [`${baseUrl}/init.js`]
 
           for(var i = 0; i < totalTasks; i++) {
             downloads.push(`${baseUrl}/${i}.tutorial.md`)
