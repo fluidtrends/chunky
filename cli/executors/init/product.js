@@ -57,7 +57,6 @@ function generateChunks(template) {
       const targetManifestFile = path.resolve(dir, "chunks", chunkName, "chunk.json")
       var targetManifest = JSON.parse(fs.readFileSync(targetManifestFile, 'utf-8'))
       targetManifest = merge(targetManifest, template.chunks[chunkName])
-      console.log(template.chunks[chunkName])
       fs.writeFileSync(targetManifestFile, JSON.stringify(targetManifest, null, 2))
     } catch (e) {
       console.log(e)

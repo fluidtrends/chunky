@@ -1,4 +1,5 @@
 const coreutils = require('coreutils')
+const chalk = require('chalk')
 const status = require('../status')
 const operation = require('../operation')
 const input = require('../input')
@@ -6,18 +7,21 @@ const input = require('../input')
 function listChallenges(account, cache) {
   return operation.send({ target: "listings" }, account, cache)
                   .then((response) => {
-                    if (!response.ok || !response.data) {
+                    if (!response.ok || !response.data || !response.data.challenges) {
                       coreutils.logger.fail("Something went wrong, give it another shot")
                       return
                     }
 
-                    if (!response.data.challenges || response.data.challenges.length === 0) {
+                    if (response.data.challenges.length === 0) {
                       coreutils.logger.info("You have no challenges yet. Wanna create one? Type:")
                       coreutils.logger.skip("chunky carmel create challenge")
                       return
                     }
-
-                    coreutils.logger.info(`You have ${response.data.challenges.length} challenges`)
+  
+                    coreutils.logger.info(`You have created ${response.data.challenges.length} challenges`)
+                    response.data.challenges.map(c => {
+                      coreutils.logger.skip(`${chalk.bold.green(c.name)} (${c.type}) - ${chalk.bold.blue(c.status)} `)
+                    })
                   })
                   .catch((error) => {
                     coreutils.logger.fail(error.message)

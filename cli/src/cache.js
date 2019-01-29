@@ -218,7 +218,7 @@ const _addDeps = (props) => () => {
                 })
 }
 
-const _downloadChallenge = (props) => ({ repo, sha, id }) => {
+const _getChallenge = (props) => ({ repo, sha, fragment }) => {
   return new Promise((resolve, reject) => {
     if (!_exists(props)){
       // Initialize the cache if this is the first time using it
@@ -227,21 +227,23 @@ const _downloadChallenge = (props) => ({ repo, sha, id }) => {
     }
 
    const dir = _challengesDir(props)
-   const cachedPath = path.resolve(dir, repo, sha, id)
+   const cachedPath = path.resolve(dir, repo, sha, fragment)
 
    if (fs.existsSync(cachedPath)) {
      try {
        const challenge = JSON.parse(fs.readFileSync(path.resolve(cachedPath, 'index.json'), 'utf8'))
        resolve(Object.assign({}, challenge, { dir: cachedPath }))
+       return
      } catch (e) {
        reject(new Error("The challenge manifest is invalid"))
+       return
      }
    }
 
    // Prepare the deps cache location
    fs.mkdirsSync(cachedPath)
 
-   const baseUrl = `https://raw.githubusercontent.com/${repo}/${sha}/${id}`
+   const baseUrl = `https://raw.githubusercontent.com/${repo}/${sha}/${fragment}`
    const url = `${baseUrl}/index.json`
 
    got.head(url)
@@ -253,7 +255,6 @@ const _downloadChallenge = (props) => ({ repo, sha, id }) => {
           var downloads = []
 
           for(var i = 0; i < totalTasks; i++) {
-            console.log(i)
             downloads.push(`${baseUrl}/${i}.tutorial.md`)
             downloads.push(`${baseUrl}/${i}.validate.js`)
           }
@@ -302,7 +303,7 @@ module.exports = (props) => ({
   downloadBundle: _downloadBundle(props),
   downloadDeps: _downloadDeps(props),
   addDeps: _addDeps(props),
-  downloadChallenge: _downloadChallenge(props),
+  getChallenge: _getChallenge(props),
   setup: _setup(props),
   vaults: _vaults(props)
 })

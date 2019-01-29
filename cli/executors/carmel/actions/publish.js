@@ -6,7 +6,7 @@ const inquirer = require('inquirer')
 const got = require('got')
 
 function findChallenge(account, cache, args) {
-  coreutils.logger.info(`Let's look up your challenges, hold on ...`)
+  coreutils.logger.info(`Let's look up your unpublished challenges`)
 
   return operation.send({ target: "listings" }, account, cache)
                   .then((response) => {
@@ -22,10 +22,15 @@ function findChallenge(account, cache, args) {
                     }
 
                     const challenges = Array.isArray(response.data.challenges) ? response.data.challenges : [response.data.challenges]
+                    const unpublished = challenges.filter(c => c.status !== 'published')
+
+                    if (unpublished.length === 0) {
+                      throw new Error('You have no pending unpublished challenges')
+                    }
 
                     return inquirer.prompt([{
                       type: 'list',
-                      choices: challenges.map(i => i._id),
+                      choices: unpublished.map(i => i._id),
                       name: 'id',
                       message: "What challenge do you want to publish?"
                     }])
@@ -56,7 +61,6 @@ function publishChallenge(account, cache, args) {
   return findChallenge(account, cache, args)
           .then((challenge) => {
             if (!challenge) {
-              coreutils.logger.info(`Oh no, how about you try this again :)`)
               return
             }
 
@@ -71,7 +75,6 @@ function publishChallenge(account, cache, args) {
           })
           .then((done) => {
             if (!done || !done.ok) {
-              coreutils.logger.info(`Opps, are you sure your challenge is ready ? :)`)
               return
             }
             coreutils.logger.ok(`Woohoo, you did it! Now wait until someone audits it for you :)`)

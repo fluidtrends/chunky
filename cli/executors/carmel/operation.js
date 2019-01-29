@@ -3,10 +3,14 @@ const firebase = require('firebase')
 const firebaseline = require('firebaseline')
 const fetch = require('node-fetch')
 const { Base64 } = require('js-base64')
+const chalk = require('chalk')
 const si = require('systeminformation')
 const os = require('os')
 const setup = require('./setup')
 const carmelFirebaseConfig = require('../../assets/carmel.firebase.json')
+const Ora = require('ora')
+
+const spinner = new Ora({ text: chalk.bold.green('Chunky is working, hold on a sec'), spinner: 'dots', color: 'yellow', stream: process.stdout })
 
 function getUserAccessToken(account, cache) {
   return fetch(`https://securetoken.googleapis.com/v1/token?key=${carmelFirebaseConfig.apiKey}`, {
@@ -35,7 +39,6 @@ function callAction(args, account, cache, accessToken) {
 
   const data = Object.assign({}, args, {
      platform: process.platform,
-     email: account.email,
      machineId: cache.vaults.carmel.read('id')
   })
 
@@ -48,6 +51,10 @@ function callAction(args, account, cache, accessToken) {
        'Authorization': Base64.encode(accessToken)
      }})
      .then(res => res.json())
+     .then((json) => {
+       spinner.stop()
+       return json
+     })
 }
 
 function send(args, account, cache) {
@@ -55,6 +62,8 @@ function send(args, account, cache) {
     // Quietly refuse to do anything if not logged in
     return Promise.resolve()
   }
+
+  spinner.start()
 
   return getUserAccessToken(account, cache)
           .then((accessToken) => callAction(args, account, cache, accessToken))

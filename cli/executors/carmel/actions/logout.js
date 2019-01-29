@@ -4,10 +4,11 @@ const input = require('../input')
 const operation = require('../operation')
 
 function doLogout(account, cache) {
-  cache.vaults.carmel.write('account', '')
-  coreutils.logger.ok(`You are now logged out`)
-  return operation.send({ target: "journeys", type: "logout" })
-  return Promise.resolve()
+  return operation.send({ target: "journeys", type: "logout" }, account, cache)
+        .then((d) => {
+          cache.vaults.carmel.write('account', '')
+          coreutils.logger.ok(`You are now logged out`)
+        })
 }
 
 function skipLogout() {

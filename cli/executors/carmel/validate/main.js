@@ -14,29 +14,23 @@ chai.use(chaiEnzyme())
 chai.use(chaiAsPromised)
 enzyme.configure({ adapter: new Adapter() })
 
-const readFile = (file) => {
-  try {
-    const filepath = path.resolve(process.cwd(), file)
-    const content = fs.readFileSync(filepath, 'utf8')
-    const ext = path.extname(filepath)
-
-    return (ext === '.json' ? JSON.parse(content) : content)
-  } catch (e) {
-  }
-}
-
-const utils = {
-  readFile
-}
+global.chai = chai
+global.jsdom = jsdom
+global.enzyme = enzyme
+global.sinon = sinon
 
 describe("challenge", () => {
   var validate
+  var init
 
-  before(() => {
+  before((done) => {
     try {
-      validate = require(path.resolve(CARMEL.challenge.dir, `${CARMEL.taskIndex}.validate.js`))
+      init = require(path.resolve(carmel.challenge.content.dir, `init.js`))
+      validate = require(path.resolve(carmel.challenge.content.dir, `${carmel.challenge.state.taskIndex}.validate.js`))
+      done()
     } catch (e) {
       console.log(e)
+      done(new Error("Cannot initialize the challenge"))
     }
   })
 
@@ -44,17 +38,6 @@ describe("challenge", () => {
   })
 
   it("task", (done) => {
-    validate.main({
-      chai,
-      jsdom,
-      enzyme,
-      sinon,
-      utils,
-      dir: process.cwd(),
-      expected: CARMEL.expected,
-      challenge: CARMEL.challenge,
-      taskIndex: CARMEL.taskIndex,
-      done
-    })
+    init((args) => validate(done, args))
   })
 })

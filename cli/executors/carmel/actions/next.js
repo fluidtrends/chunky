@@ -5,14 +5,39 @@ const hook = require('hook-std')
 const Mocha = require('mocha')
 const CaptureStdout = require('capture-stdout')
 const status = require('../status')
+const operation = require('../operation')
+const utils = require('../utils')
+const chalk = require('chalk')
+const env = require('../validate/env')
+const casual = require('casual')
+const marked = require('marked')
+const TerminalRenderer = require('marked-terminal')
+const Handlebars = require('handlebars')
 
-function validate(challenge, expected, taskIndex, cache) {
-  global.CARMEL =  {
-    challenge,
-    taskIndex,
-    expected
+marked.setOptions({
+  renderer: new TerminalRenderer()
+})
+
+function prepareVerification({ challenge, taskIndex, totalTasks, account, cache }) {
+  if (!challenge.content || !challenge.content.tasks || challenge.content.tasks.length <= taskIndex) {
+    return Promise.resolve({})
   }
 
+  const task = challenge.content.tasks[taskIndex]
+
+  if (!task || !task.expected) {
+    return Promise.resolve({})
+  }
+
+  return operation.send(Object.assign({}, {
+    target: "journeys",
+    type: "next",
+    totalTasks,
+    expected: Object.assign({}, task.expected),
+  }), account, cache)
+}
+
+function validate({ challenge, task }) {
   const mocha = new Mocha({
     timeout: 12000,
     reporter: "json"
@@ -21,64 +46,116 @@ function validate(challenge, expected, taskIndex, cache) {
   const specFile = path.resolve(path.dirname(__dirname), "validate", "main.js")
   mocha.addFile(specFile)
 
-  const captureStdout = new CaptureStdout()
-  captureStdout.startCapture()
-
   return new Promise((resolve, reject) => {
-    mocha.run((failures) => {
-      captureStdout.stopCapture()
-      const output = captureStdout.getCapturedText()
-      captureStdout.clearCaptureText()
-      const result = JSON.parse(output.pop())
+    const captureStdout = new CaptureStdout()
+    captureStdout.startCapture()
 
-      if (result.failures && result.failures.length > 0) {
-        resolve({ output, error: result.failures[0].err.message })
-        return
-      }
+    env.loadProduct()
+       .then((product) => {
+          global.carmel = Object.assign({}, {
+            product,
+            utils: env,
+            challenge,
+            task
+          })
 
-      resolve({ output, "ok": true })
-    })
+          mocha.run((failures) => {
+            captureStdout.stopCapture()
+            const output = captureStdout.getCapturedText()
+            captureStdout.clearCaptureText()
+            const result = JSON.parse(output.pop())
+
+            if (result.failures && result.failures.length > 0) {
+              resolve({ output, error: result.failures[0].err.message })
+              return
+            }
+
+             resolve({ output, "ok": true })
+          })
+       })
   })
 }
 
-function verifyTask(account, cache, args) {
-  const taskIndex = 0
-  const expected = {
-    title: "Join Now",
-    chunk: "auth",
-    route: "register"
+function verifyNextTask({ challenge, account, cache }) {
+  if (!challenge.content || !challenge.content.tasks || challenge.content.tasks.length == 0) {
+    return Promise.reject(new Error("Looks like this challenge does not have any tasks"))
   }
 
-  const dir = process.cwd()
-  const manifest = path.resolve(dir, 'chunky.json')
+  const totalTasks = challenge.content.tasks.length
+  const taskIndex = parseInt(challenge.state.taskIndex)
 
-  if (!fs.existsSync(manifest)) {
-    coreutils.logger.fail(`Hey, this doesn't look like a Chunky product :)`)
-    return
+  if (isNaN(taskIndex)) {
+    return Promise.reject(new Error("Looks like this challenge does not have a valid task index"))
   }
 
-  return cache.downloadChallenge({
-    repo: 'idancali/carmel-challenges',
-    sha: "5afebed99291fd9fc8dbee9e8b3e2a86a1242076",
-    id: "change-strings",
-    cache
-  })
-   .then((challenge) => validate(challenge, expected, taskIndex, cache))
-   .then((result) => {
-     if (!result.ok && result.error) {
-       coreutils.logger.fail(result.error)
-       return
-     }
-     coreutils.logger.ok(`Passed`)
-    })
-   .catch((error) => {
-     coreutils.logger.fail(error.message)
-   })
+  if (taskIndex >= totalTasks) {
+    return Promise.reject(new Error("Looks like this challenge is completed"))
+  }
+
+  return prepareVerification({ challenge, taskIndex, totalTasks, account, cache })
+        .then((response) => {
+          if (!response.data.ok && response.data.error) {
+            return Promise.reject(new Error("Could not prepare the verification"))
+          }
+
+          if (response.data.taskActive) {
+            coreutils.logger.info(`Started ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+            coreutils.logger.info(`Alright, time's ticking :) Go ahead and complete this task now. Here's what to do:\n`)
+            const tutorialFile = path.resolve(challenge.content.dir, `${taskIndex}.tutorial.md`)
+            try {
+              const tutorialRaw = fs.readFileSync(tutorialFile, 'utf8')
+              const tutorial = Handlebars.compile(tutorialRaw)(response.data.expected)
+              console.log(marked(tutorial))
+              coreutils.logger.info(`Ready? Go for it :)\n`)
+              return Promise.resolve()
+            } catch (e) {
+              throw new Error('Invalid tutorial')
+            }
+          }
+
+          coreutils.logger.info(`Verifying ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+
+          const task = {
+            expected: Object.assign({}, response.data.expected),
+            index: taskIndex
+          }
+
+          return validate({ challenge: Object.assign({}, challenge, { totalTasks }), task })
+                        .then((result) => {
+                          if (!result.ok && result.error) {
+                            coreutils.logger.fail(result.error)
+                            return
+                          }
+
+                          coreutils.logger.ok(`Amazing, you did it! Congrats!`)
+                        })
+      })
 }
-
 
 function processCommand(account, cache, args) {
-  return verifyTask(account, cache, args)
+  return utils.getChallenge(account, cache)
+          .then((challenge) => {
+            if (!challenge || !challenge._id) {
+              coreutils.logger.skip(`Try starting a challenge first :)`)
+              return
+            }
+
+            if (!challenge.status || challenge.status !== "published") {
+              coreutils.logger.skip(`This challenge is unpublished, give us some time to audit first.`)
+              return
+            }
+
+            return cache.getChallenge({
+              repo: challenge.repo,
+              sha: challenge.hash,
+              fragment: challenge.path
+            })
+            .then((content) => Object.assign({}, challenge, { content }))
+          })
+          .then((challenge) => verifyNextTask({ challenge, account, cache }))
+          .catch((error) => {
+            coreutils.logger.fail(error.message)
+          })
 }
 
 function main(account, cache, args) {
