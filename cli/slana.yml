@@ -216,7 +216,7 @@ commands:
 
 - name: carmel [actions..]
   description: Interact with the Carmel Platform
-  more: Available actions include hello, login, logout, register
+  more: Available actions include hello, login, logout, register, init, start, pause, next, publish
   executor: executors/carmel
   options:
   - name: testnet
