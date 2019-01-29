@@ -18,6 +18,10 @@ marked.setOptions({
   renderer: new TerminalRenderer()
 })
 
+function globalCarmel ({ task, challenge, product }) {
+  return Object.assign({}, { product, utils: env, challenge, task })
+}
+
 function prepareVerification({ challenge, taskIndex, totalTasks, account, cache }) {
   if (!challenge.content || !challenge.content.tasks || challenge.content.tasks.length <= taskIndex) {
     return Promise.resolve({})
@@ -52,15 +56,11 @@ function validate({ challenge, task }) {
     const captureStdout = new CaptureStdout()
     captureStdout.startCapture()
 
-    env.loadProduct()
-       .then((product) => {
-          global.carmel = Object.assign({}, {
-            product,
-            utils: env,
-            challenge,
-            task
-          })
-
+    env.loadProduct().then((product) => {
+      global.carmel = globalCarmel({ task, product, challenge })
+      try {
+        const init = require(path.resolve(challenge.content.dir, 'init.js'))
+        init(global.carmel).then((input) => {
           mocha.run((failures) => {
             captureStdout.stopCapture()
             const output = captureStdout.getCapturedText()
@@ -68,13 +68,17 @@ function validate({ challenge, task }) {
             const result = JSON.parse(output.pop())
 
             if (result.failures && result.failures.length > 0) {
-              resolve({ output, error: result.failures[0].err.message })
+              resolve({ output, error: result.failures[0].err.message, input })
               return
             }
 
-             resolve({ output, "ok": true })
+             resolve({ output, ok: true, input })
           })
-       })
+        }).catch((err) => reject(err))
+      } catch (e) {
+        reject(e)
+      }
+    })
   })
 }
 
@@ -95,10 +99,10 @@ function verifyNextTask({ challenge, account, cache }) {
   }
 
   const tutorialFile = path.resolve(challenge.content.dir, `${taskIndex}.tutorial.md`)
-  const tutorial = (exp) => {
+  const tutorial = (exp, input) => {
     try {
       const tutorialRaw = fs.readFileSync(tutorialFile, 'utf8')
-      const tutorialCompiled = Handlebars.compile(tutorialRaw)(exp)
+      const tutorialCompiled = Handlebars.compile(tutorialRaw)(Object.assign({}, exp, input))
       return marked(tutorialCompiled)
     } catch (e) {
       throw new Error("Invalid tutorial")
@@ -106,19 +110,37 @@ function verifyNextTask({ challenge, account, cache }) {
   }
 
   if (!challenge.state.taskActive) {
-    return prepareVerification({ challenge, taskIndex, totalTasks, account, cache })
-          .then((response) => {
-            if (!response.ok || response.error || !response.data.taskActive) {
-              return Promise.reject(new Error("Could not prepare the verification"))
-            }
 
-            coreutils.logger.info(`Started ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
-            coreutils.logger.info(`Alright, time's ticking :) Go ahead and complete this task now. Here's what to do:\n`)
-            console.log(tutorial(response.data.expected))
-            coreutils.logger.info(`Ready? Go for it :)\n`)
+    return prepareVerification({ challenge, taskIndex, totalTasks, account, cache }).then((response) => {
+      const task = {
+        expected: Object.assign({}, response.data.expected),
+        index: taskIndex
+      }
 
-            return Promise.resolve()
-          })
+      return env.loadProduct().then((product) => {
+        global.carmel = globalCarmel({ task, product, challenge })
+        try {
+          const init = require(path.resolve(challenge.content.dir, 'init.js'))
+          return init(global.carmel).then((input) => ({ response, input }))
+        } catch (e) {
+        }
+      })
+    })
+    .then(({ response, input }) => {
+      if (!response.ok || response.error || !response.data.taskActive) {
+        return Promise.reject(new Error("Could not prepare the verification"))
+      }
+
+      coreutils.logger.info(`Started ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+      coreutils.logger.info(`Alright, time's ticking :) Go ahead and complete this task now. Here's what to do:\n`)
+      console.log(tutorial(response.data.expected, input))
+      coreutils.logger.info(`Ready? Go for it :)\n`)
+
+      return Promise.resolve()
+    })
+    .catch((e) => {
+      coreutils.logger.fail(`Something went wrong: ${e.message}`)
+    })
   }
 
   coreutils.logger.info(`Verifying ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
@@ -133,7 +155,7 @@ function verifyNextTask({ challenge, account, cache }) {
                   if (!result || !result.ok || result.error) {
                     coreutils.logger.fail(result.error)
                     coreutils.logger.info(`Don't worry - it happens, try again :)\n`)
-                    console.log(tutorial(challenge.state.expectedTaskData))
+                    console.log(tutorial(challenge.state.expectedTaskData, result.input))
                     coreutils.logger.info(`Go ahead and try again and don't you worry about a thing :)\n`)
                   } else {
                     coreutils.logger.ok(`Amazing, you did it! Congrats! :)\n`)
@@ -160,7 +182,7 @@ function verifyNextTask({ challenge, account, cache }) {
                   coreutils.logger.ok(`You have successfully completed this challenge!\n`)
                 })
                 .catch((e) => {
-                  coreutils.logger.fail(`Something went wrong: ${result.error}`)
+                  coreutils.logger.fail(`Something went wrong: ${e.message}`)
                 })
 }
 

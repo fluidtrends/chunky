@@ -38,6 +38,8 @@ describe("challenge", () => {
   })
 
   it("task", (done) => {
-    init((args) => validate(done, args))
+    init(carmel)
+        .then((args) => validate(done, args))
+        .catch((error) => done(error))
   })
 })
