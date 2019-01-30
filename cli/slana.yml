@@ -2,6 +2,7 @@ name: chunky
 footer:
   suffix: "Chunky says:"
   text: "join me on Carmel.io and I'll help you grow your skillset"
+
 commands:
 - name: init [name]
   more: Specify a custom name or go with the default generated name
@@ -23,6 +24,14 @@ commands:
     description: Create a new product using the specified template from the default bundle
   - command: init MyProduct --template some-template --bundle some-bundle
     description: Create a new product using the specified template from the specified bundle
+
+- name: install
+  more: Install the dependencies
+  description: Install all dependencies
+  executor: executors/install
+  examples:
+  - command: install
+    description: Install everything
 
 - name: start [platforms..]
   description: Start the packagers for one or more platforms
