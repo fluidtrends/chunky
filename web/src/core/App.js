@@ -298,22 +298,22 @@ export default class App extends PureComponent {
         resolvedStrings
       )
 
-      const ScreenRoute = this._makeScreenRoute(
-        screenPath,
-        screenId,
-        route,
-        screenProps
-      )
-      routes.push(ScreenRoute)
-
       if (route.variants) {
         const ScreenVariantRoute = this._makeScreenRoute(
-          `${screenPath}/:variant`,
+          `${screenPath}${screenPath === '/' ? '' : '/'}:variant`,
           screenId,
           route,
           screenProps
         )
         routes.push(ScreenVariantRoute)
+      } else {
+        const ScreenRoute = this._makeScreenRoute(
+          screenPath,
+          screenId,
+          route,
+          screenProps
+        )
+        routes.push(ScreenRoute)
       }
     }
 
@@ -408,7 +408,10 @@ export default class App extends PureComponent {
   }
 
   renderRoutes() {
-    return this.routes
+    const dynamicRoutes = this.routes.filter(r => r.key.split("/").includes(":variant"))
+    const staticRoutes = this.routes.filter(r => !r.key.split("/").includes(":variant"))
+
+    return staticRoutes.concat(dynamicRoutes)
   }
 
   render() {

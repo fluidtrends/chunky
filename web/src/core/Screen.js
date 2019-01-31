@@ -197,8 +197,22 @@ export default class Screen extends Core.Screen {
     return fetch(url).then(response => response.json())
   }
 
+  get dynamicVariant() {
+    return this._dynamicVariant
+  }
+
   _loadVariants () {
+    console.log(this.constructor.name)
     return new Promise((resolve, reject) => {
+
+      if (this.props.variants && ("boolean" === typeof this.props.variants)) {
+        this._dynamicVariant = this.props.location.pathname.substring(this.props.path.length)
+        this._variants = [{ path: `${this.props.path}${this.props.path === '/' ? '' : '/'}${this.dynamicVariant}`}]
+        this._variant = this.variants[0]
+        resolve([])
+        return
+      }
+
       if (!this.props.variants || !Array.isArray(this.props.variants) || this.props.variants.length === 0) {
         resolve([])
         return
@@ -210,6 +224,7 @@ export default class Screen extends Core.Screen {
         fetch(this.props.variants).then(response => resolve(response.json()))
         return
       }
+
 
       const data = this.importData(`${this.props.variants}${this.props.desktop ? '.desktop' : ''}`)
 

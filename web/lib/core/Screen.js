@@ -217,7 +217,17 @@ var Screen = function (_Core$Screen) {
     value: function _loadVariants() {
       var _this2 = this;
 
+      console.log(this.constructor.name);
       return new Promise(function (resolve, reject) {
+
+        if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
+          _this2._dynamicVariant = _this2.props.location.pathname.substring(_this2.props.path.length);
+          _this2._variants = [{ path: '' + _this2.props.path + (_this2.props.path === '/' ? '' : '/') + _this2.dynamicVariant }];
+          _this2._variant = _this2.variants[0];
+          resolve([]);
+          return;
+        }
+
         if (!_this2.props.variants || !Array.isArray(_this2.props.variants) || _this2.props.variants.length === 0) {
           resolve([]);
           return;
@@ -633,6 +643,11 @@ var Screen = function (_Core$Screen) {
     key: 'expectsVariants',
     get: function get() {
       return this.props.variants !== undefined;
+    }
+  }, {
+    key: 'dynamicVariant',
+    get: function get() {
+      return this._dynamicVariant;
     }
   }, {
     key: 'variants',
