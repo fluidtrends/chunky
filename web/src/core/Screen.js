@@ -202,7 +202,6 @@ export default class Screen extends Core.Screen {
   }
 
   _loadVariants () {
-    console.log(this.constructor.name)
     return new Promise((resolve, reject) => {
 
       if (this.props.variants && ("boolean" === typeof this.props.variants)) {

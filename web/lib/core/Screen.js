@@ -217,7 +217,6 @@ var Screen = function (_Core$Screen) {
     value: function _loadVariants() {
       var _this2 = this;
 
-      console.log(this.constructor.name);
       return new Promise(function (resolve, reject) {
 
         if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
