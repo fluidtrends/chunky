@@ -4,6 +4,13 @@ const path = require('path')
 const loaders = require('../../src/loaders')
 const operation = require('../carmel/operation')
 
+
+const saveEvent = (type, value, cache) => {
+  const events = Object.assign({}, cache.vaults.carmel.read('events'))
+  events[type] = Object.assign({}, value, { timestamp: `${Date.now()}`})
+  cache.vaults.carmel.write('events', events)
+}
+
 module.exports = function (port, account, cache) {
   const file = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'bin', 'start.js')
   const start = require(file)
@@ -24,18 +31,20 @@ module.exports = function (port, account, cache) {
       const errors = event.errors
       errors && delete event.errors
       const compileEvent = Object.assign({}, event, errors && errors.length > 0 && { error: errors[0].message })
-      operation.send(Object.assign({}, { target: "journeys", type: "compile-web", port, pwd: process.cwd() }, compileEvent), account, cache)
+
+      saveEvent('compileWeb', compileEvent, cache)
+
     })
     .then(url => {
       opn(`http://localhost:${port}`)
-      return operation.send({ target: "journeys", type: "start-web", port, pwd: process.cwd() }, account, cache)
+      saveEvent('startWeb', { port, pwd: process.cwd() }, cache)
     })
     .catch(e => {
       coreutils.logger.fail(e)
-      return operation.send({ target: "journeys", type: "start-web", port, pwd: process.cwd(), error: e.message }, account, cache)
+      saveEvent('startWeb', { port, pwd: process.cwd(),  error: e.message }, cache)
     })
   } catch (e) {
     coreutils.logger.fail(e)
-    return operation.send({ target: "journeys", type: "start-web", port, pwd: process.cwd(), error: e.message }, account, cache)
+    saveEvent('startWeb', { port, pwd: process.cwd(),  error: e.message }, cache)
   }
 }

@@ -4,6 +4,7 @@ const status = require('../status')
 const operation = require('../operation')
 const input = require('../input')
 const inquirer = require('inquirer')
+const utils = require('../utils')
 
 function getChallenge(account, cache) {
   return operation.send({ target: "listings", all: true }, account, cache)
@@ -77,8 +78,9 @@ function processCommand(account, cache, args) {
               challengeId: challenge.id
             }), account, cache)
             .then(() => {
-              coreutils.logger.ok(`Alright, time to have sone fun :) Ready for the first task? Type:`)
-              coreutils.logger.skip(`chunky carmel next`)
+              utils.box('✓ Challenge started')
+              coreutils.logger.info(`Alright, time to have some fun :) Ready for the first task?`)
+              utils.box('chunky carmel next', 'code')
             })
           })
           .catch((error) => {
