@@ -206,6 +206,7 @@ export default class Screen extends Core.Screen {
 
       if (this.props.variants && ("boolean" === typeof this.props.variants)) {
         this._dynamicVariant = this.props.location.pathname.substring(this.props.path.length)
+        this._dynamicVariant = (this._dynamicVariant[0] === '/' ? this._dynamicVariant.substring(1) : this._dynamicVariant)
         this._variants = [{ path: `${this.props.path}${this.props.path === '/' ? '' : '/'}${this.dynamicVariant}`}]
         this._variant = this.variants[0]
         resolve([])

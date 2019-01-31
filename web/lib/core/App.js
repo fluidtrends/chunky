@@ -319,12 +319,12 @@ var App = function (_PureComponent) {
         }
         screenProps.strings = Object.assign({}, this.props.strings, resolvedStrings);
 
+        var ScreenRoute = this._makeScreenRoute(screenPath, screenId, route, screenProps);
+        routes.push(ScreenRoute);
+
         if (route.variants) {
           var ScreenVariantRoute = this._makeScreenRoute('' + screenPath + (screenPath === '/' ? '' : '/') + ':variant', screenId, route, screenProps);
           routes.push(ScreenVariantRoute);
-        } else {
-          var ScreenRoute = this._makeScreenRoute(screenPath, screenId, route, screenProps);
-          routes.push(ScreenRoute);
         }
       }
 

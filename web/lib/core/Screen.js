@@ -221,6 +221,7 @@ var Screen = function (_Core$Screen) {
 
         if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
           _this2._dynamicVariant = _this2.props.location.pathname.substring(_this2.props.path.length);
+          _this2._dynamicVariant = _this2._dynamicVariant[0] === '/' ? _this2._dynamicVariant.substring(1) : _this2._dynamicVariant;
           _this2._variants = [{ path: '' + _this2.props.path + (_this2.props.path === '/' ? '' : '/') + _this2.dynamicVariant }];
           _this2._variant = _this2.variants[0];
           resolve([]);

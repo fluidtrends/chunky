@@ -298,6 +298,14 @@ export default class App extends PureComponent {
         resolvedStrings
       )
 
+      const ScreenRoute = this._makeScreenRoute(
+        screenPath,
+        screenId,
+        route,
+        screenProps
+      )
+      routes.push(ScreenRoute)
+
       if (route.variants) {
         const ScreenVariantRoute = this._makeScreenRoute(
           `${screenPath}${screenPath === '/' ? '' : '/'}:variant`,
@@ -306,14 +314,6 @@ export default class App extends PureComponent {
           screenProps
         )
         routes.push(ScreenVariantRoute)
-      } else {
-        const ScreenRoute = this._makeScreenRoute(
-          screenPath,
-          screenId,
-          route,
-          screenProps
-        )
-        routes.push(ScreenRoute)
       }
     }
 
