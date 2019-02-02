@@ -23,6 +23,7 @@ import {
   ListItem,
   ListItemPrimaryText
 } from '@rmwc/list'
+import platform from 'platform'
 
 export default class Screen extends Core.Screen {
   constructor (props) {
@@ -74,6 +75,30 @@ export default class Screen extends Core.Screen {
     }
 
     this._load(this.props)
+  }
+
+  get platformType() {
+    if (this.isMobile) {
+      return this.platformOS
+    }
+
+    return this.isWindows ? "windows" : (this.isMac ? "mac" : "linux")
+  }
+
+  get platformOS() {
+    return platform.os.family.toLowerCase()
+  }
+
+  get isMobile() {
+    return ["ios", "android"].includes(this.platformOS === 'ios' || this.platformOS)
+  }
+
+  get isMac() {
+    return "os x" === this.platformOS
+  }
+
+  get isWindows() {
+    return this.platformOS.includes("windows")
   }
 
   get sidebarWidth () {
