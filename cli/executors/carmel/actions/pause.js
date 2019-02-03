@@ -14,7 +14,7 @@ function processCommand(account, cache, args) {
               return
             }
 
-            coreutils.logger.info(`You're currently taking the ${chalk.green.bold(challenge.name)} challenge`)
+            coreutils.logger.info(`You're currently taking the ${chalk.green.bold(challenge.title)} challenge`)
 
             return inquirer.prompt([{
               type: 'confirm',

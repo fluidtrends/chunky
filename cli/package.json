@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -53,7 +53,7 @@
     "image-downloader": "^3.4.2",
     "inquirer": "^6.2.1",
     "isomorphic-git": "^0.51.6",
-    "js-base64": "^2.5.0",
+    "js-base64": "^2.5.1",
     "js-yaml": "^3.9.0",
     "jsdom": "^13.1.0",
     "json2xls": "^0.1.2",
@@ -71,6 +71,7 @@
     "npm-registry-fetch": "^3.8.0",
     "npminstall": "^3.20.2",
     "open": "^0.0.5",
+    "open-editor": "^1.2.0",
     "opn": "^5.1.0",
     "ora": "0.2.3",
     "os": "^0.1.1",

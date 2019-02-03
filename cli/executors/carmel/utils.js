@@ -7,6 +7,7 @@ const inquirer = require('inquirer')
 const notifier = require('node-notifier')
 const path = require('path')
 const boxen = require('boxen')
+const Base64 = require('js-base64').Base64;
 
 var nacl = require('tweetnacl')
 nacl.util = require('tweetnacl-util')
@@ -25,6 +26,14 @@ function secureKey(cache) {
   cache.vaults.carmel.write('secureKey', secureKey)
 
   return secureKey
+}
+
+function encode(account, cache, input) {
+  return Base64.encode(JSON.stringify(input))
+}
+
+function decode(account, cache, input) {
+  return JSON.parse(Base64.decode(input))
 }
 
 function encrypt(account, cache, input) {
@@ -74,6 +83,7 @@ function box(message, type) {
 function getChallenge(account, cache) {
   return operation.send({ target: "listings" }, account, cache)
           .then((response) => {
+            console.log(response)
             if (!response.ok || !response.data || !response.data.journey) {
               coreutils.logger.fail("Something went wrong, give it another shot")
               return
@@ -96,6 +106,8 @@ function getChallenge(account, cache) {
 module.exports = {
   getChallenge,
   box,
+  encode,
+  decode,
   encrypt,
   decrypt
 }

@@ -7,7 +7,7 @@ const operation = require('../../operation')
 const utils = require('../../utils')
 const chalk = require('chalk')
 const env = require('../../validate/env')
-
+const opn = require('opn')
 const casual = require('casual')
 const marked = require('marked')
 
@@ -57,6 +57,16 @@ function validate(challenge, cache, original) {
   })
 }
 
+function openEditor(file) {
+  try {
+    Promise.all([opn("chunky.code-workspace"), opn(file)])
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+
+
 function showTutorial(challenge, original) {
   try {
     const tutorialFile = path.resolve(challenge.content.dir, `${challenge.state.taskIndex}.tutorial.md`)
@@ -64,13 +74,21 @@ function showTutorial(challenge, original) {
     const tutorialCompiled = Handlebars.compile(tutorialRaw)(Object.assign({}, original))
 
     console.log(marked(tutorialCompiled))
+
+    // const { files } = challenge.content.tasks[challenge.state.taskIndex]
+    //
+    // if (!files || !files[0]) {
+    //   return
+    // }
+    //
+    // console.log(files[0])
   } catch (e) {
     console.log(e)
   }
 }
 
 function startTask(challenge, account, cache) {
-  coreutils.logger.info(`Starting ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + challenge.state.totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+  coreutils.logger.info(`Starting ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + challenge.state.totalTasks)} for challenge ${chalk.green.bold(challenge.title)}`)
 
   const args = initArgs(challenge, cache)
   const init = require(path.resolve(challenge.content.dir, 'init.js'))
@@ -99,9 +117,10 @@ function processCommand(account, cache, args) {
               return startTask(challenge, account, cache)
             }
 
-            coreutils.logger.info(`Validating ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + challenge.state.totalTasks)} for challenge ${chalk.green.bold(challenge.name)}`)
+            coreutils.logger.info(`Validating ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + challenge.state.totalTasks)} for challenge ${chalk.green.bold(challenge.title)}`)
 
-            const state = utils.decrypt(account, cache, challenge.state.signature)
+            // const state = utils.decrypt(account, cache, challenge.state.signature)
+            const state = utils.decode(account, cache, challenge.state.signature)
 
             return validate(challenge, cache, Object.assign({}, state)).then((data) => {
               if (data && data.ok) {
@@ -127,6 +146,7 @@ function processCommand(account, cache, args) {
 
               coreutils.logger.info(`Keep trying - don't worry it happens to the best of us. When ready:`)
               utils.box('chunky carmel next', 'code')
+
               return data
             })
             .then((result) => {

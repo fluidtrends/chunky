@@ -104,6 +104,9 @@ function createFiles (c, template) {
   // Generate hidden file
   createFile(".gitignore", "node_modules\n.DS_Store\n")
 
+  // Generate Visual Studio Code workspace
+  createFile("chunky.code-workspace", JSON.stringify({ folders: [{ "path": "." }]}))
+
   // Generate the main json files
   createFile("package.json", template.package, true)
   createFile("chunky.json", template.manifest, true)

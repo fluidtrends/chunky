@@ -27,7 +27,7 @@ function getChallenge(account, cache) {
             }
 
             const choices = published.map(c => {
-              return { name: `${c.name} (${c.level})`, value: c.id }
+              return { name: `${c.title} (${c.level})`, value: c.id }
             })
 
             return inquirer.prompt([{

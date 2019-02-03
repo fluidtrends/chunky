@@ -34,6 +34,10 @@ var _urlParse2 = _interopRequireDefault(_urlParse);
 
 var _reactChunky = require('react-chunky');
 
+var _handlebars = require('handlebars/dist/cjs/handlebars');
+
+var _handlebars2 = _interopRequireDefault(_handlebars);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -90,9 +94,13 @@ var Text = function (_Component) {
   }, {
     key: 'loadFromUrl',
     value: function loadFromUrl(url) {
+      var _this3 = this;
+
       var translatedUrl = this.state.selectedLanguage && !url.includes('json') ? url.replace('/text/', '/text/' + this.state.selectedLanguage + '/') : url;
       return fetch(translatedUrl).then(function (response) {
         return response.text();
+      }).then(function (response) {
+        return _handlebars2.default.compile(response)(Object.assign({}, _this3.props.input));
       }).then(function (markdown) {
         return (0, _marked2.default)(markdown, {});
       });
@@ -100,7 +108,7 @@ var Text = function (_Component) {
   }, {
     key: 'loadContent',
     value: function loadContent() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.props.textSource && !this.props.textSource.includes('github://') && !this.props.textSource.includes('local://')) {
         this.setState({ text: this.props.textSource });
@@ -114,9 +122,9 @@ var Text = function (_Component) {
       }
 
       this.loadFromUrl(url).then(function (text) {
-        _this3.setState({ loading: false, text: text });
+        _this4.setState({ loading: false, text: text });
       }).catch(function (error) {
-        _this3.setState({ error: error });
+        _this4.setState({ error: error });
       });
     }
   }, {
