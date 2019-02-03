@@ -43,7 +43,7 @@ function authorize ({ context, auth, event }) {
     _context.burst = (_context.sinceLastUpdate < burstRate ? _context.burst + 1 : 0)
 
     if (auth && auth.limit && _context.burst > auth.limit) {
-      reject(new Error(`Request limit reached: burst=${_context.burst}`))
+      // reject(new Error(`Request limit reached: burst=${_context.burst}`))
     }
 
     context.callbackWaitsForEmptyEventLoop = false

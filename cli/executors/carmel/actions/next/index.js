@@ -75,13 +75,15 @@ function showTutorial(challenge, original) {
 
     console.log(marked(tutorialCompiled))
 
-    // const { files } = challenge.content.tasks[challenge.state.taskIndex]
-    //
-    // if (!files || !files[0]) {
-    //   return
-    // }
-    //
-    // console.log(files[0])
+    const { files } = challenge.content.tasks[challenge.state.taskIndex]
+
+    if (!files || !files[0]) {
+      return
+    }
+
+    const resolvedFiles = files.map(f => Handlebars.compile(f)(Object.assign({}, original)))
+    console.log(resolvedFiles)
+
   } catch (e) {
     console.log(e)
   }
