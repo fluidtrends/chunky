@@ -83,7 +83,6 @@ function box(message, type) {
 function getChallenge(account, cache) {
   return operation.send({ target: "listings" }, account, cache)
           .then((response) => {
-            console.log(response)
             if (!response.ok || !response.data || !response.data.journey) {
               coreutils.logger.fail("Something went wrong, give it another shot")
               return

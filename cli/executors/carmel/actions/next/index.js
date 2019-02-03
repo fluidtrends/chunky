@@ -65,8 +65,6 @@ function openEditor(file) {
   }
 }
 
-
-
 function showTutorial(challenge, original) {
   try {
     const tutorialFile = path.resolve(challenge.content.dir, `${challenge.state.taskIndex}.tutorial.md`)
@@ -82,7 +80,7 @@ function showTutorial(challenge, original) {
     }
 
     const resolvedFiles = files.map(f => Handlebars.compile(f)(Object.assign({}, original)))
-    console.log(resolvedFiles)
+    openEditor(resolvedFiles[0])
 
   } catch (e) {
     console.log(e)
