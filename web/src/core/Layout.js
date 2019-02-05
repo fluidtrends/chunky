@@ -327,6 +327,11 @@ export default class DefaultLayout extends PureComponent {
           text-align: justify;
         }
 
+        p.text {
+          font-size: 20px;
+          text-align: justify;          
+        }
+
         .transition-enter {
           opacity: 0.01;
         }
