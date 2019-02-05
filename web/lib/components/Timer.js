@@ -121,7 +121,7 @@ var Timer = function (_Component) {
     value: function renderSimpleText() {
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'headline4', style: { margin: '10px', textShadow: '2px 2px 5px #607D8B' } },
+        { use: 'headline4', style: { margin: '10px', color: this.props.textColor } },
         this.state.period.text
       );
     }
@@ -130,7 +130,7 @@ var Timer = function (_Component) {
     value: function renderInfo() {
       return _react2.default.createElement(
         _typography.Typography,
-        { use: 'headline5', style: { marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' } },
+        { use: 'headline5', style: { marginBottom: '10px', color: this.props.textColor } },
         this.state.period.info
       );
     }
@@ -163,19 +163,19 @@ var Timer = function (_Component) {
           seconds = _ref.seconds,
           completed = _ref.completed;
 
-      var size = this.props.isSmallScreen ? 'headline4' : 'headline4';
+      var size = this.props.isSmallScreen ? 'headline6' : 'headline6';
       var margin = this.props.isSmallScreen ? '5' : '20';
-      var width = this.props.isSmallScreen ? '40' : '90';
+      var width = this.props.isSmallScreen ? '30' : '50';
       var height = this.props.isSmallScreen ? '140' : '50';
-      var typographyStyle = { margin: margin + 'px', color: '#fff', height: 40 };
+      var typographyStyle = { margin: margin + 'px', color: '#fff' };
 
       var style = {
-        border: '2px solid #ffffff',
-        color: this.props.textColor,
-        background: 'transparent',
+        border: '2px solid #4ebcd4',
+        backgroundColor: '#fff',
+        color: "#4ebcd4",
         padding: 2,
         width: width,
-        height: 60
+        height: 40
       };
 
       return _react2.default.createElement(
@@ -189,7 +189,7 @@ var Timer = function (_Component) {
             { use: size, style: typographyStyle },
             _react2.default.createElement(
               _chip.ChipText,
-              { style: { marginLeft: 5 } },
+              { style: { marginLeft: 5, color: '#4ebcd4' } },
               days,
               'd'
             )
@@ -203,7 +203,7 @@ var Timer = function (_Component) {
             { use: size, style: typographyStyle },
             _react2.default.createElement(
               _chip.ChipText,
-              null,
+              { style: { color: '#4ebcd4' } },
               hours,
               'h'
             )
@@ -217,7 +217,7 @@ var Timer = function (_Component) {
             { use: size, style: typographyStyle },
             _react2.default.createElement(
               _chip.ChipText,
-              null,
+              { style: { color: '#4ebcd4' } },
               minutes,
               'm'
             )
@@ -231,7 +231,7 @@ var Timer = function (_Component) {
             { use: size, style: typographyStyle },
             _react2.default.createElement(
               _chip.ChipText,
-              null,
+              { style: { color: '#4ebcd4' } },
               seconds,
               's'
             )
@@ -283,7 +283,6 @@ var Timer = function (_Component) {
             display: 'flex',
             flex: 1,
             paddingTop: '20px',
-            paddingBottom: '50px',
             backgroundColor: this.props.backgroundColor,
             flexDirection: 'column',
             alignItems: 'center',
@@ -291,8 +290,7 @@ var Timer = function (_Component) {
           } },
         this.renderSimpleText(),
         this.renderClock(),
-        this.renderInfo(),
-        this.renderAction()
+        this.renderInfo()
       );
     }
   }]);
