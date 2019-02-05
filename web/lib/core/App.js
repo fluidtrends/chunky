@@ -323,7 +323,7 @@ var App = function (_PureComponent) {
         routes.push(ScreenRoute);
 
         if (route.variants) {
-          var ScreenVariantRoute = this._makeScreenRoute(screenPath + '/:variant', screenId, route, screenProps);
+          var ScreenVariantRoute = this._makeScreenRoute('' + screenPath + (screenPath === '/' ? '' : '/') + ':variant', screenId, route, screenProps);
           routes.push(ScreenVariantRoute);
         }
       }
@@ -410,7 +410,14 @@ var App = function (_PureComponent) {
   }, {
     key: 'renderRoutes',
     value: function renderRoutes() {
-      return this.routes;
+      var dynamicRoutes = this.routes.filter(function (r) {
+        return r.key.split("/").includes(":variant");
+      });
+      var staticRoutes = this.routes.filter(function (r) {
+        return !r.key.split("/").includes(":variant");
+      });
+
+      return staticRoutes.concat(dynamicRoutes);
     }
   }, {
     key: 'render',

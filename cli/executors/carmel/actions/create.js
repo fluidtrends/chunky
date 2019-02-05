@@ -17,10 +17,10 @@ function createChallenge(account, cache, args) {
                   return
                 }
                 coreutils.logger.info(`Great stuff! Now write the challenge and make history!`)
-                coreutils.logger.info(`When ready, just type:`)
-                coreutils.logger.skip(`chunky carmel publish challenge`)
                 coreutils.logger.info(`Take a look at this sample challenge and start writing your own :)`)
                 coreutils.logger.skip(`https://github.com/fluidtrends/carmel/contrib/sample-challenge`)
+                coreutils.logger.info(`When ready, just type:`)
+                coreutils.logger.skip(`chunky carmel publish`)
               })
               .catch((error) => coreutils.logger.fail(error.message))
 }

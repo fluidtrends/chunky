@@ -39,7 +39,7 @@ describe("challenge", () => {
 
   it("task", (done) => {
     init(carmel)
-        .then((args) => validate(done, args))
+        .then((state) => validate(done, Object.assign({}, state, { events: carmel.utils.events() })))
         .catch((error) => done(error))
   })
 })

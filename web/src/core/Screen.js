@@ -23,6 +23,7 @@ import {
   ListItem,
   ListItemPrimaryText
 } from '@rmwc/list'
+import platform from 'platform'
 
 export default class Screen extends Core.Screen {
   constructor (props) {
@@ -74,6 +75,30 @@ export default class Screen extends Core.Screen {
     }
 
     this._load(this.props)
+  }
+
+  get platformType() {
+    if (this.isMobile) {
+      return this.platformOS
+    }
+
+    return this.isWindows ? "windows" : (this.isMac ? "mac" : "linux")
+  }
+
+  get platformOS() {
+    return platform.os.family.toLowerCase()
+  }
+
+  get isMobile() {
+    return ["ios", "android"].includes(this.platformOS === 'ios' || this.platformOS)
+  }
+
+  get isMac() {
+    return "os x" === this.platformOS
+  }
+
+  get isWindows() {
+    return this.platformOS.includes("windows")
   }
 
   get sidebarWidth () {
@@ -197,8 +222,24 @@ export default class Screen extends Core.Screen {
     return fetch(url).then(response => response.json())
   }
 
+  get dynamicVariant() {
+    return this._dynamicVariant
+  }
+
   _loadVariants () {
     return new Promise((resolve, reject) => {
+
+      console.log(this.props.variants)
+
+      if (this.props.variants && ("boolean" === typeof this.props.variants)) {
+        this._dynamicVariant = this.props.location.pathname.substring(this.props.path.length)
+        this._dynamicVariant = (this._dynamicVariant[0] === '/' ? this._dynamicVariant.substring(1) : this._dynamicVariant)
+        this._variants = [{ path: `${this.props.path}${this.props.path === '/' ? '' : '/'}${this.dynamicVariant}`}]
+        this._variant = this.variants[0]
+        resolve([])
+        return
+      }
+
       if (!this.props.variants || !Array.isArray(this.props.variants) || this.props.variants.length === 0) {
         resolve([])
         return
@@ -210,6 +251,7 @@ export default class Screen extends Core.Screen {
         fetch(this.props.variants).then(response => resolve(response.json()))
         return
       }
+
 
       const data = this.importData(`${this.props.variants}${this.props.desktop ? '.desktop' : ''}`)
 
