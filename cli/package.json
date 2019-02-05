@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -49,6 +49,7 @@
     "firebaseline": "0.x",
     "googleapis": "^21.2.0",
     "handlebars": "^4.0.12",
+    "hasha": "^3.0.0",
     "hook-std": "^1.2.0",
     "image-downloader": "^3.4.2",
     "inquirer": "^6.2.1",

@@ -2,6 +2,7 @@ const fs = require('fs-extra')
 const path = require('path')
 const deepmerge = require('deepmerge')
 const recursive = require('recursive-readdir')
+const hasha = require('hasha')
 
 const _dir = (cache) => () => {
   return process.cwd()
@@ -19,6 +20,10 @@ const _assetsDir = (cache) => () => {
   return path.resolve(_dir(cache)(), 'assets')
 }
 
+const _fileHash = (cache) => (filepath) => {
+  return hasha.fromFileSync(filepath, { algorithm: "md5" })
+}
+
 const _chunkDir = (cache) => (name) => {
   return path.resolve(_chunksDir(cache)(), name)
 }
@@ -31,8 +36,16 @@ const _productFile = (cache) => (file) => {
   return path.resolve(_dir(cache)(), file)
 }
 
+const _asset = (cache) => (file) => {
+  return path.resolve(_assetsDir(cache)(), file)
+}
+
 const _productFileExists = (cache) => (file) => {
   return fs.existsSync(_productFile(cache)(file))
+}
+
+const _assetExists = (cache) => (file) => {
+  return fs.existsSync(_asset(cache)(file))
 }
 
 const _chunkFileExists = (cache) => (chunkName, file) => {
@@ -114,6 +127,8 @@ module.exports = (cache) => ({
   chunkFileExists: _chunkFileExists(cache),
   chunkExists: _chunkExists(cache),
   productFile: _productFile(cache),
+  asset: _asset(cache),
+  assetExists: _assetExists(cache),
   productFileExists: _productFileExists(cache),
   getChunks: _getChunks(cache),
   readFile: _readFile(cache),
@@ -122,6 +137,7 @@ module.exports = (cache) => ({
   readProductFile: _readProductFile(cache),
   readProductConfig: _readProductConfig(cache),
   loadChunk: _loadChunk(cache),
+  fileHash: _fileHash(cache),
   loadChunks: _loadChunks(cache),
   productExists: _productExists(cache),
   loadProduct: _loadProduct(cache),

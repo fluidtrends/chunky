@@ -91,6 +91,7 @@ function startTask(challenge, account, cache) {
   coreutils.logger.info(`Starting ${chalk.green.bold('Task ' + (challenge.state.taskIndex+1) + ' of ' + challenge.state.totalTasks)} for challenge ${chalk.green.bold(challenge.title)}`)
 
   const args = initArgs(challenge, cache)
+
   const init = require(path.resolve(challenge.content.dir, 'init.js'))
 
   return init(args).then((state) => {
