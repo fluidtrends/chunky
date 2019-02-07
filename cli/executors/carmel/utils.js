@@ -4,7 +4,6 @@ const status = require('./status')
 const operation = require('./operation')
 const input = require('./input')
 const inquirer = require('inquirer')
-const notifier = require('node-notifier')
 const path = require('path')
 const boxen = require('boxen')
 const Base64 = require('js-base64').Base64;

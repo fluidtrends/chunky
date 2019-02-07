@@ -8,7 +8,6 @@ const utils = require('../../utils')
 const chalk = require('chalk')
 const env = require('../../validate/env')
 const opn = require('opn')
-const casual = require('casual')
 const marked = require('marked')
 
 const TerminalRenderer = require('marked-terminal')
