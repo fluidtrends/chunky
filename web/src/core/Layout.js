@@ -315,21 +315,24 @@ export default class DefaultLayout extends PureComponent {
           text-align: left;
         }
 
-        code {
-          font-size: 16px;
-          text-align: center;
-          backgroundColor: "#F5F5F5",
-          padding: "10px"
-        }
-
         p {
           font-size: 20px;
           text-align: justify;
         }
 
+        code {
+          font-size: 14px;
+          background-color: #212121;
+          padding: 20px;
+          color: #00C853;
+          display: flex;
+          text-align: left;
+          flex: 1;
+        }
+
         p.text {
           font-size: 20px;
-          text-align: justify;          
+          text-align: justify;
         }
 
         .transition-enter {
