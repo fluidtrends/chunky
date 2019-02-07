@@ -265,6 +265,7 @@ const _getChallenge = (props) => ({ repo, sha, fragment }) => {
                  })
         } catch (e) {
           reject(new Error("The challenge manifest is invalid"))
+          return
         }
       })
       .catch((err) => {

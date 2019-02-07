@@ -83,13 +83,13 @@ export default class Timer extends Component {
   }
 
   renderSimpleText () {
-    return <Typography use='headline4' style={{ margin: '10px', textShadow: '2px 2px 5px #607D8B' }}>
+    return <Typography use='headline4' style={{ margin: '10px', color: this.props.textColor }}>
       {this.state.period.text}
     </Typography>
   }
 
   renderInfo () {
-    return <Typography use='headline5' style={{ marginBottom: '10px', textShadow: '2px 2px 5px #607D8B' }}>
+    return <Typography use='headline5' style={{ marginBottom: '10px', color: this.props.textColor }}>
       {this.state.period.info}
     </Typography>
   }
@@ -110,28 +110,28 @@ export default class Timer extends Component {
   }
 
   clockRenderer ({ days, hours, minutes, seconds, completed }) {
-    const size = this.props.isSmallScreen ? 'headline4' : 'headline4'
+    const size = this.props.isSmallScreen ? 'headline6' : 'headline6'
     const margin = this.props.isSmallScreen ? '5' : '20'
-    const width = this.props.isSmallScreen ? '40' : '90'
+    const width = this.props.isSmallScreen ? '30' : '50'
     const height = this.props.isSmallScreen ? '140' : '50'
-    const typographyStyle = { margin: `${margin}px`, color: '#fff', height: 40 }
+    const typographyStyle = { margin: `${margin}px`, color: '#fff' }
 
     const style = {
-      border: '2px solid #ffffff', 
-      color: this.props.textColor, 
-      background: 'transparent',
+      border: '2px solid #4ebcd4',
+      backgroundColor: '#fff',
+      color: "#4ebcd4", 
       padding: 2,
       width,
-      height: 60
+      height: 40
     }
 
     return <ChipSet>
       <Chip style={style}>
-        <Typography use={size} style={typographyStyle}><ChipText style={{ marginLeft: 5 }}>{days}d</ChipText></Typography>
+        <Typography use={size} style={typographyStyle}><ChipText style={{ marginLeft: 5, color: '#4ebcd4' }}>{days}d</ChipText></Typography>
       </Chip>
-      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{hours}h</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{minutes}m</ChipText></Typography></Chip>
-      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText>{seconds}s</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText style={{color: '#4ebcd4'}}>{hours}h</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText style={{color: '#4ebcd4'}}>{minutes}m</ChipText></Typography></Chip>
+      <Chip style={style}><Typography use={size} style={typographyStyle}><ChipText style={{color: '#4ebcd4'}}>{seconds}s</ChipText></Typography></Chip>
     </ChipSet>
   }
 
@@ -169,7 +169,6 @@ export default class Timer extends Component {
       display: 'flex',
       flex: 1,
       paddingTop: '20px',
-      paddingBottom: '50px',
       backgroundColor: this.props.backgroundColor,
       flexDirection: 'column',
       alignItems: 'center',
@@ -178,7 +177,7 @@ export default class Timer extends Component {
       {this.renderSimpleText()}
       {this.renderClock()}
       {this.renderInfo()}
-      {this.renderAction()}
+      {/* {this.renderAction()} */}
     </div>
   }
 }

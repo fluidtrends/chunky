@@ -54,6 +54,10 @@ var _button = require('@rmwc/button');
 
 var _list = require('@rmwc/list');
 
+var _platform = require('platform');
+
+var _platform2 = _interopRequireDefault(_platform);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -218,6 +222,18 @@ var Screen = function (_Core$Screen) {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
+
+        console.log(_this2.props.variants);
+
+        if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
+          _this2._dynamicVariant = _this2.props.location.pathname.substring(_this2.props.path.length);
+          _this2._dynamicVariant = _this2._dynamicVariant[0] === '/' ? _this2._dynamicVariant.substring(1) : _this2._dynamicVariant;
+          _this2._variants = [{ path: '' + _this2.props.path + (_this2.props.path === '/' ? '' : '/') + _this2.dynamicVariant }];
+          _this2._variant = _this2.variants[0];
+          resolve([]);
+          return;
+        }
+
         if (!_this2.props.variants || !Array.isArray(_this2.props.variants) || _this2.props.variants.length === 0) {
           resolve([]);
           return;
@@ -586,6 +602,35 @@ var Screen = function (_Core$Screen) {
       );
     }
   }, {
+    key: 'platformType',
+    get: function get() {
+      if (this.isMobile) {
+        return this.platformOS;
+      }
+
+      return this.isWindows ? "windows" : this.isMac ? "mac" : "linux";
+    }
+  }, {
+    key: 'platformOS',
+    get: function get() {
+      return _platform2.default.os.family.toLowerCase();
+    }
+  }, {
+    key: 'isMobile',
+    get: function get() {
+      return ["ios", "android"].includes(this.platformOS === 'ios' || this.platformOS);
+    }
+  }, {
+    key: 'isMac',
+    get: function get() {
+      return "os x" === this.platformOS;
+    }
+  }, {
+    key: 'isWindows',
+    get: function get() {
+      return this.platformOS.includes("windows");
+    }
+  }, {
     key: 'sidebarWidth',
     get: function get() {
       return 200;
@@ -633,6 +678,11 @@ var Screen = function (_Core$Screen) {
     key: 'expectsVariants',
     get: function get() {
       return this.props.variants !== undefined;
+    }
+  }, {
+    key: 'dynamicVariant',
+    get: function get() {
+      return this._dynamicVariant;
     }
   }, {
     key: 'variants',

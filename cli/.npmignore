@@ -6,4 +6,4 @@ coverage
 .circleci
 product
 .DS_Store
-
+dist

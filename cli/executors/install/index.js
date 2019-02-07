@@ -20,7 +20,6 @@ function parseCommand (command, account, cache) {
         const totalTime = (Date.now() - startTime)
         operation.send({ target: "journeys", type: "install", pwd: process.cwd(), totalTime }, account, cache)
                  .then((response) => {
-                   console.log(response)
                    coreutils.logger.ok(`Wow, amazing! You're good to go!`)
                    resolve()
                  })

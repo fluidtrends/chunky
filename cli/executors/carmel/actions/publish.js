@@ -44,9 +44,9 @@ function getChallengePublishDetails(account, cache, challenge) {
   return new Promise((resolve, reject) => {
             input.getChallengePublishLocation()
                 .then((details) => {
-                  got.head(`https://raw.githubusercontent.com/${details.repo}/${details.hash}/${details.path == '/' ? '' : details.path}/index.json`)
-                     .then(() => {
-                       resolve(Object.assign({}, details))
+                  got(`https://raw.githubusercontent.com/${details.repo}/${details.hash}/${details.path == '/' ? '' : details.path}/index.json`, { json: true })
+                     .then((response) => {
+                       resolve(Object.assign({}, details, response.body))
                      })
                     .catch((e) => {
                       coreutils.logger.info(`Very funny, but this doesn't look like a real challenge repository.`)

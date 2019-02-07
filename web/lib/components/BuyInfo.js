@@ -76,11 +76,17 @@ var BuyInfo = function (_Component) {
 
       return _react2.default.createElement(
         _antd.Button,
-        { href: path ? path : link, type: 'primary', style: { backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px' }, onMouseEnter: function onMouseEnter() {
+        {
+          href: path ? path : link,
+          type: 'primary',
+          style: { backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px', padding: '2px 15px' },
+          onMouseEnter: function onMouseEnter() {
             _this2.setState({ hovered: true });
-          }, onMouseLeave: function onMouseLeave() {
+          },
+          onMouseLeave: function onMouseLeave() {
             _this2.setState({ hovered: false });
-          } },
+          }
+        },
         this.props.action,
         _react2.default.createElement(_antd.Icon, { type: 'arrow-right', style: { marginLeft: this.state.hovered ? '30px' : '5px' } })
       );

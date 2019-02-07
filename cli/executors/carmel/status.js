@@ -16,7 +16,7 @@ function printChallengesStatus(challenges) {
 
   coreutils.logger.info(`You created ${challenges.length} challenges so far:`)
   challenges.map(c => {
-    coreutils.logger.ok(`${chalk.green.bold(c.name)} (${c.status})`)
+    coreutils.logger.ok(`${chalk.green.bold(c.title)} (${c.status})`)
   })
 }
 
@@ -76,7 +76,7 @@ function printJourneyChallengeStatus(challenge, account, cache) {
                   .then((result) => Object.assign({}, result.data.challenge, { state: challenge }))
                   .then((c) => {
                     coreutils.logger.info(`You are currently taking a challenge:`)
-                    coreutils.logger.ok(`Challenge: ${chalk.green.bold(c.name)}`)
+                    coreutils.logger.ok(`Challenge: ${chalk.green.bold(c.title)}`)
                     coreutils.logger.ok(`Completed tasks: ${chalk.green.bold(c.state.taskIndex)}`)
                     coreutils.logger.ok(`Last activity: ${chalk.green.bold(moment(parseInt(c.state.timestamp)).format('LLL'))}`)
                     return c
