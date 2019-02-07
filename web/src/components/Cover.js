@@ -346,9 +346,14 @@ export default class Cover extends Component {
 
   triggerAction() {
     const link = this.props.cover.link
+    const { localLink } = this.props.cover
     if (link) {
       this.onLinkClick(link)
     }
+    if (localLink) {
+      this.props.history.push(localLink)
+    }
+
     this.triggerEvent()
   }
 
