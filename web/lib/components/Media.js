@@ -113,13 +113,13 @@ var Media = function (_PureComponent) {
           height: this.props.height || '100vh',
           style: this.props.style,
           loop: this.props.loop,
-          muted: true,
-          volume: 0,
+          muted: this.props.muted,
+          volume: this.props.muted ? 0 : 1,
           config: {
             file: {
               attributes: {
                 autoPlay: true,
-                muted: true
+                muted: this.props.muted
               }
             }
           }

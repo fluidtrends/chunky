@@ -414,9 +414,15 @@ var Cover = function (_Component) {
     key: 'triggerAction',
     value: function triggerAction() {
       var link = this.props.cover.link;
+      var localLink = this.props.cover.localLink;
+
       if (link) {
         this.onLinkClick(link);
       }
+      if (localLink) {
+        this.props.history.push(localLink);
+      }
+
       this.triggerEvent();
     }
   }, {
