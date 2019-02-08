@@ -117,6 +117,7 @@ function unlock(cache) {
         coreutils.logger.ok("Your Carmel vault is now unlocked")
         resolve(vault)
       }).catch((e) => {
+        console.log(e)
         coreutils.logger.fail("Looks like that is the wrong password")
         unlock(cache, args).then((r) => resolve(r))
       })
