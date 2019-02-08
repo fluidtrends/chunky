@@ -24,6 +24,8 @@ var _antd = require('antd');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -45,21 +47,18 @@ var LoadingComponent = function (_Component) {
   _createClass(LoadingComponent, [{
     key: 'render',
     value: function render() {
+      var _ref;
+
       var indicator = _react2.default.createElement(_antd.Icon, { type: 'loading', style: { fontSize: 48, color: '#039BE5' }, spin: true });
 
       return _react2.default.createElement(
         'div',
         {
-          style: {
+          style: (_ref = {
             display: 'flex',
             flex: 1,
-            height: '300px',
-            margin: '10px',
-            backgroundColor: '#ffffff',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }
+            height: '300px'
+          }, _defineProperty(_ref, 'height', '60vh'), _defineProperty(_ref, 'margin', '10px'), _defineProperty(_ref, 'backgroundColor', '#ffffff'), _defineProperty(_ref, 'justifyContent', 'center'), _defineProperty(_ref, 'flexDirection', 'column'), _defineProperty(_ref, 'alignItems', 'center'), _ref)
         },
         _react2.default.createElement(_antd.Spin, { indicator: indicator, style: { padding: '40px' } }),
         _react2.default.createElement(
