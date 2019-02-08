@@ -18,6 +18,7 @@ export default class LoadingComponent extends Component {
           display: 'flex',
           flex: 1,
           height: '300px',
+          height: '60vh',
           margin: '10px',
           backgroundColor: '#ffffff',
           justifyContent: 'center',
