@@ -3,30 +3,15 @@ const status = require('../status')
 const operation = require('../operation')
 const input = require('../input')
 const inquirer = require('inquirer')
+const utils = require('../utils')
 
 function processCommand(account, cache, args) {
   if (!cache.vaults.master.isLocked) {
-    coreutils.logger.skip("Your Carmel vault is already unlocked. No need to unlock it again :)")
+    coreutils.logger.info(`It's already unlocked :)`)
     return Promise.resolve()
   }
 
-  return new Promise((resolve, reject) => {
-    inquirer.prompt([{
-      type: 'password',
-      name: 'password',
-      validate: (s) => s ? true : "C'mon, enter a password please :)",
-      message: "Enter the vault password"
-    }]).then(({ password }) => {
-      coreutils.logger.info("Unlocking your Carmel vault ...")
-      cache.vaults.master.unlock(password).then((vault) => {
-        coreutils.logger.ok("Your Carmel vault is now unlocked")
-        resolve(vault)
-      }).catch((e) => {
-        coreutils.logger.fail("Looks like that is the wrong password")
-        processCommand(account, cache, args).then((r) => resolve(r))
-      })
-    })
-  })
+  return utils.unlock(cache)
 }
 
 function main(account, cache, args) {

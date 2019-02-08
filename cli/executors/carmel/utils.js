@@ -100,6 +100,29 @@ function getChallenge(account, cache) {
            })
 }
 
+function unlock(cache) {
+  if (!cache.vaults.master.isLocked) {
+    return Promise.resolve(cache.vaults.master)
+  }
+
+  return new Promise((resolve, reject) => {
+    inquirer.prompt([{
+      type: 'password',
+      name: 'password',
+      validate: (s) => s ? true : "C'mon, enter a password please :)",
+      message: "Enter the vault password"
+    }]).then(({ password }) => {
+      coreutils.logger.info("Unlocking your Carmel vault ...")
+      cache.vaults.master.unlock(password).then((vault) => {
+        coreutils.logger.ok("Your Carmel vault is now unlocked")
+        resolve(vault)
+      }).catch((e) => {
+        coreutils.logger.fail("Looks like that is the wrong password")
+        unlock(cache, args).then((r) => resolve(r))
+      })
+    })
+  })
+}
 
 module.exports = {
   getChallenge,
@@ -107,5 +130,6 @@ module.exports = {
   encode,
   decode,
   encrypt,
-  decrypt
+  decrypt,
+  unlock
 }
