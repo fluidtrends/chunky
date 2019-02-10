@@ -33,6 +33,14 @@ commands:
   - command: install
     description: Install everything
 
+- name: update
+  more: Update chunky
+  description: Update chunky to the latest version
+  executor: executors/update
+  examples:
+  - command: update
+    description: Update to the latest version
+
 - name: start [platforms..]
   description: Start the packagers for one or more platforms
   more: The supported platforms are web and mobile

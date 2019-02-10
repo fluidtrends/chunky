@@ -25,7 +25,7 @@ const _bundlePath = (props) => (uri) => path.resolve(_bundlesDir(props), uri)
 const _bundleExists = (props) => (uri) => fs.existsSync(_bundlePath(props)(uri))
 
 const _carmelVault = new cassi.Vault({ name: 'carmel', root: _vaultsDir() })
-const _masterVault = new cassi.Vault({ name: 'carmel-secure', root: _vaultsDir() })
+const _masterVault = new cassi.Vault({ name: 'master', root: _vaultsDir() })
 
 const _create = (props) => {
   if (_exists(props)) {
