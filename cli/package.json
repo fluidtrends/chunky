@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -8,6 +8,9 @@
     "lint": "savor lint",
     "coverage": "savor coverage",
     "codeclimate": "savor codeclimate"
+  },
+  "engines" : {
+    "node" : ">=8.0.0 <10.0.0"
   },
   "bin": {
     "chunky": "bin/cli.js"
@@ -54,7 +57,7 @@
     "enzyme-adapter-react-16": "^1.7.1",
     "feedparser": "^2.2.1",
     "find-root": "^1.1.0",
-    "firebase": "^5.8.2",
+    "firebase": "^4.1.3",
     "firebase-admin": "^5.1.0",
     "firebaseline": "0.x",
     "googleapis": "^21.2.0",
