@@ -18,15 +18,7 @@ function parseCommand (command, account, cache) {
         }
 
         const totalTime = (Date.now() - startTime)
-        operation.send({ target: "journeys", type: "install", pwd: process.cwd(), totalTime }, account, cache)
-                 .then((response) => {
-                   coreutils.logger.ok(`Wow, amazing! You're good to go!`)
-                   resolve()
-                 })
-                 .catch((error) => {
-                   coreutils.logger.fail("Something went wrong :(")
-                   reject(error)
-                 })
+        coreutils.logger.ok(`Wow, amazing! You're good to go!`)
       })
     })
   })
