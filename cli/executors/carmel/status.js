@@ -97,6 +97,8 @@ function accountStatus(account, cache) {
   coreutils.logger.ok(`Name: ${chalk.green.bold(account.name)}`)
   coreutils.logger.ok(`Email: ${chalk.green.bold(account.email)}`)
   coreutils.logger.ok(`Username: ${chalk.green.bold(account.username)}`)
+  coreutils.logger.ok(`Master vault: ${chalk.green.bold(cache.vaults.master.isLocked ? 'locked' : 'unlocked')}`)
+
   return operation.send({ target: "listings" }, account, cache)
         .then((response) => {
             if (!response.ok || !response.data) {

@@ -10,6 +10,6 @@ const start = require('./start')
 const pause = require('./pause')
 const lock = require('./lock')
 const unlock = require('./unlock')
-const save = require('./save')
+const config = require('./config')
 
-module.exports = { login, save, lock, unlock, start, pause, logout, register, say, create, list, next, publish }
+module.exports = { login, config, lock, unlock, start, pause, logout, register, say, create, list, next, publish }

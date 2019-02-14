@@ -7,6 +7,9 @@ const inquirer = require('inquirer')
 const path = require('path')
 const boxen = require('boxen')
 const Base64 = require('js-base64').Base64;
+const CarmelPublicKey = "/gzWe+WVjUMLkyxImrVXa3XAva5OGH+MAERltnPSgUM="
+
+process.env.NODE_NO_WARNINGS=1
 
 var nacl = require('tweetnacl')
 nacl.util = require('tweetnacl-util')
@@ -33,6 +36,12 @@ function encode(account, cache, input) {
 
 function decode(account, cache, input) {
   return JSON.parse(Base64.decode(input))
+}
+
+function encryptPublic(account, cache, input) {
+}
+
+function decryptPublic(account, cache, input) {
 }
 
 function encrypt(account, cache, input) {
@@ -112,14 +121,13 @@ function unlock(cache) {
       validate: (s) => s ? true : "C'mon, enter a password please :)",
       message: "Enter the vault password"
     }]).then(({ password }) => {
-      coreutils.logger.info("Unlocking your Carmel vault ...")
+      coreutils.logger.info("Attempting to unlock your Carmel vault ...")
       cache.vaults.master.unlock(password).then((vault) => {
         coreutils.logger.ok("Your Carmel vault is now unlocked")
         resolve(vault)
       }).catch((e) => {
-        console.log(e)
-        coreutils.logger.fail("Looks like that is the wrong password")
-        unlock(cache, args).then((r) => resolve(r))
+        coreutils.logger.fail('Looks like that is the wrong password. Give it another try')
+        unlock(cache).then((data) => resolve(data))
       })
     })
   })
@@ -131,6 +139,8 @@ module.exports = {
   encode,
   decode,
   encrypt,
+  encryptPublic,
+  decryptPublic,
   decrypt,
   unlock
 }

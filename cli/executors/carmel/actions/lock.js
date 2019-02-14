@@ -10,13 +10,15 @@ function processCommand(account, cache, args) {
     return Promise.resolve()
   }
 
+  const isNew = !cache.vaults.master.exists
+
   return inquirer.prompt([{
     type: 'password',
     name: 'password',
     validate: (s) => s ? true : "C'mon, enter a password please :)",
-    message: "Choose a password to lock your vault"
+    message: isNew ? 'Choose a password' : 'Enter the vault password'
   }]).then(({ password }) => {
-    coreutils.logger.info("Locking your Carmel vault ...")
+    coreutils.logger.info("Attempting to lock your Carmel vault ...")
     return cache.vaults.master.lock(password).then((vault) => {
       coreutils.logger.ok("Your Carmel vault is now locked")
       return vault

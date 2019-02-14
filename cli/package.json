@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -37,11 +37,12 @@
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
     "@octokit/rest": "^16.3.0",
+    "aws-amplify": "^1.1.19",
     "aws-sdk": "^2.97.0",
     "boxen": "^2.1.0",
     "browser-sync": "^2.18.13",
     "capture-stdout": "^1.0.0",
-    "cassi": "^0.2.4",
+    "cassi": "^0.3.1",
     "casual": "^1.6.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
