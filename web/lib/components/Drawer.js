@@ -97,7 +97,7 @@ var DrawerComponent = function (_PureComponent) {
       }).catch(function () {
         return;
       });
-      fetch(theme.translatedStrings).then(function (response) {
+      fetch(theme.translatedStrings || 'en').then(function (response) {
         return response.json();
       }).then(function (translatedTexts) {
         _this2.setState({ strings: translatedTexts['navigation'] });

@@ -236,10 +236,10 @@ commands:
   more: Available actions include hello, login, logout, register, init, start, pause, next, create, publish
   executor: executors/carmel
   options:
-  - name: testnet
-    description: Connect to the testnet instead of the mainnet
-    default: false
-    type: boolean
+  - name: env
+    description: The environment where to publish
+    default: production
+    type: string
   examples:
   - command: carmel
     description: Check the current status of your account

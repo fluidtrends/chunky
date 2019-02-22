@@ -133,6 +133,25 @@ function unlock(cache) {
   })
 }
 
+function ensureVaultIsUnlocked(cache) {
+  if (cache.vaults.master.isLocked) {
+    coreutils.logger.info(`Looks like your Carmel vault is locked. Let's unlock it first`)
+    return utils.unlock(cache)
+  }
+
+  return Promise.resolve()
+}
+
+function ensureAwsIsConfigured(cache, env) {
+  const awsConfig = cache.vaults.master.read('aws')
+
+  if (!awsConfig || !awsConfig[env]) {
+    return configAws(cache, env).then(() => cache.vaults.master.read('aws')[env])
+  }
+
+  return Promise.resolve(awsConfig)
+}
+
 module.exports = {
   getChallenge,
   box,
@@ -142,5 +161,7 @@ module.exports = {
   encryptPublic,
   decryptPublic,
   decrypt,
+  ensureVaultIsUnlocked,
+  ensureAwsIsConfigured,
   unlock
 }

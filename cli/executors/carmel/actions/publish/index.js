@@ -3,11 +3,9 @@ const status = require('../../status')
 const operation = require('../../operation')
 const input = require('../../input')
 const inquirer = require('inquirer')
-const utils = require('../../utils')
-const opn = require('opn')
-const chalk = require('chalk')
+const got = require('got')
 
-const TYPES = ['custom', 'aws', 'domains']
+const TYPES = ['web', 'api', 'challenge']
 
 function ensureVaultIsUnlocked(cache) {
   if (cache.vaults.master.isLocked) {
@@ -18,46 +16,46 @@ function ensureVaultIsUnlocked(cache) {
   return Promise.resolve()
 }
 
-function doConfig(account, cache, env, type, secondary) {
+function doPublish(acc, cache, env, type) {
   return new Promise((resolve, reject) => {
     try {
-      require(`./${type}`)(account, cache, env, secondary)
+      require(`./${type}`)(acc, cache, env)
           .then((data) => resolve(data))
           .catch((error) => reject(error))
     } catch (e) {
-      require(`./custom`)(account, cache, env, type, secondary)
+      require(`./web`)(acc, cache, env)
           .then((data) => resolve(data))
           .catch((error) => reject(error))
     }
   })
 }
 
-function config(account, cache, env, t, secondary) {
-  if (!t) {
+
+function publish(acc, cache, env, t) {
+  if (!t || !TYPES.includes(t)) {
     return inquirer.prompt([{
       type: 'list',
       choices: TYPES,
-      default: "custom",
+      default: "web",
       name: 'type',
-      message: "What do you want to configure?"
+      message: "What do you want to publish?"
     }])
-    .then(({ type }) => doConfig(account, cache, env, type, secondary))
+    .then(({ type }) => doPublish(acc, cache, env, type))
   }
 
-  return doConfig(account, cache, env, t, secondary)
+  return doPublish(acc, cache, env, t)
 }
 
 function processCommand(account, cache, args, env) {
   return ensureVaultIsUnlocked(cache)
           .then(() => {
             if (!args || args.length === 0) {
-              return config(cache, env)
+              return publish(account, cache, env)
             }
 
-            // The type of config we want
+            // The type we want
             const type = args.shift()
-            const secondary = args.shift()
-            return config(account, cache, env, type, secondary)
+            return publish(account, cache, env, type)
           })
 }
 

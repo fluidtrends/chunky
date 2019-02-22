@@ -12,12 +12,12 @@ const AWS_NEWUSER_URL = () => `${AWS_ROOT_URL()}iam/home?#/users$new?step=review
 const AWS_SECRET_URL = () => `${AWS_ROOT_URL()}iam/home?#/users$new?step=final`
 const AWS_SETUP_URL = (username) => `${AWS_NEWUSER_URL()}&accessKey&userNames=${username}&permissionType=policies&policies=arn:aws:iam::aws:policy%2FAdministratorAccess`
 
-module.exports = (cache) => {
+module.exports = (account, cache, env) => {
   const username = `Chunky-Admin-${Date.now()}`
   const url = AWS_SETUP_URL(username)
 
-  coreutils.logger.info(`Let's give Chunky admin access to your AWS account`)
-  coreutils.logger.ok(`We're going to do that by creating a special Chunky user inside your AWS account`)
+  coreutils.logger.info(`Let's give Chunky admin access to your AWS ${chalk.green.bold(env)} account`)
+  coreutils.logger.ok(`We're going to do that by creating a special AWS Chunky user`)
 
   return inquirer.prompt([{
     type: 'input',
@@ -40,7 +40,12 @@ module.exports = (cache) => {
     message: `Great! Now also copy and paste your ${chalk.green.bold('Secret access key')} here:`
   }]))
   .then((credentials) => {
-    cache.vaults.master.write('aws', Object.assign({}, credentials, { username }))
+    const envs = cache.vaults.master.read('envs')
+    const original = cache.vaults.master.read('aws')
+
+    cache.vaults.master.write('envs', envs ? [env].concat(envs) : [env])
+    cache.vaults.master.write('aws', Object.assign({}, original, { [env]: Object.assign({}, credentials, { username }) }))
+
     coreutils.logger.info(`Amazing! Your AWS credentials are now securely stored in your Carmel vault`)
     coreutils.logger.ok(`Chunky can now do awesome AWS stuff on your behalf`)
   })

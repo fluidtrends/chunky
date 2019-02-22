@@ -110,17 +110,17 @@ const _findRemoteBundle = (props) => (uri) => {
     _info(props)(`Looking for bundle ${owner}/${repo} ...`)
 
     if (version) {
-      return octokit.repos.getReleaseByTag({ owner, repo, tag: `v${version}` })
+      return octokit.repos.getReleaseByTag({ owner, repo, tag: `${version}` })
                     .then((release) => {
-                      _ok(props)(`Found remote bundle ${owner}/${repo} (v${version})`)
+                      _ok(props)(`Found remote bundle ${owner}/${repo} (${version})`)
                       return `${owner}/${repo}/${version}`
                     })
     }
 
     return octokit.repos.getLatestRelease({ owner, repo })
                   .then((release) => {
-                    const v = release.data.tag_name.substring(1)
-                    _ok(props)(`Found latest remote bundle ${owner}/${repo} (v${v})`)
+                    const v = release.data.tag_name.substring(0)
+                    _ok(props)(`Found latest remote bundle ${owner}/${repo} (${v})`)
                     return `${owner}/${repo}/${v}`
                   })
 }
@@ -146,7 +146,7 @@ const _downloadBundle = (props) => (uri) => {
     _info(props)(`Downloading the remote bundle ...`)
 
     // Look up the bundle archive
-    const link = `https://github.com/${info.username}/${info.repo}/archive/v${info.version}.tar.gz`
+    const link = `https://github.com/${info.username}/${info.repo}/archive/${info.version}.tar.gz`
 
     // Prepare the bundle cache location
     fs.mkdirsSync(cachedPath)

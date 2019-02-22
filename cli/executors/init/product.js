@@ -113,12 +113,14 @@ function createFiles (c, template) {
   createFile("web/index.json", template.web, true)
   createFile("web/firebase-config.json", Object.assign({}, template.firebase), true)
   createFile("assets/strings.json", Object.assign({}, template.strings), true)
+  createFile("assets/style.css", "", false)
 
   coreutils.logger.ok(`package.json`)
   coreutils.logger.ok(`chunky.json`)
   coreutils.logger.ok(`web/index.json`)
   coreutils.logger.ok(`web/firebase-config.json`)
   coreutils.logger.ok(`assets/strings.json`)
+  coreutils.logger.ok(`assets/style.css`)
 
   // Create the chunks and the indexes
   generateChunks(template)

@@ -9,10 +9,9 @@ function performAction (command, account, c) {
     if (!action || !actions[action]) {
       return status(account, c, true)
     }
-    return actions[action](account, c, command.actions)
+    return actions[action](account, c, command.actions, command.env)
 
   } catch (e) {
-    console.log(e)
     return status(account, c, true)
   }
 }

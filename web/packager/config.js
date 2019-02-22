@@ -44,6 +44,30 @@ module.exports = (options) => {
         commonjs: 'react-dom',
         amd: 'react-dom'
       }
+    //   'react-router': {
+    //     root: 'ReactRouter',
+    //     commonjs2: 'react-router',
+    //     commonjs: 'react-router',
+    //     amd: 'react-router'
+    //   },
+    //   'react-dom-router': {
+    //     root: 'ReactDOMRouter',
+    //     commonjs2: 'react-dom-router',
+    //     commonjs: 'react-dom-router',
+    //     amd: 'react-dom-router'
+    //   },
+    //   antd: {
+    //     root: 'antd',
+    //     commonjs2: 'antd',
+    //     commonjs: 'antd',
+    //     amd: 'antd'
+    //   },
+    //   moment: {
+    //     root: 'moment',
+    //     commonjs2: 'moment',
+    //     commonjs: 'moment',
+    //     amd: 'moment'
+    //   }
     },
 
     module: {

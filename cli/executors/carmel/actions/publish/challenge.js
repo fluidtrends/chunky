@@ -1,11 +1,10 @@
 const coreutils = require('coreutils')
-const status = require('../status')
-const operation = require('../operation')
-const input = require('../input')
+const operation = require('../../operation')
+const input = require('../../input')
 const inquirer = require('inquirer')
 const got = require('got')
 
-function findChallenge(account, cache, args) {
+function findChallenge(account, cache) {
   coreutils.logger.info(`Let's look up your unpublished challenges`)
 
   return operation.send({ target: "listings" }, account, cache)
@@ -57,8 +56,9 @@ function getChallengePublishDetails(account, cache, challenge) {
           })
 }
 
-function publishChallenge(account, cache, args) {
-  return findChallenge(account, cache, args)
+module.exports = (account, cache) => {
+  coreutils.logger.info('Publishing your Challenge ...')
+  return findChallenge(account, cache)
           .then((challenge) => {
             if (!challenge) {
               return
@@ -81,38 +81,3 @@ function publishChallenge(account, cache, args) {
           })
           .catch((error) => coreutils.logger.fail(error.message))
 }
-
-function processCommand(account, cache, args) {
-  if (!args || args.length === 0) {
-    return publishChallenge(account, cache, args)
-  }
-
-  // The action we want
-  const action = args.shift()
-
-  switch (action) {
-    case "challenge":
-      return publishChallenge(account, cache, args)
-    default:
-  }
-
-  return publishChallenge(account, cache, args)
-}
-
-function main(account, cache, args) {
-  if (!account) {
-    return status(account, cache).then(() => {
-      try {
-        const a = cache.vaults.carmel.read('account')
-        return processCommand(a, cache, args)
-      } catch (e) {
-        coreutils.logger.info(`Hey so how about you try this again :)`)
-        return
-      }
-    })
-  }
-
-  return processCommand(account, cache, args)
-}
-
-module.exports = main

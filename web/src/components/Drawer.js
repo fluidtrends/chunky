@@ -75,7 +75,7 @@ export default class DrawerComponent extends PureComponent {
       .catch(() => {
         return
       })
-    fetch(theme.translatedStrings)
+    fetch(theme.translatedStrings || 'en')
       .then(response => response.json())
       .then(translatedTexts => {
         this.setState({ strings: translatedTexts['navigation'] })

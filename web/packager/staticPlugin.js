@@ -16,7 +16,7 @@ class Plugin extends WebPlugin {
     const source = bundle.source()
 
     try {
-      this._mainModule = requireFromString(source)
+      this._mainModule = requireFromString(`var self = {};${source}`)
       return this._mainModule
     } catch (e) {
       console.log(e)
