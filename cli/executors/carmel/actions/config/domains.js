@@ -8,6 +8,7 @@ const chalk = require('chalk')
 const awsome = require('awsome')
 const validator = require('validator')
 const path = require('path')
+const moment = require('moment')
 
 const CHOICES = ['list', 'buy']
 
@@ -18,7 +19,10 @@ function list({ cache }) {
       coreutils.logger.skip(`Looks like you don't have any domains yet`)
       return
     }
-    coreutils.logger.ok(`Found ${chalk.green.bold(data.Domains.length)} domains`)
+    data.Domains.map(d => {
+      coreutils.logger.info(`Found ${chalk.green.bold(d.DomainName)}`)
+      coreutils.logger.ok(`Valid until ${chalk.green.bold(moment(d.Expiry).format('MMM DD, YYYY'))}`)
+    })
   })
 }
 

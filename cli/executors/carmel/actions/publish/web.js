@@ -11,55 +11,44 @@ const fs = require('fs-extra')
 const recursive = require('recursive-readdir')
 const webPackage = require('../../../package/web')
 const utils = require('../../utils')
+const loaders = require('../../../../src/loaders')
+const validator = require('validator')
+const opn = require('opn')
 
 const IGNORES = ['.DS_Store']
 
 function ensureIsPacked(awsConfig) {
-  return new Promise((resolve, reject) => {
-    const dir = path.resolve(process.cwd(), '.chunky', 'web')
-
-    if (!fs.existsSync(dir)) {
-       reject(new Error('Failed to deploy because it was not packaged yet'))
-       return
-    }
-
-    recursive(dir, IGNORES, (err, files) => {
-      if (err || !files || files.length === 0) {
-        coreutils.logger.info(`Chunky has to first package your Web app`)
-        webPackage().then(() => {
-          ensureIsPacked(awsConfig).then(() => resolve({ files, awsConfig })).catch((e) => reject(e))
-        })
-        return
-      }
-
-      resolve({ files, awsConfig })
-    })
- })
+  return webPackage().then(() => awsConfig)
 }
 
-function deploy({ dir, bucket, bucketDomain, records, files }) {
-  return new Promise((resolve, reject) => {
-    bucket.exists().then(() => {
-            bucket.update().then((data) => {
-              coreutils.logger.ok('Congrats! Your Web app is now live')
-              resolve()
-            })
-            .catch((e) => {
-              reject(e)
-            })
-          })
-         .catch((e) => {
-           bucket.create().then((d) => {
-              bucket.update().then((data) => {
-                coreutils.logger.ok('Congrats! Your Web app is now live')
-                resolve()
-              })
-           })
-           .catch((e) => {
-             reject(e)
-           })
-         })
-   })
+function findDomains() {
+  return new Promise((resolve, reject) => awsome.aws.route53Domains('listDomains').then((data) => {
+    if (!data || !data.Domains || data.Domains.length === 0) {
+      resolve()
+      return
+    }
+
+    resolve(data.Domains.map(d => d.DomainName))
+  }))
+}
+
+function deploy({ dir, bucket, domain, records }) {
+  return bucket.update().then((data) => findDomains().then((domains) => {
+    if (domains && domains.length > 0 && domains.includes(domain.name)) {
+      coreutils.logger.info(`Congrats! Your Web app is now live at ${chalk.green.bold(domain.name)}`)
+      opn(`http://${domain.name}`)
+      return
+    }
+
+    coreutils.logger.info(`Congrats! Your Web app is now live`)
+
+    coreutils.logger.info(`Go to your Domain Registrar and set your ${chalk.green.bold(domain.name)} nameservers to the following:`)
+    records.map(r => coreutils.logger.skip(r))
+
+    coreutils.logger.info(`Until then, your web app is available here:`)
+    coreutils.logger.ok(`http://${domain.name}.s3-website-us-east-1.amazonaws.com`)
+    opn(`http://${domain.name}.s3-website-us-east-1.amazonaws.com`)
+  }))
 }
 
 function ensureBucketExists(bucket) {
@@ -86,40 +75,54 @@ function ensureBucketIsLinked(domain) {
   })
 }
 
+function getDomain() {
+  const mainConfig = loaders.loadMainConfig()
 
-function publish(cache, awsConfig, env, files) {
-  const domain = "idancali.io"
+  if (mainConfig.domain) {
+    return Promise.resolve(new awsome.Domain({ name: `${mainConfig.domain}` }))
+  }
 
-  coreutils.logger.info(`Publishing your Web app to ${chalk.green.bold(domain)} (on your AWS ${chalk.green.bold(env)} environment)  ...`)
+  return inquirer.prompt([{
+    type: 'input',
+    name: 'domain',
+    validate: (s) => validator.isURL(s) ? true : "C'mon, enter a valid domain please :)",
+    message: "Enter a domain name: "
+  }])
+  .then(({ domain }) => {
+    fs.writeFileSync(path.resolve(process.cwd(), 'chunky.json'), JSON.stringify(Object.assign({}, mainConfig, { domain }), null, 2))
+    return new awsome.Domain({ name: domain })
+  })
+}
 
+function publish(cache, awsConfig, env) {
   const config = awsConfig[env]
   const dir = path.resolve(process.cwd(), '.chunky', 'web')
 
   process.env.AWS_ACCESS_KEY_ID = config.accessKey
   process.env.AWS_SECRET_ACCESS_KEY = config.secretKey
 
-  const bucket = new awsome.Bucket({ name: `${domain}`, site: true, dir })
-  const redirectBucket = new awsome.Bucket({ name: `www.${domain}`, site: { redirectTo: `${domain}` }, dir })
-  const bucketDomain = new awsome.Domain({ name: domain })
+  return getDomain()
+        .then((domain) => {
+          coreutils.logger.info(`Publishing your Web app to ${chalk.green.bold(domain.name)} ...`)
+          const bucket = new awsome.Bucket({ name: `${domain.name}`, site: true, dir })
+          const redirectBucket = new awsome.Bucket({ name: `www.${domain.name}`, site: { redirectTo: `${domain.name}` }, dir })
 
-  return Promise.all([
-                      ensureBucketExists(bucket),
-                      ensureBucketExists(redirectBucket),
-                      ensureDomainIsHosted(bucketDomain),
-                      ensureBucketIsLinked(bucketDomain)
-                    ])
-                    .then(() => bucketDomain.records({ type: "NS" }))
-                    .then((records) => records[0].ResourceRecords.map(r => r.Value))
-                    .then((records) => deploy({ bucket, bucketDomain, records, files, dir }))
-                    .then(() => {
-                      coreutils.logger.ok(`http://${domain}.s3-website-us-east-1.amazonaws.com`)
-                    })
+          return Promise.all([
+                              ensureDomainIsHosted(domain),
+                              ensureBucketExists(bucket),
+                              ensureBucketExists(redirectBucket),
+                              ensureBucketIsLinked(domain)
+                            ])
+                            .then(() => domain.records({ type: "NS" }))
+                            .then((records) => records[0].ResourceRecords.map(r => r.Value))
+                            .then((records) => deploy({ bucket, domain, records, dir }))
+        })
 }
 
 module.exports = (account, cache, env) => {
   return utils.ensureVaultIsUnlocked(cache)
           .then(() => utils.ensureAwsIsConfigured(cache, env))
           .then((awsConfig) => ensureIsPacked(awsConfig))
-          .then(({ awsConfig, files }) => publish(cache, awsConfig, env, files))
+          .then((awsConfig) => publish(cache, awsConfig, env))
           .catch((e) => coreutils.logger.fail(e))
 }
