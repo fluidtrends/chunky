@@ -4,9 +4,9 @@
 <p align="center"> Chunky is an opinionated framework that helps you write better Full Stack React Apps. </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Getting Started </a> |
-<a href="docs/features/README.md"> Feature Tour </a> |
-<a href="docs/examples/README.md"> Examples </a> |
+<a href="../start/README.md"> Getting Started </a> |
+<a href="../features/README.md"> Feature Tour </a> |
+<a href="../examples/README.md"> Examples </a> |
 <strong> Developer Guide </strong>
 </p>
 
