@@ -1,14 +1,11 @@
-<p align="center">
-<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px">
-</p>
+<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
+<h1 align="center"> Chunky </h1>
+<h3 align="center"> The Full Stack React Framework </h3>
+<p align="center"> Chunky is an opinionated framework that helps you write better Full Stack React Apps. </p>
 
-<h1 align="center"> Chunky
-</h1>
-
-<h3 align="center"> The Full Stack Product Development Platform </h3>
-<p align="center"> Chunky is an Open Source Platform that simplifies the Software Development Process by taking care of all the tedious grunt work required to build, launch and grow great products.
-</p>
 <hr/>
 
+# Documentation
 
-# [Features](features)
+* [Getting Started](start/README.md)
+* [Features](features/README.md)
