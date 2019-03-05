@@ -5,7 +5,4 @@
 
 <hr/>
 
-# Documentation
-
-* [Getting Started](start/README.md)
-* [Features](features/README.md)
+[Documentation](docs/README.md)
