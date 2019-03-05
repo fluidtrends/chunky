@@ -12,7 +12,10 @@
 
 ## Getting Started
 
-**STEP 1:** Install the Chunky CLI
+*Prerequisites: *
+- *[Node 8](https://nodejs.org/dist/latest-v8.x/) (Node 10 not supported yet)*
+
+**STEP 1:** Install the Chunky Command Line interface
 
 ```
 npm i -g chunky-cli
@@ -21,7 +24,7 @@ npm i -g chunky-cli
 **STEP 2:** Create a new Chunky Product
 
 ```
-chunky init MyProduct
+chunky init
 ```
 
 **STEP 3:** See your new product in action
@@ -29,3 +32,7 @@ chunky init MyProduct
 ```
 chunky start web
 ```
+
+## Documentation
+
+# [1. Features](docs/features)

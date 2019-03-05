@@ -11,5 +11,7 @@ const pause = require('./pause')
 const lock = require('./lock')
 const unlock = require('./unlock')
 const config = require('./config')
+const up = require('./up')
+const down = require('./down')
 
-module.exports = { login, config, lock, unlock, start, pause, logout, register, say, create, list, next, publish }
+module.exports = { login, up, down, config, lock, unlock, start, pause, logout, register, say, create, list, next, publish }

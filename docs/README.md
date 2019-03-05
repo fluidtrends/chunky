@@ -1,28 +1,14 @@
-# The Official Chunky Docs
+<p align="center">
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px">
+</p>
 
-The Full Stack Product Development Platform
+<h1 align="center"> Chunky
+</h1>
 
-## Features
+<h3 align="center"> The Full Stack Product Development Platform </h3>
+<p align="center"> Chunky is an Open Source Platform that simplifies the Software Development Process by taking care of all the tedious grunt work required to build, launch and grow great products.
+</p>
+<hr/>
 
-* Modular Full Stack Chunks
-* Declarative Microservices
-* Injected App Properties
-* Declarative Data Management
-* Smart Composable Components
-* Decoupled Content And Assets
-* Reusable Componentized Pages
-* Ready-Made Templates
-* Built-in Auto-Routing
-* Modular Styling
-* Complete Development Toolchain
-* Hot Reloading Development Mode
-* Static Site Builder
-* Production-Ready Preview Mode
-* Static Page Generation
-* Easy Cloud Deployment
-* Declarative Routing
-* Private Pages
-* Hot Reloading Development Mode
-* Preview Mode
-* Image Optimization
-* Asset Management
+
+# [Features](features)

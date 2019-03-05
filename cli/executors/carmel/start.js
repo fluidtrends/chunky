@@ -22,8 +22,7 @@ function start(command) {
    .then(({ account, cache }) => performAction(command, account, cache))
    .then(() => {
      coreutils.logger.footer(`Learn more at carmel.io`)
-     process.exit(0)
-   })
+  })
    .catch((error) => {
      coreutils.logger.fail(error.message)
      coreutils.logger.footer(`Learn more at carmel.io`)
