@@ -4,16 +4,11 @@
 <p align="center"> Chunky is an opinionated framework that helps you write better Full Stack React Apps. </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Getting Started Guide </a> |
+<a href="docs/start/README.md"> Getting Started </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
-<a href="docs/README.md"> Full Documentation </a>
+<a href="docs/examples/README.md"> Examples </a> |
+<a href="docs/guide/README.md"> Developer Guide </a> |
 </p>
-
-<p align="center">
-<a href="docs/README.md"> <img src="https://img.shields.io/badge/Documentation-Developer%20Guide-blue.svg"> </a>
-<a href="docs/features/README.md"> <img src="https://img.shields.io/badge/Documentation-Feature%20Tour-blue.svg"> </a>
-</p>
-
 
 <hr/>
 
