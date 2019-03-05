@@ -3,11 +3,9 @@
 <h3 align="center"> The Full Stack React Framework </h3>
 <p align="center"> Chunky is an opinionated framework that helps you write better Full Stack React Apps. </p>
 
-<p align="center">
 [Getting Started Guide](docs/start/README.md) |
 [Feature Tour](docs/features/README.md) |
 [Full Documentation](docs/README.md)
-</p>
 
 <hr/>
 
