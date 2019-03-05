@@ -12,7 +12,7 @@ Getting Started |
 
 <hr/>
 
-# Getting Started
+# Quick Start
 
 ## Prerequisites
 

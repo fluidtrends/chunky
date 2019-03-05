@@ -26,17 +26,15 @@ You can get started with Chunky with minimal programming experience and you can 
 
 Chunky helps you focus on the Product rather than just on the code. On the The What of the Customer Experience rather than just on The How of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value.
 
-#### [See All Features](docs/features/README.md)
+#### [See the Feature Tour](docs/features/README.md)
 
-## Getting Started
+## Quick Start
 
-### Prerequisites
+#### Prerequisites
 
 Chunky requires Node.js 8. If you don't have Node.js 8 installed, [install it now](https://nodejs.org/dist/latest-v8.x/). Full support for Node.js 10 and beyond is in the works in future versions of Chunky.
 
 *Windows Only* If you're running Windows, make sure you also install [Windows Build Tools](https://www.npmjs.com/package/windows-build-tools).
-
-### Create a Full Stack React App in 5 minutes or less
 
 #### STEP 1
 
@@ -62,4 +60,4 @@ See your new product in action
 chunky start web
 ```
 
-#### [See The Full Getting Started Guide](docs/start/README.md)
+#### [See the Full Quick Start Guide](docs/start/README.md)
