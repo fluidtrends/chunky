@@ -7,7 +7,7 @@
 <a href="docs/start/README.md"> Getting Started </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
 <a href="docs/examples/README.md"> Examples </a> |
-<a href="docs/guide/README.md"> Developer Guide </a> |
+<a href="docs/guide/README.md"> Developer Guide </a>
 </p>
 
 <hr/>
