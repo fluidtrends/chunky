@@ -5,7 +5,7 @@
 
 <p align="center">
 
-<a href="docs/start/README.md"> Getting Started Guide </a>
+<a href="docs/start/README.md"> Getting Started Guide </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
 <a href="docs/README.md"> Full Documentation </a>
 
