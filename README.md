@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-<a href="docs/start/README.md"> <img src="https://img.shields.io/badge/Documentation-Getting%20Started-blue.svg"> </a>
+<a href="docs/README.md"> <img src="https://img.shields.io/badge/Documentation-Developer%20Guide-blue.svg"> </a>
 <a href="docs/features/README.md"> <img src="https://img.shields.io/badge/Documentation-Feature%20Tour-blue.svg"> </a>
 </p>
 
