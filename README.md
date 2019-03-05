@@ -19,21 +19,11 @@ Chunky helps you focus on the Product rather than just on the code. On the The W
 
 The true power of Chunky is it works across platforms, including mobile, web, desktop, cloud and blockchain. Every Chunky Product includes Native iOS and Android Apps, a Static Web App, a Desktop App, a Serverless Cloud Backend and a Smart Contract, all fully integrated, fully owned by you and fully satisfying.
 
-### Web Development
-
-Create beautiful Static Web Apps that you can deploy with ease to your favourite static hosting provider, such as AWS S3.
-
-### Mobile Development
-
-Build native iOS and Android apps that you can easily package and deploy to the App Store and the Play Store.
-
-### Cloud Development
-
-Organize your data with a Google Firebase realtime database and seamlessly use that data by writing simple serverless cloud functions that you can deploy with a single command to AWS Lambda.
-
 ### Low Code
 
 You can get started with Chunky with minimal programming experience and you can build beautiful products with only a few lines of code. Make no mistake though, Chunky is highly flexible and so if you're an experienced developer, you'll be pleased to find a lot of power and versatility as well.
+
+#### [See All Features](docs/features/README.md)
 
 # Getting Started
 
@@ -70,3 +60,5 @@ See your new product in action
 ```
 chunky start web
 ```
+
+#### [See The Full Getting Started Guide](docs/start/README.md)
