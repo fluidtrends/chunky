@@ -118,7 +118,7 @@
     "video-react": "^0.9.4",
     "vivus": "^0.4.4",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0",
+    "webpack-dev-server": "^3.1.11",
     "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
