@@ -8,10 +8,10 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 <p align="center">
 <a href="docs/start/README.md"> Quick Start </a> |
-**Feature Tour** |
+<strong> Feature Tour </strong> |
 <a href="docs/examples/README.md"> Real Examples </a> |
 <a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Contribution </a>
+<a href="docs/contrib/README.md"> Get Involved </a>
 </p>
 
 ---

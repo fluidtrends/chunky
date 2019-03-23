@@ -7,11 +7,11 @@
 novice and seasoned developers who want to build, launch and grow End-To-End Digital Products without swearing at their code. </p>
 
 <p align="center">
-**Quick Start** |
+<strong> Quick Start </strong> |
 <a href="docs/features/README.md"> Feature Tour </a> |
 <a href="docs/examples/README.md"> Real Examples </a> |
 <a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Contribution </a>
+<a href="docs/contrib/README.md"> Get Involved </a>
 </p>
 
 ---
