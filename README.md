@@ -19,6 +19,9 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <p align="center">
 <img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/>
 <img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage"/>
+</p>
+
+<p align="center">
 <img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/>
 <img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/>
 <img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/>
