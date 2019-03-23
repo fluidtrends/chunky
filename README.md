@@ -19,17 +19,13 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <p align="center">
 <img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/>
 <img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage"/>
-</p>
-
-<p align="center">
-<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=chunky-cli&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=react-chunky&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=react-dom-chunky&style=flat-square"/>
-</p>
-
-<p align="center">
-<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=react-native-chunky&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=react-electron-chunky&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-cloud-chunky.svg?color=green&label=cloud&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=mobile&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=desktop&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-blockchain-chunky.svg?color=blue&label=blockchain&style=flat-square"/>
 </p>
 
 ---
