@@ -32,10 +32,9 @@ checks:
       threshold: 2
 engines:
   eslint:
-    enabled: true
-    channel: "eslint-3"
+    enabled: false
   csslint:
-    enabled: true
+    enabled: false
   duplication:
     enabled: false
     checks:
