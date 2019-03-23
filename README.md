@@ -25,8 +25,11 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=chunky-cli&style=flat-square"/>
 <img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=react-chunky&style=flat-square"/>
 <img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=react-dom-chunky&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=green&label=react-native-chunky&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=green&label=react-electron-chunky&style=flat-square"/>
+</p>
+
+<p align="center">
+<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=react-native-chunky&style=flat-square"/>
+<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=react-electron-chunky&style=flat-square"/>
 </p>
 
 ---
