@@ -14,12 +14,12 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <a href="../contrib/README.md"> Get Involved </a>
 </p>
 
-
 <hr/>
 
 <p align="center">
 <img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/>
 <img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage"/>
+<img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/>
 </p>
 
 <p align="center">
