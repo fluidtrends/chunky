@@ -17,21 +17,27 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <hr/>
 
 <p align="center">
-<img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/>
-<img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage"/>
-<img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/>
+<a href="https://circleci.com/gh/fluidtrends/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
+<a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
+<a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
 </p>
 
 <p align="center">
-<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-cloud-chunky.svg?color=green&label=cloud&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=mobile&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=desktop&style=flat-square"/>
-<img src="https://img.shields.io/npm/v/react-blockchain-chunky.svg?color=blue&label=blockchain&style=flat-square"/>
+<a href="https://www.npmjs.com/package/chunky-cli">
+<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-chunky">
+<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-dom-chunky">
+<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-cloud-chunky">
+<img src="https://img.shields.io/npm/v/react-cloud-chunky.svg?color=green&label=cloud&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-native-chunky">
+<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=mobile&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-electron-chunky">
+<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=desktop&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-blockchain-chunky">
+<img src="https://img.shields.io/npm/v/react-blockchain-chunky.svg?color=blue&label=blockchain&style=flat-square"/><a/>
 </p>
-
 ---
 
 ## Do you (still) enjoy writing code?
