@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/chunky
     docker:
-      - image: circleci/node:6.10
+      - image: circleci/node:8.10
     steps:
       - checkout
       - run:
