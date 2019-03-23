@@ -32,15 +32,17 @@ Chunky was created with one ambitious goal in mind: **Simplifying The Software D
 
 As a Software Developer you should spend the bulk of your time **creating**, not doing *grunt work*. You were never meant to be a *code monkey*. **You were born to create**.
 
-On the other hand, Chunky loves being a **code monkey**. Let Chunky do the grunt work and you just about enjoying your life again and build those awesome features you can't wait to get your hands on.
+On the other hand, Chunky loves being a **code monkey**. Let Chunky do the grunt work and you just worry about enjoying your life again and build those awesome features you can't wait to get your hands on.
 
 That's what Software Development is all about. Yes, even if you're a brand new developer. As a matter of fact, if you're just getting started in your development career, you're going to love Chunky.
 
-With Chunky you get a Command-Line Interface and from there you install a template that gives a fully functional product, complete with a Web app and a serverless API, and you can even add an iOS app and an Android app, a Desktop app or even a Blockchain app. Oh, there's so much more. It comes automatically integrated with AWS and Firebase and ... you know what - why don't you have a look yourself and see why others simply love this happy little code monkey.
+With Chunky you get a Command-Line Interface and from there you install a template that gives a fully functional product, complete with a Web app and a serverless API, and you can even add an iOS app and an Android app, a Desktop app or even a Blockchain app. Oh, and there's so much more. It comes automatically integrated with AWS and Firebase and ... you know what - why don't you have a look yourself and see why others simply love this happy little code monkey.
 
 Ready to enjoy writing code (again)?
 
-Let's do this
+**Let's do this.**
+
+## ↓
 
 ---
 
