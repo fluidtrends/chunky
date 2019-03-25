@@ -43,8 +43,29 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 # Developer Guide
 
-* [Architecture](#architecture)
+1. [Architecture](#architecture)
+2. [CLI](#cli)
+3. [Universal](#universal)
+4. [Web](#web)
+5. [Cloud](#cloud)
+6. [Mobile](#mobile)
+7. [Desktop](#desktop)
+8. [Blockchain](#blockchain)
 
 ---
 
 ## Architecture
+
+## CLI
+
+## Universal
+
+## Web
+
+## Cloud
+
+## Mobile
+
+## Desktop
+
+## Blockchain
