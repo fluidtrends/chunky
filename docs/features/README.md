@@ -77,8 +77,16 @@ Chunky comes with a comprehensive and **beautiful CLI** that sits on your develo
 
 #### 9. Strong Security
 
-Your sensitive data such as your AWS access keys or other important information is kept in an encrypted vault on your development machine. Chunky allows you to lock and unlock your vault at will to protect your data with the **highest level of security standards available today**.
+Your sensitive data such as your AWS access keys or other important information is kept in an encrypted vault on your development machine. Chunky allows you to *lock* and *unlock* your vault at will to protect your data with the **highest level of security standards available today**.
 
 #### 10. High Order Components
 
 Chunky makes use of wildly popular web and mobile low level component libraries to construct new **configurable components**, that incorporate business logic and can be used on mobile or web apps *right out of the box*.
+
+#### 11. Product Templates
+
+You can **start a brand new Chunky Product** from scratch but then again you can start with a Full Stack Product Template that is ready for production right out of the box.
+
+#### 12. Declarative Data Operations
+
+Working with *remove services* is not a pretty sight but Chunky makes authentication and general purpose data handling, both local and remote - a breeze. Just declare a few lines and lo and behold, use the **automatically injected handlers**.
