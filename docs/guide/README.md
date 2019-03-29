@@ -43,7 +43,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 # Developer Guide
 
-1. [Architecture](#architecture)
+1. [Structure](#structure)
 2. [CLI](#cli)
 3. [Universal](#universal)
 4. [Web](#web)
@@ -54,9 +54,44 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-## Architecture
+## Structure
+
+A Chunky Product is a complete [Node Module](https://docs.npmjs.com/about-packages-and-modules), including a ```package.json``` file. To create a brand new Chunky Product, use the [init](#the-init-command) CLI command. In addition to the ```package.json``` file, all Chunky Products include at least the following:
+
+* A ```chunky.json``` file
+* A ```chunks/``` folder
+* An ```assets/``` folder
+* A ```web/**``` folder
+
+The following folders can also be present, but not always:
+
+* An ```ios/``` folder
+* An ```android/``` folder
+* A ```desktop/``` folder
+* A ```blockchain/``` folder
+
+Let's go through these one by one.
+
+### The ```chunky.json``` file
+
+### The ```chunks/``` folder
+
+### The ```assets/``` folder
+
+### The ```web/``` folder
+
+### The ```ios/``` folder
+
+### The  ```android/``` folder
+
+### The ```desktop/``` folder
+
+### The  ```blockchain/``` folder
 
 ## CLI
+
+### The ```init``` command
+
 
 ## Universal
 
