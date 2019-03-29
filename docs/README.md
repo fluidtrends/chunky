@@ -65,6 +65,20 @@ Ready to enjoy writing code (again)?
 
 #### Let's do this.
 
+## Philosophy
+
+> Chunking is “the very lifeblood of the thought processes” ([Miller](#references), 1956, p. 95)
+
+The *core architectural principle* behind Chunky is the concept of **chunking**. Namely, that organizing a Digital Product in smaller **chunks** will improve the Product Development Lifecycle and **your overall performance** and productivity as a Software Developer.
+
+[Proposed in 1956](#references) by George Miller, the concept of chunking is now one of the most established theory in cognitive science. The basic idea is that working memory has a limited capacity of storing and processing no more than 5 to 9 pieces of distinct information. This is commonly known as *Miller's law* today or the so called 7 +/- 2 law.
+
+This idea, that our working memory maxes out at around 7 pieces of information, is core to how we have been learning and communicating over the past 60 years. Think about phone numbers for example. Memorizing 4169237890 is horrible and down right close to impossible. Whereas (416) 923-7890 is much more manageable and the area code, the 416, eventually becomes a chunk in itself.
+
+Chunking has been studied in different areas of cognition but what our platform attempts to do, is to apply it to Software Development. Can chunking help **improve our productivity and performance** as Software Developers? You bet.
+
+Give it a try and see your productivity and performance soar.
+
 ## Features
 
 #### 1. Product Oriented ✓
@@ -114,3 +128,9 @@ chunky start web
 ```
 
 #### [Read the full Quick Start Guide](start/README.md)
+
+---
+
+### References
+
+1. George Millar, "The magical number seven, plus or minus two: some limits on our capacity for processing information." *Psychological Review*, 1959. ([Article](https://psycnet.apa.org/record/1957-02914-001)) ([Online](http://www.musanim.com/miller1956/))
