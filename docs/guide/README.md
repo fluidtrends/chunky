@@ -45,18 +45,12 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 Hi there, fellow Developer buddy. If you're looking for free cappuccinos, this ain't the place. But if you wanna kill that next product you're working on and dig deep inside the belly of the Chunky beast - you've come to the right place. Listen, Chunky's not a beast. He's the cutest, happiest little (virtual) monkey you'll ever meet in your developer life. In any case, you wanna know what makes Chunky tick. Behold the **Chunky Developer Guide**.
 
-Chunky is no joke. Just so you know. To show you what we're talking about, we've build a full blown enterprise - ie. pretty huge - full stack app (read: still building it) - oh and we open sourced it. So you can follow along with **real production code**.
+Chunky is no joke. Just so you know. To show you what we're talking about, we built a full blown enterprise - ie. pretty huge - full stack product (read: still building it) - oh and we open sourced it. So you can follow along with **real production code**.
 
-That app is hosted at [Carmel.io](https://carmel.io) and you can find the [source code on GitHub](https://github.com/fluidtrend/carmel) (where else).
+That product is hosted at [Carmel.io](https://carmel.io) and you can find the [source code on GitHub](https://github.com/fluidtrend/carmel) (where else).
 
 1. [Structure](#structure)
 2. [CLI](#cli)
-3. [Universal](#universal)
-4. [Web](#web)
-5. [Cloud](#cloud)
-6. [Mobile](#mobile)
-7. [Desktop](#desktop)
-8. [Blockchain](#blockchain)
 
 ---
 
@@ -137,13 +131,58 @@ Each section has a key, which acts as the id of the section. Inside each section
 
 **provisioning**
 
+This is where you can tell Chunky where to look for remote services, including your custom RESTful API.
+
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L27-L31):
+
+```
+"provisioning": {
+  "rest": {
+    "url": "https://api.carmel.io"
+  }
+}
+```
+
 **theme**
 
-**styles**
+Use the ```theme``` element to specify look and feel attributes, such as fonts, colors and and image names. These get automatically injected into your screens so you can use theme using the ```this.props.theme``` property.
 
-**scripts**
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L35-L58):
+
+```
+"logoImage": "carmel-logo-white.png",
+"logoLightImage": "carmel-logo.png",
+"headerColor": "#FF5722",
+"textColor": "#546E7A",
+"linkColor": "#0288D1",
+"linkHoverColor": "#64B5F6",
+"linkHoverBackgroundColor": "#F5F5F5",
+"progressColor": "rgba(50,50,50,0.9)",
+"primaryColor": "#00bcd4",
+"secondaryColor": "#00BFA5"
+...
+
+```
 
 **info**
+
+Product wide information such as copyright info go here so that Chunky can find it all and retrieve all this info when it needs it
+
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L85-L95):
+
+```
+"info": {
+  "copyright": "© 2019",
+  "title": "Carmel",
+  "summary": "The Decentralized Tech Education Platform",
+  "watermark": "Created with Chunky.",
+  "cover": "chris.r.png",
+  "analytics": {
+    "type": "google",
+    "key": "UA-99031266-1"
+  }
+}
+```
 
 ### The ```chunks/``` folder
 
@@ -162,16 +201,3 @@ Each section has a key, which acts as the id of the section. Inside each section
 ## CLI
 
 ### The ```init``` command
-
-
-## Universal
-
-## Web
-
-## Cloud
-
-## Mobile
-
-## Desktop
-
-## Blockchain
