@@ -43,6 +43,12 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 # Developer Guide
 
+Hi there, fellow Developer buddy. If you're looking for free cappuccinos, this ain't the place. But if you wanna kill that next product you're working on and dig deep inside the belly of the Chunky beast - you've come to the right place. Listen, Chunky's not a beast. He's the cutest, happiest little (virtual) monkey you'll ever meet in your developer life. In any case, you wanna know what makes Chunky tick. Behold the **Chunky Developer Guide**.
+
+Chunky is no joke. Just so you know. To show you what we're talking about, we've build a full blown enterprise - ie. pretty huge - full stack app (read: still building it) - oh and we open sourced it. So you can follow along with **real production code**.
+
+That app is hosted at [Carmel.io](https://carmel.io) and you can find the [source code on GitHub](https://github.com/fluidtrend/carmel) (where else).
+
 1. [Structure](#structure)
 2. [CLI](#cli)
 3. [Universal](#universal)
@@ -72,7 +78,72 @@ The following folders can also be present, but not always:
 
 Let's go through these one by one.
 
+*Check out the full [Carmel source code](https://github.com/fluidtrends/carmel)* for a real world example of what a Chunky Product structure looks like.
+
 ### The ```chunky.json``` file
+
+Just like the ```package.json``` file acts as the manifest of a Node Module, so too does the ```chunky.json``` file act as the manifest for a Chunky Product. The format is [JSON](https://www.json.org/) and it comprises a few key nodes that are worth mentioning here.
+
+*Check out [the Carmel ```chunky.json``` file](https://github.com/fluidtrends/carmel/blob/master/chunky.json) for a real example in action.*
+
+**```name```** *string*
+
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L2):
+
+```
+name: Carmel
+```
+
+This is the name of the Chunky Product represented by the ```chunky.json``` manifest file. This name will be used everywhere and anywhere the product is mentioned, from documentation to packaging and even file names.
+
+**```env```** *string*
+
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L4):
+```
+env: production
+```
+
+The current environment is represented by this element and it is used primarily when the product is packaged and/or published. The environment is especially useful when publishing cloud functions. The commonly used values are: **production** and **development** but you can add other environments, such as **staging** or **baby unicorns**. Just sayin'.
+
+**sections** *object*
+
+Alright, here we go. This is getting serious now. Chunky comes with a cool feature we call **sectioning** where we can group chunks in sections. Normally, one sections would be more than enough but you can add more. For example, you could add a section that holds all your public facing views and one for all your private ones. Pretty neat, eh?
+
+Each section has a key, which acts as the id of the section. Inside each section, you can define a ```stack``` of chunks, a ```layout``` (*sidebar* or leave empty for default) and you can specify whether the section is ```private``` or not.
+
+[Example](https://github.com/fluidtrends/carmel/blob/master/chunky.json#L7-L25):
+
+```
+"sections": {
+  "start": {
+    "stack": [
+      "intro",
+      "learn",
+      "tokens",
+      "story",
+      "community",
+      "auth",
+      "journey",
+      "payments"
+    ]
+  },
+  "dashboard": {
+    "private": true,
+    "layout": "sidebar",
+    "stack": ["payments", "learn", "tokens", "auth"]
+  }
+}
+```
+
+**provisioning**
+
+**theme**
+
+**styles**
+
+**scripts**
+
+**info**
 
 ### The ```chunks/``` folder
 
