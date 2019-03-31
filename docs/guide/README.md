@@ -186,6 +186,16 @@ Product wide information such as copyright info go here so that Chunky can find 
 
 ### The ```chunks/``` folder
 
+The bread and butter of every Chunky Product is its chunks. A Chunky chunk (that's gotta make you smile) - is an independent full stack unit of the entire product.
+
+Have a look at the [Carmel auth chunk](https://github.com/fluidtrends/carmel/tree/master/chunks/auth) and take a look at its structure.
+
+Each Chunky chunk has a ```chunky.json``` descriptor, much like every Chunky product has a ```chunky.json``` manifest file. You will also see an ```index.json``` and an ```index.web.json``` file. The former is the mobile app entry point into the chunk while the latter is the web counterpart. You might also see a ```index.desktop.json``` entry point for the desktop app.
+
+Then you will notice the ```screens/``` folder and potentially the ```components/``` and the ```functions/``` folders if the chunk exposes components or functions.
+
+*Check out the [Carmel chunks](https://github.com/fluidtrends/carmel/tree/master/chunks) for what a ```chunks/``` folder looks like in action.*
+
 ### The ```assets/``` folder
 
 ### The ```web/``` folder
