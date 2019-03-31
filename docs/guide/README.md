@@ -192,7 +192,18 @@ Have a look at the [Carmel auth chunk](https://github.com/fluidtrends/carmel/tre
 
 Each Chunky chunk has a ```chunky.json``` descriptor, much like every Chunky product has a ```chunky.json``` manifest file. You will also see an ```index.json``` and an ```index.web.json``` file. The former is the mobile app entry point into the chunk while the latter is the web counterpart. You might also see a ```index.desktop.json``` entry point for the desktop app.
 
+*You don't want to change the content of these index files.*
+
+They perform a perfectly simple job and they do it well. They bootstrap the chunk for the right platform (web, mobile or desktop) and expose the chunk's screens and configuration from the ```chunk.json``` descriptor.
+
 Then you will notice the ```screens/``` folder and potentially the ```components/``` and the ```functions/``` folders if the chunk exposes components or functions.
+
+Screens in the ```screens/``` folder are platform specific, like the index files.
+
+The crucial part with the screens is that they need to extend the particular core screen from the appropriate Chunky framework. So web screens for example, extend the [Core Screen](https://github.com/fluidtrends/chunky/blob/master/web/src/core/Screen.js) from the [Chunky Web Framework](https://github.com/fluidtrends/chunky/blob/master/web).
+
+In addition to that, the screens have to be exported in the screen index file. See the auth web screen for example,
+In addition to that, the screens have to be exported in the screen index file. See the [Carmel auth web screen index](https://github.com/fluidtrends/carmel/blob/master/chunks/auth/screens/index.web.js#L1) for example.
 
 *Check out the [Carmel chunks](https://github.com/fluidtrends/carmel/tree/master/chunks) for what a ```chunks/``` folder looks like in action.*
 
