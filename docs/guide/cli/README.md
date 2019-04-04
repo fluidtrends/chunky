@@ -125,7 +125,7 @@ Have a look at the file structure created and check out the [Structure Section](
 ---
 
 <p align="center">
-Prev: <a href="../cli"/> CLI </a>
-<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
-Next: <a href="../bundles"/>Bundles</a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+<br/>
+Keep going to the <a href="../bundles"/>Bundles Guide</a> or <a href="../structure"/>go back</a>.
 </p>

@@ -68,7 +68,7 @@ Templates come in very handy when creating a new product with the ```init``` CLI
 ---
 
 <p align="center">
-Prev: <a href="../bundles"/> Bundles </a>
-<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
-Next: <a href="../web"/>Web</a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+<br/>
+Keep going to the <a href="../web"/>Web Framework Guide</a> or <a href="../cli"/>go back</a>.
 </p>

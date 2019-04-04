@@ -208,8 +208,8 @@ Ideall you don't want to keep large files here such as videos or documents, beca
 
 ---
 
-<p align="center" style="background-color: #ffff00; align-items: center; justify-content: center">
-Prev: <a href="../"/> Intro </a>
+<p align="center">
 <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
-Next: <a href="../cli"/>CLI</a>
+<br/>
+Keep going to the <a href="../cli"/>CLI Guide</a> or <a href="../"/>go back</a>.
 </p>

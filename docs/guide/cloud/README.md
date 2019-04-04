@@ -41,12 +41,12 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# 4. Cloud Framework (Developer Guide)
+# 5. Cloud Framework (Developer Guide)
 
 ---
 
 <p align="center">
-Prev: <a href="../web"/> Web Framework </a>
-<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
-Next: <a href="../mobile"/>Mobile Framework</a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+<br/>
+Keep going to the <a href="../mobile"/>Mobile Framework Guide</a> or <a href="../web"/>go back</a>.
 </p>

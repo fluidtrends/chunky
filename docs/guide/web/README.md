@@ -46,7 +46,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 ---
 
 <p align="center">
-Prev: <a href="../bundles"/> Bundles </a>
-<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
-Next: <a href="../cloud"/>Cloud Framework</a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+<br/>
+Keep going to the <a href="../cloud"/>Cloud Framework Guide</a> or <a href="../bundles"/>go back</a>.
 </p>
