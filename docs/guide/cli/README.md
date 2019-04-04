@@ -119,3 +119,5 @@ When running this command, say without any arguments, here's what you would see:
 
 —————————————————  AMAZING! YOUR NEW CHUNKY PRODUCT IS READY!  —————————————————
 ```
+
+Have a look at the file structure created and check out the [Structure Section](../structure) of the Developer Guide for a detailed walkthrough of all the files created.
