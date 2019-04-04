@@ -48,5 +48,5 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 <p align="center">
 <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
 <br/>
-Keep going to the <a href="../blockchain"/>blockchain Framework Guide</a> or <a href="../mobile"/>go back</a>.
+Keep going to the <a href="../blockchain"/>Blockchain Framework Guide</a> or <a href="../mobile"/>go back</a>.
 </p>
