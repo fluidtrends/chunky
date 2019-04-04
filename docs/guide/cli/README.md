@@ -88,39 +88,46 @@ Use this command to create a brand new Chunky Product. Start with a fresh direct
                      ↳ Create a new product using the specified template from the specified bundle
 ```
 
-When running this command, say without any arguments, here's what you would see:
+When running ```chunky init``` here's what you would see:
+
+![start4](http://files.carmel.io/media/init.gif)
+
+That's all there is to it. Have a look at the file structure created and check out the [Structure Section](../structure) of the Developer Guide for a detailed walkthrough of all the files created.
+
+### The ```start``` command
+
+Once you have a real Chunky Product created, you're pretty much ready to see it in action. First, because every Chunky Product is a Node.js module, you have to install its dependencies. That's really easy - just run the ```npm i``` command. That's all.
+
+With your dependencies install you can then start your product in development mode to see it in action. Here's the detailed usage instructions:
 
 ```bash
-——————————————————————  CREATING YOUR NEW CHUNKY PRODUCT  ——————————————————————
+start [platforms..]
 
-➡ Looking for bundle fluidtrends/chunky-bananas ...
-   ✔ Found latest remote bundle fluidtrends/chunky-bananas (1.0.0)
-   ✔ Using cached fluidtrends/chunky-bananas/1.0.0 bundle
-➡ Looking for the personal template inside the bundle ...
-   ✔ Using the personal template from the fluidtrends/chunky-bananas/1.0.0 bundle
-➡ Generating product files ...
-   ✔ package.json
-   ✔ chunky.json
-   ✔ web/index.json
-   ✔ web/firebase-config.json
-   ✔ assets/strings.json
-   ✔ assets/style.css
-➡ Generating product chunks ...
-   ✔ Generated chunks indexes
-   ✔ Added chunk intro, including chunk indexes
-➡ Generating local product assets ...
-   ✔ loader.svg
-   ✔ logo.gif
-   ✔ favicon/favicon.ico
-   ✔ style.css
-   ✔ text/intro.md
-➡ Generating remote product assets ...
-   ✔ Downloaded 1 remote assets
+   The supported platforms are web and mobile
 
-—————————————————  AMAZING! YOUR NEW CHUNKY PRODUCT IS READY!  —————————————————
+  --mobile-packager-port   Use a custom mobile packager port  [string] [default: 8081]
+  --web-packager-port      Use a custom web packager port  [string] [default: 8082]
+  --desktop-packager-port  Use a custom desktop packager port  [string] [default: 8083]
+  --------------
+  --➔ Example 4.1:         chunky start
+                            ↳ Start all the packagers, using the default ports
+  --➔ Example 4.2:         chunky start web mobile
+                            ↳ Start the web and mobile packagers, using the default ports
+  --➔ Example 4.3:         chunky start mobile
+                            ↳ Start the mobile packager only, using the default mobile port
+  --➔ Example 4.4:         chunky start web
+                            ↳ Start the web packager only, using the default web port
+  --➔ Example 4.5:         chunky start --mobile-port 9200
+                            ↳ Start all the packagers, using the default web port and a custom mobile port
+  --➔ Example 4.6:         chunky start mobile --mobile-port 9200
+                            ↳ Start the mobile packager only, using a custom mobile port
 ```
 
-Have a look at the file structure created and check out the [Structure Section](../structure) of the Developer Guide for a detailed walkthrough of all the files created.
+To see your web app in action for examplee, type ```chunky start web```. Here's how that would look in action:
+
+![start8](http://files.carmel.io/media/start-web.gif)
+
+Pretty cool, eh? Why don't you give it a try yourself and see what you think.
 
 ---
 
