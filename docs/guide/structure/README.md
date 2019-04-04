@@ -41,7 +41,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# Structure (Developer Guide)
+# 1. Structure (Developer Guide)
 
 A Chunky Product is a complete [Node Module](https://docs.npmjs.com/about-packages-and-modules), including a ```package.json``` file. To create a brand new Chunky Product, use the [init](#the-init-command) CLI command. In addition to the ```package.json``` file, all Chunky Products include at least the following:
 
