@@ -47,7 +47,7 @@ Chunky comes with a beautiful command line interface, packed with goodies that w
 
 Type ```chunky``` at your favorite terminal to see *very* detailed usage instructions:
 
-```bash
+```console
 Usage:
  chunky <command> [subcommand] [options]
 
@@ -72,7 +72,7 @@ To see even more detailed help type ```chunky help```
 
 Use this command to create a brand new Chunky Product. Start with a fresh directory. This command will generate all files from stratch and place them in your current working directory.
 
-```bash
+```console
   init [name]
 
    Specify a custom name or go with the default generated name
@@ -100,7 +100,7 @@ Once you have a real Chunky Product created, you're pretty much ready to see it 
 
 With your dependencies install you can then start your product in development mode to see it in action. Here's the detailed usage instructions:
 
-```bash
+```console
 start [platforms..]
 
    The supported platforms are web and mobile
