@@ -51,11 +51,15 @@ Chunky requires Node.js 8. If you don't have Node.js 8 installed, [install it no
 
 ### STEP 1
 
-Install the Chunky Command Line interface:
+Once you have Node.js 8 installed, you're ready to get the Chunky CLI on your machine:
 
 ```
 npm i -g chunky-cli
 ```
+
+Great stuff! Now you should be able to type ```chunky``` and you should see the entire usage help:
+
+![](http://files.carmel.io/media/install.gif)
 
 ### STEP 2
 
@@ -82,5 +86,5 @@ chunky start web
 <p align="center">
 <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
 <br/>
-Read the <a href="../guide"/>Developer Guide</a> for a lot more good stuff :)
+Read the <a href="../guide"/>Developer Guide</a> for a lot more good stuff 😏
 </p>
