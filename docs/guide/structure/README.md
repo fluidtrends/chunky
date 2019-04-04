@@ -208,9 +208,8 @@ Ideall you don't want to keep large files here such as videos or documents, beca
 
 ---
 
-<div style="display: flex; width: 100%; flex-direction: row; justify-content: center; align-items: center">
-<div> Prev: <a href="../"/> Intro </a> </div>
-<div style="padding: 20px;"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px">
-</div>
-<div> Next: <a href="../cli"/>CLI</a> </div>
-</div>
+<p align="center">
+Prev: <a href="../"/> Intro </a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+Next: <a href="../cli"/>CLI</a>
+</p>
