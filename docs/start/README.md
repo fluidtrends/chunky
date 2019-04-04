@@ -91,6 +91,12 @@ chunky start web
 
 ![](http://files.carmel.io/media/start-web-small.gif)
 
+And that's all there is to it. You've just created a full stack product from scratch and you just saw it in action.
+
+How long did that take for you? Hopefully not more than a few short minutes.
+
+Wanna keep going?
+
 ---
 
 <p align="center">
