@@ -41,7 +41,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# 6. Mobile Framework (Developer Guide)
+# 7. Mobile Framework (Developer Guide)
 
 ---
 

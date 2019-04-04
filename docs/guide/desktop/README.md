@@ -41,7 +41,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# 7. Desktop Framework (Developer Guide)
+# 8. Desktop Framework (Developer Guide)
 
 ---
 

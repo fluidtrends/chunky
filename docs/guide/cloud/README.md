@@ -41,7 +41,7 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# 5. Cloud Framework (Developer Guide)
+# 6. Cloud Framework (Developer Guide)
 
 ---
 
