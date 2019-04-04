@@ -53,29 +53,37 @@ Chunky requires Node.js 8. If you don't have Node.js 8 installed, [install it no
 
 Once you have Node.js 8 installed, you're ready to get the Chunky CLI on your machine:
 
-```
+```console
 npm i -g chunky-cli
 ```
 
-Great stuff! Now you should be able to type ```chunky``` and you should see the entire usage help:
-
-![](http://files.carmel.io/media/install.gif)
+Great stuff! Now you should be able to type ```chunky help``` and you should see a beautifully detailed list of instructions.
 
 ### STEP 2
 
-Create a new Chunky Product:
+Ready to create your first Chunky Product? You're one single command away:
 
-```
+```console
 chunky init
 ```
 
 ![](http://files.carmel.io/media/init.gif)
 
-### STEP 3
+Take a look inside your current working directory - that's your brand new shiny Chunky Product. Congrats!
 
-See the Web app in action:
+### Step 3
 
+```console
+chunk install
 ```
+
+![](http://files.carmel.io/media/install-small.gif)
+
+### STEP 4
+
+This is great! One more step - ready? Just type the following to see your Web app in action:
+
+```console
 chunky start web
 ```
 
