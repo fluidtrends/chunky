@@ -125,7 +125,7 @@ start [platforms..]
 
 To see your web app in action for examplee, type ```chunky start web```. Here's how that would look in action:
 
-<img align="center" src="http://files.carmel.io/media/start-web.gif"/>
+<img align="center" src="http://files.carmel.io/media/start-web-small.gif"/>
 
 Pretty cool, eh? Why don't you give it a try yourself and see what you think.
 
