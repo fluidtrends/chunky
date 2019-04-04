@@ -64,3 +64,11 @@ Once you do that, in order to make sure the bundle is ready to be used, create a
 **Using bundles**
 
 Templates come in very handy when creating a new product with the ```init``` CLI command line. Read the [init command guide](../cli#the-init-command) for details on how create a product using a custom template.
+
+---
+
+<p align="center">
+Prev: <a href="../bundles"/> Bundles </a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
+Next: <a href="../web"/>Web</a>
+</p>

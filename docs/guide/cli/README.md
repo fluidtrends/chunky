@@ -121,3 +121,11 @@ When running this command, say without any arguments, here's what you would see:
 ```
 
 Have a look at the file structure created and check out the [Structure Section](../structure) of the Developer Guide for a detailed walkthrough of all the files created.
+
+---
+
+<p align="center">
+Prev: <a href="../cli"/> CLI </a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
+Next: <a href="../bundles"/>Bundles</a>
+</p>

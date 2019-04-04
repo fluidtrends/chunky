@@ -205,3 +205,11 @@ This is where you place all your project wide resources. Here are the main asset
 Ideall you don't want to keep large files here such as videos or documents, because these assets will be hosted on your production package.
 
 *Have a look at the [Carmel assets](https://github.com/fluidtrends/carmel/tree/master/assets) for a real ```assets/``` example.*
+
+---
+
+<p align="center">
+Prev: <a href="../"/> Intro </a>
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="90px" style="padding: 20px">
+Next: <a href="../cli"/>CLI</a>
+</p>
