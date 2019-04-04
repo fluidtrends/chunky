@@ -127,6 +127,8 @@ To see your web app in action for examplee, type ```chunky start web```. Here's 
 
 ![start8](http://files.carmel.io/media/start-web.gif)
 
+![start8](http://files.carmel.io/media/init.gif)
+
 Pretty cool, eh? Why don't you give it a try yourself and see what you think.
 
 ---
