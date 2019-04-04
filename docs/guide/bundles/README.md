@@ -54,3 +54,13 @@ Chunks, templates and fixtures can be bundled up and shared in **bundles**. Chun
 * template: [personal](https://github.com/fluidtrends/chunky-bananas/tree/master/templates/personal)
 * fixture: [starter](https://github.com/fluidtrends/chunky-bananas/tree/master/fixtures/starter)
 * chunk: [intro](https://github.com/fluidtrends/chunky-bananas/tree/master/chunks/intro)
+
+**Creating a bundle**
+
+Extending Chunky with your own chunks, fixtures or templates, all you have to do is create a GitHub repository and follow the layout of [Chunky Bananas](https://github.com/fluidtrends/chunky-bananas) bundle.
+
+Once you do that, in order to make sure the bundle is ready to be used, create a release with a version number. Have a look at the [Chunky Bananas 1.0.0 release](https://github.com/fluidtrends/chunky-bananas/releases/tag/1.0.0).
+
+**Using bundles**
+
+Templates come in very handy when creating a new product with the ```init``` CLI command line. Read the [init command guide](../cli#the-init-command) for details on how create a product using a custom template.
