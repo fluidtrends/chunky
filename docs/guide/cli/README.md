@@ -90,7 +90,9 @@ Use this command to create a brand new Chunky Product. Start with a fresh direct
 
 When running ```chunky init``` here's what you would see:
 
-<img align="center" src="http://files.carmel.io/media/init.gif"/>
+<p align="center">
+<img src="http://files.carmel.io/media/init.gif"/>
+</p>
 
 That's all there is to it. Have a look at the file structure created and check out the [Structure Section](../structure) of the Developer Guide for a detailed walkthrough of all the files created.
 
@@ -125,7 +127,9 @@ start [platforms..]
 
 To see your web app in action for examplee, type ```chunky start web```. Here's how that would look in action:
 
-<img align="center" src="http://files.carmel.io/media/start-web-small.gif"/>
+<p align="center">
+<img src="http://files.carmel.io/media/start-web-small.gif"/>
+</p>
 
 Pretty cool, eh? Why don't you give it a try yourself and see what you think.
 
