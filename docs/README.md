@@ -159,7 +159,7 @@ chunky start web
 
 And that's all there is to it. You've just created a full stack product from scratch and you just saw it in action.
 
-#### [Read the full Quick Start Guide](start/README.md)
+#### [Read the full Developer Guide](guide)
 
 ---
 
