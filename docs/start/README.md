@@ -51,7 +51,7 @@ Chunky requires Node.js 8. If you don't have Node.js 8 installed, [install it no
 
 ### STEP 1
 
-Install the Chunky Command Line interface
+Install the Chunky Command Line interface:
 
 ```
 npm i -g chunky-cli
@@ -59,16 +59,28 @@ npm i -g chunky-cli
 
 ### STEP 2
 
-Create a new Chunky Product
+Create a new Chunky Product:
 
 ```
 chunky init
 ```
 
+![](http://files.carmel.io/media/init.gif)
+
 ### STEP 3
 
-See your new product in action
+See the Web app in action:
 
 ```
 chunky start web
 ```
+
+![](http://files.carmel.io/media/start-web-small.gif)
+
+---
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="64px"/>
+<br/>
+Read the <a href="../guide"/>Developer Guide</a> for a lot more good stuff :)
+</p>
