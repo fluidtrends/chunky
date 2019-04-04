@@ -196,12 +196,12 @@ In addition to that, the screens have to be exported in the screen index file. S
 
 ### The ```assets/``` folder
 
-### The ```web/``` folder
+This is where you place all your project wide resources. Here are the main asset categories:
+* images (png, gif, jpg, svg)
+* cover (responsive) images (\*.r.png)
+* ```strings.json``` - where you keep all your strings
+* ```text/``` - the folder where you keep text (markdown) files
 
-### The ```ios/``` folder
+Ideall you don't want to keep large files here such as videos or documents, because these assets will be hosted on your production package.
 
-### The  ```android/``` folder
-
-### The ```desktop/``` folder
-
-### The  ```blockchain/``` folder
+*Have a look at the [Carmel assets](https://github.com/fluidtrends/carmel/tree/master/assets) for a real ```assets/``` example.*
