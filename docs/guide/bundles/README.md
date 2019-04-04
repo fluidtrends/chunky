@@ -41,16 +41,16 @@ novice and seasoned developers who want to build, launch and grow End-To-End Dig
 
 ---
 
-# Developer Guide
+# 3. Bundles (Developer Guide)
 
-Hi there, fellow Developer buddy. If you're looking for free cappuccinos, this ain't the place. But if you wanna kill that next product you're working on and dig deep inside the belly of the Chunky beast - you've come to the right place. Listen, Chunky's not a beast. He's the cutest, happiest little (virtual) monkey you'll ever meet in your developer life. In any case, you wanna know what makes Chunky tick. Right? Well, then. Behold - **The Chunky Developer Guide**.
+One of the beautiful things about Chunky is that it's not only modular but also highly *extensible*.
 
-Chunky is no joke. Just so you know. To show you what we're talking about, we built a full blown enterprise - ie. pretty huge - full stack product (read: still building it) - oh and we open sourced it. So you can follow along with **real production code**.
+You already know about chunks, and sure that's the primary way to build functionality. But, in addition to chunks, there are also *product templates*. Just like you can build a cross-functional piece of a product as a chunk, you can build an entire product template.
 
-That product is hosted at [Carmel.io](https://carmel.io) and you can find the [source code on GitHub](https://github.com/fluidtrend/carmel) (where else).
+Product templates are based on *product fixtures*, which you can think of as a foundational base for a template.
 
-**Contents:**
-
-1. [Structure](structure/)
-2. [CLI](cli/)
-3. [Bundles](bundles/)
+Chunks, templates and fixtures can be bundled up and shared in **bundles**. Chunky comes with a default bundle called
+[Chunky Bananas](https://github.com/fluidtrends/chunky-bananas) which includes a starter kit to get you going right away. Take a look at the bundle and give the following a good read:
+* template: [personal](https://github.com/fluidtrends/chunky-bananas/tree/master/templates/personal)
+* fixture: [starter](https://github.com/fluidtrends/chunky-bananas/tree/master/fixtures/starter)
+* chunk: [intro](https://github.com/fluidtrends/chunky-bananas/tree/master/chunks/intro)
