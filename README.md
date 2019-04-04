@@ -95,6 +95,17 @@ You can get started with Chunky with minimal programming experience and you can 
 
 Chunky works across platforms, including mobile, web, desktop, cloud and blockchain. Every Chunky Product includes Native iOS and Android Apps, a Static Web App, a Desktop App, a Serverless Cloud Backend and a Smart Contract, all fully integrated, fully owned by you and fully satisfying.
 
+**Oh, but there's so much more:**
+* Beginner Friendly ✓
+* Reduced Complexity ✓
+* Integrated Toolchain ✓
+* Command Line Interface ✓
+* DevOps Friendly ✓
+* Strong Security ✓
+* High Order Components ✓
+* Product Templates ✓
+* Declarative Data Operations ✓
+
 #### [See the full Feature Tour](docs/features/README.md)
 
 ## Quick Start
