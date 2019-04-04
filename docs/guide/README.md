@@ -51,5 +51,5 @@ That product is hosted at [Carmel.io](https://carmel.io) and you can find the [s
 
 **Contents:**
 
-1. [Structure](#structure/)
-2. [CLI](#cli/)
+1. [Structure](structure/)
+2. [CLI](cli/)
