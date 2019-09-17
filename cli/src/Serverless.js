@@ -16,6 +16,7 @@ class Serverless extends OriginalServerless {
     this.pluginManager.setCliCommands(this.processedInput.commands);
 
     return this.service.load(this.processedInput.options)
+      .then(() => this.pluginManager.loadConfigFile())
       .then(() => {
         // load all plugins
         this.pluginManager.loadAllPlugins(this.service.plugins);
@@ -25,7 +26,7 @@ class Serverless extends OriginalServerless {
         this.cli.setLoadedPlugins(this.pluginManager.getPlugins());
         this.cli.setLoadedCommands(this.pluginManager.getCommands());
         return this.pluginManager.updateAutocompleteCacheFile();
-      });
+      })
   }
     
 }

@@ -6,36 +6,7 @@ const pm2 = require('pm2')
 function bringUp(account, cache, args) {
   coreutils.logger.info(`Connecting to your Carmel account ...`)
   return new Promise((resolve, reject) => {
-
-    // pm2.connect((err) => {
-    //   if (err) {
-    //     reject(err)
-    //     return
-    //   }
-    //
-    //   pm2.list((err2, list) => {
-    //     if (err2) {
-    //       reject(err2)
-    //       return
-    //     }
-    //
-    //     console.log(list)
-        coreutils.logger.ok(`You are now connected`)
-    //     resolve()
-    //   })
-
-
-
-      // pm2.start({
-      //   script    : 'app.js',
-      //   exec_mode : 'cluster',
-      //   instances : 4,
-      //   max_memory_restart : '100M'
-      // }, function(err, apps) {
-      //   pm2.disconnect()
-      //   if (err) throw err
-      // })
-    })
+    coreutils.logger.ok(`You are now connected`)
   })
 }
 

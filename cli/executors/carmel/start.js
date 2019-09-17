@@ -9,7 +9,7 @@ function performAction (command, account, c) {
     if (!action || !actions[action]) {
       return status(account, c, true)
     }
-    return actions[action](account, c, command.actions, command.env)
+    return actions[action](account, c, command.actions, command.env, command)
 
   } catch (e) {
     return status(account, c, true)
@@ -22,10 +22,12 @@ function start(command) {
    .then(({ account, cache }) => performAction(command, account, cache))
    .then(() => {
      coreutils.logger.footer(`Learn more at carmel.io`)
-  })
+     process.exit(0)
+   })
    .catch((error) => {
      coreutils.logger.fail(error.message)
      coreutils.logger.footer(`Learn more at carmel.io`)
+     process.exit(1)
    })
 }
 

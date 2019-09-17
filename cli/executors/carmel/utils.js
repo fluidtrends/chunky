@@ -8,11 +8,29 @@ const path = require('path')
 const boxen = require('boxen')
 const Base64 = require('js-base64').Base64;
 const CarmelPublicKey = "/gzWe+WVjUMLkyxImrVXa3XAva5OGH+MAERltnPSgUM="
+const capcon = require('capture-console')
+const ora = require('ora')
 
 process.env.NODE_NO_WARNINGS=1
 
 var nacl = require('tweetnacl')
 nacl.util = require('tweetnacl-util')
+
+function startProgress(message) {
+  return ora(message).start()
+}
+
+function stopProgress(spinner) {
+  return spinner(stop)
+}
+
+function startConsoleCapture(out) {
+  capcon.startCapture(process.stdout, out)
+}
+
+function stopConsoleCapture() {
+  capcon.stopCapture(process.stdout)
+}
 
 function secureKey(cache) {
   const key = cache.vaults.carmel.read('secureKey')
@@ -158,7 +176,11 @@ module.exports = {
   encode,
   decode,
   encrypt,
+  startProgress,
+  stopProgress,
   encryptPublic,
+  startConsoleCapture,
+  stopConsoleCapture,
   decryptPublic,
   decrypt,
   ensureVaultIsUnlocked,

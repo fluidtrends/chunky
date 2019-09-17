@@ -7,8 +7,8 @@ const carmelFirebaseConfig = require('../../../assets/carmel.firebase.json')
 
 function doLogin({ email, password }) {
   return new Promise((resolve, reject) => {
-           firebaseline.operations.login(firebase, ({ email, password }))
-           .then((account) => {
+            firebaseline.operations.login(firebase, ({ email, password }))
+            .then((account) => {
                const authUserKey = `firebase:authUser:${carmelFirebaseConfig.apiKey}:[DEFAULT]`
                const authUser = JSON.parse(localStorage.getItem(authUserKey))
                const combined = Object.assign({}, {
@@ -19,6 +19,7 @@ function doLogin({ email, password }) {
                resolve(Object.assign({}, combined))
             })
             .catch((e) => {
+              console.log(e)
               reject(e)
             })
         })
@@ -34,24 +35,24 @@ function skipLogin(account) {
   return Promise.resolve()
 }
 
-function login(account, cache, e, p, silent) {
+function login(account, cache, args, env) {
   if (account) {
     return skipLogin(account)
   }
 
-  silent || coreutils.logger.info(`Let's get you back on track :)`)
+  coreutils.logger.info(`Let's get you back on track :)`)
 
-  return getUserCredentials(e, p)
+  return getUserCredentials()
               .then(({ email, password }) => doLogin({ email, password }))
               .then((account) => {
-                silent || coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
+                coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
                 cache.vaults.carmel.write('account', account)
                 return operation.send({ target: "journeys", type: "login" }, account, cache)
               })
               .catch((error) => {
                 coreutils.logger.fail(error.message)
                 coreutils.logger.skip("Give it another shot")
-                return login(account, cache, e, p)
+                return login(account, cache)
               })
 }
 

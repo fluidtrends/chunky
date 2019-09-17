@@ -9,7 +9,11 @@ class ServerlessCLI extends OriginalServerlessCLI {
   }
 
   log(message) {
-    this.consoleLog(`  ↳ ${chalk.gray(`${message}`)}`);
+    // this.consoleLog(`  ↳ ${chalk.gray(`${message}`)}`);
+  }
+
+  consoleLog(message) {
+    // console.log(message); // eslint-disable-line no-console
   }
 
 }

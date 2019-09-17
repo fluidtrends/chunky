@@ -32,7 +32,7 @@ function doConfig(account, cache, env, type, secondary) {
   })
 }
 
-function config(account, cache, env, t, secondary) {
+function config(cache, env, account, t, secondary) {
   if (!t) {
     return inquirer.prompt([{
       type: 'list',
@@ -47,7 +47,7 @@ function config(account, cache, env, t, secondary) {
   return doConfig(account, cache, env, t, secondary)
 }
 
-function processCommand(account, cache, args, env) {
+function processCommand(account, cache, env, args) {
   return ensureVaultIsUnlocked(cache)
           .then(() => {
             if (!args || args.length === 0) {
@@ -57,7 +57,7 @@ function processCommand(account, cache, args, env) {
             // The type of config we want
             const type = args.shift()
             const secondary = args.shift()
-            return config(account, cache, env, type, secondary)
+            return config(cache, env, account, type, secondary)
           })
 }
 
@@ -66,7 +66,7 @@ function main(account, cache, args, env) {
     return status(account, cache).then(() => {
       try {
         const a = cache.vaults.carmel.read('account')
-        return processCommand(a, cache, args, env)
+        return processCommand(a, cache, env, args)
       } catch (e) {
         coreutils.logger.info(`Hey so how about you try this again :)`)
         return
@@ -74,7 +74,7 @@ function main(account, cache, args, env) {
     })
   }
 
-  return processCommand(account, cache, args, env)
+  return processCommand(account, cache, env, args)
 }
 
 module.exports = main

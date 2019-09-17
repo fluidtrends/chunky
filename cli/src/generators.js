@@ -6,6 +6,7 @@ const ejs = require('ejs')
 const cpy = require('cpy')
 const recursive = require('recursive-readdir')
 const decompress = require('decompress')
+const secureManifest = require('./secureManifest')
 
 const config = {
   templatesDir: path.resolve(__dirname, '../assets', 'templates'),
@@ -223,48 +224,10 @@ function _generateProductStrings (data) {
 }
 
 function _generateProductChunkySecureManifest (name, template, serviceAccount) {
-  return {
-    name,
-    template,
-    cloud: {
-      dev: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount
-        }
-      },
-      staging: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount: { }
-        }
-      },
-      production: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount: { }
-        }
-      }
-    }
-  }
+  const data = secureManifest.generate()
+  return Object.assign(data, {
+      name, template, serviceAccount 
+  })
 }
 
 function generateProductManifestFiles (name, template) {
@@ -384,7 +347,7 @@ function _copyTemplateFiles (name, templateDir, targetDir, context) {
         return
       }
       files.map((file) => {
-          // Process each file in the template and copy it if necessary
+        // Process each file in the template and copy it if necessary
         const relativeFile = file.substring(templateDir.length + 1)
 
         _processTemplateFile(file, {
