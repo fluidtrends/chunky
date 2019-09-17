@@ -65,7 +65,7 @@ function deployService(service, deployment) {
            }).
            then(() => {
             spinner.succeed()
-            spinner = utils.startProgress('Deploying serverless functions ...')
+            spinner = utils.startProgress('Deploying service to cloud ...')
             return serverless.run()
            }).
            then(() => {
