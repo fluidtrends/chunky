@@ -101,6 +101,7 @@ function initialize (awsConfig, options) {
     fs.mkdirsSync(deployPath)
   }
 
+  
   // Create a fingerprint
   const fingerprint = Object.assign({}, {
     id,
@@ -124,6 +125,9 @@ function publish(cache, awsConfig, env, options) {
   return providers.authenticate(config)
         .then(providers => {
           const deployment = initialize(providers, options)
+          const secureManifest = Object.assign({}, { cloud: { [env]: { aws: awsProfileData }}})
+          fs.writeFileSync(path.resolve(deployment.dir, '.chunky.json'), JSON.stringify(secureManifest, null, 2))
+        
           return functions(providers, deployment)
         })
         .then(() => {
