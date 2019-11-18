@@ -38,7 +38,7 @@ function generateServerlessManifest (service, deployment) {
       name: 'aws',
       runtime: 'nodejs8.10',
       stage: deployment.env,
-      timeout: 60,
+      timeout: 30,
       environment: {
         CHUNKY_ENV: deployment.env
       }

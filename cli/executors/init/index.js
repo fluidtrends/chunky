@@ -4,16 +4,20 @@ const setup = require('../carmel/setup')
 
 function parseCommand (command, account, cache) {
   if (!command.name) {
-    command.name = 'Chunky'
+    return Promise.reject(new Error('Missing option: name'))
   }
 
-  product.create({ name: command.name, template: command.template, bundle: command.bundle }, account, cache)
+  if (!command.template) {
+    return Promise.reject(new Error('Missing option: template'))
+  }
+
+  if (!command.bundle) {
+    return Promise.reject(new Error('Missing option: bundle'))
+  }
+
+  return product.create({ name: command.name, template: command.template, bundle: command.bundle }, account, cache)
 }
 
 module.exports = function (command) {
-  try {
-    setup().then(({ account, cache }) => parseCommand(command, account, cache))
-  } catch (error) {
-    coreutils.logger.error(error)
-  }
+  return setup().then(({ account, cache }) => parseCommand(command, account, cache))
 }

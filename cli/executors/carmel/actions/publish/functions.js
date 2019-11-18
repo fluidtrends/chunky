@@ -33,6 +33,7 @@ function prepareService(service, deployment) {
         chunkDir + '/functions/*',
         chunkDir + "/chunk.json",
         productDir + "/.chunky.json",
+        deployment.dir + "/.chunky.json",
         productDir + "/chunky.json"
     ], service.dir)
 }

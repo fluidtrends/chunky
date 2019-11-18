@@ -17,16 +17,16 @@ function performAction (command, account, c) {
 }
 
 function start(command) {
-  coreutils.logger.header(`Carmel`)
+  command.service || coreutils.logger.header(`Carmel`)
   return setup()
    .then(({ account, cache }) => performAction(command, account, cache))
    .then(() => {
-     coreutils.logger.footer(`Learn more at carmel.io`)
+    command.service || coreutils.logger.footer(`Learn more at carmel.io`)
      process.exit(0)
    })
    .catch((error) => {
      coreutils.logger.fail(error.message)
-     coreutils.logger.footer(`Learn more at carmel.io`)
+     command.service || coreutils.logger.footer(`Learn more at carmel.io`)
      process.exit(1)
    })
 }

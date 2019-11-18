@@ -6,7 +6,17 @@ const input = require('../input')
 const inquirer = require('inquirer')
 const utils = require('../utils')
 
-function processCommand(account, cache, args) {
+function processCommand(account, cache, args, cmd) {
+  if (cmd.service && cmd.challengeId) {
+      return operation.send(Object.assign({}, {
+        target: "journeys",
+        type: "pause"
+      }), account, cache)
+      .then(() => {
+        process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'challengePaused' })))
+      })
+  }
+
   return utils.getChallenge(account, cache)
           .then((challenge) => {
             if (!challenge || !challenge.id) {
@@ -40,12 +50,12 @@ function processCommand(account, cache, args) {
           })
 }
 
-function main(account, cache, args) {
+function main(account, cache, args, env, cmd) {
   if (!account) {
     return status(account, cache).then(() => {
       try {
         const a = cache.vaults.carmel.read('account')
-        return processCommand(a, cache, args)
+        return processCommand(a, cache, args, cmd)
       } catch (e) {
         coreutils.logger.info(`Hey so how about you try this again :)`)
         return
@@ -53,7 +63,7 @@ function main(account, cache, args) {
     })
   }
 
-  return processCommand(account, cache, args)
+  return processCommand(account, cache, args, cmd)
 }
 
 module.exports = main

@@ -6,7 +6,7 @@ const input = require('./input')
 const inquirer = require('inquirer')
 const path = require('path')
 const boxen = require('boxen')
-const Base64 = require('js-base64').Base64;
+const Base64 = require('js-base64').Base64
 const CarmelPublicKey = "/gzWe+WVjUMLkyxImrVXa3XAva5OGH+MAERltnPSgUM="
 const capcon = require('capture-console')
 const ora = require('ora')

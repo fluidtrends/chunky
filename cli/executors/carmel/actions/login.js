@@ -1,5 +1,6 @@
 const coreutils = require('coreutils')
 const firebase = require('firebase')
+const Base64 = require('js-base64').Base64
 const firebaseline = require('firebaseline')
 const input = require('../input')
 const operation = require('../operation')
@@ -19,7 +20,6 @@ function doLogin({ email, password }) {
                resolve(Object.assign({}, combined))
             })
             .catch((e) => {
-              console.log(e)
               reject(e)
             })
         })
@@ -30,29 +30,48 @@ function getUserCredentials(email, password) {
 }
 
 function skipLogin(account) {
-  coreutils.logger.info(`Hey, you're already logged in :)`)
+  coreutils.logger.info(`Hey, you're already logged in.`)
   coreutils.logger.ok(`You're logged in (${account.email})`)
   return Promise.resolve()
 }
 
-function login(account, cache, args, env) {
+function login(account, cache, args, env, cmd) {
   if (account) {
-    return skipLogin(account)
+    if (!cmd.service) {
+      return skipLogin(account)
+    }
+
+    return operation.send({ target: "journeys", type: "login" }, account, cache)
+                    .then((response) => operation.send({ target: "listings" }, account, cache)
+                                .then((journey) => {
+                                  process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'login', account }, journey.data)))
+                                }))
   }
 
   coreutils.logger.info(`Let's get you back on track :)`)
 
-  return getUserCredentials()
+  if (cmd.service && cmd.silent && !account) {
+    process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'login', error: 'Not logged in' })))
+    return Promise.resolve()
+  }
+
+  return getUserCredentials(`${cmd.email}`, `${cmd.password}`)
               .then(({ email, password }) => doLogin({ email, password }))
               .then((account) => {
                 coreutils.logger.ok("Boom! You're in! Now let's slay ourselves some dragons.")
                 cache.vaults.carmel.write('account', account)
                 return operation.send({ target: "journeys", type: "login" }, account, cache)
+                                .then((response) => operation.send({ target: "listings" }, account, cache)
+                                .then((journey) => {
+                                  process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'login', account }, journey.data)))
+                                  return journey
+                                }))              
               })
               .catch((error) => {
+                process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'login', error: error.message })))
                 coreutils.logger.fail(error.message)
                 coreutils.logger.skip("Give it another shot")
-                return login(account, cache)
+                // return login(account, cache, args, env, cmd)
               })
 }
 

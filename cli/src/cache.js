@@ -8,16 +8,25 @@ const lali = require('lali')
 const octokit = require('@octokit/rest')()
 const cassi = require('cassi')
 const download = require('download')
+const decompress = require('decompress')
+const decompressTargz = require('decompress-targz')
+const uuid = require('uuid')
+const Base64 = require('js-base64').Base64
 
 const HOME_DIR = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
 const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
 const CHUNKY_REPO_URL = `https://raw.githubusercontent.com/fluidtrends/chunky/master`
 const CARMEL_VAULT_PASSWORD = `_chunky_carmel_`
 const MASTER_VAULT_PASSWORD = `_chunky_master_`
+const EVENTS_VAULT_PASSWORD = `_chunky_events_`
+const MAX_CACHED_EVENTS = 100
 
 const _dir = (props) => CHUNKY_HOME_DIR
 const _bundlesDir = (props) => path.resolve(_dir(props), 'bundles')
+const _productsDir = (props) => path.resolve(_dir(props), 'products')
+const _toolsDir = (props) => path.resolve(_dir(props), 'tools')
 const _vaultsDir = (props) => path.resolve(_dir(props), 'vaults')
+const _eventsDir = (props) => path.resolve(_dir(props), 'events')
 const _depsDir = (props) => path.resolve(_dir(props), 'deps')
 const _challengesDir = (props) => path.resolve(_dir(props), 'challenges')
 const _exists = (props) => fs.existsSync(_dir(props))
@@ -26,6 +35,7 @@ const _bundleExists = (props) => (uri) => fs.existsSync(_bundlePath(props)(uri))
 
 const _carmelVault = new cassi.Vault({ name: 'carmel', root: _vaultsDir() })
 const _masterVault = new cassi.Vault({ name: 'master', root: _vaultsDir() })
+const _eventsVault = new cassi.Vault({ name: 'events', root: _vaultsDir() })
 
 const _create = (props) => {
   if (_exists(props)) {
@@ -36,13 +46,16 @@ const _create = (props) => {
   // Create the cache structure
   fs.mkdirsSync(_dir(props))
   fs.mkdirsSync(_bundlesDir(props))
+  // fs.mkdirsSync(_productsDir(props))
   fs.mkdirsSync(_vaultsDir(props))
   fs.mkdirsSync(_depsDir(props))
   fs.mkdirsSync(_challengesDir(props))
+  fs.mkdirsSync(_eventsDir(props))
 
   // Create the vaults
   _carmelVault.create(CARMEL_VAULT_PASSWORD)
   _masterVault.create(MASTER_VAULT_PASSWORD)
+  _eventsVault.create(EVENTS_VAULT_PASSWORD)
 }
 
 const _bundleFixture = (props) => (bundleUri, fixtureId) => {
@@ -210,14 +223,51 @@ const _downloadDeps = (props) => (type) => {
 const _addDeps = (props) => () => {
   _info(props)(`Adding dependencies ...`)
 
-  return Promise.all([_downloadDeps(props)("web")])
-                .then(() => {
-                  _ok(props)(`The cached web dependencies are ready. Copying ...`)
-                  fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules"))
-                  _ok(props)(`The local web dependencies are ready`)
-                })
+  const nodeModulesDir = path.resolve(process.cwd(), "node_modules")
+  fs.existsSync(nodeModulesDir) && fs.removeSync(nodeModulesDir)
+
+  return decompress(path.resolve(_depsDir(props), 'node_modules.tar.gz'), process.cwd(), {
+    plugins: [
+        decompressTargz()
+    ]
+  }).then(() => {
+    _ok(props)(`The local web dependencies are ready`)
+  })
+
+  // return Promise.all([_downloadDeps(props)("web")])
+  //               .then(() => {
+  //                 _ok(props)(`The cached web dependencies are ready. Copying ...`)
+  //                 fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules"))
+  //                 _ok(props)(`The local web dependencies are ready`)
+  //               })
 }
 
+const _saveEvent = (props) => (event) => {
+  const id = `${Date.now()}-${uuid.v4()}`
+  const file = path.resolve(_eventsDir(props), `${id}.json`)
+  const content = Base64.encode(JSON.stringify(event))
+  fs.writeFileSync(file, content)
+
+  let events = _eventsVault.read('events') || []
+
+  if (events.length >= MAX_CACHED_EVENTS) {
+    const oldId = events.shift()
+    fs.removeSync(path.resolve(_eventsDir(props), `${oldId}.json`))
+  }
+
+  events.push(id)
+  _eventsVault.write('events', events) || []
+
+  return id
+}
+
+const _event = (props) => (id) => {
+  const file = path.resolve(_eventsDir(props), `${id}.json`)
+  const event = JSON.parse(Base64.decode(fs.readFileSync(file)))
+
+  return event
+}
+ 
 const _getChallenge = (props) => ({ repo, sha, fragment }) => {
   return new Promise((resolve, reject) => {
     if (!_exists(props)){
@@ -280,31 +330,39 @@ const _setup = (props) => () => {
     _create(props)
   }
 
-  return Promise.all([_carmelVault.load(), _masterVault.load()])
+  return Promise.all([_carmelVault.load(), _masterVault.load(), _eventsVault.load()])
 }
 
 const _vaults = (props) => ({
   carmel: _carmelVault,
-  master: _masterVault
+  master: _masterVault,
+  events: _eventsVault
 })
 
-module.exports = (props) => ({
-  dir: _dir(props),
-  bundlesDir: _bundlesDir(props),
-  depsDir: _depsDir(props),
-  exists: _exists(props),
-  bundlePath: _bundlePath(props),
-  bundleExists: _bundleExists(props),
-  bundlePackage: _bundlePackage(props),
-  bundleTemplate: _bundleTemplate(props),
-  bundleFixture: _bundleFixture(props),
-  findRemoteBundle: _findRemoteBundle(props),
-  create: _create(props),
-  bundleInfo: _bundleInfo(props),
-  downloadBundle: _downloadBundle(props),
-  downloadDeps: _downloadDeps(props),
-  addDeps: _addDeps(props),
-  getChallenge: _getChallenge(props),
-  setup: _setup(props),
-  vaults: _vaults(props)
-})
+module.exports = (props) => {
+  return {
+    dir: _dir(props),
+    productsDir: _productsDir(props),
+    toolsDir: _toolsDir(props),
+    bundlesDir: _bundlesDir(props),
+    depsDir: _depsDir(props),
+    exists: _exists(props),
+    bundlePath: _bundlePath(props),
+    bundleExists: _bundleExists(props),
+    bundlePackage: _bundlePackage(props),
+    bundleTemplate: _bundleTemplate(props),
+    bundleFixture: _bundleFixture(props),
+    findRemoteBundle: _findRemoteBundle(props),
+    create: _create(props),
+    bundleInfo: _bundleInfo(props),
+    downloadBundle: _downloadBundle(props),
+    downloadDeps: _downloadDeps(props),
+    addDeps: _addDeps(props),
+    getChallenge: _getChallenge(props),
+    setup: _setup(props),
+    saveEvent: _saveEvent(props),
+    event: _event(props),
+    vaults: _vaults(props)
+  }
+  
+}

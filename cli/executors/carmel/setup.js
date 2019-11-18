@@ -13,9 +13,13 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 
 function setup() {
-  firebase.initializeApp(carmelFirebaseConfig)
+  try {
+    firebase.initializeApp(carmelFirebaseConfig)
+  } catch (e) {
 
+  }
   const c = cache({})
+
   return c.setup()
    .then(() => {
      try {

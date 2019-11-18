@@ -39,28 +39,49 @@ function chooseAWSUser(awsConfig) {
 }
 
 function ensureAwsIsConfigured(cache, env, options) {
-  const awsConfig = cache.vaults.master.read('aws')
+  const c = cache.vaults.master.read('aws')
+  return Promise.resolve(c[Object.keys(c)[0]])
 
-  if (!awsConfig) {
-    return configAws(cache, env).then(() => ensureAwsIsConfigured(cache, env, options))
-  }
+  // if (!awsConfig) {
+    // return configAws(cache, env).then(() => ensureAwsIsConfigured(cache, env, options))
+  // }
 
-  const awsUsers = Object.keys(awsConfig)
-  const awsUser = options['aws-user']
+  // const awsUsers = Object.keys(awsConfig)
+  // const awsUser = options['aws-user']
   // const findFriendlyUsername = Object.keys(awsConfig)
  
-  if (awsUser) {
-    let username = awsUsers[awsUser] || Object.keys(awsConfig).find(k => awsConfig[k].friendlyUsername === awsUser)
-    if (!username) {
-      coreutils.logger.skip(`The ${chalk.green.bold(awsUser)} AWS user does not exist`)
-    }
-  }
+  // if (awsUser) {
+  //   let username = awsUsers[awsUser] || Object.keys(awsConfig).find(k => awsConfig[k].friendlyUsername === awsUser)
+  //   if (!username) {
+  //     coreutils.logger.skip(`The ${chalk.green.bold(awsUser)} AWS user does not exist`)
+  //   }
+  // }
 
-  if (awsUsers.length === 1) {
-    return Promise.resolve(awsConfig[awsUsers.first])
-  }
+  // if (awsUsers.length === 1) {
+  //   return Promise.resolve(awsConfig[awsUsers.first])
+  // }
 
-  return chooseAWSUser(awsConfig).then(({ user }) => awsConfig[user])
+  // return chooseAWSUser(awsConfig).then(({ user }) => awsConfig[user])
+}
+
+function ensureGoogleIsConfigured(cache, env, options) {
+  const c = cache.vaults.master.read('google')
+  return Promise.resolve(c[Object.keys(c)[0]])
+}
+
+function ensureServicesConfigured(cache, env, options) {
+  return ensureAwsIsConfigured(cache, env, options)
+         .then(aws => ensureGoogleIsConfigured(cache, env, options)
+         .then(google => ({ aws, google })))
+}
+
+function googleProfile (googleConfig) {
+  const { serviceAccount, services } = googleConfig
+
+  return {
+    serviceAccount,
+    services
+  }
 }
 
 function awsProfile (awsConfig) {
@@ -116,29 +137,31 @@ function initialize (awsConfig, options) {
   return Object.assign({ dir: deployPath }, fingerprint)
 }
 
-function publish(cache, awsConfig, env, options) {
-  coreutils.logger.ok(`Using AWS admin user ${chalk.green.bold(awsConfig.friendlyUsername)} `)
-  coreutils.logger.info(`Publishing your API to your AWS ${chalk.green.bold(env)} environment ... `)
-  const awsProfileData = awsProfile(awsConfig)
-  const config = Object.assign({}, { aws: awsProfileData })
+function publish({ cache, env, options, aws, google }) {
+  coreutils.logger.ok(`Using AWS profile ${chalk.green.bold(aws.friendlyUsername)} and Google profile ${chalk.green.bold(google.friendlyUsername)}`)
+  coreutils.logger.info(`Publishing your API to your ${chalk.green.bold(env)} environment ... `)
 
-  return providers.authenticate(config)
+  const awsProfileData = awsProfile(aws)
+  const googleProfileData = googleProfile(google)
+  const c = Object.assign({}, { aws: awsProfileData, google: googleProfileData })
+
+  return providers.authenticate(c)
         .then(providers => {
           const deployment = initialize(providers, options)
-          const secureManifest = Object.assign({}, { cloud: { [env]: { aws: awsProfileData }}})
+          const secureManifest = Object.assign({}, { cloud: { [env]: { aws: awsProfileData, google: googleProfileData }}})
+
           fs.writeFileSync(path.resolve(deployment.dir, '.chunky.json'), JSON.stringify(secureManifest, null, 2))
         
           return functions(providers, deployment)
         })
         .then(() => {
-          coreutils.logger.info(`Congrats! Your fresh API is now live in your AWS ${chalk.green.bold(env)} environment.`)
-          coreutils.logger.ok(`That wasn't so bad was it? Enjoy your new API :)`)
+          coreutils.logger.ok(`Congrats! Your ${chalk.green.bold(env)} API is now live!`)
         })
 }
 
 module.exports = (account, cache, env, options) => {
   return ensureVaultIsUnlocked(cache)
-          .then(() => ensureAwsIsConfigured(cache, env, options))
-          .then((awsConfig) => publish(cache, awsConfig, env, options))
+          .then(() => ensureServicesConfigured(cache, env, options))
+          .then(({ aws, google }) => publish({ cache, env, options, aws, google }))
           .catch((e) => coreutils.logger.fail(e))
 }

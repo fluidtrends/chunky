@@ -131,15 +131,16 @@ function createFiles (c, template) {
 
 function create({ name, template, bundle }, account, mainCache) {
   if (isAlreadyInit()) {
-    coreutils.logger.skip("Easy there, this is a Chunky Product already.")
-    return
+    return Promise.reject(new Error('A Chunky Product with a similar name already exists'))
   }
+
+  process.send && process.send(Object.assign({}, { eventId: 'init', done: false, working: true }))
 
   const c = cache({ log: true, name })
   coreutils.logger.header("Creating your new Chunky Product")
 
   // Make sure the bundle exists
-  c.findRemoteBundle(bundle)
+  return c.findRemoteBundle(bundle)
 
    // The download it if necessary
    .then((uri) => c.downloadBundle(uri))
@@ -154,11 +155,9 @@ function create({ name, template, bundle }, account, mainCache) {
 
    .then(() => {
      // All done
+     process.send && process.send(Object.assign({}, { eventId: 'init', done: true, working: false }))
      coreutils.logger.footer("Amazing! Your new Chunky Product is ready!")
    })
-
-   // Something went wrong
-   .catch((error) => coreutils.logger.error(error.message))
 }
 
 module.exports = { create }
