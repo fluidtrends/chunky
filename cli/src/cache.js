@@ -229,7 +229,8 @@ const _addDeps = (props) => () => {
 
   const dest = path.resolve(process.cwd(), "node_modules")
   fs.existsSync(dest) && fs.removeSync(dest)
-
+  console.log(dest)
+  
   const archivePath = path.resolve(_depsDir(props), `main.tar.bz2`)
 
   return decompress(archivePath, dest, { strip: 0, plugins: [decompressTarbz2()]})

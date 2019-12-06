@@ -4,9 +4,10 @@ const operation = require('../carmel/operation')
 
 function parseCommand (command, account, cache) {
   coreutils.logger.info("Let's get those stubborn dependencies installed ... ")
-  const startTime = Date.now()
 
   process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'installDeps', installing: true, installed: false })))
+  
+  console.log(process.cwd())
 
   return cache.addDeps().then(() => {
         process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'installDeps', installing: false, installed: true })))

@@ -33,6 +33,9 @@ class Service {
     }
 
     processEvent({ event, socket }) {
+        
+        console.log(event)
+
         const cwd = path.resolve(this.cache.productsDir, event.options.productId || '')
         fs.existsSync(cwd) || fs.mkdirsSync(cwd)
 
@@ -51,7 +54,6 @@ class Service {
             })
 
             proc.on('message', (id) => {
-                console.log(">>>", id)
                 const response = this.cache.event(id)
                 this.sendResponse({ event: Object.assign({}, event, response), socket })
             })
