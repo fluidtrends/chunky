@@ -1,7 +1,7 @@
 const coreutils = require('coreutils')
 const status = require('../status')
 const operation = require('../operation')
-const pm2 = require('pm2')
+// const pm2 = require('pm2')
 
 function bringUp(account, cache, args) {
   coreutils.logger.info(`Connecting to your Carmel account ...`)

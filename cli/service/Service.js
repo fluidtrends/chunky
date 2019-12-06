@@ -51,6 +51,7 @@ class Service {
             })
 
             proc.on('message', (id) => {
+                console.log(">>>", id)
                 const response = this.cache.event(id)
                 this.sendResponse({ event: Object.assign({}, event, response), socket })
             })

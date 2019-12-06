@@ -8,10 +8,10 @@ const utils = require('../../utils')
 const chalk = require('chalk')
 const env = require('../../validate/env')
 const opn = require('opn')
-const marked = require('marked')
+// const marked = require('marked')
 const Base64 = require('js-base64').Base64
 
-const TerminalRenderer = require('marked-terminal')
+// const TerminalRenderer = require('marked-terminal')
 const Handlebars = require('handlebars')
 const Mocha = require('mocha')
 const CaptureStdout = require('capture-stdout')
@@ -19,9 +19,9 @@ const CaptureStdout = require('capture-stdout')
 const challenge = require('./challenge')
 const begin = require('./begin')
 
-marked.setOptions({
-  renderer: new TerminalRenderer()
-})
+// marked.setOptions({
+//   renderer: new TerminalRenderer()
+// })
 
 function initArgs (challenge, cache, original) {
   return Object.assign({}, { utils: env(cache), challenge }, original && { original })
@@ -101,13 +101,13 @@ function startTask(ch, account, cache, options) {
 
          return challenge({ account, cache }).then((updatedChallenge) => {
           const taskTutorial = makeTutorial(updatedChallenge, originalState)
-          const tutorial = marked(taskTutorial)
+          // const tutorial = marked(taskTutorial)
           process.send && process.send(cache.saveEvent(Object.assign({}, { challenge: updatedChallenge, originalState, taskTutorial, eventId: (options.startChallenge ? 'challengeStarted' : 'taskStarted') })))
  
           utils.box('✓ Task started')
           coreutils.logger.info(`Go ahead and complete this task now. Time's ticking :)\n`)
  
-          console.log(tutorial)
+          // console.log(tutorial)
  
           coreutils.logger.info(`And then when you've completed it:`)
           utils.box('chunky carmel next', 'code') 

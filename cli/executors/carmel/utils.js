@@ -13,8 +13,8 @@ const ora = require('ora')
 
 process.env.NODE_NO_WARNINGS=1
 
-var nacl = require('tweetnacl')
-nacl.util = require('tweetnacl-util')
+// var nacl = require('tweetnacl')
+// nacl.util = require('tweetnacl-util')
 
 function startProgress(message) {
   return ora(message).start()
@@ -32,21 +32,21 @@ function stopConsoleCapture() {
   capcon.stopCapture(process.stdout)
 }
 
-function secureKey(cache) {
-  const key = cache.vaults.carmel.read('secureKey')
-  if (key) {
-    return key
-  }
+// function secureKey(cache) {
+//   const key = cache.vaults.carmel.read('secureKey')
+//   if (key) {
+//     return key
+//   }
 
-  // Generate a new key
-  const keyPair = nacl.box.keyPair()
-  const public = nacl.util.encodeBase64(keyPair.publicKey)
-  const private = nacl.util.encodeBase64(keyPair.secretKey)
-  const secureKey = { public, private }
-  cache.vaults.carmel.write('secureKey', secureKey)
+//   // Generate a new key
+//   const keyPair = nacl.box.keyPair()
+//   const public = nacl.util.encodeBase64(keyPair.publicKey)
+//   const private = nacl.util.encodeBase64(keyPair.secretKey)
+//   const secureKey = { public, private }
+//   cache.vaults.carmel.write('secureKey', secureKey)
 
-  return secureKey
-}
+//   return secureKey
+// }
 
 function encode(account, cache, input) {
   return Base64.encode(JSON.stringify(input))

@@ -13,9 +13,12 @@ const decompressTargz = require('decompress-targz')
 const uuid = require('uuid')
 const Base64 = require('js-base64').Base64
 
+const CHUNKY_REPO_URL = `https://raw.githubusercontent.com/fluidtrends/chunky/master`
+const CHUNKY_STORE_URL = `https://github.com/fluidtrends/chunky-store/raw/master`
+
 const HOME_DIR = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
 const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
-const CHUNKY_REPO_URL = `https://raw.githubusercontent.com/fluidtrends/chunky/master`
+
 const CARMEL_VAULT_PASSWORD = `_chunky_carmel_`
 const MASTER_VAULT_PASSWORD = `_chunky_master_`
 const EVENTS_VAULT_PASSWORD = `_chunky_events_`
@@ -24,12 +27,12 @@ const MAX_CACHED_EVENTS = 100
 const _dir = (props) => CHUNKY_HOME_DIR
 const _bundlesDir = (props) => path.resolve(_dir(props), 'bundles')
 const _productsDir = (props) => path.resolve(_dir(props), 'products')
-const _toolsDir = (props) => path.resolve(_dir(props), 'tools')
+const _toolsDir = (props) => path.resolve(_dir(props), 'bin')
 const _vaultsDir = (props) => path.resolve(_dir(props), 'vaults')
 const _eventsDir = (props) => path.resolve(_dir(props), 'events')
 const _depsDir = (props) => path.resolve(_dir(props), 'deps')
 const _challengesDir = (props) => path.resolve(_dir(props), 'challenges')
-const _exists = (props) => fs.existsSync(_dir(props))
+const _exists = (props) => fs.existsSync(_vaultsDir(props))
 const _bundlePath = (props) => (uri) => path.resolve(_bundlesDir(props), uri)
 const _bundleExists = (props) => (uri) => fs.existsSync(_bundlePath(props)(uri))
 
@@ -46,8 +49,9 @@ const _create = (props) => {
   // Create the cache structure
   fs.mkdirsSync(_dir(props))
   fs.mkdirsSync(_bundlesDir(props))
-  // fs.mkdirsSync(_productsDir(props))
+  fs.mkdirsSync(_productsDir(props))
   fs.mkdirsSync(_vaultsDir(props))
+  fs.mkdirsSync(_toolsDir(props))
   fs.mkdirsSync(_depsDir(props))
   fs.mkdirsSync(_challengesDir(props))
   fs.mkdirsSync(_eventsDir(props))
@@ -262,6 +266,7 @@ const _saveEvent = (props) => (event) => {
 }
 
 const _event = (props) => (id) => {
+  console.log(id)
   const file = path.resolve(_eventsDir(props), `${id}.json`)
   const event = JSON.parse(Base64.decode(fs.readFileSync(file)))
 
@@ -324,13 +329,48 @@ const _getChallenge = (props) => ({ repo, sha, fragment }) => {
   })
 }
 
+const _downloadTool = (props) => (name, version) => {
+  const cachePath = path.resolve(_toolsDir(props), name, version)
+
+  if (fs.existsSync(cachePath)) {
+    return Promise.resolve()
+  } 
+
+  fs.mkdirsSync(cachePath)
+
+  const filename = `${name}-v${version}-${process.platform}-${process.arch}`
+  const url = `${CHUNKY_STORE_URL}/${filename}.7z`
+
+  console.log(`Downloading tool ${name} (${version}) from ${url} ...`)
+
+  return new Promise((resolve, reject) => {
+    download(url, cachePath).then(() => {
+      console.log("Done. Decompressing ...")
+      const compressor = lzma.createDecompressor()
+      const input = fs.createReadStream(path.resolve(cachePath, `${filename}.7z`))
+      const output = fs.createWriteStream(path.resolve(cachePath, `${filename}`))
+ 
+      input.pipe(compressor).pipe(output)
+      console.log("DONE")
+      resolve()
+    })
+  })
+}
+
 const _setup = (props) => () => {
+  const platform = "mac"
+  const now = Date.now()
+
   if (!_exists(props)){
     // Initialize the cache if this is the first time using it
     _create(props)
   }
 
-  return Promise.all([_carmelVault.load(), _masterVault.load(), _eventsVault.load()])
+  return Promise.all([
+      _carmelVault.load(),
+      _masterVault.load(),
+      _eventsVault.load()
+  ])  
 }
 
 const _vaults = (props) => ({
