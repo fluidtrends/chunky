@@ -9,7 +9,7 @@ const octokit = require('@octokit/rest')()
 const cassi = require('cassi')
 const download = require('download')
 const decompress = require('decompress')
-const decompressTargz = require('decompress-targz')
+const decompressTarbz2 = require('decompress-tarbz2')
 const uuid = require('uuid')
 const Base64 = require('js-base64').Base64
 
@@ -227,23 +227,15 @@ const _downloadDeps = (props) => (type) => {
 const _addDeps = (props) => () => {
   _info(props)(`Adding dependencies ...`)
 
-  const nodeModulesDir = path.resolve(process.cwd(), "node_modules")
-  fs.existsSync(nodeModulesDir) && fs.removeSync(nodeModulesDir)
+  const dest = path.resolve(process.cwd(), "node_modules")
+  fs.existsSync(dest) && fs.removeSync(dest)
 
-  return decompress(path.resolve(_depsDir(props), 'node_modules.tar.gz'), process.cwd(), {
-    plugins: [
-        decompressTargz()
-    ]
-  }).then(() => {
-    _ok(props)(`The local web dependencies are ready`)
-  })
+  const archivePath = path.resolve(_depsDir(props), `main.tar.bz2`)
 
-  // return Promise.all([_downloadDeps(props)("web")])
-  //               .then(() => {
-  //                 _ok(props)(`The cached web dependencies are ready. Copying ...`)
-  //                 fs.copySync(path.resolve(_depsDir(props), 'web'), path.resolve(process.cwd(), "node_modules"))
-  //                 _ok(props)(`The local web dependencies are ready`)
-  //               })
+  return decompress(archivePath, dest, { strip: 0, plugins: [decompressTarbz2()]})
+                  .then(() => {
+                      _ok(props)(`The local web dependencies are ready`)
+                  })
 }
 
 const _saveEvent = (props) => (event) => {
@@ -266,7 +258,6 @@ const _saveEvent = (props) => (event) => {
 }
 
 const _event = (props) => (id) => {
-  console.log(id)
   const file = path.resolve(_eventsDir(props), `${id}.json`)
   const event = JSON.parse(Base64.decode(fs.readFileSync(file)))
 
@@ -326,34 +317,6 @@ const _getChallenge = (props) => ({ repo, sha, fragment }) => {
       .catch((err) => {
         reject(new Error("The challenge repository is missing"))
       })
-  })
-}
-
-const _downloadTool = (props) => (name, version) => {
-  const cachePath = path.resolve(_toolsDir(props), name, version)
-
-  if (fs.existsSync(cachePath)) {
-    return Promise.resolve()
-  } 
-
-  fs.mkdirsSync(cachePath)
-
-  const filename = `${name}-v${version}-${process.platform}-${process.arch}`
-  const url = `${CHUNKY_STORE_URL}/${filename}.7z`
-
-  console.log(`Downloading tool ${name} (${version}) from ${url} ...`)
-
-  return new Promise((resolve, reject) => {
-    download(url, cachePath).then(() => {
-      console.log("Done. Decompressing ...")
-      const compressor = lzma.createDecompressor()
-      const input = fs.createReadStream(path.resolve(cachePath, `${filename}.7z`))
-      const output = fs.createWriteStream(path.resolve(cachePath, `${filename}`))
- 
-      input.pipe(compressor).pipe(output)
-      console.log("DONE")
-      resolve()
-    })
   })
 }
 
