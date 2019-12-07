@@ -10,6 +10,7 @@ const cassi = require('cassi')
 const download = require('download')
 const decompress = require('decompress')
 const decompressTarbz2 = require('decompress-tarbz2')
+const decompressTargz = require('decompress-targz')
 const uuid = require('uuid')
 const Base64 = require('js-base64').Base64
 
@@ -231,9 +232,10 @@ const _addDeps = (props) => () => {
   fs.existsSync(dest) && fs.removeSync(dest)
   console.log(dest)
   
-  const archivePath = path.resolve(_depsDir(props), `main.tar.bz2`)
+  const archivePath = path.resolve(_depsDir(props), `main.tar.gz`)
 
-  return decompress(archivePath, dest, { strip: 0, plugins: [decompressTarbz2()]})
+  // return decompress(archivePath, dest, { strip: 0, plugins: [decompressTarbz2()]})
+  return decompress(archivePath, dest, { strip: 0, plugins: [decompressTargz()]})
                   .then(() => {
                       _ok(props)(`The local web dependencies are ready`)
                   })

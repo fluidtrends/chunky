@@ -12,7 +12,7 @@
     "lint": "savor lint",
     "coverage": "savor coverage",
     "codeclimate": "savor codeclimate",
-    "archive": "tar -cvjSf archive.tar.bz2 *"
+    "archive": "tar -cvzSf archive.tar.gz *"
   },
   "engines": {
     "node": "^8"
