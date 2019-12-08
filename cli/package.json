@@ -4,15 +4,11 @@
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
-    "bot:start": "pm2 start service/start.js --name chunky --watch",
-    "bot:info": "pm2 show chunky",
-    "bot:restart": "pm2 restart chunky",
-    "bot:stop": "pm2 stop chunky",
     "test": "savor test",
     "lint": "savor lint",
     "coverage": "savor coverage",
     "codeclimate": "savor codeclimate",
-    "archive": "tar -cvzSf archive.tar.gz *"
+    "archive": "tar -cvjSf archive.tar.bz2 *"
   },
   "engines": {
     "node": "^8"
@@ -29,16 +25,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fluidtrends/chunky/issues"
-  },
-  "pkg": {
-    "scripts": "bin/cli.js",
-    "assets": [
-      "slana.yml",
-      "executors/**/",
-      "xdg-open",
-      "src/**/",
-      "assets/**/*"
-    ]
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {

@@ -1,0 +1,15 @@
+{
+    "1.1": {
+        "node": "8.16.2",
+        "cli": "1.1.2",
+        "dependencies": {
+            "web": "1.1.0",
+            "required": [
+                "react-dom-chunky", 
+                "babel-preset-env", 
+                "babel-preset-react",
+                "babel-preset-stage-2"
+            ]
+        }
+    }
+}

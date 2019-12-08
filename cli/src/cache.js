@@ -230,15 +230,10 @@ const _addDeps = (props) => () => {
 
   const dest = path.resolve(process.cwd(), "node_modules")
   fs.existsSync(dest) && fs.removeSync(dest)
-  console.log(dest)
   
-  const archivePath = path.resolve(_depsDir(props), `main.tar.gz`)
-
-  // return decompress(archivePath, dest, { strip: 0, plugins: [decompressTarbz2()]})
-  return decompress(archivePath, dest, { strip: 0, plugins: [decompressTargz()]})
-                  .then(() => {
-                      _ok(props)(`The local web dependencies are ready`)
-                  })
+  const src = path.resolve(_toolsDir(props), `chunky-web-deps`, '1.1.0', 'node_modules')
+  fs.copySync(src, dest)
+  return Promise.resolve()
 }
 
 const _saveEvent = (props) => (event) => {
