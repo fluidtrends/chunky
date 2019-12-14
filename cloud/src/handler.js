@@ -62,17 +62,18 @@ function authorize ({ context, auth, event }) {
   })
 }
 
-function main ({ executor, filename, auth }) {
-  return (event, context) => authorize({ auth, context, event })
-                              .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
-                              .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
-                              .then((data) => {
-                                return Object.assign({}, { data }, {
-                                  ok: true,
-                                  timestamp: Date.now()
-                                })
-                              })
-                              .catch(error => ({ data: { error: error.message } }))
+const handler = ({ executor, filename, auth }) => async (event, context) => {
+  return authorize({ auth, context, event })
+      .then(({ chunk, config, account }) => validate({ event, chunk, config, account, filename }))
+      .then(({ chunk, config, account }) => executor({ event, chunk, config, account }))
+      .then((data) => {
+        return Object.assign({}, { data }, {
+          ok: true,
+          timestamp: Date.now()
+        })
+      })
+      .catch(error => ({ data: { error: error.message } }))
 }
 
-module.exports = main
+
+module.exports = handler

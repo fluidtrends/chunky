@@ -1,33 +1,18 @@
 const coreutils = require('coreutils')
 const setup = require('../carmel/setup')
-const npm = require('npm')
 const operation = require('../carmel/operation')
 
 function parseCommand (command, account, cache) {
   coreutils.logger.info("Let's get those stubborn dependencies installed ... ")
-  const startTime = Date.now()
 
-  return new Promise((resolve, reject) => {
-    npm.load(function(err, npm){
-      npm.config.set('loglevel', 'silent')
-      npm.commands.install((error, result) => {
-        if (error) {
-          coreutils.logger.fail("Something went wrong :(")
-          reject(error)
-          return
-        }
+  process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'installDeps', installing: true, installed: false })))  
 
-        const totalTime = (Date.now() - startTime)
-        coreutils.logger.ok(`Wow, amazing! You're good to go!`)
-      })
-    })
+  return cache.addDeps(command.env).then(() => {
+    process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'installDeps', installing: false, installed: true })))
+    coreutils.logger.ok(`Wow, amazing! You're good to go!`)
   })
 }
 
 module.exports = function (command) {
-  try {
-    setup().then(({ account, cache }) => parseCommand(command, account, cache))
-  } catch (error) {
-    coreutils.logger.error(error)
-  }
+  return setup().then(({ account, cache }) => parseCommand(command, account, cache))
 }

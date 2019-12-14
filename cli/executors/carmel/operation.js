@@ -13,6 +13,10 @@ const Ora = require('ora')
 const spinner = new Ora({ text: chalk.bold.green('Chunky is working, hold on a sec'), spinner: 'dots', color: 'yellow', stream: process.stdout })
 
 function getUserAccessToken(account, cache) {
+  if (!account) {
+    return Promise.resolve()
+  }
+
   return fetch(`https://securetoken.googleapis.com/v1/token?key=${carmelFirebaseConfig.apiKey}`, {
     method: 'post',
     body:  JSON.stringify({
@@ -58,11 +62,6 @@ function callAction(args, account, cache, accessToken) {
 }
 
 function send(args, account, cache) {
-  if (!account) {
-    // Quietly refuse to do anything if not logged in
-    return Promise.resolve()
-  }
-
   spinner.start()
 
   return getUserAccessToken(account, cache)

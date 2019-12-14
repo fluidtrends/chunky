@@ -181,39 +181,6 @@ commands:
   - command: add function --name friends/invite
     description: Add an "invite" function in the "friends" chunk
 
-- name: deploy [artifacts..]
-  description: Deploy one or more product artifacts to the cloud
-  more: The supported artifacts are functions and assets
-  executor: executors/deploy
-  options:
-  - name: env
-    description: The cloud environment where to deploy
-    default: dev
-    type: string
-  - name: chunks
-    description: One or more chunks to search for artifacts
-    type: array
-  - name: remove
-    description: Remove the previously artifacts from the cloud
-    type: boolean
-  examples:
-  - command: deploy
-    description: Deploy all artifacts from all chunks to the default dev cloud environment
-  - command: deploy --env staging
-    description: Deploy all artifacts from all chunks to the staging cloud environment
-  - command: deploy functions
-    description: Deploy only the cloud functions from all chunks to the default dev cloud environment
-  - command: deploy assets
-    description: Deploy only the assets from all chunks to the default dev cloud environment
-  - command: deploy functions assets --env production
-    description: Deploy the cloud functions and assets from all chunks to the production cloud environment
-  - command: deploy functions --chunks friends inbox
-    description: Deploy only the cloud functions from the friends and inbox chunks to the default dev cloud environment
-  - command: deploy functions --chunks auth --env production
-    description: Deploy only the cloud functions from the auth chunk to the production cloud environment
-  - command: deploy functions --remove
-    description: Remove all the previously deployed functions from the default dev cloud environment
-
 - name: package [platforms..]
   description: Package the product for one or more platforms
   more: The supported platforms are ios, android, web and site

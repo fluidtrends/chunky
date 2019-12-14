@@ -6,29 +6,47 @@ const input = require('./input')
 const inquirer = require('inquirer')
 const path = require('path')
 const boxen = require('boxen')
-const Base64 = require('js-base64').Base64;
+const Base64 = require('js-base64').Base64
 const CarmelPublicKey = "/gzWe+WVjUMLkyxImrVXa3XAva5OGH+MAERltnPSgUM="
+const capcon = require('capture-console')
+const ora = require('ora')
 
 process.env.NODE_NO_WARNINGS=1
 
-var nacl = require('tweetnacl')
-nacl.util = require('tweetnacl-util')
+// var nacl = require('tweetnacl')
+// nacl.util = require('tweetnacl-util')
 
-function secureKey(cache) {
-  const key = cache.vaults.carmel.read('secureKey')
-  if (key) {
-    return key
-  }
-
-  // Generate a new key
-  const keyPair = nacl.box.keyPair()
-  const public = nacl.util.encodeBase64(keyPair.publicKey)
-  const private = nacl.util.encodeBase64(keyPair.secretKey)
-  const secureKey = { public, private }
-  cache.vaults.carmel.write('secureKey', secureKey)
-
-  return secureKey
+function startProgress(message) {
+  return ora(message).start()
 }
+
+function stopProgress(spinner) {
+  return spinner(stop)
+}
+
+function startConsoleCapture(out) {
+  capcon.startCapture(process.stdout, out)
+}
+
+function stopConsoleCapture() {
+  capcon.stopCapture(process.stdout)
+}
+
+// function secureKey(cache) {
+//   const key = cache.vaults.carmel.read('secureKey')
+//   if (key) {
+//     return key
+//   }
+
+//   // Generate a new key
+//   const keyPair = nacl.box.keyPair()
+//   const public = nacl.util.encodeBase64(keyPair.publicKey)
+//   const private = nacl.util.encodeBase64(keyPair.secretKey)
+//   const secureKey = { public, private }
+//   cache.vaults.carmel.write('secureKey', secureKey)
+
+//   return secureKey
+// }
 
 function encode(account, cache, input) {
   return Base64.encode(JSON.stringify(input))
@@ -158,7 +176,11 @@ module.exports = {
   encode,
   decode,
   encrypt,
+  startProgress,
+  stopProgress,
   encryptPublic,
+  startConsoleCapture,
+  stopConsoleCapture,
   decryptPublic,
   decrypt,
   ensureVaultIsUnlocked,

@@ -111,7 +111,11 @@ function accountStatus(account, cache) {
         })
 }
 
-function main(account, cache, help) {
+function main(account, cache, cmd) {
+  if (cmd.service) {
+    return Promise.resolve()
+  }
+
   if (account) {
     return accountStatus(account, cache)
   }

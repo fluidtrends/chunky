@@ -16,22 +16,21 @@ function ensureVaultIsUnlocked(cache) {
   return Promise.resolve()
 }
 
-function doPublish(acc, cache, env, type) {
+function doPublish(acc, cache, env, options, type) {
   return new Promise((resolve, reject) => {
     try {
-      require(`./${type}`)(acc, cache, env)
+      require(`./${type}`)(acc, cache, env, options)
           .then((data) => resolve(data))
           .catch((error) => reject(error))
     } catch (e) {
-      require(`./web`)(acc, cache, env)
+      require(`./web`)(acc, cache, env, options)
           .then((data) => resolve(data))
           .catch((error) => reject(error))
     }
   })
 }
 
-
-function publish(acc, cache, env, t) {
+function publish(acc, cache, env, options, t) {
   if (!t || !TYPES.includes(t)) {
     return inquirer.prompt([{
       type: 'list',
@@ -40,31 +39,31 @@ function publish(acc, cache, env, t) {
       name: 'type',
       message: "What do you want to publish?"
     }])
-    .then(({ type }) => doPublish(acc, cache, env, type))
+    .then(({ type }) => doPublish(acc, cache, env, options, type))
   }
 
-  return doPublish(acc, cache, env, t)
+  return doPublish(acc, cache, env, options, t)
 }
 
-function processCommand(account, cache, args, env) {
+function processCommand(account, cache, args, env, options) {
   return ensureVaultIsUnlocked(cache)
           .then(() => {
             if (!args || args.length === 0) {
-              return publish(account, cache, env)
+              return publish(account, cache, env, options)
             }
 
             // The type we want
             const type = args.shift()
-            return publish(account, cache, env, type)
+            return publish(account, cache, env, options, type)
           })
 }
 
-function main(account, cache, args, env) {
+function main(account, cache, args, env, options) {
   if (!account) {
     return status(account, cache).then(() => {
       try {
         const a = cache.vaults.carmel.read('account')
-        return processCommand(a, cache, args, env)
+        return processCommand(a, cache, args, env, options)
       } catch (e) {
         coreutils.logger.info(`Hey so how about you try this again :)`)
         return
@@ -72,7 +71,7 @@ function main(account, cache, args, env) {
     })
   }
 
-  return processCommand(account, cache, args, env)
+  return processCommand(account, cache, args, env, options)
 }
 
 module.exports = main

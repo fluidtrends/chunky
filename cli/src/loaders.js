@@ -2,7 +2,6 @@ const path = require('path')
 const fs = require('fs-extra')
 const yaml = require('js-yaml')
 const URL = require('url-parse')
-const xml2json = require('xml2json')
 const parsers = require('./parsers')
 
 function _loadXmlAsJsonFile (file) {

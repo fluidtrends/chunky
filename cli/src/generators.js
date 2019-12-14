@@ -6,6 +6,7 @@ const ejs = require('ejs')
 const cpy = require('cpy')
 const recursive = require('recursive-readdir')
 const decompress = require('decompress')
+// const secureManifest = require('./secureManifest')
 
 const config = {
   templatesDir: path.resolve(__dirname, '../assets', 'templates'),
@@ -37,7 +38,7 @@ function generateServerlessManifest (service, deployment) {
       name: 'aws',
       runtime: 'nodejs8.10',
       stage: deployment.env,
-      timeout: 60,
+      timeout: 30,
       environment: {
         CHUNKY_ENV: deployment.env
       }
@@ -222,50 +223,12 @@ function _generateProductStrings (data) {
   }
 }
 
-function _generateProductChunkySecureManifest (name, template, serviceAccount) {
-  return {
-    name,
-    template,
-    cloud: {
-      dev: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount
-        }
-      },
-      staging: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount: { }
-        }
-      },
-      production: {
-        aws: {
-          key: '',
-          secret: '',
-          apiDomain: '',
-          region: 'us-east-1'
-        },
-        google: {
-          services: ['drive', 'calendar', 'spreadsheets'],
-          serviceAccount: { }
-        }
-      }
-    }
-  }
-}
+// function _generateProductChunkySecureManifest (name, template, serviceAccount) {
+//   const data = secureManifest.generate()
+//   return Object.assign(data, {
+//       name, template, serviceAccount 
+//   })
+// }
 
 function generateProductManifestFiles (name, template) {
   fs.writeFileSync(path.resolve(process.cwd(), 'package.json'), JSON.stringify(_generateProductPackage(name, template), null, 2))
@@ -384,7 +347,7 @@ function _copyTemplateFiles (name, templateDir, targetDir, context) {
         return
       }
       files.map((file) => {
-          // Process each file in the template and copy it if necessary
+        // Process each file in the template and copy it if necessary
         const relativeFile = file.substring(templateDir.length + 1)
 
         _processTemplateFile(file, {
@@ -505,20 +468,20 @@ function generateAssets (name, template, data) {
 }
 
 function generateProvisioning (name, template, data) {
-  const serviceAccountFile = path.resolve(process.cwd(), 'serviceAccount.json')
+  // const serviceAccountFile = path.resolve(process.cwd(), 'serviceAccount.json')
 
-  if (!fs.existsSync(serviceAccountFile)) {
-    return Promise.resolve()
-  }
+  // if (!fs.existsSync(serviceAccountFile)) {
+  //   return Promise.resolve()
+  // }
 
-  try {
-    const serviceAccount = require(serviceAccountFile)
-    fs.writeFileSync(path.resolve(process.cwd(), '.chunky.json'), JSON.stringify(_generateProductChunkySecureManifest(name, template, serviceAccount), null, 2))
-    coreutils.logger.ok(`Created .chunky.json`)
-    return Promise.resolve()
-  } catch (e) {
-    return Promise.reject(e)
-  }
+  // try {
+  //   const serviceAccount = require(serviceAccountFile)
+  //   fs.writeFileSync(path.resolve(process.cwd(), '.chunky.json'), JSON.stringify(_generateProductChunkySecureManifest(name, template, serviceAccount), null, 2))
+  //   coreutils.logger.ok(`Created .chunky.json`)
+  //   return Promise.resolve()
+  // } catch (e) {
+  //   return Promise.reject(e)
+  // }
 }
 
 module.exports = {

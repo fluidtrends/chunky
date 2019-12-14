@@ -3,10 +3,15 @@ const google = require('googleapis')
 const coreutils = require('coreutils')
 const aws = require('aws-sdk')
 
-function authenticateFirebase(config) {
+function authenticateFirebase(config, options) {
+  if (options && options.ignoreFirebase) {
+    return Promise.resolve()
+  }
+
   return new Promise((resolve, reject) => {
     if (!config.google || !config.google.serviceAccount) {
-        reject(new Error('Invalid Google secure configuration'))
+        // reject(new Error('Invalid Google secure configuration'))
+        resolve()
         return
     }
 
@@ -23,9 +28,18 @@ function authenticateFirebase(config) {
   })
 }
 
+function authenticateGoogle(config, options) {
+  if (options && options.ignoreGoogle) {
+    return Promise.resolve()
+  }
 
-function authenticateGoogle(config) {
   return new Promise((resolve, reject) => {
+    if (!config.google || !config.google.serviceAccount) {
+      // reject(new Error('Invalid Google secure configuration'))
+      resolve()
+      return
+    }
+
     let googleAuth = new google.auth.JWT(
            config.google.serviceAccount.client_email,
            null,
@@ -48,10 +62,15 @@ function authenticateGoogle(config) {
   })
 }
 
-function authenticateAWS(config) {
+function authenticateAWS(config, options) {
+  if (options && options.ignoreAWS) {
+    return Promise.resolve()
+  }
+
   return new Promise((resolve, reject) => {
     if (!config.aws || !config.aws) {
-      reject(new Error('Invalid AWS secure configuration'))
+      resolve()
+      // reject(new Error('Invalid AWS secure configuration'))
       return
     }
 
@@ -68,19 +87,18 @@ function authenticateAWS(config) {
   })
 }
 
-function authenticate(config) {
-  coreutils.logger.info(`Connecting ...`)
+function authenticate(config, options) {
+  coreutils.logger.info(`Connecting to the cloud ...`)
 
   return Promise.all([
-    authenticateFirebase(config),
-    authenticateAWS(config),
-    authenticateGoogle(config)
+    authenticateFirebase(config, options),
+    authenticateAWS(config, options),
+    authenticateGoogle(config, options)
   ]).
 
   then(providers => {
-    coreutils.logger.done()
     var index = {}
-    providers.forEach(p => { index[p.name] = p.provider })
+    providers.filter(p => p).forEach(p => { index[p.name] = p.provider })
     return index
   })
 }
