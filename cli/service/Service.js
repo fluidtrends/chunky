@@ -33,10 +33,8 @@ class Service {
     }
 
     processEvent({ event, socket }) {
-        
-        console.log(event)
+        const cwd = path.resolve(this.cache.dir, 'env', event.env.latest.version, 'products', event.options.productId || '')
 
-        const cwd = path.resolve(this.cache.productsDir, event.options.productId || '')
         fs.existsSync(cwd) || fs.mkdirsSync(cwd)
 
         const runner = path.resolve(__dirname, 'run.js')
