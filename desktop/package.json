@@ -57,7 +57,7 @@
     "electron-main-fetch": "^0.1.0",
     "electron-react-devtools": "^0.5.3",
     "electron-squirrel-startup": "^1.0.0",
-    "eslint": "^3",
+    "eslint": "^4",
     "eslint-config-airbnb": "^15",
     "eslint-plugin-import": "^2",
     "eslint-plugin-jsx-a11y": "^5",
