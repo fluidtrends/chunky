@@ -80,6 +80,7 @@
     "ora": "^3.4.0",
     "os": "^0.1.1",
     "progress": "^2.0.0",
+    "react": "^16.12.0",
     "recursive-readdir": "^2.2.1",
     "request": "^2.58.0",
     "serverless": "^1.52.0",
@@ -96,6 +97,6 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "react-savor": "0.x"
+    "react-savor": "latest"
   }
 }
