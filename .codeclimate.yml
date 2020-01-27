@@ -46,6 +46,5 @@ engines:
 ratings:
   paths:
   - src/**/*
-  - web/src/**/*
 exclude_paths:
 - test/**/*
