@@ -38,14 +38,13 @@ class Service {
         fs.existsSync(cwd) || fs.mkdirsSync(cwd)
 
         const runner = path.resolve(__dirname, 'run.js')
-        process.env.PATH = `${this.cache.toolsDir}/node/${this.options.nodeVersion}/bin/:${process.env.PATH}`
+        process.env.PATH = `${this.cache.toolsDir}/chunky-node/${this.options.nodeVersion}/bin/:${process.env.PATH}`
 
         const chunky = JSON.stringify({ cwd, event })
 
         return new Promise((resolve, reject) => {
             process.env.chunky = chunky
-            const proc = spawn('node', [`${runner}`], { cwd, stdio: ['inherit', 'inherit', 'inherit', 'ipc'] })
-            // const proc = spawn('node', [`${runner}`], { cwd, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] })
+            const proc = spawn('node', [`${runner}`], { cwd, stdio: ['pipe', 'pipe', 'pipe', 'ipc'] })
             
             proc.on('error', (error) => {
                 console.log(error)
@@ -54,6 +53,18 @@ class Service {
             proc.on('message', (id) => {
                 const response = this.cache.event(id)
                 this.sendResponse({ event: Object.assign({}, event, response), socket })
+            })
+
+            proc.stdout.on('data', (data) => {
+                console.log(`chunky stdout: ${data}`)
+            })
+            
+            proc.stderr.on('data', (data) => {
+                console.log(`chunky stderr: ${data}`)
+            })
+            
+            proc.on('close', (code) => {
+                console.log(`chunky exitcode: ${code}`)
             })
 
             resolve(proc)

@@ -27,7 +27,7 @@ export default class LoadingScreen extends Core.Screen {
     return <div />
   }
 
-  renderData () {
+  render () {
     return <div />
   }
 
