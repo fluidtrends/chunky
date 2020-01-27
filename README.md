@@ -59,7 +59,13 @@ Creativity requires creative thoughts that in turn require cognitive capacity. B
 
 This idea, that our working memory maxes out at around 7 pieces of information, is core to how we have been learning and communicating over the past 60 years or so. To allow our brain the mental capacity it needs to exercise creativity, we need to figure out a way to reduce the Cognitive Load that strains our working memory. Think about phone numbers for example. Memorizing 4169237890 is horrible and down right close to impossible. Whereas (416) 923-7890 is much more manageable and the area code, the 416, eventually becomes a distinct piece of information in itself. Meaning that instead of remembering 10 pieces of information (a 10 digit phone number), our brain only needs to keep track of 8. The area code and the last 7 digits of the phone number. Grouping the area code out literally *gives our brain a break* and reduces the amount of effort it must invest in processing a phone number. Miller would call the area code a **chunk**. 
 
-And the process of grouping pieces of information together in order to reduce Cognitive Load is commonly known as **chunking** in psychology. Miller believed that chunking is >>*“the very lifeblood of the thought processes"* (Miller, 1956, p. 65), which is a phenomenal idea. 
+And the process of grouping pieces of information together in order to reduce Cognitive Load is commonly known as **chunking** in psychology. 
+
+Miller believed that chunking is 
+
+> “the very lifeblood of the thought processes" (Miller, 1956, p. 65)
+
+Which is a phenomenal idea. 
 
 Chunking gives us a *scientifically backed mechanism for managing our creative thoughts*. When applied to Software Development, chunking then can reduce the amount of effort our brain needs to invest in processing the grunt work related to loading and processing the program in our working memory. With more cognitive capacity to spare, this effectively improves our brains ability to be more creative. 
 
