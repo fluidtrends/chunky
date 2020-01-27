@@ -135,7 +135,7 @@ export default class AppContainer extends Component {
     // })
   }
 
-  componentDidMount () {
+  UNSAFE_componentDidMount () {
     // this.enableGlobalErrorHandler()
   }
 

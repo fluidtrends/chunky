@@ -127,9 +127,9 @@ export default class RestDataProvider extends DataProvider {
   }
 
   _sendAuthRequest (request, auth) {
-    return this._prepareRequest(request, auth)
-           .then(({ url, options }) => this._timeout(request.timeout, fetch(url, options)))
-           .then((response) => response.json())
+      return this._prepareRequest(request, auth)
+          .then(({ url, options }) => this._timeout(request.timeout, fetch(url, options)))
+          .then((response) => response ? response.json() : "")
   }
 
   _sendRequest (request) {
@@ -139,12 +139,18 @@ export default class RestDataProvider extends DataProvider {
               this._sendAuthRequest(request, auth).then((response) => {
                 resolve(response)
               })
+              .catch((err) => {
+                reject(err)
+              })
             })
-            .catch(() => {
+            .catch((err) => {
               this._sendAuthRequest(request).then((response) => {
                 resolve(response)
               })
-            })
+              .catch((err) => {
+                reject(err)
+              })
+      })
     })
   }
 

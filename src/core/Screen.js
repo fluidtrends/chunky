@@ -91,14 +91,14 @@ export default class Screen extends Component {
     this.setState({ progressTitle })
   }
 
-  componentWillMount () {
+  UNSAFE_componentWillMount () {
     for (const transitionName in this.props.transitions) {
       // Inject all transitions into this screen
       this.injectTransition(this.props.transitions[transitionName])
     }
   }
 
-  componentWillUnmount () {
+  UNSAFE_componentWillUnmount () {
     this._stopSubscriptions()
   }
 
@@ -248,7 +248,7 @@ export default class Screen extends Component {
     this.triggerRedirect(this.props.permissions.privateRedirect)
   }
 
-  componentWillReceiveProps (nextProps) {
+  UNSAFE_componentWillReceiveProps (nextProps) {
     if (this.props.account && !nextProps.account) {
       this.didLogout()
     } else if (!this.props.account && nextProps.account) {
