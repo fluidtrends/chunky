@@ -80,7 +80,8 @@ Working with remote services is not a pretty sight but Chunky makes authenticati
 ---
 
 <h3 align="center">
-    ⏭️ Next: <a href="docs/start/README.md"> Quick Start </a>
+
+    👉 Next: <a href="docs/start/README.md"> Quick Start </a>
 </h3>
 
 ---
