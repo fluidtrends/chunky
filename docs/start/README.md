@@ -72,7 +72,7 @@ How long did that take for you? Hopefully not more than a few short minutes.
 ---
 
 <h3 align="center">
- 👉 Next: <a href="docs/guide/README.md"> Developer Guide </a>
+ 👉 Next: <a href="../guide/README.md"> Developer Guide </a>
 </h3>
 
 ---

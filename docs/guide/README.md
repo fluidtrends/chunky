@@ -7,9 +7,9 @@
 </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
+<a href="../start/README.md"> Quick Start </a> |
 Developer Guide |
-<a href="docs/contrib/README.md"> Get Involved </a>
+<a href="../contrib/README.md"> Get Involved </a>
 </p>
 
 ---
@@ -33,7 +33,6 @@ That product is hosted at [Carmel.io](https://carmel.io) and you can find the [s
 7. [Mobile Framework](mobile/)
 8. [Desktop Framework](desktop/)
 9. [Blockchain Framework](blockchain/)
-
 
 ---
 
@@ -67,9 +66,9 @@ That product is hosted at [Carmel.io](https://carmel.io) and you can find the [s
 </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
+<a href="../start/README.md"> Quick Start </a> |
 Developer Guide  |
-<a href="docs/contrib/README.md"> Get Involved </a>
+<a href="../contrib/README.md"> Get Involved </a>
 </p>
 
 ---
