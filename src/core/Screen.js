@@ -51,7 +51,6 @@ export default class Screen extends Component {
       this[handlerHash] && this[handlerHash](event)
       return
     }
-
     const handlerType = handlerRef.protocol.slice(0, -1).toLowerCase()
     const fullPath = `${handlerRef.hostname}${handlerRef.pathname ? handlerRef.pathname : ''}`
 

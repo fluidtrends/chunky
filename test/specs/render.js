@@ -4,9 +4,12 @@ import React from 'react'
 import savor from 'react-savor'
 import { Data, Core, Errors } from '../..'
 import SimpleApp from '../assets/SimpleApp'
+import FlowScreen from '../assets/chunks/auth/src/screens/flow'
 import App from '../assets/App'
+import FlowApp from '../assets/FlowApp'
 import appConfig from '../assets/chunky'
 import { operations } from 'firebaseline'
+import { wrap } from 'module'
 
 savor
 
@@ -76,9 +79,61 @@ savor
   context.expect(screen.entities).to.exist
   context.expect(wrapper.props().startOperation).to.exist
   stub.restore()
-  
+
   // And, we're looking good
   done()
 })
+
+.add('should initiate a valid screen flow', (context, done) => {
+  const props = { env: "production", info: { analytics: {} } }
+
+  context.spy(FlowScreen.prototype, 'componentDidMount')
+  context.spy(Core.Screen.prototype, 'componentDidMount')
+
+  const stub = context.stub(Core.Screen.prototype, 'setState', () => ({}))
+  const clock = context.clock()
+
+  // Let's mount the app
+  const container = context.mount(<Core.AppContainer {...appConfig} {...props}>
+    <FlowApp {...appConfig} />
+  </Core.AppContainer>)
+    
+  context.expect(FlowScreen.prototype.componentDidMount).to.have.property('callCount', 1)
+  context.expect(Core.Screen.prototype.componentDidMount).to.have.property('callCount', 1)
+
+  const wrapper = container.childAt(0).childAt(0).childAt(0).childAt(1).childAt(0)
+  const screen = wrapper.instance()
+
+  context.expect(wrapper.props().subscriptions).to.exist
+  context.expect(wrapper.props().startOperation).to.exist
+  context.expect(wrapper.props().operations).to.exist
+  
+  screen.injectTransition({ name: "go", type: "go" })
+  screen._stopSubscriptions()
+  screen.transition({ type: "go" }, {})
+  
+  screen.onEvent({ id: "go", data: { handler: () => ({}) }})
+  screen.onEvent({ id: "go2" })
+  screen.onEvent({ id: "go3" })
+  screen.onEvent({ id: "go4" })
+  screen.onEvent({ id: "go5" })
+
+  screen.operationDidFinish("name", {}, { test: "test" }, { flavor: "test", onError: () => ({}) })
+  screen.operationDidFinish("name", {}, false, { flavor: "test", onSuccess: () => ({}) })
+
+  stub.restore()
+  clock.restore()
+
+  // And, we're looking good
+  done()
+})
+
+// .add('should setup a valid container', (context, done) => {
+
+//   const container = new Core.Container()
+
+//   // And, we're looking good
+//   done()
+// })
 
 .run('App Rendering')
