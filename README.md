@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
+<a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
 </p>
@@ -109,8 +109,8 @@ Working with remote services is not a pretty sight but Chunky makes authenticati
 </p>
 
 <p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
+<a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
 </p>
