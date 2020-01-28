@@ -8,13 +8,13 @@ checks:
       threshold: 4
   file-lines:
     config:
-      threshold: 250
+      threshold: 300
   method-complexity:
     config:
       threshold: 5
   method-count:
     config:
-      threshold: 20
+      threshold: 50
   method-lines:
     config:
       threshold: 25
