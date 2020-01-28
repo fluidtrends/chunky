@@ -1,42 +1,15 @@
-<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
+<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> 
+
 <h1 align="center"> Chunky </h1>
+<h3 align="center"> Software Product Development Beautified. </h3>
+<p align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
-<h3 align="center"> The Happy Code Monkey That Helps You Write Swear-Free Code. </h3>
-
-<p align="center"> Chunky is a Full Stack Low-Code Product Development Platform for
-novice and seasoned developers who want to build, launch and grow End-To-End Digital Products without swearing at their code. </p>
+</p>
 
 <p align="center">
 <a href="../start/README.md"> Quick Start </a> |
-<a href="../features/README.md"> Feature Tour </a> |
-<a href="../examples/README.md"> Real Examples </a> |
 <a href="../guide/README.md"> Developer Guide </a> |
-<strong> Get Involved </strong>
-</p>
-
-<hr/>
-
-<p align="center">
-<a href="https://circleci.com/gh/fluidtrends/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
-<a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
-<a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
-</p>
-
-<p align="center">
-<a href="https://www.npmjs.com/package/chunky-cli">
-<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-chunky">
-<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-dom-chunky">
-<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-cloud-chunky">
-<img src="https://img.shields.io/npm/v/react-cloud-chunky.svg?color=green&label=cloud&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-native-chunky">
-<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=mobile&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-electron-chunky">
-<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=desktop&style=flat-square"/></a>
-<a href="https://www.npmjs.com/package/react-blockchain-chunky">
-<img src="https://img.shields.io/npm/v/react-blockchain-chunky.svg?color=blue&label=blockchain&style=flat-square"/><a/>
+Get Involved
 </p>
 
 ---
@@ -84,3 +57,42 @@ npm run coverage
 Make sure you create a pull request when you're ready to commit your changes. Here's a tutorial about [creating a GitHub pull request](https://help.github.com/articles/creating-a-pull-request/) if you need it.
 
 ## STEP 7: Feel Good About Making The World A Better Place
+
+---
+
+<h3 align="center">
+ 👉 Next: <a href="https://github.com/fluidtrends/chunky/issues"> Choose an issue </a>
+</h3>
+
+---
+
+<p align="center">
+<a href="https://circleci.com/gh/fluidtrends/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
+<a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
+<a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
+</p>
+
+<p align="center">
+<a href="https://www.npmjs.com/package/chunky-cli">
+<img src="https://img.shields.io/npm/v/chunky-cli.svg?color=green&label=CLI&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-chunky">
+<img src="https://img.shields.io/npm/v/react-chunky.svg?color=green&label=universal&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-dom-chunky">
+<img src="https://img.shields.io/npm/v/react-dom-chunky.svg?color=green&label=web&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-cloud-chunky">
+<img src="https://img.shields.io/npm/v/react-cloud-chunky.svg?color=green&label=cloud&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-native-chunky">
+<img src="https://img.shields.io/npm/v/react-native-chunky.svg?color=blue&label=mobile&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-electron-chunky">
+<img src="https://img.shields.io/npm/v/react-electron-chunky.svg?color=blue&label=desktop&style=flat-square"/></a>
+<a href="https://www.npmjs.com/package/react-blockchain-chunky">
+<img src="https://img.shields.io/npm/v/react-blockchain-chunky.svg?color=blue&label=blockchain&style=flat-square"/><a/>
+</p>
+
+<p align="center">
+<a href="../start/README.md"> Quick Start </a> |
+<a href="../guide/README.md"> Developer Guide </a> |
+Get Involved
+</p>
+
+---
