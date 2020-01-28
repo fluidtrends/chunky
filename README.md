@@ -10,7 +10,8 @@
 
 <p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
 
-<h2 align="center"> Chunky - Software Product Development Beautified. </h2>
+<h1 align="center"> Chunky </h1>
+<h4 align="center"> Software Product Development Beautified. </h4>
 
 ---
 
