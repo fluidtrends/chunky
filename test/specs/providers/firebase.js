@@ -26,6 +26,30 @@ savor
   savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
 })
 
+.add('should not reset from firebase without an email', (context, done) => {
+  const provider = new Data.Providers.Firebase()
+
+    // Fetch an operation from the provider
+  const operation = provider.operation({ type: 'reset' })
+
+    // Attempt to mock
+  savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
+})
+
+.add('should reset from firebase', (context, done) => {
+  // Let's first mock the join operation
+  const response = { test: 'hello' }
+  context.stub(operations, 'reset', (firebase, options) => Promise.resolve(response))
+  global.firebase = () => {}
+
+    // Fetch an operation from the provider
+  const provider = new Data.Providers.Firebase()
+  const operation = provider.operation({ type: 'reset', nodes: ['test'], props: { email: "test" } })
+
+    // Attempt to mock
+  savor.promiseShouldSucceed(operation, done, (data) => {})
+})
+
 .add('should not update a nodeless collection in firebase', (context, done) => {
   const provider = new Data.Providers.Firebase()
 
