@@ -6,8 +6,6 @@
 
 </p>
 
----
-
 <p align="center">
 <a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
