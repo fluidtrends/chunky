@@ -8,8 +8,8 @@
 
 <p align="center">
 Quick Start |
-<a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Get Involved </a>
+<a href="../guide/README.md"> Developer Guide </a> |
+<a href="../contrib/README.md"> Get Involved </a>
 </p>
 
 
@@ -102,8 +102,8 @@ How long did that take for you? Hopefully not more than a few short minutes.
 
 <p align="center">
  Quick Start |
-<a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Get Involved </a>
+<a href="../guide/README.md"> Developer Guide </a> |
+<a href="../contrib/README.md"> Get Involved </a>
 </p>
 
 ---
