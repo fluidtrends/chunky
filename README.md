@@ -77,11 +77,9 @@ You can start a brand new Chunky Product from scratch but then again you can sta
 #### ⭐12. Declarative Data Operations 
 Working with remote services is not a pretty sight but Chunky makes authentication and general purpose data handling, both local and remote - a breeze. Just declare a few lines and lo and behold, use the automatically injected handlers.
 
----
 <h1 align="center">
     ⏭️ Next: <a href="docs/start/README.md"> Quick Start </a>
 </h1>
----
 
 
 <p align="center">
