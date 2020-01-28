@@ -63,6 +63,8 @@ savor
   savor.addDom('<!doctype html><html><body></body></html>')
   const props = { env: "production", info: { analytics: {} } }
 
+  const stub = context.stub(Core.Screen.prototype, 'setState', () => ({}))
+
   // Let's mount the app
   const container = context.mount(<Core.AppContainer {...appConfig} {...props}>
     <App {...appConfig} />
@@ -73,7 +75,8 @@ savor
 
   context.expect(screen.entities).to.exist
   context.expect(wrapper.props().startOperation).to.exist
-
+  stub.restore()
+  
   // And, we're looking good
   done()
 })
