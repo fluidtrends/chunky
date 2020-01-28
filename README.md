@@ -1,6 +1,3 @@
-
----
-
 <p align="center">
 <a href="docs/start/README.md"> Quick Start </a> |
 <a href="docs/features/README.md"> Feature Tour </a> |
@@ -15,7 +12,7 @@
 
 <h1 align="center"> Chunky </h1>
 <h3 align="center"> Software Product Development Beautified. </h3>
- Unleash Your Developer Creativity And Build Amazing Software Products
+<h4 align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
 </p>
 
