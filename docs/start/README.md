@@ -70,9 +70,6 @@ And that's all there is to it. You've just created a full stack product from scr
 
 How long did that take for you? Hopefully not more than a few short minutes.
 
-Wanna keep going?
-
----
 ---
 
 <h3 align="center">
