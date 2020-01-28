@@ -53,5 +53,3 @@ That product is hosted at [Carmel.io](https://carmel.io) and you can find the [s
 Developer Guide  |
 <a href="../contrib/README.md"> Get Involved </a>
 </p>
-
----

@@ -88,4 +88,3 @@ How long did that take for you? Hopefully not more than a few short minutes.
 <a href="../contrib/README.md"> Get Involved </a>
 </p>
 
----

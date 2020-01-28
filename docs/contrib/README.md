@@ -77,5 +77,3 @@ Make sure you create a pull request when you're ready to commit your changes. He
 <a href="../guide/README.md"> Developer Guide </a> |
 Get Involved
 </p>
-
----
