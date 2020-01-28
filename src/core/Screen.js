@@ -1,7 +1,6 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import URL from 'url-parse'
 import { AllHtmlEntities } from 'html-entities'
-// import { diff } from 'deep-diff'
 
 export default class Screen extends Component {
   constructor (props) {
@@ -263,26 +262,6 @@ export default class Screen extends Component {
     }
   }
 
-  renderDataError ({ main }) {
-    throw new Error('Chunky says: implement renderDataError in your route.')
-  }
-
-  renderDataLoading () {
-    throw new Error('Chunky says: implement renderDataLoading in your route.')
-  }
-
-  renderDataDefaults () {
-    throw new Error('Chunky says: implement renderDataDefaults in your route.')
-  }
-
-  renderData () {
-    throw new Error('Chunky says: implement renderData in your route.')
-  }
-
-  renderDataChecks () {
-
-  }
-
   render () {
     if (this.state.progress && this.renderProgress) {
       return this.renderProgress()
@@ -306,5 +285,7 @@ export default class Screen extends Component {
     if (this.props.hasData && this.props.hasData() && this.renderData) {
       return this.renderData(this.props.data())
     }
+
+    return <div/>
   }
 }
