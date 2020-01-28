@@ -42,10 +42,14 @@ Which is a phenomenal idea. Chunking gives us a *scientifically backed mechanism
 
 ## 12 Reasons Chunky Is So Loveable
 
-| 1   |      2      |  3 |
-|----------|:-------------:|------:|
-| <p align="center"> 1. Product Oriented </p> | <p align="center"> 2. Low Code </p> | <p align="center"> 3. Full Stack </p> |
-| Chunky helps you focus on the Product rather than just on the code. On the The What of the Customer Experience rather than just on The How of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value. |    You can get started with Chunky with minimal programming experience and you can build beautiful products with only a few lines of code. Make no mistake though, Chunky is highly flexible and so if you're an experienced developer, you'll be pleased to find a lot of power and versatility as well.   |   Chunky works across platforms, including mobile, web, desktop, cloud and blockchain. Every Chunky Product includes Native iOS and Android Apps, a Static Web App, a Desktop App, a Serverless Cloud Backend and a Smart Contract, all fully integrated, fully owned by you and fully satisfying. |
+| <p align="center"> **1. Product Oriented** </p> 
+Chunky helps you focus on the Product rather than just on the code. On the The What of the Customer Experience rather than just on The How of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value.
+
+| <p align="center"> **2. Low Code** </p> 
+You can get started with Chunky with minimal programming experience and you can build beautiful products with only a few lines of code. Make no mistake though, Chunky is highly flexible and so if you're an experienced developer, you'll be pleased to find a lot of power and versatility as well.
+
+| <p align="center"> **3. Full Stack** </p> 
+Chunky works across platforms, including mobile, web, desktop, cloud and blockchain. Every Chunky Product includes Native iOS and Android Apps, a Static Web App, a Desktop App, a Serverless Cloud Backend and a Smart Contract, all fully integrated, fully owned by you and fully satisfying. |
 
 
 #### 1. Product Oriented ✓
