@@ -1,7 +1,7 @@
 <p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
 
 <h1 align="center"> Chunky </h1>
-<h3 align="center"> Software Product Development Beautified. </h3>
+<h2 align="center"> Software Product Development Beautified. </h2>
 <p align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
 <p align="center">
@@ -14,11 +14,9 @@
 
 ---
 
-<p align="justify">
+## Your Code Monkey Days Are Over
 
 As a Professional Software Developer, your job is to create Software Products. Big emphasis on **create**. Your ability to create is the single most important factor in practicing your Software Development Profession. If we talk about Developer Performance it all comes down to how well a developer taps into their creative ability. Taking your performance as a Software Developer to the next level means taking your creativity to the next level. Software Development is a Creative Process. The more creative you are in that process, the better Software Products you will create. The problem is that most often than not, you can’t afford to be creative, even if you want to. Most of the time, your creativity as a Software Developer is literally stuck in the grunt work required to just make things work. Being a **Creative Developer** sounds nice and all but the truth is that you feel more like a *Code Monkey*.
-
-</p>
 
 ### Developing Software Is All About Managing Your Creative Thoughts
 
@@ -43,7 +41,7 @@ Which is a phenomenal idea. Chunking gives us a *scientifically backed mechanism
 ## 12 Reasons To Absolutely ❤️Chunky
 
 #### ⭐1. Product Oriented 
-Chunky helps you focus on the Product rather than just on the code. On the The What of the Customer Experience rather than just on The How of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value.
+Chunky helps you focus on the Product rather than just on the code. On the *The What* of the Customer Experience rather than just on *The How* of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value.
 
 #### ⭐2. Low Code 
 You can get started with Chunky with minimal programming experience and you can build beautiful products with only a few lines of code. Make no mistake though, Chunky is highly flexible and so if you're an experienced developer, you'll be pleased to find a lot of power and versatility as well.
