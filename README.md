@@ -1,7 +1,7 @@
 <p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
 
 <h1 align="center"> Chunky </h1>
-<h3 align="center"> Software Product Development Beautified. </h3>
+<h3s align="center"> Software Product Development Beautified. </h3>
 <p align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
 <p align="center">
@@ -11,8 +11,6 @@
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
 </p>
-
----
 
 ## Your Code Monkey Days Are Over
 
