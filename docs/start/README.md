@@ -7,8 +7,7 @@
 </p>
 
 <p align="center">
-<a href="docs/features/README.md"> Feature Tour </a> |
- Quick Start |
+Quick Start |
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
 </p>
@@ -102,7 +101,6 @@ How long did that take for you? Hopefully not more than a few short minutes.
 </p>
 
 <p align="center">
-<a href="docs/features/README.md"> Feature Tour </a> |
  Quick Start |
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
