@@ -1,7 +1,7 @@
 <p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
 
 <h1 align="center"> Chunky </h1>
-<h3s align="center"> Software Product Development Beautified. </h3>
+<h2 align="center"> Software Product Development Beautified. </h2>
 <p align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
 <p align="center">
@@ -11,6 +11,7 @@
 <a href="docs/guide/README.md"> Developer Guide </a> |
 <a href="docs/contrib/README.md"> Get Involved </a>
 </p>
+
 
 ## Your Code Monkey Days Are Over
 
@@ -73,6 +74,16 @@ You can start a brand new Chunky Product from scratch but then again you can sta
 
 #### ⭐12. Declarative Data Operations 
 Working with remote services is not a pretty sight but Chunky makes authentication and general purpose data handling, both local and remote - a breeze. Just declare a few lines and lo and behold, use the automatically injected handlers.
+
+---
+
+<p align="center">
+<a href="docs/start/README.md"> Quick Start </a> |
+<a href="docs/features/README.md"> Feature Tour </a> |
+<a href="docs/examples/README.md"> Real Examples </a> |
+<a href="docs/guide/README.md"> Developer Guide </a> |
+<a href="docs/contrib/README.md"> Get Involved </a>
+</p>
 
 ---
 
