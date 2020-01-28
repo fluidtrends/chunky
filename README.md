@@ -79,10 +79,11 @@ Working with remote services is not a pretty sight but Chunky makes authenticati
 
 ---
 
-<h1 align="center">
+<h3 align="center">
     ⏭️ Next: <a href="docs/start/README.md"> Quick Start </a>
-</h1>
+</h3>
 
+---
 
 <p align="center">
 <a href="https://circleci.com/gh/fluidtrends/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
