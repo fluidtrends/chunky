@@ -79,9 +79,7 @@ Working with remote services is not a pretty sight but Chunky makes authenticati
 
 ---
 
-## Next
-
-⏭️[Quick Start](docs/start/README.md)
+## ⏭️Next: [Quick Start](docs/start/README.md)
 
 ---
 
