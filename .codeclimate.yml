@@ -48,3 +48,15 @@ ratings:
   - src/**/*
 exclude_paths:
 - test/**/*
+- web/**/*
+- wordpress/**/*
+- product/**/*
+- mobile/**/*
+- lib/**/*
+- docs/**/*
+- dev/**/*
+- desktop/**/*
+- cloud/**/*
+- cli/**/*
+- blockchain/**/*
+
