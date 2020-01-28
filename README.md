@@ -78,9 +78,9 @@ You can start a brand new Chunky Product from scratch but then again you can sta
 Working with remote services is not a pretty sight but Chunky makes authentication and general purpose data handling, both local and remote - a breeze. Just declare a few lines and lo and behold, use the automatically injected handlers.
 
 ---
-
-## ⏭️Next: [Quick Start](docs/start/README.md)
-
+<h1 align="center">
+    ⏭️ Next: [Quick Start](docs/start/README.md)
+</h1>
 ---
 
 
