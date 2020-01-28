@@ -8,13 +8,14 @@
 
 ---
 
-<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> </p>
+<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> 
 
-<div align="center" size="6"> Chunky <br/>
-<div size="3"> Software Product Development Beautified. </div>
-</div>
+<h1 align="center"> Chunky </h1>
+<h3 align="center"> Software Product Development Beautified. </h3>
+<p align="center"> Unleash Your Developer Creativity And Build Amazing Software Products </p>
 
----
+</p>
+
 
 ## Your Code Monkey Days Are Over
 
