@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "The Chunky Universal Framework",
   "main": "src/index.js",
   "scripts": {
@@ -72,6 +72,6 @@
   "devDependencies": {
     "chokidar": "^2.0.2",
     "fs-extra": "^6.0.0",
-    "react-savor": "0.x"
+    "react-savor": "^1.0.0"
   }
 }
