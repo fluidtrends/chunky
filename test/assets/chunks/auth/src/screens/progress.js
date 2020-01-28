@@ -5,7 +5,7 @@ export default class Screen extends Core.Screen {
 
   constructor (props) {
     super(props)
-    this.state = { progress: false }
+    this.state = { progress: true }
   }
 
   componentDidMount () {
