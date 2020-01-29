@@ -47,6 +47,7 @@
     "firebaseline": "0.x",
     "html-entities": "^1.2.1",
     "http": "0.0.0",
+    "istanbul": "^0.4.5",
     "js-base64": "^2.4.3",
     "lali": "^0.x",
     "marked": "^0.3.6",
@@ -72,6 +73,6 @@
   "devDependencies": {
     "chokidar": "^2.0.2",
     "fs-extra": "^6.0.0",
-    "react-savor": "^1.0.0"
+    "react-savor": "^1.0.1"
   }
 }
