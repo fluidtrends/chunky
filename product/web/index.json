@@ -18,28 +18,23 @@
     },
     "sections": [
       {
-        "title": "Get in touch",
+        "title": "Get Involved",
         "id": "social",
         "elements": [
           {
-            "id": "web",
-            "title": "Web",
-            "link": "http://carmel.io"
+            "id": "home",
+            "title": "GitHub Home",
+            "link": "https://github.com/fluidtrends/chunky"
           },
           {
-            "id": "twitter",
-            "title": "Twitter",
-            "link": "http://twitter.com/carmelplatform"
+            "id": "issues",
+            "title": "Open Issues",
+            "link": "https://github.com/fluidtrends/chunky/issues?q=is%3Aopen"
           },
           {
-            "id": "telegram",
-            "title": "Telegram",
-            "link": "http://t.me/carmelplatform"
-          },
-          {
-            "id": "medium",
-            "title": "Medium",
-            "link": "http://medium.com/carmelplatform"
+            "id": "star",
+            "title": "Star Chunky",
+            "link": "https://github.com/fluidtrends/chunky/stargazers"
           }
         ]
       }

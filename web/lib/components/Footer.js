@@ -123,7 +123,7 @@ function (_Component) {
           flexDirection: compact ? 'row' : 'column'
         },
         onClick: function onClick() {
-          window.open('https://carmel.io');
+          window.open('https://chunky.io');
         }
       }, _react["default"].createElement(_list.List, {
         style: {

@@ -51,7 +51,7 @@ export default class Footer extends Component {
       width: '100vw',
       backgroundColor: this.props.theme.footerBottomColor,
       flexDirection: (compact ? 'row' : 'column')}}
-      onClick={() => {window.open('https://carmel.io')}}
+      onClick={() => {window.open('https://chunky.io')}}
       >
       <List style={{
         display: 'flex',
