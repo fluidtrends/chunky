@@ -33,3 +33,74 @@ jobs:
       - store_artifacts:
           path: coverage
           prefix: coverage
+
+
+
+          ----
+
+
+
+          version: 2
+jobs:
+  buil
+  core:
+    working_directory: ~/chunky
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - run:
+          name: install core dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules    
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Generate core code coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage
+          prefix: core-coverage
+       - run:
+          name: Format coverage for Code Climate
+          command: ./cc-test-reporter format-coverage -t simplecov -o codeclimate.core.json coverage.core.resultset.json
+  web:
+    working_directory: ~/chunky
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - run:
+          name: install web dependencies
+          command: cd web && npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules    
+      - run:
+          name: Setup Code Climate test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Generate web code coverage
+          command: cd web && npm run coverage
+      - store_artifacts:
+          path: web/coverage
+          prefix: web-coverage
+      - run:
+          name: Format coverage for Code Climate
+          command: ./cc-test-reporter format-coverage -t simplecov -o codeclimate.web.json coverage.web.resultset.json
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - core
+      - web
