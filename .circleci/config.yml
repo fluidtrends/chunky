@@ -46,7 +46,7 @@ jobs:
           name: Install web dependencies
           command: cd web && npm install
       - run:
-          name: Run core tests
+          name: Run web tests
           command: | 
             cd web
             npm run coverage
@@ -60,7 +60,9 @@ jobs:
       - run:
           name: Upload combined coverage to Code Climate
           command: |
+            ls -la tmp
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
+            ls -la tmp
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
 workflows:
