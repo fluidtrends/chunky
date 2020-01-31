@@ -35,8 +35,10 @@ jobs:
           command: | 
             npm run coverage 
             ./tmp/cc-test-reporter format-coverage --prefix coverage -t lcov -o tmp/codeclimate.core.json
-            pwd
-            ls -la tmp
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - codeclimate.core.json
 
   web-tests:
     <<: *defaults
@@ -53,9 +55,11 @@ jobs:
             cd web
             npm run coverage
             ../tmp/cc-test-reporter format-coverage --prefix coverage -t lcov -o ../tmp/codeclimate.web.json
-            pwd
-            ls -la ../tmp
-  
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - codeclimate.web.json
+
   submit-coverage:
     <<: *defaults
     steps:
@@ -64,10 +68,7 @@ jobs:
       - run:
           name: Upload combined coverage to Code Climate
           command: |
-            pwd
-            ls -la tmp
             ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
-            ls -la tmp
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
 workflows:
