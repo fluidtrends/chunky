@@ -25,19 +25,18 @@ jobs:
       - image: circleci/node:8.10
     steps:
       - checkout
-      - run: cd web
       - run:
           name: install web dependencies
-          command: npm install
+          command: cd web && npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules    
       - run:
           name: Generate web code coverage
-          command: npm run coverage
+          command: cd web && npm run coverage
       - store_artifacts:
-          path: coverage
+          path: web/coverage
           prefix: web-coverage
 
 workflows:
