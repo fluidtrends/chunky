@@ -42,6 +42,7 @@
     "@babel/plugin-transform-react-jsx": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
+    "@babel/register": "^7.8.3",
     "base-64": "^0.1.0",
     "chalk": "^1.1.3",
     "deep-diff": "^0.3.8",
@@ -79,6 +80,6 @@
     "@babel/cli": "^7.8.4",
     "chokidar": "^2.0.2",
     "fs-extra": "^6.0.0",
-    "react-savor": "^1.0.1"
+    "react-savor": "^1.0.3"
   }
 }
