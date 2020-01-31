@@ -34,7 +34,7 @@ jobs:
           name: Run core tests
           command: | 
             npm run coverage 
-            ./tmp/cc-test-reporter format-coverage --prefix coverage -t lcov -o tmp/codeclimate.core.json
+            ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.core.json
       - persist_to_workspace:
           root: tmp
           paths:
@@ -54,7 +54,7 @@ jobs:
           command: | 
             cd web
             npm run coverage
-            ../tmp/cc-test-reporter format-coverage --prefix coverage -t lcov -o ../tmp/codeclimate.web.json
+            ../tmp/cc-test-reporter format-coverage -t lcov -o ../tmp/codeclimate.web.json --add-prefix web
       - persist_to_workspace:
           root: tmp
           paths:

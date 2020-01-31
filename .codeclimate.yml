@@ -46,9 +46,9 @@ engines:
 ratings:
   paths:
   - src/**/*
+  - web/src/**/*
 exclude_paths:
 - test/**/*
-- web/**/*
 - wordpress/**/*
 - product/**/*
 - mobile/**/*
@@ -59,4 +59,8 @@ exclude_paths:
 - cloud/**/*
 - cli/**/*
 - blockchain/**/*
-
+- web/lib/**/*
+- web/app/**/*
+- web/bin/**/*
+- web/packager/**/*
+- web/test/**/*

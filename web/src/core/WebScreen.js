@@ -10,7 +10,7 @@ import { default as Layout } from './Layout'
 import { detect } from 'detect-browser'
 import platform from 'platform'
 
-export default class Screen extends Core.Screen {
+export default class WebScreen extends Core.Screen {
   constructor (props) {
     super(props)
     this.state = {

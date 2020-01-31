@@ -1,6 +1,6 @@
 import Component from './core/Component'
 import Router from './core/Router'
-import Screen from './core/Screen'
+import Screen from './core/WebScreen'
 import App from './core/App'
 import * as Components from './components'
 import * as Utils from './utils'
