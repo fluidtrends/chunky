@@ -2,7 +2,7 @@
 
 import React from 'react'
 import savor from 'react-savor'
-import { Core } from '../../../web'
+import { Core } from '../../../src'
 // import App from '../assets/App'
 // import appConfig from '../assets/chunky'
 

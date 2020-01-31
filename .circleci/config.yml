@@ -1,35 +1,46 @@
 version: 2
 jobs:
-  build:
+  core:
     working_directory: ~/chunky
     docker:
       - image: circleci/node:8.10
     steps:
       - checkout
       - run:
-          name: install Node dependencies
+          name: install dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
       - run:
-          name: Run the tests
-          command: npm test
-      - run:
-          name: Setup Code Climate test-reporter
-          command: |
-            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-            chmod +x ./cc-test-reporter
-      - run:
-          name: Prepare the Code Climate reporting process
-          command: ./cc-test-reporter before-build
-      - run:
           name: Generate code coverage
           command: npm run coverage
-      - run:
-          name: Send the test report to Code Climate
-          command: ./cc-test-reporter after-build --exit-code $?
       - store_artifacts:
           path: coverage
           prefix: coverage
+  web:
+    working_directory: ~/chunky/web
+    docker:
+      - image: circleci/node:8.10
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Generate code coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
+workflows:
+  version: 2
+  build:
+    jobs:
+      - core
+      - web
