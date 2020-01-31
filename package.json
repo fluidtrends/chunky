@@ -1,6 +1,6 @@
 {
   "name": "react-chunky",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "The Chunky Universal Framework",
   "main": "src/index.js",
   "scripts": {
@@ -26,8 +26,7 @@
       "@babel/plugin-proposal-object-rest-spread",
       "@babel/plugin-transform-destructuring",
       "@babel/plugin-transform-react-jsx",
-      "@babel/plugin-proposal-class-properties",
-      "styled-jsx/babel"
+      "@babel/plugin-proposal-class-properties"
     ],
     "presets": [
       "@babel/react",
@@ -71,8 +70,7 @@
     "redux-thunk": "^2.1.0",
     "reselect": "^2.5.4",
     "shortid": "^2.2.8",
-    "styled-components": "^4.0.3",
-    "styled-jsx": "^3.2.4",
+    "styled-components": "^5.0.0",
     "url-parse": "^1.1.9",
     "validator": "^8.1.0"
   },
