@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'savor'
-import { Data, Errors } from '../..'
+import { Data, Errors } from '../../../src'
 
 savor.add('should be able to detect if an item is not cached', (context, done) => {
   // Inject a mock adapter
@@ -85,4 +85,4 @@ savor.add('should be able to detect if an item is not cached', (context, done) =
   }, () => {})
 })
 
-.run('Data Cache')
+.run('[Core] Data Cache')

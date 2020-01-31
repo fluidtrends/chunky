@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data } from '../..'
+import { Data } from '../../../src'
 
 savor.add('should execute a failing async action', (context, done) => {
   const operation = () => Promise.reject(new Error('oopsie'))
@@ -49,4 +49,4 @@ savor.add('should execute a failing async action', (context, done) => {
   })
 })
 
-.run('Data Actions')
+.run('[Core] Data Actions')
