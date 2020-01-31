@@ -7,7 +7,7 @@ function generateDevPage (options, route) {
   return new HtmlWebpackPlugin({
     filename: 'index.html',
     route,
-    inject: 'true',
+    inject: true,
     template: path.resolve(options.root || options.dir, 'node_modules', 'react-dom-chunky', 'app', 'pages', 'default.html')
   })
 }
@@ -21,7 +21,7 @@ function generateStaticPage (options, route) {
   return new HtmlWebpackPlugin({
     cache: false,
     route,
-    inject: 'true',
+    inject: true,
     minify: {
       removeAttributeQuotes: true,
       collapseWhitespace: true,

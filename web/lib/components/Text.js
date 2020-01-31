@@ -1,119 +1,141 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _react = _interopRequireDefault(require("react"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Component2 = _interopRequireDefault(require("../core/Component"));
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _reactPlaceholder = _interopRequireDefault(require("react-placeholder"));
 
-var _react = require('react');
+var _placeholders = require("react-placeholder/lib/placeholders");
 
-var _react2 = _interopRequireDefault(_react);
+var _marked = _interopRequireDefault(require("marked"));
 
-var _Component2 = require('../core/Component');
+var _urlParse = _interopRequireDefault(require("url-parse"));
 
-var _Component3 = _interopRequireDefault(_Component2);
+var _reactChunky = require("react-chunky");
 
-var _reactPlaceholder = require('react-placeholder');
+var _handlebars = _interopRequireDefault(require("handlebars/dist/cjs/handlebars"));
 
-var _reactPlaceholder2 = _interopRequireDefault(_reactPlaceholder);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _placeholders = require('react-placeholder/lib/placeholders');
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var _marked = require('marked');
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _marked2 = _interopRequireDefault(_marked);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _urlParse = require('url-parse');
-
-var _urlParse2 = _interopRequireDefault(_urlParse);
-
-var _reactChunky = require('react-chunky');
-
-var _handlebars = require('handlebars/dist/cjs/handlebars');
-
-var _handlebars2 = _interopRequireDefault(_handlebars);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Text = function (_Component) {
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Text =
+/*#__PURE__*/
+function (_Component) {
   _inherits(Text, _Component);
 
   function Text(props) {
+    var _this;
+
     _classCallCheck(this, Text);
 
-    var _this = _possibleConstructorReturn(this, (Text.__proto__ || Object.getPrototypeOf(Text)).call(this, props));
-
-    _this.state = _extends({}, _this.state, { loading: true, selectedLanguage: null });
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Text).call(this, props));
+    _this.state = _objectSpread({}, _this.state, {
+      loading: true,
+      selectedLanguage: null
+    });
     return _this;
   }
 
   _createClass(Text, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      _get(Text.prototype.__proto__ || Object.getPrototypeOf(Text.prototype), 'componentDidMount', this).call(this);
+      _get(_getPrototypeOf(Text.prototype), "componentDidMount", this).call(this);
+
       _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (lang) {
-        _this2.setState({ selectedLanguage: lang });
-      }).catch(function () {
+        _this2.setState({
+          selectedLanguage: lang
+        });
+      })["catch"](function () {
         return;
       });
+
       this.loadContent();
     }
   }, {
-    key: 'parseUrl',
+    key: "parseUrl",
     value: function parseUrl(source) {
-      var ref = new _urlParse2.default(source);
+      var ref = new _urlParse["default"](source);
       var type = ref.protocol.slice(0, -1).toLowerCase();
-      var fullPath = '' + ref.hostname + (ref.pathname ? ref.pathname : '');
+      var fullPath = "".concat(ref.hostname).concat(ref.pathname ? ref.pathname : '');
 
       switch (type) {
         case 'local':
-          return (this.isDesktop ? '../../../../' : '/') + 'assets/text/' + fullPath + '.md';
+          return "".concat(this.isDesktop ? '../../../../' : '/', "assets/text/").concat(fullPath, ".md");
+
         case 'github':
-          return 'https://raw.githubusercontent.com/' + fullPath + '.md';
+          return "https://raw.githubusercontent.com/".concat(fullPath, ".md");
+
         case 'dropbox':
-          return 'https://dl.dropboxusercontent.com/s/' + fullPath + '.md?raw=1&dl=1';
+          return "https://dl.dropboxusercontent.com/s/".concat(fullPath, ".md?raw=1&dl=1");
+
         case 'https':
         case 'http':
           return source;
+
         default:
       }
     }
   }, {
-    key: 'loadFromUrl',
+    key: "loadFromUrl",
     value: function loadFromUrl(url) {
       var _this3 = this;
 
-      var translatedUrl = this.state.selectedLanguage && !url.includes('json') ? url.replace('/text/', '/text/' + this.state.selectedLanguage + '/') : url;
+      var translatedUrl = this.state.selectedLanguage && !url.includes('json') ? url.replace('/text/', "/text/".concat(this.state.selectedLanguage, "/")) : url;
       return fetch(translatedUrl).then(function (response) {
         return response.text();
       }).then(function (response) {
-        return _handlebars2.default.compile(response)(Object.assign({}, _this3.props.input));
+        return _handlebars["default"].compile(response)(Object.assign({}, _this3.props.input));
       }).then(function (markdown) {
-        return (0, _marked2.default)(markdown, {});
+        return (0, _marked["default"])(markdown, {});
       });
     }
   }, {
-    key: 'loadContent',
+    key: "loadContent",
     value: function loadContent() {
       var _this4 = this;
 
       if (this.props.textSource && !this.props.textSource.includes('github://') && !this.props.textSource.includes('local://')) {
-        this.setState({ text: this.props.textSource });
+        this.setState({
+          text: this.props.textSource
+        });
         return false;
       }
+
       var source = this.props.source === 'text' ? this.props.textSource : this.props.source;
       var url = this.parseUrl(source);
 
@@ -122,69 +144,71 @@ var Text = function (_Component) {
       }
 
       this.loadFromUrl(url).then(function (text) {
-        _this4.setState({ loading: false, text: text });
-      }).catch(function (error) {
-        _this4.setState({ error: error });
+        _this4.setState({
+          loading: false,
+          text: text
+        });
+      })["catch"](function (error) {
+        _this4.setState({
+          error: error
+        });
       });
     }
   }, {
-    key: 'renderComponentContent',
+    key: "renderComponentContent",
     value: function renderComponentContent(_ref) {
       var titleColor = _ref.titleColor,
           textColor = _ref.textColor;
-
-      var className = 'text';
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement('div', {
-          className: className,
-          dangerouslySetInnerHTML: { __html: this.state.text }
-        })
-      );
+      var className = "text";
+      return _react["default"].createElement("div", null, _react["default"].createElement("div", {
+        className: className,
+        dangerouslySetInnerHTML: {
+          __html: this.state.text
+        }
+      }));
     }
   }, {
-    key: 'renderComponent',
+    key: "renderComponent",
     value: function renderComponent() {
       this.loadContent();
-      return _react2.default.createElement(
-        'div',
-        {
-          style: Object.assign({}, {
-            textAlign: 'center',
-            padding: '20px',
-            maxWidth: '90vw',
-            overflow: 'hidden'
-          }, this.props.style)
-        },
-        _react2.default.createElement(
-          _reactPlaceholder2.default,
-          {
-            showLoadingAnimation: true,
-            rows: 7,
-            ready: !this.state.loading,
-            customPlaceholder: this.placeholder
-          },
-          this.renderComponentContent({
-            titleColor: '#263238',
-            textColor: '#455A64'
-          })
-        )
-      );
+      return _react["default"].createElement("div", {
+        style: Object.assign({}, {
+          textAlign: 'center',
+          padding: '20px',
+          maxWidth: '90vw',
+          overflow: 'hidden'
+        }, this.props.style)
+      }, _react["default"].createElement(_reactPlaceholder["default"], {
+        showLoadingAnimation: true,
+        rows: 7,
+        ready: !this.state.loading,
+        customPlaceholder: this.placeholder
+      }, this.renderComponentContent({
+        titleColor: '#263238',
+        textColor: '#455A64'
+      })));
     }
   }, {
-    key: 'placeholder',
+    key: "placeholder",
     get: function get() {
-      return _react2.default.createElement(
-        'div',
-        { style: { justifyContent: 'center' } },
-        _react2.default.createElement(_placeholders.RectShape, { color: '#CFD8DC', style: { height: 40, marginBottom: 10 } }),
-        _react2.default.createElement(_placeholders.TextBlock, { rows: 7, color: '#ECEFF1' })
-      );
+      return _react["default"].createElement("div", {
+        style: {
+          justifyContent: 'center'
+        }
+      }, _react["default"].createElement(_placeholders.RectShape, {
+        color: "#CFD8DC",
+        style: {
+          height: 40,
+          marginBottom: 10
+        }
+      }), _react["default"].createElement(_placeholders.TextBlock, {
+        rows: 7,
+        color: "#ECEFF1"
+      }));
     }
   }]);
 
   return Text;
-}(_Component3.default);
+}(_Component2["default"]);
 
-exports.default = Text;
+exports["default"] = Text;

@@ -1,11 +1,11 @@
 const chokidar = require('chokidar')
 const fs = require('fs-extra')
 const path = require('path')
-const babel = require('babel-core')
-require('babel-polyfill')
+const babel = require('@babel/core')
+require('@babel/polyfill')
 
 const watcher = chokidar.watch('.', {
-  ignored: /node_modules|coverage|cli|dev|.git|.DS_Store/,
+  ignored: /node_modules|coverage|cli|dev|.git|.DS_Store|product/,
   persistent: true
 })
 
@@ -62,8 +62,8 @@ function findTarget (src) {
 function transpile (src, target) {
   const code = babel.transformFileSync(path.resolve(src), {
     sourceRoot: path.join(process.cwd(), 'node_modules'),
-    plugins: ['styled-jsx/babel', 'transform-react-jsx', 'transform-es2015-destructuring', 'transform-object-rest-spread'],
-    presets: ['react', 'env']
+    plugins: ['styled-jsx/babel', '@babel/plugin-transform-react-jsx', '@babel/plugin-transform-destructuring', '@babel/plugin-proposal-object-rest-spread'],
+    presets: ['@babel/react', '@babel/env']
   }).code
 
   if (fs.existsSync(target)) {

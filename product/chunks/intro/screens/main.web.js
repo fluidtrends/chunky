@@ -12,15 +12,16 @@ export default class MainScreen extends Screen {
     super.componentDidMount()
   }
 
-  renderWizard() {
-    // TODO: ADD WIZARD
-    return [<Wizard />]
-  }
+  // renderWizard() {
+  //   // TODO: ADD WIZARD
+  //   return [<Wizard />]
+  // }
 
   components() {
-    if (!this.state.wizardDone) {
-      return this.renderWizard()
-    }
+    // return []
+    // // if (!this.state.wizardDone) {
+    // //   return this.renderWizard()
+    // // }
     return super.components().concat([])
   }
 }

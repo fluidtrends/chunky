@@ -48,9 +48,8 @@ export default class SocialIcons extends PureComponent {
           socialNetworks.map(key => {
             if (!this.props && !this.props.socialMediaLinks[key]) return null
             return (
-              <div>
+              <div key={key}>
                 <Icon
-                  key={key}
                   theme="twoTone"
                   type={key}
                   twoToneColor="#00bcd4"
@@ -62,14 +61,7 @@ export default class SocialIcons extends PureComponent {
                     padding
                   }}
                 />
-                <style jsx>{`
-                  div :global(.icon) {
-                    color: ${this.props.iconColor};
-                  }
-                  div :global(.icon):hover {
-                    color: ${this.props.iconColorHover};
-                  }
-                `}</style>
+                
               </div>
             )
           })}
@@ -91,14 +83,6 @@ export default class SocialIcons extends PureComponent {
               >
                 {item.title}
               </a>
-              <style jsx>{`
-                div :global(.icon) {
-                  color: ${this.props.iconColor};
-                }
-                div :global(.icon):hover {
-                  color: ${this.props.iconColorHover};
-                }
-              `}</style>
             </div>
           ))}
         {this.props.children}

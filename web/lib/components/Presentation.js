@@ -1,157 +1,204 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _react = _interopRequireDefault(require("react"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Component2 = _interopRequireDefault(require("../core/Component"));
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _responsive = require("../utils/responsive");
 
-var _style = require('styled-jsx/style');
+var _typography = require("@rmwc/typography");
 
-var _style2 = _interopRequireDefault(_style);
+var _antd = require("antd");
 
-var _react = require('react');
+var _Media = _interopRequireDefault(require("./Media"));
 
-var _react2 = _interopRequireDefault(_react);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _Component2 = require('../core/Component');
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var _Component3 = _interopRequireDefault(_Component2);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _responsive = require('../utils/responsive');
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _typography = require('@rmwc/typography');
-
-var _antd = require('antd');
-
-var _Media = require('./Media');
-
-var _Media2 = _interopRequireDefault(_Media);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Presentation = function (_Component) {
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Presentation =
+/*#__PURE__*/
+function (_Component) {
   _inherits(Presentation, _Component);
 
   function Presentation(props) {
+    var _this;
+
     _classCallCheck(this, Presentation);
 
-    var _this = _possibleConstructorReturn(this, (Presentation.__proto__ || Object.getPrototypeOf(Presentation)).call(this, props));
-
-    _this.state = _extends({}, _this.state, { modalVisible: false, videoPlaying: false });
-
-    _this._showModal = _this.showModal.bind(_this);
-    _this._hideModal = _this.hideModal.bind(_this);
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Presentation).call(this, props));
+    _this.state = _objectSpread({}, _this.state, {
+      modalVisible: false,
+      videoPlaying: false
+    });
+    _this._showModal = _this.showModal.bind(_assertThisInitialized(_this));
+    _this._hideModal = _this.hideModal.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Presentation, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
-      _get(Presentation.prototype.__proto__ || Object.getPrototypeOf(Presentation.prototype), 'componentDidMount', this).call(this);
+      _get(_getPrototypeOf(Presentation.prototype), "componentDidMount", this).call(this);
     }
   }, {
-    key: 'showModal',
+    key: "showModal",
     value: function showModal() {
-      this.setState({ modalVisible: true, videoPlaying: true });
+      this.setState({
+        modalVisible: true,
+        videoPlaying: true
+      });
     }
   }, {
-    key: 'hideModal',
+    key: "hideModal",
     value: function hideModal() {
-      this.setState({ modalVisible: false, videoPlaying: false });
+      this.setState({
+        modalVisible: false,
+        videoPlaying: false
+      });
     }
   }, {
-    key: 'renderImage',
+    key: "renderImage",
     value: function renderImage() {
-
-      return (0, _responsive.renderResponsive)('image', _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+      return (0, _responsive.renderResponsive)('image', _react["default"].createElement("img", {
+        src: "/assets/".concat(this.props.image),
+        style: {
           width: '80vw',
           opacity: 0.5,
           boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)'
-        } }), _react2.default.createElement('img', { src: '/assets/' + this.props.image, style: {
+        }
+      }), _react["default"].createElement("img", {
+        src: "/assets/".concat(this.props.image),
+        style: {
           width: '700px',
           maxWidth: '90vw',
           opacity: 0.5,
           boxShadow: ' 0 5px 20px 0 rgba(0,0,0,.15)'
-        } }));
+        }
+      }));
     }
   }, {
-    key: 'renderThumbnail',
+    key: "renderThumbnail",
     value: function renderThumbnail() {
       var fontSize = this.props.isSmallScreen ? 40 : 70;
-
-      return _react2.default.createElement(
-        'div',
-        { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', padding: "80px 0" } },
-        _react2.default.createElement(
-          'div',
-          { style: { width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center' }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]]) + ' ' + (_style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]]) || '')
-          },
-          this.renderImage(),
-          _react2.default.createElement(_antd.Icon, { onClick: this._showModal, type: 'play-circle', className: 'icon', theme: 'filled', style: { fontSize: fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent' } }),
-          _react2.default.createElement(_style2.default, {
-            styleId: '2929084194',
-            css: 'div.__jsx-style-dynamic-selector .icon{color:' + '#546E7A' + ';}div.__jsx-style-dynamic-selector .icon:hover{color:' + (this.props.hoverColor ? this.props.hoverColor : '#00bcd4') + ';}',
-            dynamic: ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']
-          })
-        )
-      );
+      return _react["default"].createElement("div", {
+        style: {
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: "80px 0"
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          width: '90vw',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }
+      }, this.renderImage(), _react["default"].createElement(_antd.Icon, {
+        onClick: this._showModal,
+        type: "play-circle",
+        className: "icon",
+        theme: "filled",
+        style: {
+          fontSize: fontSize,
+          position: 'absolute',
+          cursor: 'pointer',
+          background: 'transparent'
+        }
+      })));
     }
   }, {
-    key: 'renderModal',
+    key: "renderModal",
     value: function renderModal() {
       var width = this.props.isSmallScreen ? '80vw' : 1200;
       var marginTop = this.props.isSmallScreen ? 150 : 0;
       var paddingTop = '56.25%';
-
-      return _react2.default.createElement(
-        _antd.Modal,
-        { centered: true, cancelButtonProps: { shape: 'circle', type: 'danger' }, onCancel: this._hideModal, width: width, bodyStyle: { paddingTop: paddingTop, marginTop: marginTop }, footer: null, visible: this.state.modalVisible },
-        _react2.default.createElement(_Media2.default, { video: this.props.url, width: '100%', height: '100%', style: { position: 'absolute', top: 0, left: 0 }, playing: this.state.videoPlaying })
-      );
+      return _react["default"].createElement(_antd.Modal, {
+        centered: true,
+        cancelButtonProps: {
+          shape: 'circle',
+          type: 'danger'
+        },
+        onCancel: this._hideModal,
+        width: width,
+        bodyStyle: {
+          paddingTop: paddingTop,
+          marginTop: marginTop
+        },
+        footer: null,
+        visible: this.state.modalVisible
+      }, _react["default"].createElement(_Media["default"], {
+        video: this.props.url,
+        width: "100%",
+        height: "100%",
+        style: {
+          position: 'absolute',
+          top: 0,
+          left: 0
+        },
+        playing: this.state.videoPlaying
+      }));
     }
   }, {
-    key: 'renderComponent',
+    key: "renderComponent",
     value: function renderComponent() {
-
-      return _react2.default.createElement(
-        'div',
-        { style: { display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', padding: "50px", backgroundColor: this.props.backgroundColor }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]])
-        },
-        _react2.default.createElement(
-          'div',
-          { style: { textAlign: 'center' }, className: _style2.default.dynamic([['2929084194', ['#546E7A', this.props.hoverColor ? this.props.hoverColor : '#00bcd4']]])
-          },
-          this.props.title && _react2.default.createElement(
-            _typography.Typography,
-            {
-              use: 'headline2',
-              style: _extends({
-                margin: '20px',
-                color: this.props.textColor
-              }, this.props.titleAdditionalStyle)
-            },
-            ' ',
-            this.props.title
-          ),
-          this.renderThumbnail(),
-          this.renderModal()
-        )
-      );
+      return _react["default"].createElement("div", {
+        style: {
+          display: 'flex',
+          flexDirection: 'column',
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: "50px",
+          backgroundColor: this.props.backgroundColor
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          textAlign: 'center'
+        }
+      }, this.props.title && _react["default"].createElement(_typography.Typography, {
+        use: "headline2",
+        style: _objectSpread({
+          margin: '20px',
+          color: this.props.textColor
+        }, this.props.titleAdditionalStyle)
+      }, ' ', this.props.title), this.renderThumbnail(), this.renderModal()));
     }
   }]);
 
   return Presentation;
-}(_Component3.default);
+}(_Component2["default"]);
 
-exports.default = Presentation;
+exports["default"] = Presentation;

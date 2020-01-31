@@ -3,11 +3,16 @@ const web = require('./web')
 const mobile = require('./mobile')
 const desktop = require('./desktop')
 const setup = require('../carmel/setup')
+const fs = require('fs-extra')
+const path = require('path')
 
 function parseCommand (command, account, cache) {
   if (command.platforms.length === 0) {
     command.platforms = ['mobile', 'web', 'desktop']
   }
+
+  const cacheDir = path.resolve(process.cwd(), '.chunky')
+  fs.existsSync(cacheDir) || fs.mkdirsSync(cacheDir)
 
   command.platforms.forEach(platform => {
     switch (platform) {

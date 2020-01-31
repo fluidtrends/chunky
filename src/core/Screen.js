@@ -89,16 +89,16 @@ export default class Screen extends Component {
     this.setState({ progressTitle })
   }
 
-  UNSAFE_componentWillMount () {
-    for (const transitionName in this.props.transitions) {
-      // Inject all transitions into this screen
-      this.injectTransition(this.props.transitions[transitionName])
-    }
-  }
+  // UNSAFE_componentWillMount () {
+  //   for (const transitionName in this.props.transitions) {
+  //     // Inject all transitions into this screen
+  //     this.injectTransition(this.props.transitions[transitionName])
+  //   }
+  // }
 
-  UNSAFE_componentWillUnmount () {
-    this._stopSubscriptions()
-  }
+  // UNSAFE_componentWillUnmount () {
+  //   this._stopSubscriptions()
+  // }
 
   componentDidMount () {
     this._startSubscriptions()

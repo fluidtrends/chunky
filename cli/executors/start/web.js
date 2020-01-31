@@ -3,7 +3,7 @@ const opn = require('opn')
 const path = require('path')
 const loaders = require('../../src/loaders')
 const operation = require('../carmel/operation')
-
+const runOp = require('../run/web')
 
 const saveEvent = (type, value, cache) => {
   // const events = Object.assign({}, cache.vaults.carmel.read('events'))
@@ -37,6 +37,7 @@ module.exports = function (port, account, cache) {
     .then(url => {
       // saveEvent('startWeb', { port, pwd: process.cwd() }, cache)
       process.send && process.send(cache.saveEvent(Object.assign({}, { eventId: 'startWeb', port })))
+      runOp(false, port)
     })
     .catch(e => {
       coreutils.logger.fail(e)

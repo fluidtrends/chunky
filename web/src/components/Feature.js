@@ -109,7 +109,7 @@ export default class Feature extends Component {
         }}
         onClick={this.triggerEvent()}
         raised
-        theme="secondary-bg text-primary-on-secondary"
+        theme="secondaryBg textPrimaryOnSecondary"
       >
         {this.props.actionTitle}
       </Button>

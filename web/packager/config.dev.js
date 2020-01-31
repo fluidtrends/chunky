@@ -7,7 +7,8 @@ const WebPlugin = require('./webPlugin')
 module.exports = (options) => {
   const root = (options.root || options.dir)
   const dir = options.dir
-
+  const htmlPages = pages(options, true)
+  
   return {
     entry: [
       'react-hot-loader/patch',
@@ -15,6 +16,7 @@ module.exports = (options) => {
       'webpack/hot/only-dev-server',
       path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
     ],
+    mode: 'development',
 
     watch: true,
 
@@ -31,7 +33,8 @@ module.exports = (options) => {
     resolve: {
       extensions: ['.js', '.json'],
       alias: {
-        moment: 'moment/moment.js'
+        moment: 'moment/moment.js',
+        'react-dom': '@hot-loader/react-dom'
       },
       modules: [
         path.resolve(dir),
@@ -106,12 +109,11 @@ module.exports = (options) => {
             loader: 'babel-loader',
             options: {
               presets: [
-                [path.resolve(root, 'node_modules', 'babel-preset-env'), {
+                [path.resolve(root, 'node_modules', '@babel/preset-env'), {
                   loose: true,
                   modules: false
                 }],
-                path.resolve(root, 'node_modules', 'babel-preset-react'),
-                path.resolve(root, 'node_modules', 'babel-preset-stage-2')
+                path.resolve(root, 'node_modules', '@babel/preset-react'),
               ],
               plugins: [
                 require.resolve('react-hot-loader/babel'),
@@ -132,7 +134,10 @@ module.exports = (options) => {
         { from: { glob: path.resolve(root, 'node_modules', 'react-dom-chunky', 'app', 'assets/**/*'), dot: false }, to: 'assets', flatten: 'true' },
         { from: { glob: path.resolve(dir, 'assets/**/*'), dot: false, to: 'assets', flatten: 'true' } }
       ])
-    ].concat([new WebPlugin(Object.assign({}, options, { dev: true }))]).concat(pages(options, true)),
+    ]    
+
+    .concat(htmlPages)
+    .concat([new WebPlugin(Object.assign({}, options, { dev: true }))]),
 
     devServer: {
       host: '0.0.0.0',

@@ -1,22 +1,37 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Headline3 = exports.Headline2 = undefined;
+exports.Headline3 = exports.Headline2 = void 0;
 
-var _templateObject = _taggedTemplateLiteral(['\n  margin: ', ';\n  text-align: ', ';\n  color: ', ';\n  ', ';\n  @media (max-width: 546px) {\n    margin: 100px 20px 20px;\n  }\n'], ['\n  margin: ', ';\n  text-align: ', ';\n  color: ', ';\n  ', ';\n  @media (max-width: 546px) {\n    margin: 100px 20px 20px;\n  }\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n  margin: ', ';\n  text-align: ', ';\n  color: ', ';\n  ', ';\n  @media (max-width: 546px) {\n    margin: 20px;\n  }\n'], ['\n  margin: ', ';\n  text-align: ', ';\n  color: ', ';\n  ', ';\n  @media (max-width: 546px) {\n    margin: 20px;\n  }\n']);
+var _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _styledComponents = require('styled-components');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _styledComponents2 = _interopRequireDefault(_styledComponents);
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  margin: ", ";\n  text-align: ", ";\n  color: ", ";\n  ", ";\n  @media (max-width: 546px) {\n    margin: 20px;\n  }\n"]);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+  return data;
+}
 
-var Headline2 = exports.Headline2 = _styledComponents2.default.h2(_templateObject, function (props) {
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  margin: ", ";\n  text-align: ", ";\n  color: ", ";\n  ", ";\n  @media (max-width: 546px) {\n    margin: 100px 20px 20px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var Headline2 = _styledComponents["default"].h2(_templateObject(), function (props) {
   return props.margin;
 }, function (props) {
   return props.textAlign ? props.textAlign : 'left';
@@ -26,7 +41,9 @@ var Headline2 = exports.Headline2 = _styledComponents2.default.h2(_templateObjec
   return props.additionalStyle;
 });
 
-var Headline3 = exports.Headline3 = _styledComponents2.default.h3(_templateObject2, function (props) {
+exports.Headline2 = Headline2;
+
+var Headline3 = _styledComponents["default"].h3(_templateObject2(), function (props) {
   return props.margin;
 }, function (props) {
   return props.textAlign ? props.textAlign : 'left';
@@ -35,3 +52,5 @@ var Headline3 = exports.Headline3 = _styledComponents2.default.h3(_templateObjec
 }, function (props) {
   return props.additionalStyle;
 });
+
+exports.Headline3 = Headline3;

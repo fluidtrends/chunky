@@ -16,6 +16,7 @@ export default class Media extends PureComponent {
           const style = Object.assign({}, this.props.style, {
             opacity: this.props.style.opacity ? this.props.style.opacity : 1,
             height: this.props.style.height,
+            top: 0,
             width: innerWidth || '100vw'
           })
           if (!loading && innerHeight) {

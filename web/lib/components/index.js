@@ -1,241 +1,215 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _Article = require('./Article');
-
-Object.defineProperty(exports, 'Article', {
+Object.defineProperty(exports, "Article", {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_Article).default;
+    return _Article["default"];
+  }
+});
+Object.defineProperty(exports, "Benefits", {
+  enumerable: true,
+  get: function get() {
+    return _Benefits["default"];
+  }
+});
+Object.defineProperty(exports, "Collection", {
+  enumerable: true,
+  get: function get() {
+    return _Collection["default"];
+  }
+});
+Object.defineProperty(exports, "Cover", {
+  enumerable: true,
+  get: function get() {
+    return _Cover["default"];
+  }
+});
+Object.defineProperty(exports, "Drawer", {
+  enumerable: true,
+  get: function get() {
+    return _Drawer["default"];
+  }
+});
+Object.defineProperty(exports, "Feature", {
+  enumerable: true,
+  get: function get() {
+    return _Feature["default"];
+  }
+});
+Object.defineProperty(exports, "Footer", {
+  enumerable: true,
+  get: function get() {
+    return _Footer["default"];
+  }
+});
+Object.defineProperty(exports, "Media", {
+  enumerable: true,
+  get: function get() {
+    return _Media["default"];
+  }
+});
+Object.defineProperty(exports, "Navigation", {
+  enumerable: true,
+  get: function get() {
+    return _Navigation["default"];
+  }
+});
+Object.defineProperty(exports, "Dashboard", {
+  enumerable: true,
+  get: function get() {
+    return _Dashboard["default"];
+  }
+});
+Object.defineProperty(exports, "Summary", {
+  enumerable: true,
+  get: function get() {
+    return _Summary["default"];
+  }
+});
+Object.defineProperty(exports, "Text", {
+  enumerable: true,
+  get: function get() {
+    return _Text["default"];
+  }
+});
+Object.defineProperty(exports, "Timer", {
+  enumerable: true,
+  get: function get() {
+    return _Timer["default"];
+  }
+});
+Object.defineProperty(exports, "Timeline", {
+  enumerable: true,
+  get: function get() {
+    return _Timeline["default"];
+  }
+});
+Object.defineProperty(exports, "Team", {
+  enumerable: true,
+  get: function get() {
+    return _Team["default"];
+  }
+});
+Object.defineProperty(exports, "Loading", {
+  enumerable: true,
+  get: function get() {
+    return _Loading["default"];
+  }
+});
+Object.defineProperty(exports, "Presentation", {
+  enumerable: true,
+  get: function get() {
+    return _Presentation["default"];
+  }
+});
+Object.defineProperty(exports, "SocialIcons", {
+  enumerable: true,
+  get: function get() {
+    return _SocialIcons["default"];
+  }
+});
+Object.defineProperty(exports, "Preview", {
+  enumerable: true,
+  get: function get() {
+    return _Preview["default"];
+  }
+});
+Object.defineProperty(exports, "Columns", {
+  enumerable: true,
+  get: function get() {
+    return _ColumnsInfo["default"];
+  }
+});
+Object.defineProperty(exports, "Carousel", {
+  enumerable: true,
+  get: function get() {
+    return _Carousel["default"];
+  }
+});
+Object.defineProperty(exports, "Buy", {
+  enumerable: true,
+  get: function get() {
+    return _BuyInfo["default"];
+  }
+});
+Object.defineProperty(exports, "AnimatedSection", {
+  enumerable: true,
+  get: function get() {
+    return _AnimatedSection["default"];
+  }
+});
+Object.defineProperty(exports, "AnimatedSvg", {
+  enumerable: true,
+  get: function get() {
+    return _AnimatedSvg["default"];
+  }
+});
+Object.defineProperty(exports, "AnimatedWrapper", {
+  enumerable: true,
+  get: function get() {
+    return _AnimatedWrapper["default"];
+  }
+});
+Object.defineProperty(exports, "NotFoundPage", {
+  enumerable: true,
+  get: function get() {
+    return _["default"];
   }
 });
 
-var _Benefits = require('./Benefits');
+var _Article = _interopRequireDefault(require("./Article"));
 
-Object.defineProperty(exports, 'Benefits', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Benefits).default;
-  }
-});
+var _Benefits = _interopRequireDefault(require("./Benefits"));
 
-var _Collection = require('./Collection');
+var _Collection = _interopRequireDefault(require("./Collection"));
 
-Object.defineProperty(exports, 'Collection', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Collection).default;
-  }
-});
+var _Cover = _interopRequireDefault(require("./Cover"));
 
-var _Cover = require('./Cover');
+var _Drawer = _interopRequireDefault(require("./Drawer"));
 
-Object.defineProperty(exports, 'Cover', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Cover).default;
-  }
-});
+var _Feature = _interopRequireDefault(require("./Feature"));
 
-var _Drawer = require('./Drawer');
+var _Footer = _interopRequireDefault(require("./Footer"));
 
-Object.defineProperty(exports, 'Drawer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Drawer).default;
-  }
-});
+var _Media = _interopRequireDefault(require("./Media"));
 
-var _Feature = require('./Feature');
+var _Navigation = _interopRequireDefault(require("./Navigation"));
 
-Object.defineProperty(exports, 'Feature', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Feature).default;
-  }
-});
+var _Dashboard = _interopRequireDefault(require("./Dashboard"));
 
-var _Footer = require('./Footer');
+var _Summary = _interopRequireDefault(require("./Summary"));
 
-Object.defineProperty(exports, 'Footer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Footer).default;
-  }
-});
+var _Text = _interopRequireDefault(require("./Text"));
 
-var _Media = require('./Media');
+var _Timer = _interopRequireDefault(require("./Timer"));
 
-Object.defineProperty(exports, 'Media', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Media).default;
-  }
-});
+var _Timeline = _interopRequireDefault(require("./Timeline"));
 
-var _Navigation = require('./Navigation');
+var _Team = _interopRequireDefault(require("./Team"));
 
-Object.defineProperty(exports, 'Navigation', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Navigation).default;
-  }
-});
+var _Loading = _interopRequireDefault(require("./Loading"));
 
-var _Dashboard = require('./Dashboard');
+var _Presentation = _interopRequireDefault(require("./Presentation"));
 
-Object.defineProperty(exports, 'Dashboard', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Dashboard).default;
-  }
-});
+var _SocialIcons = _interopRequireDefault(require("./SocialIcons"));
 
-var _Summary = require('./Summary');
+var _Preview = _interopRequireDefault(require("./Preview"));
 
-Object.defineProperty(exports, 'Summary', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Summary).default;
-  }
-});
+var _ColumnsInfo = _interopRequireDefault(require("./ColumnsInfo"));
 
-var _Text = require('./Text');
+var _Carousel = _interopRequireDefault(require("./Carousel"));
 
-Object.defineProperty(exports, 'Text', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Text).default;
-  }
-});
+var _BuyInfo = _interopRequireDefault(require("./BuyInfo"));
 
-var _Timer = require('./Timer');
+var _AnimatedSection = _interopRequireDefault(require("./AnimatedSection"));
 
-Object.defineProperty(exports, 'Timer', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Timer).default;
-  }
-});
+var _AnimatedSvg = _interopRequireDefault(require("./AnimatedSvg"));
 
-var _Timeline = require('./Timeline');
+var _AnimatedWrapper = _interopRequireDefault(require("./AnimatedWrapper"));
 
-Object.defineProperty(exports, 'Timeline', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Timeline).default;
-  }
-});
+var _ = _interopRequireDefault(require("./404"));
 
-var _Team = require('./Team');
-
-Object.defineProperty(exports, 'Team', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Team).default;
-  }
-});
-
-var _Loading = require('./Loading');
-
-Object.defineProperty(exports, 'Loading', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Loading).default;
-  }
-});
-
-var _Presentation = require('./Presentation');
-
-Object.defineProperty(exports, 'Presentation', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Presentation).default;
-  }
-});
-
-var _SocialIcons = require('./SocialIcons');
-
-Object.defineProperty(exports, 'SocialIcons', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_SocialIcons).default;
-  }
-});
-
-var _Preview = require('./Preview');
-
-Object.defineProperty(exports, 'Preview', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Preview).default;
-  }
-});
-
-var _ColumnsInfo = require('./ColumnsInfo');
-
-Object.defineProperty(exports, 'Columns', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_ColumnsInfo).default;
-  }
-});
-
-var _Carousel = require('./Carousel');
-
-Object.defineProperty(exports, 'Carousel', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Carousel).default;
-  }
-});
-
-var _BuyInfo = require('./BuyInfo');
-
-Object.defineProperty(exports, 'Buy', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_BuyInfo).default;
-  }
-});
-
-var _AnimatedSection = require('./AnimatedSection');
-
-Object.defineProperty(exports, 'AnimatedSection', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_AnimatedSection).default;
-  }
-});
-
-var _AnimatedSvg = require('./AnimatedSvg');
-
-Object.defineProperty(exports, 'AnimatedSvg', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_AnimatedSvg).default;
-  }
-});
-
-var _AnimatedWrapper = require('./AnimatedWrapper');
-
-Object.defineProperty(exports, 'AnimatedWrapper', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_AnimatedWrapper).default;
-  }
-});
-
-var _ = require('./404');
-
-Object.defineProperty(exports, 'NotFoundPage', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }

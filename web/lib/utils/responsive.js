@@ -1,48 +1,28 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.breakpoints = undefined;
-exports.renderResponsiveLarge = renderResponsiveLarge;
-exports.renderResponsiveSmall = renderResponsiveSmall;
 exports.renderResponsive = renderResponsive;
+exports.breakpoints = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+var _reactResponsive = require("react-responsive");
 
-var _reactResponsive = require('react-responsive');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _reactResponsive2 = _interopRequireDefault(_reactResponsive);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var breakpoints = exports.breakpoints = {
-  main: 1140
+var breakpoints = {
+  main: 1224
 };
-
-function renderResponsiveLarge(component) {
-  return _react2.default.createElement(
-    _reactResponsive2.default,
-    { minWidth: breakpoints.main },
-    component
-  );
-}
-
-function renderResponsiveSmall(component) {
-  return _react2.default.createElement(
-    _reactResponsive2.default,
-    { maxWidth: breakpoints.main },
-    component
-  );
-}
+exports.breakpoints = breakpoints;
 
 function renderResponsive(key, small, large) {
-  return _react2.default.createElement(
-    'div',
-    { key: key },
-    renderResponsiveSmall(small),
-    renderResponsiveLarge(large)
-  );
+  // const isDesktopOrLaptop = () => useMediaQuery({ query: `(min-device-width: ${breakpoints.main}px)` })
+  // const isTabletOrMobileDevice = () => useMediaQuery({ query: `(max-device-width: ${breakpoints.main}px)` })
+  // {isDesktopOrLaptop() && large }
+  // {isTabletOrMobileDevice() && small }
+  return _react["default"].createElement("div", {
+    key: key
+  }, large || small);
 }

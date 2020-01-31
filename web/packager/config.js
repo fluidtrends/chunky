@@ -28,7 +28,10 @@ module.exports = (options) => {
         path.resolve(dir),
         path.resolve(root, 'node_modules'),
         'node_modules'
-      ]
+      ],
+      alias: {
+        'react-dom': '@hot-loader/react-dom'
+      }
     },
 
     externals: {

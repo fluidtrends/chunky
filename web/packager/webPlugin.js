@@ -119,17 +119,17 @@ class Plugin {
     this.spinner.succeed(`${chalk.green('Chunky finished work in')} ${chalk.bold(time)} ${chalk.gray(this.happy.expression)} ${chalk.gray(this.happy.mood)}`)
   }
 
-  apply (compiler) {
-    compiler.plugin('compile', (params) => this.onStart())
+  apply(compiler) {
+    compiler.hooks.compile.tap(this.constructor.name, () => this.onStart())
 
-    compiler.plugin('compilation', (compilation) => {
-      compilation.plugin('html-webpack-plugin-before-html-processing', (data, done) => this.onPageGeneration(compilation, data, done))
-      compilation.plugin('build-module', (module) => this.onModuleStart(module))
-      compilation.plugin('failed-module', (module) => this.onModuleFailure(module))
-      compilation.plugin('succeed-module', (module) => this.onModuleSuccess(module))
+    compiler.hooks.compilation.tap(this.constructor.name, compilation => {
+      compilation.hooks.buildModule.tap(this.constructor.name, (module) => this.onModuleStart(module))
+      compilation.hooks.succeedModule.tap(this.constructor.name, (module) => this.onModuleSuccess(module))
+      compilation.hooks.failedModule.tap(this.constructor.name, (module) => this.onModuleFailure(module))
+      compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync(this.constructor.name, (data, done) => this.onPageGeneration(compilation, data, done))
     })
 
-    compiler.plugin('done', (stats) => this.onDone(stats))
+    compiler.hooks.done.tap(this.constructor.name, (stats) => this.onDone(stats))
   }
 }
 

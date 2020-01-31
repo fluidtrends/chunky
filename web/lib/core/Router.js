@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
 function createSectionRoutes(section, generator) {
   if (!section || !section.stack) {
     // We don't even consider stackless sections
     return;
-  }
+  } // These are the routes that we need to compile for this section's navigator
 
-  // These are the routes that we need to compile for this section's navigator
+
   var routes = [];
-  var menu = [];
+  var menu = []; // Let's look through the stack and build some routes for this section's navigator
 
-  // Let's look through the stack and build some routes for this section's navigator
   section.stack.forEach(function (element) {
     var elementRoutes = [];
+
     if (element && typeof element === 'string') {
       // The first kind of element in the stack is a plain string, that signifies a chunk
       elementRoutes = elementRoutes.concat(generator(element, section));
@@ -27,8 +27,12 @@ function createSectionRoutes(section, generator) {
 
     routes = routes.concat(elementRoutes);
   });
-
-  return { routes: routes, menu: menu };
+  return {
+    routes: routes,
+    menu: menu
+  };
 }
 
-module.exports = { createSectionRoutes: createSectionRoutes };
+module.exports = {
+  createSectionRoutes: createSectionRoutes
+};

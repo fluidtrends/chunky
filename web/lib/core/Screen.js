@@ -1,155 +1,147 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _react = _interopRequireDefault(require("react"));
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _TransitionGroup = _interopRequireDefault(require("react-transition-group/TransitionGroup"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _reactChunky = require("react-chunky");
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _reactRouter = require("react-router");
 
-var _style = require('styled-jsx/style');
+var _Component = _interopRequireDefault(require("./Component"));
 
-var _style2 = _interopRequireDefault(_style);
+var DefaultComponents = _interopRequireWildcard(require("../components"));
 
-var _react = require('react');
+var _deepmerge = _interopRequireDefault(require("deepmerge"));
 
-var _react2 = _interopRequireDefault(_react);
+var _responsive = require("../utils/responsive");
 
-var _TransitionGroup = require('react-transition-group/TransitionGroup');
+var _Layout = _interopRequireDefault(require("./Layout"));
 
-var _TransitionGroup2 = _interopRequireDefault(_TransitionGroup);
+var _detectBrowser = require("detect-browser");
 
-var _reactChunky = require('react-chunky');
+var _platform = _interopRequireDefault(require("platform"));
 
-var _reactRouter = require('react-router');
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-var _Component = require('./Component');
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var _Component2 = _interopRequireDefault(_Component);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _components = require('../components');
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var DefaultComponents = _interopRequireWildcard(_components);
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var _deepmerge = require('deepmerge');
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _deepmerge2 = _interopRequireDefault(_deepmerge);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _responsive = require('../utils/responsive');
-
-var _Layout = require('./Layout');
-
-var _Layout2 = _interopRequireDefault(_Layout);
-
-var _detectBrowser = require('detect-browser');
-
-var _drawer = require('@rmwc/drawer');
-
-var _button = require('@rmwc/button');
-
-var _list = require('@rmwc/list');
-
-var _platform = require('platform');
-
-var _platform2 = _interopRequireDefault(_platform);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Screen = function (_Core$Screen) {
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Screen =
+/*#__PURE__*/
+function (_Core$Screen) {
   _inherits(Screen, _Core$Screen);
 
   function Screen(props) {
+    var _this;
+
     _classCallCheck(this, Screen);
 
-    var _this = _possibleConstructorReturn(this, (Screen.__proto__ || Object.getPrototypeOf(Screen)).call(this, props));
-
-    _this.state = _extends({}, _this.state, {
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Screen).call(this, props));
+    _this.state = _objectSpread({}, _this.state, {
       loading: true,
       height: window.innerHeight,
       width: window.innerWidth,
       scroll: 0,
       unCoveredHeader: false
     });
-
-    _this._updateScroll = _this.updateScroll.bind(_this);
-    _this._updateWindowDimensions = _this.updateWindowDimensions.bind(_this);
-    _this._onMenuItem = _this.onMenuItem.bind(_this);
-    _this._sidebarMenuSelected = _this.sidebarMenuSelected.bind(_this);
+    _this._updateScroll = _this.updateScroll.bind(_assertThisInitialized(_this));
+    _this._updateWindowDimensions = _this.updateWindowDimensions.bind(_assertThisInitialized(_this));
+    _this._onMenuItem = _this.onMenuItem.bind(_assertThisInitialized(_this));
+    _this._sidebarMenuSelected = _this.sidebarMenuSelected.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Screen, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
-      _get(Screen.prototype.__proto__ || Object.getPrototypeOf(Screen.prototype), 'componentDidMount', this).call(this);
-      this._updateWindowDimensions();
-      this._sideMenu = [].concat(this.menu);
+      _get(_getPrototypeOf(Screen.prototype), "componentDidMount", this).call(this);
 
+      this._updateWindowDimensions();
+
+      this._sideMenu = [].concat(this.menu);
       window.addEventListener('resize', this._updateWindowDimensions);
       window.addEventListener('scroll', this._updateScroll);
       this.unsubscribeFromHistory = this.props.history.listen(this.handleLocationChange.bind(this));
       this._onEvent = this.onEvent.bind(this);
       this._browser = (0, _detectBrowser.detect)();
-
       this.triggerAnalyticsView(this.props.location.pathname);
       var account = this.isLoggedIn ? 'member' : 'guest';
-
       this.triggerAnalyticsEvent({
-        category: '' + this.constructor.name,
-        action: '' + this.props.location.pathname,
+        category: "".concat(this.constructor.name),
+        action: "".concat(this.props.location.pathname),
         label: account
       });
 
-      if (this.props.private && !this.isLoggedIn) {
+      if (this.props["private"] && !this.isLoggedIn) {
         this.triggerRedirect(this.props.permissions.publicRedirect);
         return;
       }
 
-      if (!this.props.private && this.isLoggedIn && this.props.guestOnly) {
+      if (!this.props["private"] && this.isLoggedIn && this.props.guestOnly) {
         this.triggerRedirect(this.props.privateRedirect || this.props.permissions.privateRedirect);
       }
 
       this._load(this.props);
     }
   }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.match.url !== nextProps.match.url) {
-        this._load(nextProps);
-        return;
-      }
-      _get(Screen.prototype.__proto__ || Object.getPrototypeOf(Screen.prototype), 'componentWillReceiveProps', this).call(this, nextProps);
-    }
-  }, {
-    key: 'handleLocationChange',
+    key: "handleLocationChange",
+    // componentWillReceiveProps (nextProps) {
+    //   if (this.props.match.url !== nextProps.match.url) {
+    //     this._load(nextProps)
+    //     return
+    //   }
+    //   super.componentWillReceiveProps(nextProps)
+    // }
+    // componentWillUnmount () {
+    //   window.removeEventListener('resize', this._updateWindowDimensions)
+    //   window.removeEventListener('scroll', this._updateScroll)
+    //   this.unsubscribeFromHistory()
+    // }
     value: function handleLocationChange(location) {}
   }, {
-    key: 'scrollToTop',
+    key: "scrollToTop",
     value: function scrollToTop() {
       window.scrollTo(0, 0);
     }
   }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      window.removeEventListener('resize', this._updateWindowDimensions);
-      window.removeEventListener('scroll', this._updateScroll);
-      this.unsubscribeFromHistory();
-    }
-  }, {
-    key: 'onMenuItem',
+    key: "onMenuItem",
     value: function onMenuItem(item) {
       if (!item) {
         return;
@@ -170,33 +162,43 @@ var Screen = function (_Core$Screen) {
       }
     }
   }, {
-    key: 'updateWindowDimensions',
+    key: "updateWindowDimensions",
     value: function updateWindowDimensions() {
-      this.setState({ width: window.innerWidth, height: window.innerHeight });
+      this.setState({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
     }
   }, {
-    key: 'updateScroll',
+    key: "updateScroll",
     value: function updateScroll() {
       var scroll = window.scrollY;
       if (this.props.theme.keepNavigatorSticky) return;
+
       if (scroll > 10 && !this.state.unCoveredHeader) {
-        this.setState({ scroll: scroll, unCoveredHeader: true });
+        this.setState({
+          scroll: scroll,
+          unCoveredHeader: true
+        });
       } else if (scroll < 10) {
-        this.setState({ scroll: scroll, unCoveredHeader: false });
+        this.setState({
+          scroll: scroll,
+          unCoveredHeader: false
+        });
       }
     }
   }, {
-    key: 'handleLocalEvent',
+    key: "handleLocalEvent",
     value: function handleLocalEvent(fullPath) {
       this.triggerRedirect(fullPath);
     }
   }, {
-    key: 'handleExternalEvent',
+    key: "handleExternalEvent",
     value: function handleExternalEvent(fullPath) {
       this.triggerRawRedirect(fullPath);
     }
   }, {
-    key: 'importData',
+    key: "importData",
     value: function importData(name) {
       try {
         var parts = name.split('/');
@@ -204,31 +206,33 @@ var Screen = function (_Core$Screen) {
         var filename = parts.length > 1 ? parts[1] : name;
 
         if (this.props.desktop) {
-          return require('../../../../chunks/' + chunkName + '/data/' + filename + '.json');
+          return require("../../../../chunks/".concat(chunkName, "/data/").concat(filename, ".json"));
         }
-        return require('chunks/' + chunkName + '/data/' + filename + '.json');
+
+        return require("chunks/".concat(chunkName, "/data/").concat(filename, ".json"));
       } catch (e) {}
     }
   }, {
-    key: 'importRemoteData',
+    key: "importRemoteData",
     value: function importRemoteData(url) {
       return fetch(url).then(function (response) {
         return response.json();
       });
     }
   }, {
-    key: '_loadVariants',
+    key: "_loadVariants",
     value: function _loadVariants() {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-
         console.log(_this2.props.variants);
 
         if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
           _this2._dynamicVariant = _this2.props.location.pathname.substring(_this2.props.path.length);
           _this2._dynamicVariant = _this2._dynamicVariant[0] === '/' ? _this2._dynamicVariant.substring(1) : _this2._dynamicVariant;
-          _this2._variants = [{ path: '' + _this2.props.path + (_this2.props.path === '/' ? '' : '/') + _this2.dynamicVariant }];
+          _this2._variants = [{
+            path: "".concat(_this2.props.path).concat(_this2.props.path === '/' ? '' : '/').concat(_this2.dynamicVariant)
+          }];
           _this2._variant = _this2.variants[0];
           resolve([]);
           return;
@@ -246,7 +250,7 @@ var Screen = function (_Core$Screen) {
           return;
         }
 
-        var data = _this2.importData('' + _this2.props.variants + (_this2.props.desktop ? '.desktop' : ''));
+        var data = _this2.importData("".concat(_this2.props.variants).concat(_this2.props.desktop ? '.desktop' : ''));
 
         if (!data || !Array.isArray(data) || data.length === 0) {
           resolve([]);
@@ -260,17 +264,16 @@ var Screen = function (_Core$Screen) {
       });
     }
   }, {
-    key: 'isSamePath',
+    key: "isSamePath",
     value: function isSamePath() {
       var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
       var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
       var firstClean = first.replace(/^\/|\/$/g, '');
       var secondClean = second.replace(/^\/|\/$/g, '');
       return firstClean === secondClean;
     }
   }, {
-    key: '_updateVariants',
+    key: "_updateVariants",
     value: function _updateVariants() {
       var _this3 = this;
 
@@ -283,11 +286,11 @@ var Screen = function (_Core$Screen) {
       }
 
       var variantPath = this.path.substring(this.props.path.length + 1);
-
       this.variants.forEach(function (variant) {
         if (!_this3.isSamePath(variant.path, variantPath)) {
           return;
         }
+
         _this3._variant = Object.assign({}, variant);
       });
 
@@ -296,7 +299,7 @@ var Screen = function (_Core$Screen) {
       }
     }
   }, {
-    key: '_loadSections',
+    key: "_loadSections",
     value: function _loadSections() {
       if (!this.props.sections || this.props.sections.length === 0) {
         return;
@@ -306,7 +309,7 @@ var Screen = function (_Core$Screen) {
       this._sideMenu = [].concat(this.menu);
     }
   }, {
-    key: '_loadSection',
+    key: "_loadSection",
     value: function _loadSection() {
       var _this4 = this;
 
@@ -321,16 +324,16 @@ var Screen = function (_Core$Screen) {
       }
 
       this.sections.forEach(function (s) {
-        if (!_this4.isSamePath(_this4.path, '' + s.path)) {
+        if (!_this4.isSamePath(_this4.path, "".concat(s.path))) {
           return;
         }
+
         section = Object.assign({}, s);
       });
-
       return section;
     }
   }, {
-    key: '_load',
+    key: "_load",
     value: function _load(props) {
       var _this5 = this;
 
@@ -338,15 +341,23 @@ var Screen = function (_Core$Screen) {
       this._path = props.location.pathname;
 
       this._loadSections();
+
       var section = this._loadSection();
 
       if (this.props.skipRootVariant && this.expectsVariants && this.isRootPath) {
-        this.setState({ loading: false, skip: true, section: section });
+        this.setState({
+          loading: false,
+          skip: true,
+          section: section
+        });
         return;
       }
 
       if (!this.expectsVariants || this.isRootPath) {
-        this.setState({ loading: false, section: section });
+        this.setState({
+          loading: false,
+          section: section
+        });
         return;
       }
 
@@ -354,52 +365,77 @@ var Screen = function (_Core$Screen) {
         if (!this.hasVariants) {
           this._loadVariants().then(function () {
             _this5._updateVariants();
-            _this5.setState({ loading: false, section: section });
+
+            _this5.setState({
+              loading: false,
+              section: section
+            });
           });
+
           return;
         }
 
         this._updateVariants();
-        this.setState({ loading: false, section: section });
+
+        this.setState({
+          loading: false,
+          section: section
+        });
       } catch (e) {
         // Could not load variant path data
         this.stopWithError(e);
       }
     }
   }, {
-    key: 'stopWithError',
+    key: "stopWithError",
     value: function stopWithError(e) {
-      this.setState({ stopError: e, loading: false });
+      this.setState({
+        stopError: e,
+        loading: false
+      });
     }
   }, {
-    key: 'pushTransition',
+    key: "pushTransition",
     value: function pushTransition(transition, data) {
       var pathname = transition.data.path.charAt(0) === ':' ? data[transition.data.path.substring(1)] || transition.data.path : transition.data.path;
-
-      this.setState({ redirect: { transition: transition, data: data, push: true, pathname: pathname } });
+      this.setState({
+        redirect: {
+          transition: transition,
+          data: data,
+          push: true,
+          pathname: pathname
+        }
+      });
     }
   }, {
-    key: 'replaceTransition',
+    key: "replaceTransition",
     value: function replaceTransition(transition, data) {
       var pathname = transition.data.path.charAt(0) === ':' ? data[transition.data.path.substring(1)] || transition.data.path : transition.data.path;
-
-      this.setState({ redirect: { transition: transition, data: data, push: false, pathname: pathname } });
+      this.setState({
+        redirect: {
+          transition: transition,
+          data: data,
+          push: false,
+          pathname: pathname
+        }
+      });
     }
   }, {
-    key: 'components',
+    key: "components",
     value: function components() {
       if (this.props.components) {
         return Object.keys(this.props.components);
       }
+
       return [];
     }
   }, {
-    key: 'loadCustomComponent',
+    key: "loadCustomComponent",
     value: function loadCustomComponent() {}
   }, {
-    key: 'loadSingleComponent',
+    key: "loadSingleComponent",
     value: function loadSingleComponent(props) {
-      var source = '' + props.source.charAt(0).toUpperCase() + props.source.toLowerCase().slice(1);
+      var source = "".concat(props.source.charAt(0).toUpperCase()).concat(props.source.toLowerCase().slice(1));
       var Component = DefaultComponents[source];
 
       if (!Component) {
@@ -407,62 +443,67 @@ var Screen = function (_Core$Screen) {
       }
 
       if (!Component) {
-        return _react2.default.createElement('div', null);
+        return _react["default"].createElement("div", null);
       }
 
-      return _react2.default.createElement(Component, _extends({}, this.defaultComponentProps, props));
+      return _react["default"].createElement(Component, _extends({}, this.defaultComponentProps, props));
     }
   }, {
-    key: 'loadComponent',
+    key: "loadComponent",
     value: function loadComponent(name, index) {
       var _this6 = this;
 
       if (!this.props.components || !this.props.components[name] || !(_typeof(this.props.components[name]) === 'object')) {
-        return _react2.default.createElement('div', null);
+        return _react["default"].createElement("div", null);
       }
 
       if (!Array.isArray(this.props.components[name])) {
-        return this.loadSingleComponent(Object.assign({}, this.props.components[name], { index: index }));
+        return this.loadSingleComponent(Object.assign({}, this.props.components[name], {
+          index: index
+        }));
       }
 
       var subIndex = 0;
-      return _react2.default.createElement(
-        'div',
-        null,
-        this.props.components[name].map(function (props) {
-          return _this6.loadSingleComponent(Object.assign({}, props, {
-            key: 'component.' + subIndex++,
-            index: index + '.' + subIndex
-          }));
-        })
-      );
+      return _react["default"].createElement("div", null, this.props.components[name].map(function (props) {
+        return _this6.loadSingleComponent(Object.assign({}, props, {
+          key: "component.".concat(subIndex++),
+          index: "".concat(index, ".").concat(subIndex)
+        }));
+      }));
     }
   }, {
-    key: 'renderComponent',
+    key: "renderComponent",
     value: function renderComponent(OriginalComponent, index) {
-      var props = Object.assign({}, this.defaultComponentProps, { index: index });
-      var ComponentContainer = _react2.default.cloneElement(OriginalComponent, Object.assign({}, this.defaultComponentProps, { index: index }));
+      var props = Object.assign({}, this.defaultComponentProps, {
+        index: index
+      });
+
+      var ComponentContainer = _react["default"].cloneElement(OriginalComponent, Object.assign({}, this.defaultComponentProps, {
+        index: index
+      }));
 
       if (typeof OriginalComponent.type === 'string') {
-        return _react2.default.createElement(
-          _Component2.default,
-          _extends({}, props, { key: '' + index, style: { alignSelf: 'stretch' } }),
-          OriginalComponent
-        );
+        return _react["default"].createElement(_Component["default"], _extends({}, props, {
+          key: "".concat(index),
+          style: {
+            alignSelf: 'stretch'
+          }
+        }), OriginalComponent);
       }
 
       if (typeof OriginalComponent === 'string') {
         ComponentContainer = this.loadComponent(OriginalComponent, index);
       }
 
-      return _react2.default.createElement(
-        _TransitionGroup2.default,
-        { key: '' + index, style: { alignSelf: 'stretch' } },
-        ComponentContainer
-      );
+      return _react["default"].createElement(_TransitionGroup["default"], {
+        key: "".concat(index),
+        style: {
+          alignSelf: 'stretch'
+        }
+      }, ComponentContainer);
     }
   }, {
-    key: 'renderComponents',
+    key: "renderComponents",
     value: function renderComponents() {
       var _this7 = this;
 
@@ -477,9 +518,9 @@ var Screen = function (_Core$Screen) {
       });
     }
   }, {
-    key: 'redirect',
+    key: "redirect",
     value: function redirect(pathname) {
-      return _react2.default.createElement(_reactRouter.Redirect, {
+      return _react["default"].createElement(_reactRouter.Redirect, {
         exact: true,
         push: true,
         to: {
@@ -488,45 +529,47 @@ var Screen = function (_Core$Screen) {
       });
     }
   }, {
-    key: 'triggerRedirect',
+    key: "triggerRedirect",
     value: function triggerRedirect(link) {
       if (this.isSamePath(this.path, link)) {
         return;
       }
 
-      this.setState({ redirect: { push: true, pathname: link } });
+      this.setState({
+        redirect: {
+          push: true,
+          pathname: link
+        }
+      });
     }
   }, {
-    key: 'triggerRawRedirect',
+    key: "triggerRawRedirect",
     value: function triggerRawRedirect(link) {
       window.open(link, '_blank');
     }
   }, {
-    key: 'renderScreenLayout',
+    key: "renderScreenLayout",
     value: function renderScreenLayout() {
       var ScreenLayout = this.layout;
-      return _react2.default.createElement(
-        ScreenLayout,
-        _extends({
-          section: this.state.section,
-          onMenuItem: this._onMenuItem,
-          onEvent: this._onEvent,
-          scroll: this.state.scroll,
-          width: this.state.width,
-          height: this.state.height,
-          onSidebarMenuSelected: this._sidebarMenuSelected,
-          isSmallScreen: this.isSmallScreen
-        }, this._props, {
-          cache: this.props.cache,
-          sidebar: this.props.sidebar,
-          sidebarIndex: this.props.sidebarIndex,
-          'private': this.props.private,
-          cover: this.cover }),
-        this.renderComponents()
-      );
+      return _react["default"].createElement(ScreenLayout, _extends({
+        section: this.state.section,
+        onMenuItem: this._onMenuItem,
+        onEvent: this._onEvent,
+        scroll: this.state.scroll,
+        width: this.state.width,
+        height: this.state.height,
+        onSidebarMenuSelected: this._sidebarMenuSelected,
+        isSmallScreen: this.isSmallScreen
+      }, this._props, {
+        cache: this.props.cache,
+        sidebar: this.props.sidebar,
+        sidebarIndex: this.props.sidebarIndex,
+        "private": this.props["private"],
+        cover: this.cover
+      }), this.renderComponents());
     }
   }, {
-    key: 'sidebarMenuSelected',
+    key: "sidebarMenuSelected",
     value: function sidebarMenuSelected(item) {
       if (!item) {
         return;
@@ -537,10 +580,10 @@ var Screen = function (_Core$Screen) {
         return;
       }
 
-      this.triggerRedirect('' + item.path);
+      this.triggerRedirect("".concat(item.path));
     }
   }, {
-    key: 'saveAuth',
+    key: "saveAuth",
     value: function saveAuth(account) {
       var _this8 = this;
 
@@ -549,24 +592,24 @@ var Screen = function (_Core$Screen) {
       });
     }
   }, {
-    key: 'renderStopError',
+    key: "renderStopError",
     value: function renderStopError(e) {
-      return _react2.default.createElement('div', null);
+      return _react["default"].createElement("div", null);
     }
   }, {
-    key: 'renderLoading',
+    key: "renderLoading",
     value: function renderLoading() {
-      return _react2.default.createElement(
-        'div',
-        { style: {} },
-        _react2.default.createElement(DefaultComponents.Loading, { message: this.state.loadingMessage || 'Loading, just a sec please ...' })
-      );
+      return _react["default"].createElement("div", {
+        style: {}
+      }, _react["default"].createElement(DefaultComponents.Loading, {
+        message: this.state.loadingMessage || 'Loading, just a sec please ...'
+      }));
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       if (this.state.skip) {
-        return _react2.default.createElement('div', null);
+        return _react["default"].createElement("div", null);
       }
 
       if (this.state.stopError) {
@@ -574,35 +617,30 @@ var Screen = function (_Core$Screen) {
       }
 
       if (this.state.height === 0) {
-        return _react2.default.createElement('div', null);
+        return _react["default"].createElement("div", null);
       }
 
       if (this.state.redirect) {
-        var _state$redirect = this.state.redirect,
-            pathname = _state$redirect.pathname,
-            push = _state$redirect.push;
+        var _this$state$redirect = this.state.redirect,
+            pathname = _this$state$redirect.pathname,
+            push = _this$state$redirect.push;
 
         if (!this.isSamePath(this.path, pathname)) {
           return this.redirect(pathname, push);
         }
       }
 
-      var height = this.height + 'px';
-
-      return _react2.default.createElement(
-        'div',
-        { style: { height: height, width: '100vw', position: 'relative' }, className: _style2.default.dynamic([['3734241191', [this.props.backgroundColor]]]) + ' ' + (_style2.default.dynamic([['3734241191', [this.props.backgroundColor]]]) || '')
-        },
-        this.renderScreenLayout(),
-        _react2.default.createElement(_style2.default, {
-          styleId: '3734241191',
-          css: 'body{background-color:' + this.props.backgroundColor + ';margin:0;padding:0;}',
-          dynamic: [this.props.backgroundColor]
-        })
-      );
+      var height = "".concat(this.height, "px");
+      return _react["default"].createElement("div", {
+        style: {
+          height: height,
+          width: '100vw',
+          position: 'relative'
+        }
+      }, this.renderScreenLayout());
     }
   }, {
-    key: 'platformType',
+    key: "platformType",
     get: function get() {
       if (this.isMobile) {
         return this.platformOS;
@@ -611,141 +649,145 @@ var Screen = function (_Core$Screen) {
       return this.isWindows ? "windows" : this.isMac ? "mac" : "linux";
     }
   }, {
-    key: 'platformOS',
+    key: "platformOS",
     get: function get() {
-      return _platform2.default.os.family.toLowerCase();
+      return _platform["default"].os.family.toLowerCase();
     }
   }, {
-    key: 'isMobile',
+    key: "isMobile",
     get: function get() {
       return ["ios", "android"].includes(this.platformOS === 'ios' || this.platformOS);
     }
   }, {
-    key: 'isMac',
+    key: "isMac",
     get: function get() {
       return "os x" === this.platformOS;
     }
   }, {
-    key: 'isWindows',
+    key: "isWindows",
     get: function get() {
       return this.platformOS.includes("windows");
     }
   }, {
-    key: 'sidebarWidth',
+    key: "sidebarWidth",
     get: function get() {
       return 200;
     }
   }, {
-    key: 'sections',
+    key: "sections",
     get: function get() {
       return this._sections;
     }
   }, {
-    key: 'restUrl',
+    key: "restUrl",
     get: function get() {
       if (!this.props.provisioning || !this.props.provisioning.rest || !this.props.provisioning.rest.url || !this.props.env) {
         return;
       }
 
-      return this.props.provisioning.rest.url + '/' + (this.props.env === 'production' ? '' : this.props.env + '-');
+      return "".concat(this.props.provisioning.rest.url, "/").concat(this.props.env === 'production' ? '' : this.props.env + '-');
     }
   }, {
-    key: 'browser',
+    key: "browser",
     get: function get() {
       return this._browser;
     }
   }, {
-    key: 'menu',
+    key: "menu",
     get: function get() {
       return (this.props.menu || []).concat([]);
     }
   }, {
-    key: 'sideMenu',
+    key: "sideMenu",
     get: function get() {
       return this._sideMenu;
     }
   }, {
-    key: 'isSmallScreen',
+    key: "isSmallScreen",
     get: function get() {
       return this.width < _responsive.breakpoints.main;
     }
   }, {
-    key: 'layout',
+    key: "layout",
     get: function get() {
-      return _Layout2.default;
+      return _Layout["default"];
     }
   }, {
-    key: 'expectsVariants',
+    key: "expectsVariants",
     get: function get() {
       return this.props.variants !== undefined;
     }
   }, {
-    key: 'dynamicVariant',
+    key: "dynamicVariant",
     get: function get() {
       return this._dynamicVariant;
     }
   }, {
-    key: 'variants',
+    key: "variants",
     get: function get() {
       return this._variants;
     }
   }, {
-    key: 'hasVariants',
+    key: "hasVariants",
     get: function get() {
       return this._variants !== undefined;
     }
   }, {
-    key: 'isRootPath',
+    key: "isRootPath",
     get: function get() {
       return this.isSamePath(this.path, this.props.path);
     }
   }, {
-    key: 'isVariantValid',
+    key: "isVariantValid",
     get: function get() {
       return this.expectsVariants && this.variant;
     }
   }, {
-    key: '_props',
+    key: "_props",
     get: function get() {
-      return Object.assign({}, this.variant ? _deepmerge2.default.all([this.props, this.variant]) : this.props, { menu: this.menu, sideMenu: this.sideMenu, sidebarWidth: this.sidebarWidth });
+      return Object.assign({}, this.variant ? _deepmerge["default"].all([this.props, this.variant]) : this.props, {
+        menu: this.menu,
+        sideMenu: this.sideMenu,
+        sidebarWidth: this.sidebarWidth
+      });
     }
   }, {
-    key: 'variant',
+    key: "variant",
     get: function get() {
       return this._variant;
     }
   }, {
-    key: 'account',
+    key: "account",
     get: function get() {
       return this.props.account;
     }
   }, {
-    key: 'isLoggedIn',
+    key: "isLoggedIn",
     get: function get() {
       return this.account;
     }
   }, {
-    key: 'width',
+    key: "width",
     get: function get() {
       return this.state.width || window.innerWidth;
     }
   }, {
-    key: 'height',
+    key: "height",
     get: function get() {
       return this.state.height || window.innerHeight;
     }
   }, {
-    key: 'scroll',
+    key: "scroll",
     get: function get() {
       return this.state.scroll;
     }
   }, {
-    key: 'path',
+    key: "path",
     get: function get() {
       return this._path;
     }
   }, {
-    key: 'defaultComponentProps',
+    key: "defaultComponentProps",
     get: function get() {
       return Object.assign({}, {
         cache: this.cache,
@@ -758,7 +800,7 @@ var Screen = function (_Core$Screen) {
       }, this.props);
     }
   }, {
-    key: 'cover',
+    key: "cover",
     get: function get() {
       return this._props.cover;
     }
@@ -767,4 +809,4 @@ var Screen = function (_Core$Screen) {
   return Screen;
 }(_reactChunky.Core.Screen);
 
-exports.default = Screen;
+exports["default"] = Screen;
