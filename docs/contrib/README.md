@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-<a href="https://circleci.com/gh/fluidtrends/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
+<a href="https://circleci.com/gh/fluidtrends/workflows/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
 <a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
 <a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
 </p>
