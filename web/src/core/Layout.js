@@ -255,17 +255,18 @@ export default class DefaultLayout extends PureComponent {
       {components.map(c => this.renderComponent(c, index++))}
     </main>)
   }
+
+  // get isLargeScreen() {
+  //   return useMediaQuery({ query: `(min-device-width: 1224px)` })
+  // }
   
   render () {
     return (<div>
       {this.renderDrawer()}
       <div style={this.styles.container} ref={c => { this.container = c }}>
-
         {this.renderNavigation()}
         {this.renderCover()}
-        {this.renderPrimary()}
-
-       
+        {this.renderPrimary()}       
       </div>
     </div>)
   }

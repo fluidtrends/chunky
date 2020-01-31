@@ -284,7 +284,10 @@ function (_PureComponent) {
       }, components.map(function (c) {
         return _this3.renderComponent(c, index++);
       }));
-    }
+    } // get isLargeScreen() {
+    //   return useMediaQuery({ query: `(min-device-width: 1224px)` })
+    // }
+
   }, {
     key: "render",
     value: function render() {

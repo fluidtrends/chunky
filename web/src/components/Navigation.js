@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { renderResponsive } from '../utils/responsive'
-
 import {
   TopAppBar,
   TopAppBarRow,
@@ -122,6 +121,7 @@ export default class Navigation extends PureComponent {
         }}
       />
     )
+
     return renderResponsive(
       `menuItem${index++}`,
       <div />,
