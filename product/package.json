@@ -31,9 +31,9 @@
     ]
   },
   "dependencies": {
-    "react-dom-chunky": "^1.1.20"
+    "react-dom-chunky": "^1.1.22"
   },
   "devDependencies": {
-    "react-savor": "^1.0.0"
+    "react-savor": "^1.0.3"
   }
 }
