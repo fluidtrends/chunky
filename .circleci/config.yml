@@ -1,46 +1,51 @@
 version: 2
 jobs:
-  core:
+  init:
     working_directory: ~/chunky
     docker:
       - image: circleci/node:8.10
     steps:
       - checkout
-      - run:
-          name: install dependencies
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
-      - run:
-          name: Generate code coverage
-          command: npm run coverage
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
-  web:
-    working_directory: ~/chunky/web
-    docker:
-      - image: circleci/node:8.10
+  core:
     steps:
-      - checkout
       - run:
-          name: install dependencies
+          name: install core dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
-            - ./node_modules
+            - ./node_modules    
       - run:
-          name: Generate code coverage
+          name: Generate core code coverage
           command: npm run coverage
       - store_artifacts:
           path: coverage
-          prefix: coverage
+          prefix: core-coverage
+  web:
+    steps:
+      - run: cd web
+      - run:
+          name: install web dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules    
+      - run:
+          name: Generate web code coverage
+          command: npm run coverage
+      - store_artifacts:
+          path: coverage
+          prefix: web-coverage
+
 workflows:
   version: 2
   build:
     jobs:
-      - core
-      - web
+      - init
+      - core:
+          requires:
+            - init
+      - web:
+          requires:
+            - init
