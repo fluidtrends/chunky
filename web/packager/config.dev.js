@@ -116,8 +116,7 @@ module.exports = (options) => {
                 path.resolve(root, 'node_modules', '@babel/preset-react'),
               ],
               plugins: [
-                require.resolve('react-hot-loader/babel'),
-                require.resolve('styled-jsx/babel')
+                require.resolve('react-hot-loader/babel')
               ]
             }
           }

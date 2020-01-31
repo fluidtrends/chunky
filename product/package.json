@@ -22,8 +22,7 @@
       "@babel/plugin-transform-react-jsx",
       "@babel/plugin-transform-destructuring",
       "@babel/plugin-proposal-object-rest-spread",
-      "@babel/plugin-proposal-class-properties",
-      "styled-jsx/babel"
+      "@babel/plugin-proposal-class-properties"
     ],
     "presets": [
       "@babel/react",
@@ -31,7 +30,7 @@
     ]
   },
   "dependencies": {
-    "react-dom-chunky": "^1.1.22"
+    "react-dom-chunky": "^1.1.25"
   },
   "devDependencies": {
     "react-savor": "^1.0.3"
