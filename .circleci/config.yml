@@ -7,18 +7,18 @@ jobs:
     steps:
       - checkout
       - run:
-        name: install core dependencies
-        command: npm install
+          name: install core dependencies
+          command: npm install
       - save_cache:
-        key: dependency-cache-{{ checksum "package.json" }}
-        paths:
-          - ./node_modules    
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules    
       - run:
-        name: Generate core code coverage
-        command: npm run coverage
+          name: Generate core code coverage
+          command: npm run coverage
       - store_artifacts:
-        path: coverage
-        prefix: core-coverage
+          path: coverage
+          prefix: core-coverage
   web:
     working_directory: ~/chunky
     docker:
