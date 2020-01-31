@@ -2,6 +2,7 @@
 node_modules
 .nyc_output
 *.log
+.chunky
 coverage
 build
 package-lock.json

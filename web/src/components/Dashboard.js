@@ -134,14 +134,6 @@ export default class Dashboard extends Component {
       minHeight: '100vh'
     }}>
       { this.renderContentComponent() }
-      <style jsx global>{`
-        .text h1 {
-          text-align: left;
-        }
-        .text h2 {
-          text-align: left;
-        }
-   `}</style>
 
     </div>
   }

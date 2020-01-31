@@ -1,106 +1,123 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports["default"] = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _react = _interopRequireDefault(require("react"));
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _Component2 = _interopRequireDefault(require("../core/Component"));
 
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _Text = _interopRequireDefault(require("./Text"));
 
-var _react = require('react');
+var _responsive = require("../utils/responsive");
 
-var _react2 = _interopRequireDefault(_react);
+var _linearProgress = require("@rmwc/linear-progress");
 
-var _Component2 = require('../core/Component');
+var _antd = require("antd");
 
-var _Component3 = _interopRequireDefault(_Component2);
+var _typography = require("@rmwc/typography");
 
-var _Text = require('./Text');
+var _card = require("@rmwc/card");
 
-var _Text2 = _interopRequireDefault(_Text);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _responsive = require('../utils/responsive');
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-var _linearProgress = require('@rmwc/linear-progress');
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-var _antd = require('antd');
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-var _typography = require('@rmwc/typography');
-
-var _Card = require('rmwc/Card');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var ChunkyTimeline = function (_Component) {
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var ChunkyTimeline =
+/*#__PURE__*/
+function (_Component) {
   _inherits(ChunkyTimeline, _Component);
 
   function ChunkyTimeline(props) {
+    var _this;
+
     _classCallCheck(this, ChunkyTimeline);
 
-    var _this = _possibleConstructorReturn(this, (ChunkyTimeline.__proto__ || Object.getPrototypeOf(ChunkyTimeline)).call(this, props));
-
-    _this.state = _extends({}, _this.state, { loading: false });
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ChunkyTimeline).call(this, props));
+    _this.state = _objectSpread({}, _this.state, {
+      loading: false
+    });
     return _this;
   }
 
   _createClass(ChunkyTimeline, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
-      _get(ChunkyTimeline.prototype.__proto__ || Object.getPrototypeOf(ChunkyTimeline.prototype), 'componentDidMount', this).call(this);
+      _get(_getPrototypeOf(ChunkyTimeline.prototype), "componentDidMount", this).call(this);
     }
   }, {
-    key: 'renderText',
+    key: "renderText",
     value: function renderText() {
-      return (0, _responsive.renderResponsive)('text', _react2.default.createElement(_Text2.default, {
+      return (0, _responsive.renderResponsive)('text', _react["default"].createElement(_Text["default"], {
         source: this.state.period.text,
         style: {
-          width: '90vw',
+          width: "90vw",
           padding: '10px'
         }
-      }), _react2.default.createElement(_Text2.default, {
+      }), _react["default"].createElement(_Text["default"], {
         source: this.state.period.text,
         style: {
-          width: '70vw',
+          width: "70vw",
           paddingBottom: '10px'
         }
       }));
     }
   }, {
-    key: 'renderMilestone',
+    key: "renderMilestone",
     value: function renderMilestone(item) {
-      var _props = this.props,
-          doneColor = _props.doneColor,
-          progressColor = _props.progressColor,
-          todoColor = _props.todoColor,
-          doneIcon = _props.doneIcon,
-          progressIcon = _props.progressIcon,
-          todoIcon = _props.todoIcon;
-
-      var iconColor = void 0,
-          iconType = void 0;
+      var _this$props = this.props,
+          doneColor = _this$props.doneColor,
+          progressColor = _this$props.progressColor,
+          todoColor = _this$props.todoColor,
+          doneIcon = _this$props.doneIcon,
+          progressIcon = _this$props.progressIcon,
+          todoIcon = _this$props.todoIcon;
+      var iconColor, iconType;
 
       switch (item.status) {
         case 'done':
           iconColor = doneColor;
           iconType = doneIcon;
           break;
+
         case 'progress':
           iconColor = progressColor;
           iconType = progressIcon;
           break;
+
         case 'todo':
           iconColor = todoColor;
           iconType = todoIcon;
           break;
+
         default:
           break;
       }
@@ -108,23 +125,34 @@ var ChunkyTimeline = function (_Component) {
       var strikeStyle = item.status === 'done' ? 'line-through' : '',
           opacity = item.status === 'todo' ? 0.5 : 1,
           backgroundColor = item.status === 'progress' ? '#80CBC4' : '';
-
-      return _react2.default.createElement(
-        _antd.Timeline.Item,
-        { dot: _react2.default.createElement(_antd.Icon, { type: iconType, style: { fontSize: '20px', color: iconColor } }) },
-        _react2.default.createElement(
-          'div',
-          { style: { boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px', display: 'flex', alignItems: 'center', padding: '15px', opacity: opacity, backgroundColor: backgroundColor } },
-          _react2.default.createElement(
-            _typography.Typography,
-            { use: 'headline5', style: { paddingRight: '5px', paddingLeft: '5px', textDecoration: strikeStyle } },
-            item.title
-          )
-        )
-      );
+      return _react["default"].createElement(_antd.Timeline.Item, {
+        dot: _react["default"].createElement(_antd.Icon, {
+          type: iconType,
+          style: {
+            fontSize: '20px',
+            color: iconColor
+          }
+        })
+      }, _react["default"].createElement("div", {
+        style: {
+          boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '15px',
+          opacity: opacity,
+          backgroundColor: backgroundColor
+        }
+      }, _react["default"].createElement(_typography.Typography, {
+        use: "headline5",
+        style: {
+          paddingRight: '5px',
+          paddingLeft: '5px',
+          textDecoration: strikeStyle
+        }
+      }, item.title)));
     }
   }, {
-    key: 'renderTimeline',
+    key: "renderTimeline",
     value: function renderTimeline() {
       var _this2 = this;
 
@@ -132,61 +160,64 @@ var ChunkyTimeline = function (_Component) {
         return;
       }
 
-      return _react2.default.createElement(
-        _antd.Timeline,
-        { mode: 'alternate' },
-        this.props.milestones.map(function (milestone) {
-          return _this2.renderMilestone(milestone);
-        })
-      );
+      return _react["default"].createElement(_antd.Timeline, {
+        mode: "alternate"
+      }, this.props.milestones.map(function (milestone) {
+        return _this2.renderMilestone(milestone);
+      }));
     }
   }, {
-    key: 'renderComponent',
+    key: "renderComponent",
     value: function renderComponent() {
       if (this.state.loading) {
-        return _react2.default.createElement(
-          'div',
-          {
-            style: {
-              display: 'flex',
-              flex: 1,
-              margin: '10px',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }
-          },
-          _react2.default.createElement(
-            _Card.Card,
-            { style: { width: '80vw', margin: '20px', padding: '0px' } },
-            _react2.default.createElement(_linearProgress.LinearProgress, { determinate: false })
-          )
-        );
+        return _react["default"].createElement("div", {
+          style: {
+            display: 'flex',
+            flex: 1,
+            margin: '10px',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }
+        }, _react["default"].createElement(_card.Card, {
+          style: {
+            width: '80vw',
+            margin: '20px',
+            padding: '0px'
+          }
+        }, _react["default"].createElement(_linearProgress.LinearProgress, {
+          determinate: false
+        })));
       }
 
-      return _react2.default.createElement(
-        'div',
-        {
-          style: {
-            color: this.props.textColor,
-            backgroundColor: this.props.backgroundColor
-          } },
-        this.renderTimeline(),
-        _react2.default.createElement(
-          'div',
-          { style: { display: 'flex', flex: 1, justifyContent: 'center' } },
-          _react2.default.createElement(
-            _antd.Button,
-            { style: { backgroundColor: '#009688', borderColor: '#009688', width: '50%' }, type: 'primary', href: 'https://github.com/fluidtrends/carmel/projects/1?fullscreen=true', target: '_blank' },
-            'Our progress so far',
-            _react2.default.createElement(_antd.Icon, { type: 'setting', spin: true })
-          )
-        )
-      );
+      return _react["default"].createElement("div", {
+        style: {
+          color: this.props.textColor,
+          backgroundColor: this.props.backgroundColor
+        }
+      }, this.renderTimeline(), _react["default"].createElement("div", {
+        style: {
+          display: 'flex',
+          flex: 1,
+          justifyContent: 'center'
+        }
+      }, _react["default"].createElement(_antd.Button, {
+        style: {
+          backgroundColor: '#009688',
+          borderColor: '#009688',
+          width: '50%'
+        },
+        type: "primary",
+        href: 'https://github.com/fluidtrends/carmel/projects/1?fullscreen=true',
+        target: '_blank'
+      }, "Our progress so far", _react["default"].createElement(_antd.Icon, {
+        type: "setting",
+        spin: true
+      }))));
     }
   }]);
 
   return ChunkyTimeline;
-}(_Component3.default);
+}(_Component2["default"]);
 
-exports.default = ChunkyTimeline;
+exports["default"] = ChunkyTimeline;

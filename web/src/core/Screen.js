@@ -8,21 +8,6 @@ import merge from 'deepmerge'
 import { breakpoints } from '../utils/responsive'
 import { default as Layout } from './Layout'
 import { detect } from 'detect-browser'
-import {
-  Drawer,
-  DrawerHeader,
-  DrawerScrim,
-  DrawerContent,
-  DrawerTitle,
-  DrawerSubtitle
-} from '@rmwc/drawer'
-import { Button } from '@rmwc/button'
-
-import {
-  List,
-  ListItem,
-  ListItemPrimaryText
-} from '@rmwc/list'
 import platform from 'platform'
 
 export default class Screen extends Core.Screen {
@@ -117,13 +102,20 @@ export default class Screen extends Core.Screen {
     return `${this.props.provisioning.rest.url}/${this.props.env === 'production' ? '' : this.props.env + '-'}`
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (this.props.match.url !== nextProps.match.url) {
-      this._load(nextProps)
-      return
-    }
-    super.componentWillReceiveProps(nextProps)
-  }
+  // componentWillReceiveProps (nextProps) {
+  //   if (this.props.match.url !== nextProps.match.url) {
+  //     this._load(nextProps)
+  //     return
+  //   }
+  //   super.componentWillReceiveProps(nextProps)
+  // }
+
+  // componentWillUnmount () {
+  //   window.removeEventListener('resize', this._updateWindowDimensions)
+  //   window.removeEventListener('scroll', this._updateScroll)
+  //   this.unsubscribeFromHistory()
+  // }
+
 
   handleLocationChange (location) {
   }
@@ -134,12 +126,6 @@ export default class Screen extends Core.Screen {
 
   scrollToTop () {
     window.scrollTo(0, 0)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this._updateWindowDimensions)
-    window.removeEventListener('scroll', this._updateScroll)
-    this.unsubscribeFromHistory()
   }
 
   onMenuItem (item) {
@@ -650,14 +636,6 @@ export default class Screen extends Core.Screen {
     return (
       <div style={{ height, width: '100vw', position: 'relative' }}>
         {this.renderScreenLayout()}
-        <style jsx>
-          {`{
-        :global(body){
-            background-color: ${this.props.backgroundColor};
-            margin: 0;
-            padding: 0;
-        }`}
-        </style>
       </div>
     )
   }

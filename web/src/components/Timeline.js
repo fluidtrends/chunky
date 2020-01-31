@@ -6,7 +6,7 @@ import { LinearProgress } from '@rmwc/linear-progress'
 import { Timeline, Icon, Button } from 'antd'
 import { Typography } from '@rmwc/typography'
 
-import { Card } from 'rmwc/Card'
+import { Card } from '@rmwc/card'
 
 export default class ChunkyTimeline extends Component {
   constructor (props) {

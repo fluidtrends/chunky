@@ -33,61 +33,7 @@
           "text": "local://intro",
           "image": "logo.gif",
           "textColor": "#37474F"
-        },
-        "pillars": {
-          "source": "benefits",
-          "benefits": [
-            { "text": "local://product", "image": "product.png" },
-            { "text": "local://fullstack", "image": "fullstack.png" },
-            { "text": "local://lowcode", "image": "lowcode.png" }
-          ],
-          "textColor": "#37474F",
-          "backgroundColor": "#FAFAFA"
-        },
-        "features": [
-          {
-            "id": "feature-web",
-            "source": "feature",
-            "text": "local://web",
-            "image": "web.svg",
-            "actionTitle": "Learn More",
-            "backgroundColor": "#ffffff",
-            "textColor": "#0686d8",
-            "animation": true
-          },
-          {
-            "id": "feature-mobile",
-            "source": "feature",
-            "text": "local://mobile",
-            "image": "mobile.svg",
-            "reversed": true,
-            "actionTitle": "Learn More",
-            "backgroundColor": "#E1F5FE",
-            "textColor": "#0686d8",
-            "animation": true
-          },
-          {
-            "id": "feature-cloud",
-            "source": "feature",
-            "text": "local://cloud",
-            "image": "cloud.svg",
-            "actionTitle": "Learn More",
-            "backgroundColor": "#ffffff",
-            "textColor": "#0686d8",
-            "animation": true
-          },
-          {
-            "id": "feature-devops",
-            "source": "feature",
-            "text": "local://devops",
-            "image": "devops.svg",
-            "reversed": true,
-            "actionTitle": "Learn More",
-            "backgroundColor": "#E1F5FE",
-            "textColor": "#0686d8",
-            "animation": true
-          }
-        ]
+        }
       }
     },
     "platform": {

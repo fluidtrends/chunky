@@ -135,9 +135,9 @@ export default class AppContainer extends Component {
     // })
   }
 
-  UNSAFE_componentDidMount () {
-    // this.enableGlobalErrorHandler()
-  }
+  // UNSAFE_componentDidMount () {
+  //   // this.enableGlobalErrorHandler()
+  // }
 
   render () {
     if (React.Children.count(this.props.children) !== 1) {

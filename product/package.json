@@ -17,10 +17,23 @@
     "url": "git+https://github.com/react-chunky/react-chunky-product.git"
   },
   "homepage": "http://www.chunky.io",
+  "babel": {
+    "plugins": [
+      "@babel/plugin-transform-react-jsx",
+      "@babel/plugin-transform-destructuring",
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-proposal-class-properties",
+      "styled-jsx/babel"
+    ],
+    "presets": [
+      "@babel/react",
+      "@babel/env"
+    ]
+  },
   "dependencies": {
-    "react-dom-chunky": "0.9.x"
+    "react-dom-chunky": "^1.1.20"
   },
   "devDependencies": {
-    "react-savor": "0.x"
+    "react-savor": "^1.0.0"
   }
 }

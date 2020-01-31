@@ -63,9 +63,6 @@ export default class Component extends PureComponent {
   componentDidLeave () {
   }
 
-  componentWillUnmount () {
-  }
-
   componentWillAppear (callback) {
     callback()
   }

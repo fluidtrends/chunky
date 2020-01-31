@@ -1,26 +1,18 @@
 import React from 'react'
 
-import MediaQuery from 'react-responsive'
+import { useMediaQuery } from 'react-responsive'
 
 export const breakpoints = {
-  main: 1140
-}
-
-export function renderResponsiveLarge (component) {
-  return (<MediaQuery minWidth={breakpoints.main}>
-    { component }
-  </MediaQuery>)
-}
-
-export function renderResponsiveSmall (component) {
-  return (<MediaQuery maxWidth={breakpoints.main}>
-    { component }
-  </MediaQuery>)
+  main: 1224
 }
 
 export function renderResponsive (key, small, large) {
-  return (<div key={key}>
-    { renderResponsiveSmall(small) }
-    { renderResponsiveLarge(large) }
+  // const isDesktopOrLaptop = () => useMediaQuery({ query: `(min-device-width: ${breakpoints.main}px)` })
+  // const isTabletOrMobileDevice = () => useMediaQuery({ query: `(max-device-width: ${breakpoints.main}px)` })
+  // {isDesktopOrLaptop() && large }
+    // {isTabletOrMobileDevice() && small }
+     
+  return (<div key={key}>    
+    { large || small }
   </div>)
 }

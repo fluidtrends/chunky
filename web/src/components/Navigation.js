@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
 import { renderResponsive } from '../utils/responsive'
+
 import {
-  Toolbar,
-  ToolbarRow,
-  ToolbarMenuIcon,
-  ToolbarSection
-} from '@rmwc/toolbar'
+  TopAppBar,
+  TopAppBarRow,
+  TopAppBarSection,
+  TopAppBarFixedAdjust,
+  TopAppBarActionItem
+} from '@rmwc/top-app-bar'
 import { Button } from '@rmwc/button'
 import { Select } from '@rmwc/select'
 import { Data } from 'react-chunky'
@@ -60,9 +62,9 @@ export default class Navigation extends PureComponent {
         : item.title
 
     const MenuIcon = (
-      <ToolbarMenuIcon
+      <TopAppBarActionItem
         onClick={this._onMenuItem(item)}
-        use={item.icon}
+        icon={item.icon}
         style={{
           color: this.props.theme.navigationTintColor,
           marginRight: '0px'
@@ -92,7 +94,7 @@ export default class Navigation extends PureComponent {
     const MenuActionButton = (
       <Button
         raised
-        theme="secondary-bg text-primary-on-secondary"
+        theme={["secondaryBg", "textPrimaryOnSecondary"]}
         onClick={this._onMenuItem(item)}
         style={{
           color: this.props.theme.navigationTextButton,
@@ -152,8 +154,8 @@ export default class Navigation extends PureComponent {
     const responsiveBurger =
       this.props.theme && this.props.theme.logoOnMobile
         ? [
-            <ToolbarMenuIcon
-              use="menu"
+            <TopAppBarActionItem
+              icon="menu"
               style={{ color: this.props.theme.navigationTintColor }}
               onClick={this._onMenuOpen}
             />,
@@ -175,9 +177,9 @@ export default class Navigation extends PureComponent {
             />
           ]
         : [
-            <ToolbarMenuIcon
+            <TopAppBarActionItem
               key="menu"
-              use="menu"
+              icon="menu"
               style={{ color: this.props.theme.navigationTintColor }}
               onClick={this._onMenuOpen}
             />
@@ -206,44 +208,29 @@ export default class Navigation extends PureComponent {
     const wrapperAdditionalStyle = this.props.theme.navigationWrapperStyle
       ? this.props.theme.navigationWrapperStyle
       : {}
-    return (
-      <Toolbar
-        waterfall
-        fixed={this.props.layout.fixed}
-        style={{
+    return (<>
+      <TopAppBar fixed={this.props.layout.fixed} style={{
           backgroundColor: this.props.theme.navigationColor,
           zIndex: 10,
           ...wrapperAdditionalStyle
-        }}
-      >
-        <ToolbarRow>
-          <ToolbarSection
-            alignStart
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'left',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}
-          >
-            {this.renderNavigationLogo()}
-          </ToolbarSection>
-          <ToolbarSection
-            alignEnd
-            style={{
+        }}>
+        <TopAppBarRow>
+          <TopAppBarSection>
+            {this.renderNavigationLogo() }
+          </TopAppBarSection>
+          <TopAppBarSection style={{
               flex: 4,
               display: 'flex',
               justifyContent: 'flex-end',
               flexDirection: 'row',
               alignItems: 'center'
-            }}
-          >
-            {this.renderNavigationMenu()}
-          </ToolbarSection>
-        </ToolbarRow>
-      </Toolbar>
-    )
+            }}>
+            {this.renderNavigationMenu() }
+          </TopAppBarSection>
+        </TopAppBarRow>
+      </TopAppBar>
+      <TopAppBarFixedAdjust />
+    </>)
   }
 
   render() {

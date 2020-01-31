@@ -126,14 +126,6 @@ export default class Cover extends Component {
             padding: '10px'
           }}
         />
-        <style jsx>{`
-          div :global(.icon) {
-            color: ${'#CFD8DC'};
-          }
-          div :global(.icon):hover {
-            color: ${'#00bcd4'};
-          }
-        `}</style>
       </div>
     )
   }
@@ -332,7 +324,7 @@ export default class Cover extends Component {
       <Button
         onClick={this.triggerAction.bind(this)}
         raised
-        theme="secondary-bg text-primary-on-secondary"
+        theme={["secondaryBg", "textPrimaryOnSecondary"]}
         style={{
           margin: '20px',
           color: this.props.theme.mainActionTextColor || '#fff'

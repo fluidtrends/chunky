@@ -51,15 +51,6 @@ export default class Presentation extends Component {
       <div style={{width: '90vw', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         { this.renderImage() }
           <Icon onClick={this._showModal} type="play-circle" className='icon' theme="filled" style={{fontSize, position: 'absolute', cursor: 'pointer', background: 'transparent'}} />
-          <style jsx>{`
-              div :global(.icon) {
-                color: ${'#546E7A'}
-              }
-              div :global(.icon):hover {
-                color: ${this.props.hoverColor ? this.props.hoverColor : '#00bcd4'}
-              }
-            `}
-          </style>
       </div>
     </div>
   }

@@ -95,7 +95,7 @@ export default class Timer extends Component {
   }
 
   renderAction () {
-    return <Button onClick={this.state.period.onAction || this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondary-bg text-primary-on-secondary'>
+    return <Button onClick={this.state.period.onAction || this.triggerEvent()} raised style={{ padding: '0 20px' }} theme='secondaryBg textPrimaryOnSecondary'>
       {this.state.period.actionTitle}
     </Button>
   }
