@@ -258,6 +258,7 @@ export default class DefaultLayout extends PureComponent {
   }
 
   render () {
+    const LayoutTheme = DefaultTheme(this.props.theme)
     return (<LayoutTheme>
       {this.renderDrawer()}
       <div style={this.styles.container} ref={c => { this.container = c }}>
@@ -269,10 +270,8 @@ export default class DefaultLayout extends PureComponent {
   }
 }
 
-const LayoutTheme = styled.section`
+const DefaultTheme = (theme) => styled.section`
   :root {
-    --mdc-theme-primary: ${this.props.theme.primaryColor};
-    --mdc-theme-secondary: ${this.props.theme.secondaryColor};
     font-family: Roboto Condensed, sans-serif;
   }
   html {
