@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'savor'
-import { Styles } from '../..'
+import { Styles } from '../../../src'
 
 const MaterialColors = {
   'red': {
@@ -319,4 +319,4 @@ savor.add('should recognize material colors', (context, done) => {
   done()
 })
 
-.run('Colors')
+.run('[Core] Colors')

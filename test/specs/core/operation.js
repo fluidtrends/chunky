@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-// import { Core, Data, Config, Errors, Operations } from '../..'
+// import { Core, Data, Config, Errors, Operations } from '../../../src'
 
 savor.add('should create a basic post operation', (context, done) => {
   // Create a POST operation
@@ -171,4 +171,4 @@ savor.add('should create a basic post operation', (context, done) => {
 //   savor.promiseShouldSucceed(post.start(), done, (data) => {})
 // }).
 
-.run('Data Operations')
+.run('[Core] Data Operations')

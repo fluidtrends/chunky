@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Core, Errors } from '../..'
+import { Core, Errors } from '../../../src'
 
 savor.add('should be able to initialize providers without options', (context, done) => {
   const provider = new Core.DataProvider()
@@ -36,4 +36,4 @@ savor.add('should be able to initialize providers without options', (context, do
         context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
 })
 
-.run('Data Provider')
+.run('[Core] Data Provider')

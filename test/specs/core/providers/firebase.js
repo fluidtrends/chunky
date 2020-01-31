@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data, Core, Errors } from '../../..'
+import { Data, Core, Errors } from '../../../../src'
 import { operations } from 'firebaseline'
 
 savor
@@ -218,4 +218,4 @@ savor
   savor.promiseShouldSucceed(operation, done, (data) => context.expect(data.test).to.equal('hello'))
 })
 
-.run('Firebase Data Provider')
+.run('[Core] Firebase Data Provider')

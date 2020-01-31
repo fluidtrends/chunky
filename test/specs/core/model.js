@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'savor'
-import { Data } from '../..'
+import { Data } from '../../../src'
 
 savor.add('should create a simple User', (context, done) => {
   const user = new Data.Model.User({
@@ -42,4 +42,4 @@ savor.add('should create a simple User', (context, done) => {
   done()
 })
 
-.run('Data Model')
+.run('[Core] Data Model')

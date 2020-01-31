@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data, Core, Errors } from '../../..'
+import { Data, Core, Errors } from '../../../../src'
 
 savor
 
@@ -55,4 +55,4 @@ savor
   savor.promiseShouldFail(operation, done, (error) => context.expect(error.message).to.equal(Errors.UNDEFINED_OPERATION().message))
 })
 
-.run('Rest Data Provider')
+.run('[Core] Rest Data Provider')

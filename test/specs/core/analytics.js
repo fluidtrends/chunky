@@ -2,7 +2,7 @@
 
 import React from 'react'
 import savor from 'react-savor'
-import { Data, Core, Errors } from '../..'
+import { Data, Core, Errors } from '../../../src'
 import ReactGA from 'react-ga'
 
 savor
@@ -50,4 +50,4 @@ savor
     done()
 })
   
-.run('App Analytics')
+.run('[Core] App Analytics')

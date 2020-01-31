@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data, Errors } from '../../..'
+import { Data, Errors } from '../../../../src'
 
 savor.add('should create into cache', (context, done) => {
   const provider = new Data.Providers.Cache()
@@ -55,4 +55,4 @@ savor.add('should create into cache', (context, done) => {
   savor.promiseShouldSucceed(operation, done, () => {})
 })
 
-.run('Cache Data Provider')
+.run('[Core] Cache Data Provider')

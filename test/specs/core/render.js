@@ -2,12 +2,12 @@
 
 import React from 'react'
 import savor from 'react-savor'
-import { Data, Core, Errors } from '../..'
-import SimpleApp from '../assets/SimpleApp'
-import FlowScreen from '../assets/chunks/auth/src/screens/flow'
-import App from '../assets/App'
-import FlowApp from '../assets/FlowApp'
-import appConfig from '../assets/chunky'
+import { Data, Core, Errors } from '../../../src'
+import SimpleApp from '../../assets/SimpleApp'
+import FlowScreen from '../../assets/chunks/auth/src/screens/flow'
+import App from '../../assets/App'
+import FlowApp from '../../assets/FlowApp'
+import appConfig from '../../assets/chunky'
 import { operations } from 'firebaseline'
 import { wrap } from 'module'
 
@@ -128,12 +128,4 @@ savor
   done()
 })
 
-// .add('should setup a valid container', (context, done) => {
-
-//   const container = new Core.Container()
-
-//   // And, we're looking good
-//   done()
-// })
-
-.run('App Rendering')
+.run('[Core] App Rendering')

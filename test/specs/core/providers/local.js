@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data, Errors } from '../../..'
+import { Data, Errors } from '../../../../src'
 
 savor
 
@@ -25,4 +25,4 @@ savor
   savor.promiseShouldSucceed(operation, done, () => {})
 })
 
-.run('Local Data Providers')
+.run('[Core] Local Data Providers')

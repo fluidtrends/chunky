@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 import savor from 'react-savor'
-import { Data } from '../..'
+import { Data } from '../../../src'
 
 savor.add('should ignore undefined actions', (context, done) => {
   const oldState = {}
@@ -90,4 +90,4 @@ savor.add('should ignore undefined actions', (context, done) => {
   done()
 })
 
-.run('Data Reducers')
+.run('[Core] Data Reducers')

@@ -6,10 +6,12 @@ import { Core } from '../../../web'
 // import App from '../assets/App'
 // import appConfig from '../assets/chunky'
 
-savor.add('should not render an empty web app', (context, done) => {
-  context.expect(() => {
-    context.shallow(<Core.App />)
-  }).to.throw
+savor
+
+.add('should not render an empty web app', (context, done) => {
+  // context.expect(() => {
+  //   context.shallow(<Core.App />)
+  // }).to.throw
 
   done()
 })
@@ -104,4 +106,4 @@ savor.add('should not render an empty web app', (context, done) => {
 //   done()
 // })
 
-.run('Web App Rendering')
+.run('[Web] App Rendering')

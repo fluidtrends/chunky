@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Core } from '../../../../../..'
+import { Core } from '../../../../../../src'
 
 export default class Screen extends Core.Screen {
 
