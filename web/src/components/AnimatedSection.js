@@ -2,19 +2,7 @@ import React, { Component } from 'react'
 import { Spring, animated, interpolate } from 'react-spring'
 
 const animationChecker = ['opacity', 'slideFromLeft', 'slideFromRight']
-/**
- * Component for animating children.
- * For now it only supports opacity and slide form left or slide from right. More to be added
- * 
- * @param children -> JSX to Render inside the animation
- * @param animationType -> type of animations. For now only supports: ['opacity', 'slideFromLeft', 'slideFromRight']
- * @param startAnimation -> this is used only for slide-from-left or slide-from-right animations. When to start the animation
- * @param config -> React Spring config for the animation (refference: http://react-spring.surge.sh/spring#config)
- *
- * @export
- * @class AnimatedSection
- * @extends {Component}
- */
+
 export default class AnimatedSection extends Component {
 
   constructor(props) {
