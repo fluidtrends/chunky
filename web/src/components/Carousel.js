@@ -7,7 +7,6 @@ import { Typography } from '@rmwc/typography'
 import { Carousel } from 'antd'
 import { CircularProgress } from '@rmwc/circular-progress'
 
-
 export default class ChunkyCarousel extends Component {
   constructor (props) {
     super(props)
