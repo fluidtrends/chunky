@@ -8,7 +8,7 @@ import ReactGA from 'react-ga'
 savor
 
 .add('should setup view analytics', (context, done) => {
-  const stub = context.stub(ReactGA, 'initialize', () => Promise.resolve())
+  const stub = context.stub(ReactGA, 'initialize').callsFake(() => Promise.resolve())
     
   Data.Analytics.initialize({ type: 'google', key: 'key' })
   stub.restore()
@@ -18,7 +18,7 @@ savor
 })
 
 .add('should trigger view analytics', (context, done) => {
-  const stub = context.stub(ReactGA, 'initialize', () => Promise.resolve())
+  const stub = context.stub(ReactGA, 'initialize').callsFake(() => Promise.resolve())
     
   Data.Analytics.initialize({ type: 'google', key: 'key' })
   Data.Analytics.view("/")
@@ -29,7 +29,7 @@ savor
 })
 
 .add('should trigger event analytics', (context, done) => {
-    const stub = context.stub(ReactGA, 'initialize', () => Promise.resolve())
+    const stub = context.stub(ReactGA, 'initialize').callsFake(() => Promise.resolve())
       
     Data.Analytics.initialize({ type: 'google', key: 'key' })
     Data.Analytics.event("/")
@@ -40,7 +40,7 @@ savor
 })
 
 .add('should trigger error analytics', (context, done) => {
-    const stub = context.stub(ReactGA, 'initialize', () => Promise.resolve())
+    const stub = context.stub(ReactGA, 'initialize').callsFake(() => Promise.resolve())
       
     Data.Analytics.initialize({ type: 'google', key: 'key' })
     Data.Analytics.error("/")

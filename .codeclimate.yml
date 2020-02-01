@@ -48,6 +48,7 @@ ratings:
   - src/**/*
   - web/src/**/*
 exclude_paths:
+- package.json
 - .circleci/**/*
 - .codeclimate.yml
 - .es*
@@ -73,3 +74,6 @@ exclude_paths:
 - web/bin/**/*
 - web/packager/**/*
 - web/test/**/*
+- web/package.json
+- web/.npmignore
+- web/.watchmanconfig

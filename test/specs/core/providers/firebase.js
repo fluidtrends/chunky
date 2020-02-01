@@ -39,7 +39,7 @@ savor
 .add('should reset from firebase', (context, done) => {
   // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'reset', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'reset').callsFake((firebase, options) => Promise.resolve(response))
   global.firebase = () => {}
 
     // Fetch an operation from the provider
@@ -103,7 +103,7 @@ savor
 .add('should perform a firebase remove', (context, done) => {
   // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'remove', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'remove').callsFake((firebase, options) => Promise.resolve(response))
 
     // Fetch an operation from the provider
   const provider = new Data.Providers.Firebase()
@@ -127,7 +127,7 @@ savor
   global.firebase = () => {}
 
   const response = { val: () => [ {id: 0}, {id: 1} ] }
-  const stub = context.stub(operations, 'retrieve', (firebase, options) => Promise.resolve(response))
+  const stub = context.stub(operations, 'retrieve').callsFake((firebase, options) => Promise.resolve(response))
   const provider = new Data.Providers.Firebase()
 
     // Fetch an operation from the provider
@@ -147,7 +147,7 @@ savor
   global.firebase = () => {}
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'subscribe', (firebase, options) => {
+  context.stub(operations, 'subscribe').callsFake((firebase, options) => {
     options.onReceivedData(response)
     return Promise.resolve(response)
   })
@@ -165,7 +165,7 @@ savor
 .add('should perform a firebase join', (context, done) => {
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'join', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'join').callsFake((firebase, options) => Promise.resolve(response))
   global.firebase = () => {}
 
     // Fetch an operation from the provider
@@ -179,7 +179,7 @@ savor
 .add('should perform a firebase add', (context, done) => {
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'add', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'add').callsFake((firebase, options) => Promise.resolve(response))
   global.firebase = () => {}
 
     // Fetch an operation from the provider
@@ -193,7 +193,7 @@ savor
 .add('should perform a firebase update', (context, done) => {
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'update', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'update').callsFake((firebase, options) => Promise.resolve(response))
   global.firebase = () => {}
 
     // Fetch an operation from the provider
@@ -207,7 +207,7 @@ savor
 .add('should perform a firebase create', (context, done) => {
     // Let's first mock the join operation
   const response = { test: 'hello' }
-  context.stub(operations, 'create', (firebase, options) => Promise.resolve(response))
+  context.stub(operations, 'create').callsFake((firebase, options) => Promise.resolve(response))
   global.firebase = () => {}
 
     // Fetch an operation from the provider

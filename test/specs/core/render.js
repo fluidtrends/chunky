@@ -35,7 +35,7 @@ savor
 .add('should create an app and have a valid lifecyle', (context, done) => {
     const props = { env: "production", info: { analytics: {} } }
   // Start off with an empty dom
-  savor.addDom('<!doctype html><html><body></body></html>')
+  // savor.addDom('<!doctype html><html><body></body></html>')
 
   // Let's mount the app
   context.spy(SimpleApp.prototype, 'componentDidMount')
@@ -63,10 +63,10 @@ savor
 
 .add('should create a valid screen instance', (context, done) => {
   // Start off with an empty dom
-  savor.addDom('<!doctype html><html><body></body></html>')
+  // savor.addDom('<!doctype html><html><body></body></html>')
   const props = { env: "production", info: { analytics: {} } }
 
-  const stub = context.stub(Core.Screen.prototype, 'setState', () => ({}))
+  const stub = context.stub(Core.Screen.prototype, 'setState').callsFake(() => ({}))
 
   // Let's mount the app
   const container = context.mount(<Core.AppContainer {...appConfig} {...props}>
@@ -90,7 +90,7 @@ savor
   context.spy(FlowScreen.prototype, 'componentDidMount')
   context.spy(Core.Screen.prototype, 'componentDidMount')
 
-  const stub = context.stub(Core.Screen.prototype, 'setState', () => ({}))
+  const stub = context.stub(Core.Screen.prototype, 'setState').callsFake(() => ({}))
   const clock = context.clock()
 
   // Let's mount the app
