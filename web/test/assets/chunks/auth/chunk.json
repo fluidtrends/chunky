@@ -1,0 +1,9 @@
+{
+  "name": "auth",
+  "routes": {
+    "loading": {
+      "test": "hello"
+    }
+  },
+  "transitions": ["push://loading"]
+}
