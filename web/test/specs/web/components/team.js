@@ -7,7 +7,11 @@ import { Team } from '../../../../src/components'
 savor
 
 .add('should handle component lifecycle', (context, done) => {
-  const props = { id: "test", theme: { translatedStrings: "test" }}
+  const props = { id: "test", 
+    translation: true,
+    sections: [{}],
+    theme: { translatedStrings: "test" }
+  }
   const container = context.shallow(<Team {...props}/>)
 
   // And, we're looking good

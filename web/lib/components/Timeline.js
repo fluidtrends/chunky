@@ -92,7 +92,7 @@ function (_Component) {
     }
   }, {
     key: "renderMilestone",
-    value: function renderMilestone(item) {
+    value: function renderMilestone(item, index) {
       var _this$props = this.props,
           doneColor = _this$props.doneColor,
           progressColor = _this$props.progressColor,
@@ -126,6 +126,7 @@ function (_Component) {
           opacity = item.status === 'todo' ? 0.5 : 1,
           backgroundColor = item.status === 'progress' ? '#80CBC4' : '';
       return _react["default"].createElement(_antd.Timeline.Item, {
+        key: index,
         dot: _react["default"].createElement(_antd.Icon, {
           type: iconType,
           style: {
@@ -160,10 +161,11 @@ function (_Component) {
         return;
       }
 
+      var index = 0;
       return _react["default"].createElement(_antd.Timeline, {
         mode: "alternate"
       }, this.props.milestones.map(function (milestone) {
-        return _this2.renderMilestone(milestone);
+        return _this2.renderMilestone(milestone, index++);
       }));
     }
   }, {
