@@ -84,47 +84,42 @@ function (_PureComponent) {
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.checkAuth();
-      var ele = document.getElementById('ipl-progress-indicator');
-
-      if (ele) {
-        // fade out
-        ele.classList.add('available');
-        setTimeout(function () {
-          // remove from DOM
-          ele.outerHTML = '';
-        }, 2000);
-      }
-
-      var additionalScripts = this.props.additionalScripts;
-
-      if (additionalScripts) {
-        for (var i = 0; i < additionalScripts.length; i++) {
-          var _additionalScripts$i = additionalScripts[i],
-              rel = _additionalScripts$i.rel,
-              href = _additionalScripts$i.href,
-              integrity = _additionalScripts$i.integrity,
-              crossOrigin = _additionalScripts$i.crossOrigin,
-              type = _additionalScripts$i.type,
-              src = _additionalScripts$i.src;
-
-          if (type === 'style') {
-            var link = document.createElement('link');
-            link.rel = rel;
-            link.href = href;
-            link.integrity = integrity;
-            link.crossOrigin = crossOrigin;
-            document.head.appendChild(link);
-          }
-
-          if (type === 'text/javascript') {
-            var script = document.createElement('script');
-            script.src = src;
-            script.type = type;
-            document.body.appendChild(script);
-          }
-        }
-      }
+      this.checkAuth(); // const ele = document.getElementById('ipl-progress-indicator')
+      // if (ele) {
+      //   // fade out
+      //   ele.classList.add('available')
+      //   setTimeout(() => {
+      //     // remove from DOM
+      //     ele.outerHTML = ''
+      //   }, 2000)
+      // }
+      // const { additionalScripts } = this.props
+      // if (additionalScripts) {
+      //   for (let i = 0; i < additionalScripts.length; i++) {
+      //     let {
+      //       rel,
+      //       href,
+      //       integrity,
+      //       crossOrigin,
+      //       type,
+      //       src
+      //     } = additionalScripts[i]
+      //     if (type === 'style') {
+      //       let link = document.createElement('link')
+      //       link.rel = rel
+      //       link.href = href
+      //       link.integrity = integrity
+      //       link.crossOrigin = crossOrigin
+      //       document.head.appendChild(link)
+      //     }
+      //     if (type === 'text/javascript') {
+      //       let script = document.createElement('script')
+      //       script.src = src
+      //       script.type = type
+      //       document.body.appendChild(script)
+      //     }
+      //   }
+      // }
     }
   }, {
     key: "checkAuth",
@@ -453,10 +448,21 @@ function (_PureComponent) {
       return staticRoutes.concat(dynamicRoutes);
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "renderRouting",
+    value: function renderRouting() {
       var _this7 = this;
 
+      return _react["default"].createElement(_reactRouterDom.BrowserRouter, null, _react["default"].createElement(_reactRouter.Switch, {
+        style: {}
+      }, this.renderRoutes(), this.props.theme && this.props.theme.notFoundPageText && _react["default"].createElement(_reactRouterDom.Route, {
+        component: function component() {
+          return _react["default"].createElement(_["default"], _this7.props.theme);
+        }
+      })));
+    }
+  }, {
+    key: "render",
+    value: function render() {
       if (this.props.route && !this.props.redirect) {
         return this.renderStatic();
       }
@@ -473,13 +479,7 @@ function (_PureComponent) {
         return _react["default"].createElement(_reactRouterDom.HashRouter, null, _react["default"].createElement(_reactRouter.Switch, null, this.renderRoutes()));
       }
 
-      return _react["default"].createElement(_reactRouterDom.BrowserRouter, null, _react["default"].createElement(_reactRouter.Switch, {
-        style: {}
-      }, this.renderRoutes(), this.props.theme && this.props.theme.notFoundPageText && _react["default"].createElement(_reactRouterDom.Route, {
-        component: function component() {
-          return _react["default"].createElement(_["default"], _this7.props.theme);
-        }
-      })));
+      return this.renderRouting();
     }
   }, {
     key: "cache",

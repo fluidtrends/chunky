@@ -62,6 +62,7 @@ export default class Navigation extends PureComponent {
 
     const MenuIcon = (
       <TopAppBarActionItem
+        key={index}
         onClick={this._onMenuItem(item)}
         icon={item.icon}
         style={{
@@ -124,7 +125,7 @@ export default class Navigation extends PureComponent {
 
     return renderResponsive(
       `menuItem${index++}`,
-      <div />,
+      <div key={index}/>,
       item.alwaysShowIcon
         ? MenuIcon
         : item.action
@@ -155,11 +156,13 @@ export default class Navigation extends PureComponent {
       this.props.theme && this.props.theme.logoOnMobile
         ? [
             <TopAppBarActionItem
+              key="logo"
               icon="menu"
               style={{ color: this.props.theme.navigationTintColor }}
               onClick={this._onMenuOpen}
             />,
             <img
+              key="logoImage"
               src={`${
                 this.props.desktop ? '../../../../' : '/'
               }assets/${image}`}

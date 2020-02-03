@@ -79,7 +79,7 @@ export default class WebScreen extends Core.Screen {
   }
 
   get isMac() {
-    return "os x" === this.platformOS
+    return "darwin" === this.platformOS
   }
 
   get isWindows() {
@@ -116,7 +116,6 @@ export default class WebScreen extends Core.Screen {
   //   this.unsubscribeFromHistory()
   // }
 
-
   handleLocationChange (location) {
   }
 
@@ -125,7 +124,7 @@ export default class WebScreen extends Core.Screen {
   }
 
   scrollToTop () {
-    window.scrollTo(0, 0)
+    window.scrollTo && window.scrollTo(0, 0)
   }
 
   onMenuItem (item) {
@@ -214,8 +213,6 @@ export default class WebScreen extends Core.Screen {
 
   _loadVariants () {
     return new Promise((resolve, reject) => {
-
-      console.log(this.props.variants)
 
       if (this.props.variants && ("boolean" === typeof this.props.variants)) {
         this._dynamicVariant = this.props.location.pathname.substring(this.props.path.length)

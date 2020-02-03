@@ -7,8 +7,8 @@ import { Collection } from '../../../../src/components'
 savor
 
 .add('should handle component lifecycle', (context, done) => {
-  const props = { id: "test", option: { file: "test" }}
-  const container = context.shallow(<Collection {...props}/>)
+  const props = { id: "test", categories: []}
+  const container = context.mount(<Collection {...props}/>)
 
   // And, we're looking good
   done()

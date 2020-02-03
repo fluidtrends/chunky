@@ -32,19 +32,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var animationChecker = ['opacity', 'slideFromLeft', 'slideFromRight'];
-/**
- * Component for animating children.
- * For now it only supports opacity and slide form left or slide from right. More to be added
- * 
- * @param children -> JSX to Render inside the animation
- * @param animationType -> type of animations. For now only supports: ['opacity', 'slideFromLeft', 'slideFromRight']
- * @param startAnimation -> this is used only for slide-from-left or slide-from-right animations. When to start the animation
- * @param config -> React Spring config for the animation (refference: http://react-spring.surge.sh/spring#config)
- *
- * @export
- * @class AnimatedSection
- * @extends {Component}
- */
 
 var AnimatedSection =
 /*#__PURE__*/

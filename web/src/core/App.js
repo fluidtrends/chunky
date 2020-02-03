@@ -124,7 +124,7 @@ export default class App extends PureComponent {
 
     // This is our chunk, if it actually exists
     const chunk = this.props.chunks[chunkName]
-
+    
     if (!chunk) {
       // Let's verify that it actually points to a real chunk
       return
@@ -198,7 +198,7 @@ export default class App extends PureComponent {
         route.menuTitle = routeMenuTitle
 
         rootRoute = Object.assign({}, route)
-
+        
         // Construct a menu
         if (!route.skipMenu && !route.private && !section.private) {
           var link = `${this.menu.length === 0 ? '/' : route.path}`
@@ -414,6 +414,19 @@ export default class App extends PureComponent {
     return staticRoutes.concat(dynamicRoutes)
   }
 
+  renderRouting() {
+    return (
+      <BrowserRouter>
+        <Switch style={{}}>
+          {this.renderRoutes()}
+          {this.props.theme && this.props.theme.notFoundPageText && (
+            <Route component={() => <NotFoundPage {...this.props.theme} />} />
+          )}
+        </Switch>
+      </BrowserRouter>
+    )
+  }
+
   render() {
     if (this.props.route && !this.props.redirect) {
       return this.renderStatic()
@@ -435,15 +448,6 @@ export default class App extends PureComponent {
       )
     }
 
-    return (
-      <BrowserRouter>
-        <Switch style={{}}>
-          {this.renderRoutes()}
-          {this.props.theme && this.props.theme.notFoundPageText && (
-            <Route component={() => <NotFoundPage {...this.props.theme} />} />
-          )}
-        </Switch>
-      </BrowserRouter>
-    )
+    return this.renderRouting()
   }
 }

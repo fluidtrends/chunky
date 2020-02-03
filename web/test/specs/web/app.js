@@ -57,4 +57,21 @@ savor
   done()
 })
 
+.add('should login', (context, done) => {
+  const stub = context.stub(global.storage, 'getItem').callsFake(((key, callback) => callback(null, { username: "chunky" })))
+
+  context.spy(App.prototype, 'componentDidMount')
+  context.spy(App.prototype, 'render')
+
+  const container = context.mount(<Core.AppContainer {...appConfig}>
+    <App {...appConfig} />
+  </Core.AppContainer>)
+
+  // And, we're looking good
+  App.prototype.componentDidMount.restore()
+  App.prototype.render.restore()
+  stub.restore()
+  done()
+})
+
 .run('[Web] App Rendering')

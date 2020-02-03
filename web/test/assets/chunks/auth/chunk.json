@@ -2,7 +2,8 @@
   "name": "auth",
   "routes": {
     "loading": {
-      "test": "hello"
+      "test": "hello",
+      "icon": "user"
     }
   },
   "transitions": ["push://loading"]

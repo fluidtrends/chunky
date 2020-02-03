@@ -6,7 +6,9 @@ import { Columns } from '../../../../src/components'
 
 savor
 
-.add('should handle component lifecycle', (context, done) => {
+.add('should be able to render rows', (context, done) => {
+  global.fetch = () => Promise.resolve({ json: () => ({ rows: [] }) })
+
   const props = { id: "test", option: { file: "test" }}
   const container = context.shallow(<Columns {...props}/>)
 
