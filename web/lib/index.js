@@ -20,7 +20,7 @@ Object.defineProperty(exports, "Router", {
 Object.defineProperty(exports, "Screen", {
   enumerable: true,
   get: function get() {
-    return _Screen["default"];
+    return _WebScreen["default"];
   }
 });
 Object.defineProperty(exports, "App", {
@@ -35,7 +35,7 @@ var _Component = _interopRequireDefault(require("./core/Component"));
 
 var _Router = _interopRequireDefault(require("./core/Router"));
 
-var _Screen = _interopRequireDefault(require("./core/Screen"));
+var _WebScreen = _interopRequireDefault(require("./core/WebScreen"));
 
 var _App = _interopRequireDefault(require("./core/App"));
 

@@ -138,7 +138,7 @@ function (_Core$Screen) {
   }, {
     key: "scrollToTop",
     value: function scrollToTop() {
-      window.scrollTo(0, 0);
+      window.scrollTo && window.scrollTo(0, 0);
     }
   }, {
     key: "onMenuItem",
@@ -225,8 +225,6 @@ function (_Core$Screen) {
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        console.log(_this2.props.variants);
-
         if (_this2.props.variants && "boolean" === typeof _this2.props.variants) {
           _this2._dynamicVariant = _this2.props.location.pathname.substring(_this2.props.path.length);
           _this2._dynamicVariant = _this2._dynamicVariant[0] === '/' ? _this2._dynamicVariant.substring(1) : _this2._dynamicVariant;
@@ -661,7 +659,7 @@ function (_Core$Screen) {
   }, {
     key: "isMac",
     get: function get() {
-      return "os x" === this.platformOS;
+      return "darwin" === this.platformOS;
     }
   }, {
     key: "isWindows",

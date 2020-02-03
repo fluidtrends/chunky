@@ -121,6 +121,7 @@ function (_PureComponent) {
       var translatedTitle = this.props.theme.headerTranslation && this.state.strings && this.state.selectedLanguage ? this.state.strings[this.state.selectedLanguage]["title".concat(index)] : item.title;
 
       var MenuIcon = _react["default"].createElement(_topAppBar.TopAppBarActionItem, {
+        key: index,
         onClick: this._onMenuItem(item),
         icon: item.icon,
         style: {
@@ -167,7 +168,9 @@ function (_PureComponent) {
         }, dropdownAdditionalStyle)
       });
 
-      return (0, _responsive.renderResponsive)("menuItem".concat(index++), _react["default"].createElement("div", null), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : item.id === 'translation' ? MenuDropdown : MenuButton);
+      return (0, _responsive.renderResponsive)("menuItem".concat(index++), _react["default"].createElement("div", {
+        key: index
+      }), item.alwaysShowIcon ? MenuIcon : item.action ? MenuActionButton : item.id === 'translation' ? MenuDropdown : MenuButton);
     }
   }, {
     key: "onMenuOpen",
@@ -190,12 +193,14 @@ function (_PureComponent) {
       var image = this.props.navigationUncover ? this.props.theme.logoImage : this.props.theme.logoLightImage;
       var height = this.props.navigationUncover ? 64 : 64;
       var responsiveBurger = this.props.theme && this.props.theme.logoOnMobile ? [_react["default"].createElement(_topAppBar.TopAppBarActionItem, {
+        key: "logo",
         icon: "menu",
         style: {
           color: this.props.theme.navigationTintColor
         },
         onClick: this._onMenuOpen
       }), _react["default"].createElement("img", {
+        key: "logoImage",
         src: "".concat(this.props.desktop ? '../../../../' : '/', "assets/").concat(image),
         onClick: this.props.menu[0].navigationLogo ? this._onMenuItem(this.props.menu[0]) : function () {},
         style: {

@@ -120,6 +120,6 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "react-savor": "^1.1.2"
+    "react-savor": "^1.1.3"
   }
 }
