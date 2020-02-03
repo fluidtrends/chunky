@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { Core } from 'react-chunky'
+import React from 'react'
+import { Screen } from '../../../../../../src'
 
-export default class Screen extends Core.Screen {
+export default class Loading extends Screen {
 
   constructor (props) {
     super(props)
@@ -34,6 +34,10 @@ export default class Screen extends Core.Screen {
 
   renderData () {
     return <div />
+  }
+
+  render() {
+    return <div/>
   }
 
 }
