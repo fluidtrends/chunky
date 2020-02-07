@@ -18,20 +18,41 @@ export default class Cover extends Component {
 
   componentDidMount() {
     super.componentDidMount()
-    Data.Cache.retrieveCachedItem('selectedLanguage')
-      .then(selectedLanguage => {
-        this.setState({ selectedLanguage })
-      })
-      .catch(() => {
-        return
-      })
-    if (this.props.theme && this.props.theme.translatedStrings)
+     
+     if (this.props.theme && this.props.theme.translatedStrings) {
+       this.getTranslations().then((strings) => {
+         this.getLanguage().then((selectedLanguage) => {
+            this.setState({ selectedLanguage, strings })
+        })
+       })      
+      return
+     }
+
+    this.getLanguage().then((selectedLanguage) => {
+      selectedLanguage && this.setState({ selectedLanguage })
+    })  
+  }
+
+  getTranslations() {
+    return new Promise((resolve, reject) => {
       fetch(this.props.theme.translatedStrings)
         .then(response => response.json())
         .then(translatedTexts => {
-          this.setState({ strings: translatedTexts[this.props.translationKey] })
+          resolve(translatedTexts[this.props.translationKey])
         })
-        .catch(() => '')
+        .catch(() => resolve())
+    })
+  }
+
+  getLanguage() {
+    return new Promise((resolve, reject) => {
+      Data.Cache.retrieveCachedItem('selectedLanguage').then(selectedLanguage => {
+        resolve(selectedLanguage)
+      })
+      .catch(() => {
+        resolve()
+      })
+    })
   }
 
   renderDefaultContent() {
@@ -133,61 +154,7 @@ export default class Cover extends Component {
   onLinkClick(url) {
     window.open(url, '_blank')
   }
-
-  renderIcoContent() {
-    if (this.props.video) {
-      return <div />
-    }
-
-    return (
-      <div
-        style={{
-          position: 'absolute',
-          backgroundColor: `rgba(0,0,0,${this.props.opacity})`,
-          width: '100vw',
-          height: '100vh',
-          top: 0,
-          left: 0,
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'space-around',
-          textAlign: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }}
-      >
-        <div style={{ display: 'flex', flex: 1 }} />
-        <div
-          style={{
-            display: 'flex',
-            flex: 3,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'column',
-            textAlign: 'center'
-          }}
-        >
-          {this.renderCoverTitle()}
-          {this.renderCoverSubtitle()}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flex: 2,
-            justifyContent: 'space-around',
-            width: '100%',
-            padding: '0 50px'
-          }}
-        >
-          {this.renderLogos()}
-          {this.renderCoverTimeline()}
-        </div>
-        {this.renderIcons()}
-      </div>
-    )
-  }
-
+  
   renderCoverTitle() {
     if (!this.props.title) {
       return <div />
@@ -232,30 +199,6 @@ export default class Cover extends Component {
           onAction={this.triggerEvent()}
         />
       </div>
-    )
-  }
-
-  renderIcoCoverTitle() {
-    if (!this.props.title) {
-      return <div />
-    }
-
-    const titleAdditionalStyle = this.props.subtitleStyle
-      ? this.props.subtitleStyle
-      : {}
-
-    return (
-      <Typography
-        use="headline4"
-        style={{
-          margin: '20px',
-          color: this.props.color,
-          ...titleAdditionalStyle
-        }}
-      >
-        {' '}
-        {this.props.title}
-      </Typography>
     )
   }
 
@@ -589,35 +532,6 @@ export default class Cover extends Component {
     )
   }
 
-  renderIco(title) {
-    const height = this.props.height
-    const coverStyle = {
-      width: '100%',
-      height: `${height}px`,
-      objectFit: 'cover',
-      objectPosition: 'center center'
-    }
-    const coverPlaying = this.props.scroll < 200
-
-    return (
-      <div
-        style={{
-          backgroundColor: this.props.backgroundColor,
-          marginTop: `${this.props.offset}px`,
-          height: `${height}px`,
-          display: 'flex',
-          flex: 1,
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}
-      >
-        {this.renderMedia(coverStyle, coverPlaying)}
-        {this.renderIcoContent()}
-      </div>
-    )
-  }
-
   renderMenu() {
     return this.renderSimple(this.menuHeight)
   }
@@ -634,8 +548,6 @@ export default class Cover extends Component {
         return this.renderSimple(this.simpleHeight, this.props.title)
       case 'menu':
         return this.renderMenu()
-      case 'ico':
-        return this.renderIco(this.props.title)
       case 'section':
         return this.renderSection()
       default:

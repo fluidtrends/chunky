@@ -139,54 +139,42 @@ function (_Component) {
           backgroundColor: this.props.sectionsBackgroundColor
         }
       }, _react["default"].createElement(_drawer.DrawerContent, null, this.renderSections()));
-    }
-  }, {
-    key: "renderSectionBar",
-    value: function renderSectionBar() {
-      var _this3 = this;
+    } // renderSectionBar () {
+    //   if (this.props.renderContent) {
+    //     return <div />
+    //   }
+    //   return <div style={{
+    //     alignSelf: 'stretch',
+    //     backgroundColor: this.props.sectionsBackgroundColor,
+    //     textAlign: 'left',
+    //     paddingLeft: '20px'
+    //   }}>
+    //     <MenuAnchor style={{
+    //       padding: '10px'
+    //     }}>
+    //       <Button
+    //         style={{
+    //           display: 'flex',
+    //           flexDirection: 'row',
+    //           alignItems: 'center',
+    //           color: this.props.sectionSelectedColor
+    //         }}
+    //         onClick={evt => this.setState({'compactMenuIsOpen': !this.state.compactMenuIsOpen})}>
+    //         { this.props.section.menuTitle }
+    //         <Icon use='expand_more' style={{
+    //           color: this.props.sectionSelectedColor
+    //         }} />
+    //       </Button>
+    //       <SimpleMenu
+    //         onSelected={this._onCompactSectionSelect}
+    //         open={this.state.compactMenuIsOpen}
+    //         onClose={evt => this.setState({compactMenuIsOpen: false})}>
+    //         {this.compactSections }
+    //       </SimpleMenu>
+    //     </MenuAnchor>
+    //   </div>
+    // }
 
-      if (this.props.renderContent) {
-        return _react["default"].createElement("div", null);
-      }
-
-      return _react["default"].createElement("div", {
-        style: {
-          alignSelf: 'stretch',
-          backgroundColor: this.props.sectionsBackgroundColor,
-          textAlign: 'left',
-          paddingLeft: '20px'
-        }
-      }, _react["default"].createElement(_menu.MenuAnchor, {
-        style: {
-          padding: '10px'
-        }
-      }, _react["default"].createElement(_button.Button, {
-        style: {
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          color: this.props.sectionSelectedColor
-        },
-        onClick: function onClick(evt) {
-          return _this3.setState({
-            'compactMenuIsOpen': !_this3.state.compactMenuIsOpen
-          });
-        }
-      }, this.props.section.menuTitle, _react["default"].createElement(_icon.Icon, {
-        use: "expand_more",
-        style: {
-          color: this.props.sectionSelectedColor
-        }
-      })), _react["default"].createElement(_menu.SimpleMenu, {
-        onSelected: this._onCompactSectionSelect,
-        open: this.state.compactMenuIsOpen,
-        onClose: function onClose(evt) {
-          return _this3.setState({
-            compactMenuIsOpen: false
-          });
-        }
-      }, this.compactSections)));
-    }
   }, {
     key: "renderSectionContent",
     value: function renderSectionContent() {
@@ -267,11 +255,11 @@ function (_Component) {
   }, {
     key: "compactSections",
     get: function get() {
-      var _this4 = this;
+      var _this3 = this;
 
       var index = 0;
       return this.props.sections.map(function (section) {
-        return _this4.renderCompactSection(section, index++);
+        return _this3.renderCompactSection(section, index++);
       });
     }
   }, {

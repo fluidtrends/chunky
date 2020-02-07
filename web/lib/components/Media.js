@@ -53,12 +53,10 @@ function (_PureComponent) {
     value: function renderImage(name, src, placeholder) {
       var _this = this;
 
-      console.log("RENDER IMG", src);
       return _react["default"].createElement(_reactProgressiveImage["default"], {
         src: src,
         placeholder: placeholder
       }, function (src, loading) {
-        console.log(">>>>");
         var _this$props = _this.props,
             innerHeight = _this$props.innerHeight,
             innerWidth = _this$props.innerWidth;

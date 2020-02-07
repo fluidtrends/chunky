@@ -9,11 +9,9 @@ export default class Media extends PureComponent {
   }
 
   renderImage(name, src, placeholder) {
-    console.log("RENDER IMG", src)
     return (
       <ProgressiveImage src={src} placeholder={placeholder}>
         {(src, loading) => {
-          console.log(">>>>")
           const { innerHeight, innerWidth } = this.props
           const style = Object.assign({}, this.props.style, {
             opacity: this.props.style.opacity ? this.props.style.opacity : 1,

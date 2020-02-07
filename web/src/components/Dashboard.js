@@ -89,44 +89,44 @@ export default class Dashboard extends Component {
     </Drawer>
   }
 
-  renderSectionBar () {
-    if (this.props.renderContent) {
-      return <div />
-    }
+  // renderSectionBar () {
+  //   if (this.props.renderContent) {
+  //     return <div />
+  //   }
 
-    return <div style={{
-      alignSelf: 'stretch',
-      backgroundColor: this.props.sectionsBackgroundColor,
-      textAlign: 'left',
-      paddingLeft: '20px'
-    }}>
-      <MenuAnchor style={{
-        padding: '10px'
-      }}>
-        <Button
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            color: this.props.sectionSelectedColor
-          }}
-          onClick={evt => this.setState({'compactMenuIsOpen': !this.state.compactMenuIsOpen})}>
-          { this.props.section.menuTitle }
-          <Icon use='expand_more' style={{
-            color: this.props.sectionSelectedColor
-          }} />
-        </Button>
+  //   return <div style={{
+  //     alignSelf: 'stretch',
+  //     backgroundColor: this.props.sectionsBackgroundColor,
+  //     textAlign: 'left',
+  //     paddingLeft: '20px'
+  //   }}>
+  //     <MenuAnchor style={{
+  //       padding: '10px'
+  //     }}>
+  //       <Button
+  //         style={{
+  //           display: 'flex',
+  //           flexDirection: 'row',
+  //           alignItems: 'center',
+  //           color: this.props.sectionSelectedColor
+  //         }}
+  //         onClick={evt => this.setState({'compactMenuIsOpen': !this.state.compactMenuIsOpen})}>
+  //         { this.props.section.menuTitle }
+  //         <Icon use='expand_more' style={{
+  //           color: this.props.sectionSelectedColor
+  //         }} />
+  //       </Button>
 
-        <SimpleMenu
-          onSelected={this._onCompactSectionSelect}
-          open={this.state.compactMenuIsOpen}
-          onClose={evt => this.setState({compactMenuIsOpen: false})}>
-          {this.compactSections }
-        </SimpleMenu>
-      </MenuAnchor>
+  //       <SimpleMenu
+  //         onSelected={this._onCompactSectionSelect}
+  //         open={this.state.compactMenuIsOpen}
+  //         onClose={evt => this.setState({compactMenuIsOpen: false})}>
+  //         {this.compactSections }
+  //       </SimpleMenu>
+  //     </MenuAnchor>
 
-    </div>
-  }
+  //   </div>
+  // }
 
   renderSectionContent () {
     return <div style={{
