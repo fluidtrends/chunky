@@ -95,14 +95,9 @@ export default class Collection extends Component {
     </CardActionButtons>
   }
 
-  renderCardTag (tag) {
-    return <Chip style={{background: 'red', color: 'white'}}>
-      <ChipText>
-        <Typography
-          use='caption'>
-           sdfasd
-        </Typography>
-      </ChipText>
+  renderCardTag (tag, index) {
+    return <Chip key={index} style={{background: 'red', color: 'white'}}>
+      <div/>
     </Chip>
   }
 
@@ -110,10 +105,10 @@ export default class Collection extends Component {
     if (!item.tags) {
       return <div />
     }
-
+    var index = 0
     return <div style={{display: 'flex', alignItems: 'center'}}>
       <ChipSet style={{flex: 2}}>
-        { item.tags.map(t => this.renderCardTag(t)) }
+        { item.tags.map(t => this.renderCardTag(t, index++)) }
       </ChipSet>
     </div>
   }
@@ -124,6 +119,21 @@ export default class Collection extends Component {
     }
 
     return <CardAction onClick={this.triggerEvent(item.name || index, Object.assign({}, item.action, { secondary: true }))}> { item.actionTitleSecondary || 'Learn More'} </CardAction>
+  }
+      
+  renderChipset(item, index) {
+    return <ChipSet style={{flex: 2}}>
+      <Chip style={{background: colors[item.category], color: 'white'}}>
+        <Typography use='caption'>
+            {item.category}
+        </Typography>
+      </Chip>
+      <Chip style={{background: '#90A4AE', color: 'white'}}>
+        <Typography use='caption'>
+          {item.label}
+        </Typography>
+      </Chip>
+    </ChipSet>
   }
 
   renderChallenge (item, index) {
@@ -140,26 +150,7 @@ export default class Collection extends Component {
           {details}...
         </Typography>
         <div style={{display: 'flex', alignItems: 'center'}}>
-          <ChipSet style={{flex: 2}}>
-            <Chip style={{background: colors[item.category], color: 'white'}}>
-              <ChipText>
-                <Typography
-                  use='caption'
-                >
-                  {item.category}
-                </Typography>
-              </ChipText>
-            </Chip>
-            <Chip style={{background: '#90A4AE', color: 'white'}}>
-              <ChipText>
-                <Typography
-                  use='caption'
-                >
-                  {item.label}
-                </Typography>
-              </ChipText>
-            </Chip>
-          </ChipSet>
+          { this.renderChipset(item, index) }
           <Fab mini>star</Fab>
           <Typography
             use='title'
@@ -227,5 +218,9 @@ export default class Collection extends Component {
 
   renderComponent () {
     return this.renderDefault()
+  }
+
+  render() {
+    return super.render()
   }
 }

@@ -47,7 +47,7 @@ function (_Component) {
   _createClass(AnimatedSection, [{
     key: "handleError",
     value: function handleError(propError) {
-      throw new Error("The following prop's value doesn't have any context.\n    Prop to lookout for: ".concat(propError));
+      return _react["default"].createElement("div", null);
     }
   }, {
     key: "render",
@@ -58,8 +58,8 @@ function (_Component) {
           startAnimation = _this$props.startAnimation,
           config = _this$props.config; // if props were not what we expected return an error wrapper
 
-      if (!animationChecker.includes(animationType)) this.handleError('animationType');
-      if (!children) this.handleError('children');
+      if (!animationChecker.includes(animationType)) return this.handleError('animationType');
+      if (!children) return this.handleError('children');
       var xValue = animationType === 'slideFromLeft' ? '-100%' : '100%';
       return _react["default"].createElement(_react["default"].Fragment, null, startAnimation ? animationType === 'opacity' ? _react["default"].createElement(_reactSpring.Spring, {
         from: {

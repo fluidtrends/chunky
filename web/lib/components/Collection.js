@@ -161,15 +161,14 @@ function (_Component) {
     }
   }, {
     key: "renderCardTag",
-    value: function renderCardTag(tag) {
+    value: function renderCardTag(tag, index) {
       return _react["default"].createElement(_chip.Chip, {
+        key: index,
         style: {
           background: 'red',
           color: 'white'
         }
-      }, _react["default"].createElement(_chip.ChipText, null, _react["default"].createElement(_typography.Typography, {
-        use: "caption"
-      }, "sdfasd")));
+      }, _react["default"].createElement("div", null));
     }
   }, {
     key: "renderCardTags",
@@ -180,6 +179,7 @@ function (_Component) {
         return _react["default"].createElement("div", null);
       }
 
+      var index = 0;
       return _react["default"].createElement("div", {
         style: {
           display: 'flex',
@@ -190,7 +190,7 @@ function (_Component) {
           flex: 2
         }
       }, item.tags.map(function (t) {
-        return _this2.renderCardTag(t);
+        return _this2.renderCardTag(t, index++);
       })));
     }
   }, {
@@ -205,6 +205,29 @@ function (_Component) {
           secondary: true
         }))
       }, " ", item.actionTitleSecondary || 'Learn More', " ");
+    }
+  }, {
+    key: "renderChipset",
+    value: function renderChipset(item, index) {
+      return _react["default"].createElement(_chip.ChipSet, {
+        style: {
+          flex: 2
+        }
+      }, _react["default"].createElement(_chip.Chip, {
+        style: {
+          background: colors[item.category],
+          color: 'white'
+        }
+      }, _react["default"].createElement(_typography.Typography, {
+        use: "caption"
+      }, item.category)), _react["default"].createElement(_chip.Chip, {
+        style: {
+          background: '#90A4AE',
+          color: 'white'
+        }
+      }, _react["default"].createElement(_typography.Typography, {
+        use: "caption"
+      }, item.label)));
     }
   }, {
     key: "renderChallenge",
@@ -234,25 +257,7 @@ function (_Component) {
           display: 'flex',
           alignItems: 'center'
         }
-      }, _react["default"].createElement(_chip.ChipSet, {
-        style: {
-          flex: 2
-        }
-      }, _react["default"].createElement(_chip.Chip, {
-        style: {
-          background: colors[item.category],
-          color: 'white'
-        }
-      }, _react["default"].createElement(_chip.ChipText, null, _react["default"].createElement(_typography.Typography, {
-        use: "caption"
-      }, item.category))), _react["default"].createElement(_chip.Chip, {
-        style: {
-          background: '#90A4AE',
-          color: 'white'
-        }
-      }, _react["default"].createElement(_chip.ChipText, null, _react["default"].createElement(_typography.Typography, {
-        use: "caption"
-      }, item.label)))), _react["default"].createElement(_fab.Fab, {
+      }, this.renderChipset(item, index), _react["default"].createElement(_fab.Fab, {
         mini: true
       }, "star"), _react["default"].createElement(_typography.Typography, {
         use: "title",
@@ -322,6 +327,11 @@ function (_Component) {
     key: "renderComponent",
     value: function renderComponent() {
       return this.renderDefault();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _get(_getPrototypeOf(Collection.prototype), "render", this).call(this);
     }
   }, {
     key: "categories",

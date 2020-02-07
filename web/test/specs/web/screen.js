@@ -9,7 +9,7 @@ import LoadingScreen from '../../assets/chunks/auth/src/screens/loading'
 
 savor
 
-.add('savoring should create and load a screen', (context, done) => {
+.add('should create and load a screen', (context, done) => {
   context.spy(Screen.prototype, 'render')
 
   const props = {
@@ -29,7 +29,7 @@ savor
   done()
 })
 
-.add('savoring should initialize and load properties', (context, done) => {
+.add('should initialize and load properties', (context, done) => {
   const props = {
     location: "/",
     env: "production",
@@ -65,7 +65,7 @@ savor
   done()
 })
 
-.add('savoring should handle screen events', (context, done) => {
+.add('should handle screen events', (context, done) => {
   const props = {
     location: "/",
     env: "production",
@@ -107,7 +107,7 @@ savor
   done()
 })
 
-.add('savoring should handle basic variants', (context, done) => {
+.add('should handle basic variants', (context, done) => {
   const props = {
     location: { pathname: "/" },
     path: "/auth",
@@ -129,7 +129,7 @@ savor
   done()
 })
 
-.add('savoring should handle complex variants', (context, done) => {
+.add('should handle complex variants', (context, done) => {
   const props = {
     location: { pathname: "/" },
     path: "/auth",

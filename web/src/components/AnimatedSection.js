@@ -9,17 +9,16 @@ export default class AnimatedSection extends Component {
     super(props)
   }
 
-  handleError(propError){
-    throw new Error(`The following prop's value doesn't have any context.
-    Prop to lookout for: ${propError}`)
+  handleError(propError) {
+    return <div/>
   }
 
   render() {
     const { children, animationType, startAnimation, config } = this.props
 
     // if props were not what we expected return an error wrapper
-    if (!animationChecker.includes(animationType)) this.handleError('animationType')
-    if (!children) this.handleError('children')
+    if (!animationChecker.includes(animationType)) return this.handleError('animationType')
+    if (!children) return this.handleError('children')
 
     const xValue = animationType  === 'slideFromLeft' ? '-100%' : '100%'
 
@@ -29,11 +28,10 @@ export default class AnimatedSection extends Component {
           startAnimation ?
           animationType === 'opacity' ?
             <Spring  
-            from={{ opacity: 0 }}
-            to={{ opacity: 1 }}
-            config={config ? config : { tension: 30, friction: 40 }}
-            >
-            {props => <div style={props}>{children}</div>}
+              from={{ opacity: 0 }}
+              to={{ opacity: 1 }}
+              config={config ? config : { tension: 30, friction: 40 }}>
+                { props => <div style={props}>{children}</div> }
             </Spring>
             :
             <Spring 

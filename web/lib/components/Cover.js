@@ -80,22 +80,48 @@ function (_Component) {
 
       _get(_getPrototypeOf(Cover.prototype), "componentDidMount", this).call(this);
 
-      _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (selectedLanguage) {
-        _this2.setState({
+      if (this.props.theme && this.props.theme.translatedStrings) {
+        this.getTranslations().then(function (strings) {
+          _this2.getLanguage().then(function (selectedLanguage) {
+            _this2.setState({
+              selectedLanguage: selectedLanguage,
+              strings: strings
+            });
+          });
+        });
+        return;
+      }
+
+      this.getLanguage().then(function (selectedLanguage) {
+        selectedLanguage && _this2.setState({
           selectedLanguage: selectedLanguage
         });
-      })["catch"](function () {
-        return;
       });
+    }
+  }, {
+    key: "getTranslations",
+    value: function getTranslations() {
+      var _this3 = this;
 
-      if (this.props.theme && this.props.theme.translatedStrings) fetch(this.props.theme.translatedStrings).then(function (response) {
-        return response.json();
-      }).then(function (translatedTexts) {
-        _this2.setState({
-          strings: translatedTexts[_this2.props.translationKey]
+      return new Promise(function (resolve, reject) {
+        fetch(_this3.props.theme.translatedStrings).then(function (response) {
+          return response.json();
+        }).then(function (translatedTexts) {
+          resolve(translatedTexts[_this3.props.translationKey]);
+        })["catch"](function () {
+          return resolve();
         });
-      })["catch"](function () {
-        return '';
+      });
+    }
+  }, {
+    key: "getLanguage",
+    value: function getLanguage() {
+      return new Promise(function (resolve, reject) {
+        _reactChunky.Data.Cache.retrieveCachedItem('selectedLanguage').then(function (selectedLanguage) {
+          resolve(selectedLanguage);
+        })["catch"](function () {
+          resolve();
+        });
       });
     }
   }, {
@@ -143,7 +169,7 @@ function (_Component) {
   }, {
     key: "renderIcons",
     value: function renderIcons() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (!this.props.social) {
         return;
@@ -161,7 +187,7 @@ function (_Component) {
           margin: margin
         }
       }, Object.keys(social).map(function (key) {
-        return _this3.renderIcon(social[key], key);
+        return _this4.renderIcon(social[key], key);
       }));
     }
   }, {
@@ -183,53 +209,6 @@ function (_Component) {
     key: "onLinkClick",
     value: function onLinkClick(url) {
       window.open(url, '_blank');
-    }
-  }, {
-    key: "renderIcoContent",
-    value: function renderIcoContent() {
-      if (this.props.video) {
-        return _react["default"].createElement("div", null);
-      }
-
-      return _react["default"].createElement("div", {
-        style: {
-          position: 'absolute',
-          backgroundColor: "rgba(0,0,0,".concat(this.props.opacity, ")"),
-          width: '100vw',
-          height: '100vh',
-          top: 0,
-          left: 0,
-          display: 'flex',
-          flex: 1,
-          justifyContent: 'space-around',
-          textAlign: 'center',
-          alignItems: 'center',
-          flexDirection: 'column'
-        }
-      }, _react["default"].createElement("div", {
-        style: {
-          display: 'flex',
-          flex: 1
-        }
-      }), _react["default"].createElement("div", {
-        style: {
-          display: 'flex',
-          flex: 3,
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          textAlign: 'center'
-        }
-      }, this.renderCoverTitle(), this.renderCoverSubtitle()), _react["default"].createElement("div", {
-        style: {
-          display: 'flex',
-          flexDirection: 'row',
-          flex: 2,
-          justifyContent: 'space-around',
-          width: '100%',
-          padding: '0 50px'
-        }
-      }, this.renderLogos(), this.renderCoverTimeline()), this.renderIcons());
     }
   }, {
     key: "renderCoverTitle",
@@ -265,22 +244,6 @@ function (_Component) {
         actionTitle: "Buy tokens",
         onAction: this.triggerEvent()
       }));
-    }
-  }, {
-    key: "renderIcoCoverTitle",
-    value: function renderIcoCoverTitle() {
-      if (!this.props.title) {
-        return _react["default"].createElement("div", null);
-      }
-
-      var titleAdditionalStyle = this.props.subtitleStyle ? this.props.subtitleStyle : {};
-      return _react["default"].createElement(_typography.Typography, {
-        use: "headline4",
-        style: _objectSpread({
-          margin: '20px',
-          color: this.props.color
-        }, titleAdditionalStyle)
-      }, ' ', this.props.title);
     }
   }, {
     key: "renderCoverSubtitle",
@@ -552,30 +515,6 @@ function (_Component) {
       }, this.renderMedia(coverStyle, coverPlaying), this.renderSectionContent());
     }
   }, {
-    key: "renderIco",
-    value: function renderIco(title) {
-      var height = this.props.height;
-      var coverStyle = {
-        width: '100%',
-        height: "".concat(height, "px"),
-        objectFit: 'cover',
-        objectPosition: 'center center'
-      };
-      var coverPlaying = this.props.scroll < 200;
-      return _react["default"].createElement("div", {
-        style: {
-          backgroundColor: this.props.backgroundColor,
-          marginTop: "".concat(this.props.offset, "px"),
-          height: "".concat(height, "px"),
-          display: 'flex',
-          flex: 1,
-          alignItems: 'center',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }
-      }, this.renderMedia(coverStyle, coverPlaying), this.renderIcoContent());
-    }
-  }, {
     key: "renderMenu",
     value: function renderMenu() {
       return this.renderSimple(this.menuHeight);
@@ -592,9 +531,6 @@ function (_Component) {
 
         case 'menu':
           return this.renderMenu();
-
-        case 'ico':
-          return this.renderIco(this.props.title);
 
         case 'section':
           return this.renderSection();

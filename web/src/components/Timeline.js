@@ -38,7 +38,7 @@ export default class ChunkyTimeline extends Component {
     )
   }
 
-  renderMilestone (item) {
+  renderMilestone (item, index) {
     const {
       doneColor,
       progressColor,
@@ -71,7 +71,7 @@ export default class ChunkyTimeline extends Component {
           backgroundColor = item.status === 'progress' ? '#80CBC4' : ''
     
     return (
-        <Timeline.Item dot={<Icon type={iconType} style={{ fontSize: '20px', color: iconColor }} />}>
+        <Timeline.Item key={index} dot={<Icon type={iconType} style={{ fontSize: '20px', color: iconColor }} />}>
           <div style={{boxShadow: 'rgba(224,224,224,1) 0px 5px 20px 0px', display: 'flex', alignItems: 'center', padding: '15px', opacity, backgroundColor}}>
             <Typography use="headline5" style={{paddingRight: '5px', paddingLeft: '5px', textDecoration: strikeStyle }}>{item.title}</Typography>
             {/* <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
@@ -88,10 +88,12 @@ export default class ChunkyTimeline extends Component {
     if (!this.props.milestones) {
       return
     }
+    
+    var index = 0
 
     return (
       <Timeline mode="alternate">
-        {this.props.milestones.map( milestone => this.renderMilestone(milestone))}
+        {this.props.milestones.map( milestone => this.renderMilestone(milestone, index++))}
       </Timeline>
     )
   }

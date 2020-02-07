@@ -6,7 +6,17 @@ import { Columns } from '../../../../src/components'
 
 savor
 
-.add('should be able to render rows', (context, done) => {
+.add('should be able to handle remote errors', (context, done) => {
+  global.fetch = () => Promise.reject(new Error("oops"))
+
+  const props = { id: "test", option: { file: "test" }}
+  const container = context.shallow(<Columns {...props}/>)
+
+  // And, we're looking good
+  done()
+})
+
+.add('should be able to render without any rows', (context, done) => {
   global.fetch = () => Promise.resolve({ json: () => ({ rows: [] }) })
 
   const props = { id: "test", option: { file: "test" }}
@@ -15,5 +25,22 @@ savor
   // And, we're looking good
   done()
 })
+
+.add('should be able to render rows', (context, done) => {
+  global.fetch = () => Promise.resolve({ json: () => ({ rows: [{
+    columns: [{
+      icon: "test",
+      title: "test",
+      subtitle: "test"
+    }]
+  }] }) })
+
+  const props = { id: "test", iconColor: "test" }
+  const container = context.shallow(<Columns {...props}/>)
+
+  // And, we're looking good
+  done()
+})
+
 
 .run('[Web] Columns Component')

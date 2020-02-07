@@ -7,7 +7,7 @@ import Layout from '../../../src/core/Layout'
 
 savor
 
-.add('savoring should create and load a layout', (context, done) => {
+.add('should create and load a layout', (context, done) => {
   const props = { id: "test", menu: [{}, {}], navigationUncover: true, layout: { fixed: true },  theme: { 
     navigationColor: "red", 
     logoOnMobile: true,
