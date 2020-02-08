@@ -236,7 +236,7 @@ function (_Core$Screen) {
           return;
         }
 
-        if (!_this2.props.variants || !Array.isArray(_this2.props.variants) || _this2.props.variants.length === 0) {
+        if (!_this2.props.variants || Array.isArray(_this2.props.variants) && _this2.props.variants.length === 0) {
           resolve([]);
           return;
         }
@@ -593,15 +593,6 @@ function (_Core$Screen) {
     key: "renderStopError",
     value: function renderStopError(e) {
       return _react["default"].createElement("div", null);
-    }
-  }, {
-    key: "renderLoading",
-    value: function renderLoading() {
-      return _react["default"].createElement("div", {
-        style: {}
-      }, _react["default"].createElement(DefaultComponents.Loading, {
-        message: this.state.loadingMessage || 'Loading, just a sec please ...'
-      }));
     }
   }, {
     key: "render",

@@ -84,42 +84,7 @@ function (_PureComponent) {
   _createClass(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.checkAuth(); // const ele = document.getElementById('ipl-progress-indicator')
-      // if (ele) {
-      //   // fade out
-      //   ele.classList.add('available')
-      //   setTimeout(() => {
-      //     // remove from DOM
-      //     ele.outerHTML = ''
-      //   }, 2000)
-      // }
-      // const { additionalScripts } = this.props
-      // if (additionalScripts) {
-      //   for (let i = 0; i < additionalScripts.length; i++) {
-      //     let {
-      //       rel,
-      //       href,
-      //       integrity,
-      //       crossOrigin,
-      //       type,
-      //       src
-      //     } = additionalScripts[i]
-      //     if (type === 'style') {
-      //       let link = document.createElement('link')
-      //       link.rel = rel
-      //       link.href = href
-      //       link.integrity = integrity
-      //       link.crossOrigin = crossOrigin
-      //       document.head.appendChild(link)
-      //     }
-      //     if (type === 'text/javascript') {
-      //       let script = document.createElement('script')
-      //       script.src = src
-      //       script.type = type
-      //       document.body.appendChild(script)
-      //     }
-      //   }
-      // }
+      this.checkAuth();
     }
   }, {
     key: "checkAuth",
@@ -440,10 +405,10 @@ function (_PureComponent) {
     key: "renderRoutes",
     value: function renderRoutes() {
       var dynamicRoutes = this.routes.filter(function (r) {
-        return r.key.split("/").includes(":variant");
+        return r && r.key.split("/").includes(":variant");
       });
       var staticRoutes = this.routes.filter(function (r) {
-        return !r.key.split("/").includes(":variant");
+        return r && !r.key.split("/").includes(":variant");
       });
       return staticRoutes.concat(dynamicRoutes);
     }

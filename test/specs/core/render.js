@@ -34,10 +34,8 @@ savor
 
 .add('should create an app and have a valid lifecyle', (context, done) => {
     const props = { env: "production", info: { analytics: {} } }
-  // Start off with an empty dom
-  // savor.addDom('<!doctype html><html><body></body></html>')
 
-  // Let's mount the app
+    // Let's mount the app
   context.spy(SimpleApp.prototype, 'componentDidMount')
   context.spy(SimpleApp.prototype, 'render')
 
@@ -62,8 +60,6 @@ savor
 })
 
 .add('should create a valid screen instance', (context, done) => {
-  // Start off with an empty dom
-  // savor.addDom('<!doctype html><html><body></body></html>')
   const props = { env: "production", info: { analytics: {} } }
 
   const stub = context.stub(Core.Screen.prototype, 'setState').callsFake(() => ({}))

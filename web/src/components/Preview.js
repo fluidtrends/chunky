@@ -20,9 +20,9 @@ export default class Preview extends Component {
     window.addEventListener('scroll', this.handleScrollToElement, true);		
 	}
 	
-	componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScrollToElement, true);
-  }
+// 	componentWillUnmount() {
+//     window.removeEventListener('scroll', this.handleScrollToElement, true);
+//   }
 
   handleScrollToElement() {
     if (isAnyPartOfElementInViewport(this.previewRef) && !this.state.startAnimation) {

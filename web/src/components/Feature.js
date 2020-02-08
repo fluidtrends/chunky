@@ -18,9 +18,9 @@ export default class Feature extends Component {
     window.addEventListener('scroll', this.handleScrollToElement, true)
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScrollToElement, true)
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('scroll', this.handleScrollToElement, true)
+  // }
 
   handleScrollToElement() {
     if (
