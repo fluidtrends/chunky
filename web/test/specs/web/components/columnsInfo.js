@@ -7,10 +7,12 @@ import { Columns } from '../../../../src/components'
 savor
 
 .add('should be able to handle remote errors', (context, done) => {
+  const props = { id: "test", option: { file: "test" }}
   global.fetch = () => Promise.reject(new Error("oops"))
 
-  const props = { id: "test", option: { file: "test" }}
-  const container = context.shallow(<Columns {...props}/>)
+  context.expect(() => {
+    const container = context.shallow(<Columns {...props}/>)
+  }).to.throw
 
   // And, we're looking good
   done()

@@ -108,29 +108,33 @@ function (_Component) {
     value: function renderRowsAndColumns() {
       var _this3 = this;
 
+      var index = 0;
       var tokenData = this.state.tokenData;
       return tokenData && tokenData.rows.map(function (row) {
-        return _this3.renderRow(row);
+        return _this3.renderRow(row, index++);
       });
     }
   }, {
     key: "renderRow",
-    value: function renderRow(row) {
+    value: function renderRow(row, index) {
       var _this4 = this;
 
+      var index = 0;
       return _react["default"].createElement(_antd.Row, {
+        key: index,
         gutter: 96,
         style: {
           margin: 0
         }
       }, row && row.columns.map(function (column) {
-        return _this4.renderColumn(column);
+        return _this4.renderColumn(column, index++);
       }));
     }
   }, {
     key: "renderColumn",
-    value: function renderColumn(column) {
+    value: function renderColumn(column, index) {
       return _react["default"].createElement(_antd.Col, {
+        key: index,
         md: 8,
         sm: 24,
         xs: 24,

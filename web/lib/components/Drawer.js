@@ -112,7 +112,7 @@ function (_PureComponent) {
         _this2.setState({
           selectedLanguage: lang
         });
-      })["catch"](function () {
+      })["catch"](function (e) {
         return;
       });
 
@@ -131,16 +131,6 @@ function (_PureComponent) {
     value: function changeLanguage(language) {
       _reactChunky.Data.Cache.cacheItem('selectedLanguage', language).then(function () {
         window.location.reload();
-      });
-    }
-  }, {
-    key: "renderDrawerMenu",
-    value: function renderDrawerMenu() {
-      var index = 0;
-      return this.props.menu.map(function (item) {
-        return _react["default"].createElement(_list.ListItem, {
-          key: "menuItem".concat(index++)
-        }, _react["default"].createElement(ListItemText, null, item.title));
       });
     }
     /**

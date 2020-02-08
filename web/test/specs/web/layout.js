@@ -8,6 +8,8 @@ import Layout from '../../../src/core/Layout'
 savor
 
 .add('should create and load a layout', (context, done) => {
+  global.localStorage.getItem = (key, callback) => callback(null, JSON.stringify({ test: 'test', username: 'test' }))
+
   const props = { id: "test", menu: [{}, {}], navigationUncover: true, layout: { fixed: true },  theme: { 
     navigationColor: "red", 
     logoOnMobile: true,

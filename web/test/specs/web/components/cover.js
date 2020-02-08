@@ -35,6 +35,8 @@ savor
         type: "presentation" 
     }
     const stub = context.stub(Data.Cache, "retrieveCachedItem").callsFake(() => Promise.reject(new Error("oops")))
+    global.fetch = () => Promise.reject(new Error("oops"))
+    global.localStorage.getItem = (key, callback) => callback(new Error("oops"))
     const container = context.shallow(<Cover {...props}/>)
 
   // And, we're looking good
@@ -92,6 +94,14 @@ savor
 
 .add('should render an section cover', (context, done) => {
   const props = { id: "test", type: "section" }
+  const container = context.shallow(<Cover {...props}/>)
+  
+  // And, we're looking good
+  done()
+})
+
+.add('should render an section cover with video', (context, done) => {
+  const props = { id: "test", type: "section",  video: "test" }
   const container = context.shallow(<Cover {...props}/>)
   
   // And, we're looking good

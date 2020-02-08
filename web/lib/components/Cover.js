@@ -167,45 +167,6 @@ function (_Component) {
       }, this.renderCoverTitle(), this.renderCoverSubtitle(), this.renderCoverAction());
     }
   }, {
-    key: "renderIcons",
-    value: function renderIcons() {
-      var _this4 = this;
-
-      if (!this.props.social) {
-        return;
-      }
-
-      var margin = this.props.isSmallScreen ? '0 0 5px 0' : '0 95px 35px 0';
-      var align = this.props.isSmallScreen ? 'center' : 'flex-end';
-      var social = this.props.social;
-      return _react["default"].createElement("div", {
-        style: {
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-end',
-          alignSelf: align,
-          margin: margin
-        }
-      }, Object.keys(social).map(function (key) {
-        return _this4.renderIcon(social[key], key);
-      }));
-    }
-  }, {
-    key: "renderIcon",
-    value: function renderIcon(props, key) {
-      var size = this.props.isSmallScreen ? 20 : 28;
-      return _react["default"].createElement("div", null, _react["default"].createElement(_antd.Icon, {
-        type: key,
-        onClick: this.onLinkClick.bind(this, props.url),
-        className: "icon",
-        style: {
-          cursor: 'pointer',
-          fontSize: size,
-          padding: '10px'
-        }
-      }));
-    }
-  }, {
     key: "onLinkClick",
     value: function onLinkClick(url) {
       window.open(url, '_blank');

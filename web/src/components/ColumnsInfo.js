@@ -37,18 +37,20 @@ export default class ColumnsInfo extends Component {
 	}
 
 	renderRowsAndColumns() {
+		var index=0
 		const { tokenData } = this.state
-		return tokenData && tokenData.rows.map(row => this.renderRow(row))
+		return tokenData && tokenData.rows.map(row => this.renderRow(row, index++))
 	}
 
-	renderRow(row) {
-		return <Row gutter={96} style={{margin: 0}}>
-			{row && row.columns.map( column => this.renderColumn(column))}
+	renderRow(row, index) {
+		var index=0
+		return <Row key={index} gutter={96} style={{margin: 0}}>
+			{row && row.columns.map( column => this.renderColumn(column, index++))}
 		</Row>
 	}
 
-	renderColumn(column) {
-		return <Col md={8} sm={24} xs={24} style={{padding: 0}}>
+	renderColumn(column, index) {
+		return <Col key={index} md={8} sm={24} xs={24} style={{padding: 0}}>
 			<div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px', marginBottom: '20px', textAlign: 'center'}}>
 				<Icon icon={column.icon} style={{fontSize: '38px', color: this.props.iconColor}} />
 				<div>

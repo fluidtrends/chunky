@@ -107,50 +107,6 @@ export default class Cover extends Component {
     )
   }
 
-  renderIcons() {
-    if (!this.props.social) {
-      return
-    }
-
-    const margin = this.props.isSmallScreen ? '0 0 5px 0' : '0 95px 35px 0'
-    const align = this.props.isSmallScreen ? 'center' : 'flex-end'
-    const { social } = this.props
-    return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'flex-end',
-          alignSelf: align,
-          margin
-        }}
-      >
-        {Object.keys(social).map(key => {
-          return this.renderIcon(social[key], key)
-        })}
-      </div>
-    )
-  }
-
-  renderIcon(props, key) {
-    const size = this.props.isSmallScreen ? 20 : 28
-
-    return (
-      <div>
-        <Icon
-          type={key}
-          onClick={this.onLinkClick.bind(this, props.url)}
-          className="icon"
-          style={{
-            cursor: 'pointer',
-            fontSize: size,
-            padding: '10px'
-          }}
-        />
-      </div>
-    )
-  }
-
   onLinkClick(url) {
     window.open(url, '_blank')
   }
