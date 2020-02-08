@@ -67,12 +67,11 @@ export default class DrawerComponent extends PureComponent {
 
   componentDidMount() {
     const { theme = {} } = this.props
-
     Data.Cache.retrieveCachedItem('selectedLanguage')
       .then(lang => {
         this.setState({ selectedLanguage: lang })
       })
-      .catch(() => {
+      .catch((e) => {
         return
       })
     fetch(theme.translatedStrings || 'en')
@@ -87,13 +86,6 @@ export default class DrawerComponent extends PureComponent {
     Data.Cache.cacheItem('selectedLanguage', language).then(() => {
       window.location.reload()
     })
-  }
-
-  renderDrawerMenu () {
-    var index = 0
-    return this.props.menu.map(item => (<ListItem key={`menuItem${index++}`}>
-      <ListItemText>{ item.title }</ListItemText>
-    </ListItem>))
   }
 
   /**

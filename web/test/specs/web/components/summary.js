@@ -7,9 +7,10 @@ import { Summary } from '../../../../src/components'
 savor
 
 .add('should handle component lifecycle', (context, done) => {
-  const props = { id: "test", option: { file: "test" }}
+  const props = { id: "test", animation: "test" }
   const container = context.shallow(<Summary {...props}/>)
-
+  const screen = container.instance()
+  
   // And, we're looking good
   done()
 })
