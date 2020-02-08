@@ -26,6 +26,50 @@ export default class App extends PureComponent {
 
   componentDidMount() {
     this.checkAuth()
+    this.preload()
+  }
+
+  preload() {
+    const ele = document.getElementById('ipl-progress-indicator')
+    if (ele) {
+      // fade out
+      ele.classList.add('available')
+      setTimeout(() => {
+        // remove from DOM
+        ele.outerHTML = ''
+      }, 2000)
+    }
+
+    const { additionalScripts } = this.props
+
+    if (!additionalScripts) {
+      return 
+    }
+
+    for (let i = 0; i < additionalScripts.length; i++) {
+      let {
+        rel,
+        href,
+        integrity,
+        crossOrigin,
+        type,
+        src
+      } = additionalScripts[i]
+      if (type === 'style') {
+        let link = document.createElement('link')
+        link.rel = rel
+        link.href = href
+        link.integrity = integrity
+        link.crossOrigin = crossOrigin
+        document.head.appendChild(link)
+      }
+      if (type === 'text/javascript') {
+        let script = document.createElement('script')
+        script.src = src
+        script.type = type
+        document.body.appendChild(script)
+      }
+    }
   }
 
   checkAuth() {
@@ -372,8 +416,8 @@ export default class App extends PureComponent {
   }
 
   renderRoutes() {
-    const dynamicRoutes = this.routes.filter(r => r && r.key.split("/").includes(":variant"))
-    const staticRoutes = this.routes.filter(r => r && !r.key.split("/").includes(":variant"))
+    const dynamicRoutes = this.routes.filter(r => r.key.split("/").includes(":variant"))
+    const staticRoutes = this.routes.filter(r => !r.key.split("/").includes(":variant"))
 
     return staticRoutes.concat(dynamicRoutes)
   }

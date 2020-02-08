@@ -85,6 +85,53 @@ function (_PureComponent) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.checkAuth();
+      this.preload();
+    }
+  }, {
+    key: "preload",
+    value: function preload() {
+      var ele = document.getElementById('ipl-progress-indicator');
+
+      if (ele) {
+        // fade out
+        ele.classList.add('available');
+        setTimeout(function () {
+          // remove from DOM
+          ele.outerHTML = '';
+        }, 2000);
+      }
+
+      var additionalScripts = this.props.additionalScripts;
+
+      if (!additionalScripts) {
+        return;
+      }
+
+      for (var i = 0; i < additionalScripts.length; i++) {
+        var _additionalScripts$i = additionalScripts[i],
+            rel = _additionalScripts$i.rel,
+            href = _additionalScripts$i.href,
+            integrity = _additionalScripts$i.integrity,
+            crossOrigin = _additionalScripts$i.crossOrigin,
+            type = _additionalScripts$i.type,
+            src = _additionalScripts$i.src;
+
+        if (type === 'style') {
+          var link = document.createElement('link');
+          link.rel = rel;
+          link.href = href;
+          link.integrity = integrity;
+          link.crossOrigin = crossOrigin;
+          document.head.appendChild(link);
+        }
+
+        if (type === 'text/javascript') {
+          var script = document.createElement('script');
+          script.src = src;
+          script.type = type;
+          document.body.appendChild(script);
+        }
+      }
     }
   }, {
     key: "checkAuth",
@@ -405,10 +452,10 @@ function (_PureComponent) {
     key: "renderRoutes",
     value: function renderRoutes() {
       var dynamicRoutes = this.routes.filter(function (r) {
-        return r && r.key.split("/").includes(":variant");
+        return r.key.split("/").includes(":variant");
       });
       var staticRoutes = this.routes.filter(function (r) {
-        return r && !r.key.split("/").includes(":variant");
+        return !r.key.split("/").includes(":variant");
       });
       return staticRoutes.concat(dynamicRoutes);
     }
