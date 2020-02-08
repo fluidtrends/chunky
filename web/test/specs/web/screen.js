@@ -257,7 +257,11 @@ savor
 const _props = {
   location: { pathname: "/" },
   path: "/auth",
-  sections: [{}, {}], 
+  sections: [{
+    path: "/"
+  }, {
+    path: "/auth"
+  }], 
   skipRootVariant: true,
   history: {
     listen: () => ({})
