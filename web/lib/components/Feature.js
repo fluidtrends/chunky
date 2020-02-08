@@ -73,12 +73,10 @@ function (_Component) {
       _get(_getPrototypeOf(Feature.prototype), "componentDidMount", this).call(this);
 
       window.addEventListener('scroll', this.handleScrollToElement, true);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      window.removeEventListener('scroll', this.handleScrollToElement, true);
-    }
+    } // componentWillUnmount() {
+    //   window.removeEventListener('scroll', this.handleScrollToElement, true)
+    // }
+
   }, {
     key: "handleScrollToElement",
     value: function handleScrollToElement() {

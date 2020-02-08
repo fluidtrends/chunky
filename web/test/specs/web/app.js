@@ -6,6 +6,8 @@ import { App } from '../../../src'
 import { Data, Core, Errors } from 'react-chunky'
 import appConfig from '../../assets/chunky'
 import { JSDOM } from 'jsdom'
+import { Redirect } from 'react-router/cjs/react-router'
+import { Container } from 'react-chunky/lib/core'
 
 savor
 
@@ -57,21 +59,29 @@ savor
   done()
 })
 
-.add('should login', (context, done) => {
-  const stub = context.stub(global.storage, 'getItem').callsFake(((key, callback) => callback(null, { username: "chunky" })))
+.add('should handle events', (context, done) => {
+  global.firebase = { auth: () => ({ 
+    currentUser: { uid: "test", emailVerified: true },
+    signOut: () => ({})
+  }) }
+  const container = context.shallow(<App {...appConfig}/>)
+  const app = container.instance()
 
-  context.spy(App.prototype, 'componentDidMount')
-  context.spy(App.prototype, 'render')
+  app.userLoggedIn({ username: "test" })
+  app.userLogout()
 
+  // And, we're looking good
+  done()
+})
+
+.add('should handle transitions', (context, done) => {
   const container = context.mount(<Core.AppContainer {...appConfig}>
-    <App {...appConfig} />
+    <App {...appConfig} transitions={["auth"]} />
   </Core.AppContainer>)
 
   // And, we're looking good
-  App.prototype.componentDidMount.restore()
-  App.prototype.render.restore()
-  stub.restore()
   done()
 })
+
 
 .run('[Web] App Rendering')

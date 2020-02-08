@@ -223,7 +223,7 @@ export default class WebScreen extends Core.Screen {
         return
       }
 
-      if (!this.props.variants || !Array.isArray(this.props.variants) || this.props.variants.length === 0) {
+      if (!this.props.variants || (Array.isArray(this.props.variants) && this.props.variants.length === 0)) {
         resolve([])
         return
       }
@@ -600,12 +600,6 @@ export default class WebScreen extends Core.Screen {
 
   renderStopError (e) {
     return <div />
-  }
-
-  renderLoading () {
-    return <div style={{ }}>
-      <DefaultComponents.Loading message={this.state.loadingMessage || 'Loading, just a sec please ...'} />
-    </div>
   }
 
   render () {

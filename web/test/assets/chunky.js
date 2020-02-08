@@ -8,7 +8,7 @@ export default {
   chunks,
   sections:  {
     start: {
-      stack: ["auth"]
+      stack: ["auth", "intro", "auth/main", "test"]
     }
   },
   theme: {
