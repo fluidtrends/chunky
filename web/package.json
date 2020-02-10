@@ -86,7 +86,7 @@
     "rc-slider": "^8.6.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.0",
-    "react-chunky": "^1.1.9",
+    "react-chunky": "^1.1.11",
     "react-countdown-now": "^1.3.0",
     "react-css-modules": "^4.7.1",
     "react-dom": "^16.12.0",
