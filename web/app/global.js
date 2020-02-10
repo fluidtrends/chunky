@@ -2,7 +2,6 @@ import React from 'react'
 import config from './config'
 import firebase from 'firebase'
 import firebaseConfig from 'web/firebase-config.json'
-import './main.css'
 
 const appId = `${config.id}-${config.name}-${config.domain || 'chunky.io'}`
 global.chunky = Object.assign({}, global.chunky, { config })
