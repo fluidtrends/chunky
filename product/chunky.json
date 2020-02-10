@@ -47,8 +47,7 @@
     "https://unpkg.com/react-placeholder@3.0.2/lib/reactPlaceholder.css",
     "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css",
     "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.7/antd.min.css",
-    "/assets/style.css"
+    "https://cdnjs.cloudflare.com/ajax/libs/antd/3.26.7/antd.min.css"
   ],
   "scripts": [
     "https://unpkg.com/react@16/umd/react.production.min.js",
