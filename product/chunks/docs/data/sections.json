@@ -2,13 +2,13 @@
   {
     "path": "intro",
     "title": "Introduction",
-    "text": "https://raw.githubusercontent.com/fluidtrends/chunky/master/docs/start/README.md",
+    "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/intro.md",
     "icon": "bulb"
   },
   {
-    "path": "start",
-    "title": "Get Started",
-    "text": "local://docs/start",
+    "path": "benefits",
+    "title": "Benefits",
+    "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/benefits.md",
     "icon": "forward"
   },
   {
