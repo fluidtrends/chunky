@@ -4,8 +4,7 @@ import Drawer from '../components/Drawer'
 import LargeFooter from '../components/Footer'
 import Navigation from '../components/Navigation'
 import { Layout, Menu, Icon } from 'antd'
-import styled, { css } from 'styled-components'
-import Theme from './Theme'
+import Styles from './Styles'
 
 const { Header, Content, Sider, Footer } = Layout
 
@@ -21,10 +20,11 @@ export default class DefaultLayout extends PureComponent {
     this._onMenuClose = this.onMenuClose.bind(this)
     this._onEvent = this.onEvent.bind(this)
     this._sidebarMenuSelected = this.sidebarMenuSelected.bind(this)
+    this._styles = Styles(this.props.theme)
   }
 
   get styles () {
-    return styles
+    return this._styles
   }
 
   get cover () {
@@ -152,7 +152,7 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderComponent (component, index) {
-    return (<div key={`component${index}`} style={this.styles.component}>
+    return (<div key={`component${index}`} style={this.styles.main.component}>
       {component}
     </div>)
   }
@@ -259,40 +259,14 @@ export default class DefaultLayout extends PureComponent {
   }
 
   render () {
-    const p = {
-      header: 50
-    }
-
-    const coreStyle = (_) => `
-      h1 {
-      font-weight: 300;
-      font-size: ${_.header}px;
-      text-align: center;
-   `
     return <div>
       {this.renderDrawer()}
-      <div style={this.styles.container} ref={c => { this.container = c }}>
+      <div style={this.styles.main.container} ref={c => { this.container = c }}>
         {this.renderNavigation()}
         {this.renderCover()}
         {this.renderPrimary()}       
       </div>
-      <style jsx>{` ${coreStyle(p)} `}</style>
+      <style jsx>{`${this.theme.root}`}</style>
     </div>
   }
 }
-
-const styles = {
-  container: {
-    backgroundColor: '#FFFFFF'
-  },
-  component: {
-    backgroundColor: '#FFFFFF',
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    color: '#455A64'
-  }
-}
-
