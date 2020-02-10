@@ -1,15 +1,21 @@
 [
   {
     "path": "intro",
-    "title": "Introduction",
+    "title": "Intro",
     "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/intro.md",
-    "icon": "bulb"
+    "icon": "smile"
   },
   {
     "path": "benefits",
     "title": "Benefits",
     "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/benefits.md",
-    "icon": "forward"
+    "icon": "star"
+  },
+  {
+    "path": "Quickstart",
+    "title": "Quickstart",
+    "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/start/quick.md",
+    "icon": "thunderbolt"
   },
   {
     "path": "components",
