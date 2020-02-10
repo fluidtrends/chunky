@@ -299,8 +299,9 @@ function (_PureComponent) {
           _this4.container = c;
         }
       }, this.renderNavigation(), this.renderCover(), this.renderPrimary()), _react["default"].createElement("style", {
-        jsx: true
-      }, "".concat(this.theme.root)));
+        jsx: true,
+        global: true
+      }, "\n        :root {\n          --mdc-theme-primary: red;\n          --mdc-theme-secondary: ".concat(this.theme.secondaryColor, ";\n        }     \n        h1 { font-size: ").concat(this.theme.titleTextSize, "px; }\n        h2 { font-size: ").concat(this.theme.subtitleTextSize, "px; }\n        h3 { font-size: ").concat(this.theme.summaryTextSize, "px; }\n        p { font-size: ").concat(this.theme.paragraphTextSize, "px; }      \n      ")));
     }
   }, {
     key: "styles",

@@ -260,13 +260,22 @@ export default class DefaultLayout extends PureComponent {
 
   render () {
     return <div>
-      {this.renderDrawer()}
+      { this.renderDrawer() }
       <div style={this.styles.main.container} ref={c => { this.container = c }}>
         {this.renderNavigation()}
         {this.renderCover()}
         {this.renderPrimary()}       
       </div>
-      <style jsx>{`${this.theme.root}`}</style>
+      <style jsx global>{`
+        :root {
+          --mdc-theme-primary: red;
+          --mdc-theme-secondary: ${this.theme.secondaryColor};
+        }     
+        h1 { font-size: ${this.theme.titleTextSize}px; }
+        h2 { font-size: ${this.theme.subtitleTextSize}px; }
+        h3 { font-size: ${this.theme.summaryTextSize}px; }
+        p { font-size: ${this.theme.paragraphTextSize}px; }      
+      `}</style>
     </div>
   }
 }
