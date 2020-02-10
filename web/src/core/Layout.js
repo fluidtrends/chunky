@@ -4,7 +4,8 @@ import Drawer from '../components/Drawer'
 import LargeFooter from '../components/Footer'
 import Navigation from '../components/Navigation'
 import { Layout, Menu, Icon } from 'antd'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import Theme from './Theme'
 
 const { Header, Content, Sider, Footer } = Layout
 
@@ -258,87 +259,27 @@ export default class DefaultLayout extends PureComponent {
   }
 
   render () {
-    const LayoutTheme = DefaultTheme(this.props.theme)
-    return (<LayoutTheme>
+    const p = {
+      header: 50
+    }
+
+    const coreStyle = (_) => `
+      h1 {
+      font-weight: 300;
+      font-size: ${_.header}px;
+      text-align: center;
+   `
+    return <div>
       {this.renderDrawer()}
       <div style={this.styles.container} ref={c => { this.container = c }}>
         {this.renderNavigation()}
         {this.renderCover()}
         {this.renderPrimary()}       
       </div>
-    </LayoutTheme>)
+      <style jsx>{` ${coreStyle(p)} `}</style>
+    </div>
   }
 }
-
-const DefaultTheme = (theme) => styled.section`
-  :root {
-    font-family: Roboto Condensed, sans-serif;
-  }
-  html {
-    font-weight: 300;
-    font-family: Roboto Condensed, sans-serif;
-    color: #ffffff;
-  }
-  pre {
-    background-color: #F5F5F5;
-    color: #455A64;
-    text-align: left;
-    padding: 20px;
-    width: 90%;
-  }
-  .text {
-    text-align: left;
-  }
-  a {
-    text-decoration: none;
-  }
-  h1 {
-    font-weight: 300;
-    font-size: 40px;
-    text-align: center;
-  }
-  h2 {
-    font-weight: 300;
-    font-size: 32px;
-    text-align: center;
-  }
-  h3 {
-    font-weight: 300;
-    font-size: 24px;
-    text-align: left;
-  }
-  p {
-    font-size: 20px;
-    text-align: justify;
-  }
-  code {
-    font-size: 14px;
-    background-color: #212121;
-    padding: 20px;
-    color: #00C853;
-    display: flex;
-    text-align: left;
-    flex: 1;
-  }
-  p.text {
-    font-size: 20px;
-    text-align: justify;
-  }
-  .transition-enter {
-    opacity: 0.01;
-  }
-  .transition-enter.transition-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-  }
-  .transition-exit {
-    opacity: 1;
-  }
-  .transition-exit.transition-exit-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
-  }
-`
 
 const styles = {
   container: {
@@ -354,3 +295,4 @@ const styles = {
     color: '#455A64'
   }
 }
+

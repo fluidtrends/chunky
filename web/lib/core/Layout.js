@@ -17,25 +17,15 @@ var _Navigation = _interopRequireDefault(require("../components/Navigation"));
 
 var _antd = require("antd");
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
+var _styledComponents = _interopRequireWildcard(require("styled-components"));
+
+var _Theme = _interopRequireDefault(require("./Theme"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  :root {\n    font-family: Roboto Condensed, sans-serif;\n  }\n  html {\n    font-weight: 300;\n    font-family: Roboto Condensed, sans-serif;\n    color: #ffffff;\n  }\n  pre {\n    background-color: #F5F5F5;\n    color: #455A64;\n    text-align: left;\n    padding: 20px;\n    width: 90%;\n  }\n  .text {\n    text-align: left;\n  }\n  a {\n    text-decoration: none;\n  }\n  h1 {\n    font-weight: 300;\n    font-size: 40px;\n    text-align: center;\n  }\n  h2 {\n    font-weight: 300;\n    font-size: 32px;\n    text-align: center;\n  }\n  h3 {\n    font-weight: 300;\n    font-size: 24px;\n    text-align: left;\n  }\n  p {\n    font-size: 20px;\n    text-align: justify;\n  }\n  code {\n    font-size: 14px;\n    background-color: #212121;\n    padding: 20px;\n    color: #00C853;\n    display: flex;\n    text-align: left;\n    flex: 1;\n  }\n  p.text {\n    font-size: 20px;\n    text-align: justify;\n  }\n  .transition-enter {\n    opacity: 0.01;\n  }\n  .transition-enter.transition-enter-active {\n    opacity: 1;\n    transition: opacity 500ms ease-in;\n  }\n  .transition-exit {\n    opacity: 1;\n  }\n  .transition-exit.transition-exit-active {\n    opacity: 0.01;\n    transition: opacity 300ms ease-in;\n  }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -304,13 +294,22 @@ function (_PureComponent) {
     value: function render() {
       var _this4 = this;
 
-      var LayoutTheme = DefaultTheme(this.props.theme);
-      return _react["default"].createElement(LayoutTheme, null, this.renderDrawer(), _react["default"].createElement("div", {
+      var p = {
+        header: 50
+      };
+
+      var coreStyle = function coreStyle(_) {
+        return "\n      h1 {\n      font-weight: 300;\n      font-size: ".concat(_.header, "px;\n      text-align: center;\n   ");
+      };
+
+      return _react["default"].createElement("div", null, this.renderDrawer(), _react["default"].createElement("div", {
         style: this.styles.container,
         ref: function ref(c) {
           _this4.container = c;
         }
-      }, this.renderNavigation(), this.renderCover(), this.renderPrimary()));
+      }, this.renderNavigation(), this.renderCover(), this.renderPrimary()), _react["default"].createElement("style", {
+        jsx: true
+      }, " ".concat(coreStyle(p), " ")));
     }
   }, {
     key: "styles",
@@ -380,11 +379,6 @@ function (_PureComponent) {
 }(_react.PureComponent);
 
 exports["default"] = DefaultLayout;
-
-var DefaultTheme = function DefaultTheme(theme) {
-  return _styledComponents["default"].section(_templateObject());
-};
-
 var styles = {
   container: {
     backgroundColor: '#FFFFFF'
