@@ -5,18 +5,6 @@
       "title": "Welcome",
       "icon": "home",
       "path": "/",
-      "extendedMenu": [
-        {
-          "id": "platform",
-          "title": "Platform",
-          "path": "/platform"
-        },
-        {
-          "id": "docs",
-          "title": "Docs",
-          "path": "/docs"
-        }
-      ],
       "cover": {
         "image": "castle.r.jpg",
         "opacity": 0.5,
@@ -124,47 +112,6 @@
         },
         "subtitle": "Manipulate remote data, run reports, package binaries and deploy product artifacts effortlessly from your terminal.",
         "type": "default"
-      }
-    },
-    "docs": {
-      "title": "Documentation",
-      "path": "/docs",
-      "variants": "sections",
-      "lightThemeBackgroundColor": "#fff",
-      "lightThemeTextColor": "#001528",
-      "darkThemeBackgroundColor": "#37474F",
-      "darkThemeTextColor": "#fff",
-      "buttonsBackgroundColor": "#1E88E5",
-      "buttonsTextColor": "#fff",
-      "selectionBackgroundColor": "#e6f7ff",
-      "cover": {
-        "image": "fullstack.png",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Chunky Documentation",
-        "type": "simple"
-      }
-    },
-    "textExample": {
-      "title": "Text Component Example",
-      "path": "/docs/example/text",
-      "variants": "examples",
-      "components": {
-        "text": {
-          "source": "text",
-          "textSource": "local://examples/components/text"
-        }
-      }
-    },
-    "coverExample": {
-      "title": "Cover Component Example",
-      "path": "/docs/example/cover",
-      "variants": "examples",
-      "components": {
-        "text": {
-          "source": "text",
-          "textSource": "local://examples/components/cover"
-        }
       }
     }
   }

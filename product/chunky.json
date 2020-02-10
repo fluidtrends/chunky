@@ -5,7 +5,7 @@
   "androidSdkDir": "~/Library/Android/sdk",
   "sections": {
     "start": {
-      "stack": ["intro"]
+      "stack": ["intro", "docs"]
     }
   },
   "transitions": ["replace://start"],

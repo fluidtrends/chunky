@@ -1,0 +1,33 @@
+[
+  {
+    "path": "intro",
+    "title": "Introduction",
+    "text": "https://raw.githubusercontent.com/fluidtrends/chunky/master/docs/start/README.md",
+    "icon": "bulb"
+  },
+  {
+    "path": "start",
+    "title": "Get Started",
+    "text": "local://docs/start",
+    "icon": "forward"
+  },
+  {
+    "path": "components",
+    "title": "Components",
+    "icon": "api",
+    "subSection": [
+      {
+        "path": "text",
+        "title": "Text",
+        "text": "local://docs/components/text",
+        "icon": "file-text"
+      },
+      {
+        "path": "cover",
+        "title": "Cover",
+        "text": "local://docs/components/cover",
+        "icon": "picture"
+      }
+    ]
+  }
+]

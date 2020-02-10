@@ -1,0 +1,18 @@
+{
+  "name": "docs",
+  "routes": {
+    "main": {
+      "icon": "home",
+      "title": "Documentation",
+      "path": "/docs",
+      "variants": "sections",
+      "lightThemeBackgroundColor": "#fff",
+      "lightThemeTextColor": "#001528",
+      "darkThemeBackgroundColor": "#37474F",
+      "darkThemeTextColor": "#fff",
+      "buttonsBackgroundColor": "#1E88E5",
+      "buttonsTextColor": "#fff",
+      "selectionBackgroundColor": "#e6f7ff"
+    }
+  }
+}
