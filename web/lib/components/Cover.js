@@ -271,7 +271,6 @@ function (_Component) {
       return _react["default"].createElement(_button.Button, {
         onClick: this.triggerAction.bind(this),
         raised: true,
-        theme: ["secondaryBg", "textPrimaryOnSecondary"],
         style: {
           margin: '20px',
           color: this.props.theme.mainActionTextColor || '#fff'

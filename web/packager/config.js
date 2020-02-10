@@ -140,12 +140,11 @@ module.exports = (options) => {
             loader: 'babel-loader',
             options: {
               presets: [
-                [path.resolve(root, 'node_modules', 'babel-preset-env'), {
+                [path.resolve(root, 'node_modules', '@babel/preset-env'), {
                   loose: true,
                   modules: false
                 }],
-                path.resolve(root, 'node_modules', 'babel-preset-react'),
-                path.resolve(root, 'node_modules', 'babel-preset-stage-2')
+                path.resolve(root, 'node_modules', '@babel/preset-react')
               ],
               plugins: [
                 require.resolve('styled-jsx/babel')

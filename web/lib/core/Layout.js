@@ -17,9 +17,7 @@ var _Navigation = _interopRequireDefault(require("../components/Navigation"));
 
 var _antd = require("antd");
 
-var _styledComponents = _interopRequireWildcard(require("styled-components"));
-
-var _Theme = _interopRequireDefault(require("./Theme"));
+var _Styles = _interopRequireDefault(require("./Styles"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -75,6 +73,7 @@ function (_PureComponent) {
     _this._onMenuClose = _this.onMenuClose.bind(_assertThisInitialized(_this));
     _this._onEvent = _this.onEvent.bind(_assertThisInitialized(_this));
     _this._sidebarMenuSelected = _this.sidebarMenuSelected.bind(_assertThisInitialized(_this));
+    _this._styles = (0, _Styles["default"])(_this.props.theme);
     return _this;
   }
 
@@ -177,7 +176,7 @@ function (_PureComponent) {
     value: function renderComponent(component, index) {
       return _react["default"].createElement("div", {
         key: "component".concat(index),
-        style: this.styles.component
+        style: this.styles.main.component
       }, component);
     }
   }, {
@@ -294,27 +293,19 @@ function (_PureComponent) {
     value: function render() {
       var _this4 = this;
 
-      var p = {
-        header: 50
-      };
-
-      var coreStyle = function coreStyle(_) {
-        return "\n      h1 {\n      font-weight: 300;\n      font-size: ".concat(_.header, "px;\n      text-align: center;\n   ");
-      };
-
       return _react["default"].createElement("div", null, this.renderDrawer(), _react["default"].createElement("div", {
-        style: this.styles.container,
+        style: this.styles.main.container,
         ref: function ref(c) {
           _this4.container = c;
         }
       }, this.renderNavigation(), this.renderCover(), this.renderPrimary()), _react["default"].createElement("style", {
         jsx: true
-      }, " ".concat(coreStyle(p), " ")));
+      }, "".concat(this.theme.root)));
     }
   }, {
     key: "styles",
     get: function get() {
-      return styles;
+      return this._styles;
     }
   }, {
     key: "cover",
@@ -379,17 +370,3 @@ function (_PureComponent) {
 }(_react.PureComponent);
 
 exports["default"] = DefaultLayout;
-var styles = {
-  container: {
-    backgroundColor: '#FFFFFF'
-  },
-  component: {
-    backgroundColor: '#FFFFFF',
-    display: 'flex',
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    color: '#455A64'
-  }
-};
