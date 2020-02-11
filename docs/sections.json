@@ -2,7 +2,7 @@
     {
       "path": "intro",
       "title": "Hello",
-      "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/intro.md",
+      "text": "github://idancali/chunky/master/docs/intro",
       "icon": "smile"
     },
     {

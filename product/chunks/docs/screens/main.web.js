@@ -1,6 +1,6 @@
 import React from 'react'
 import { Screen, Components } from 'react-dom-chunky'
-import Dashboard from '../components/Dashboard'
+import Section from '../components/Section'
 
 export default class DocsScreen extends Screen {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class DocsScreen extends Screen {
       selectionBackgroundColor
     } = this.props
     return [
-      <Dashboard
+      <Section
         lightThemeBackgroundColor={lightThemeBackgroundColor}
         lightThemeTextColor={lightThemeTextColor}
         buttonsBackgroundColor={buttonsBackgroundColor}

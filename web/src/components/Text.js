@@ -35,7 +35,6 @@ export default class Text extends Component {
     const ref = new URL(source)
     const type = ref.protocol.slice(0, -1).toLowerCase()
     const fullPath = `${ref.hostname}${ref.pathname ? ref.pathname : ''}`
-
     switch (type) {
       case 'local':
         return `${

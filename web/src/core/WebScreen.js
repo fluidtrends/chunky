@@ -235,6 +235,12 @@ export default class WebScreen extends Core.Screen {
         return
       }
 
+      if (
+        this.props.variants.split('github://').length > 1) {
+        fetch(`https://raw.githubusercontent.com/${this.props.variants.substring(9)}`).then(response => resolve(response.json()))
+        return
+      }
+
       const data = this.importData(`${this.props.variants}${this.props.desktop ? '.desktop' : ''}`)
 
       if (!data || !Array.isArray(data) || data.length === 0) {
