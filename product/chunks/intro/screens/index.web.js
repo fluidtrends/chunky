@@ -1,6 +1,1 @@
 export { default as main } from './main.web'
-export { default as platform } from './platform.web'
-export { default as webPlatform } from './webPlatform.web'
-export { default as mobilePlatform } from './mobilePlatform.web'
-export { default as cloudPlatform } from './cloudPlatform.web'
-export { default as devopsPlatform } from './devopsPlatform.web'
