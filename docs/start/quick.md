@@ -17,7 +17,8 @@ npm i -g chunky-cli
 
 Great stuff! Now you should be able to type 
 
-```chunky help
+```console
+chunky help
 ``` 
 
 and you should see a beautifully detailed list of instructions.
