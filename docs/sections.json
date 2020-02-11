@@ -12,7 +12,7 @@
       "icon": "star"
     },
     {
-      "path": "Quickstart",
+      "path": "start",
       "title": "Quickstart",
       "text": "github://idancali/chunky/master/docs/start/quick",
       "icon": "thunderbolt"
