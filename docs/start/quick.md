@@ -15,7 +15,12 @@ Once you have Node.js 8 installed, you're ready to get the Chunky CLI on your ma
 npm i -g chunky-cli
 ```
 
-Great stuff! Now you should be able to type ```chunky help``` and you should see a beautifully detailed list of instructions.
+Great stuff! Now you should be able to type 
+
+```chunky help
+``` 
+
+and you should see a beautifully detailed list of instructions.
 
 ### STEP 2
 
