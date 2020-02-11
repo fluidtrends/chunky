@@ -2,7 +2,6 @@
     {
       "path": "intro",
       "title": "Hello",
-      "header": "Meet Chunky",
       "text": "github://idancali/chunky/master/docs/intro",
       "icon": "https://raw.githubusercontent.com/idancali/chunky/master/logo.gif"
     },
