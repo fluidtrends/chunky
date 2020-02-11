@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Menu, Icon, Button, Switch } from 'antd'
 import { Layout } from 'antd'
 import { Utils, Components } from 'react-dom-chunky'
+import { Fab } from '@rmwc/fab'
 
 const SubMenu = Menu.SubMenu
 
@@ -14,6 +15,8 @@ export default class Section extends PureComponent {
       counter: 0,
       selectedSection: null
     }
+    this._next = this.onNext.bind(this)
+    this._back = this.onPrev.bind(this)
   }
 
   onSectionSelect = section => {
@@ -21,12 +24,43 @@ export default class Section extends PureComponent {
     this.props.onSectionSelect && this.props.onSectionSelect(section)
   }
 
-  renderContentComponent() {
-    return this.props.renderContent ? this.props.renderContent() : this.renderText()
+  onNext() {
+    const section = this.nextSection
+    section && this.onSectionSelect(section)
   }
 
-  renderContentHeader() {
-    return this.props.renderContentHeader ? this.props.renderContentHeader() : this.renderHeader()
+  onPrev() {
+    const section = this.prevSection
+    section && this.onSectionSelect(section)
+  }
+
+  get selectedSectionIndex() {
+    var index = 0
+    var found = false
+
+    this.props.sections.map(s => {
+      if (s.path === this.selectedSection.path) {
+        found = true
+        return
+      }
+      found || index++
+    })
+
+    return (found ? index : -1)
+  }
+
+  get nextSection() {
+    const index = this.selectedSectionIndex 
+    const nextIndex = ((index < this.props.sections.length) ? index + 1 : -1)
+
+    return (nextIndex > -1 ? this.props.sections[nextIndex] : false)
+  }
+
+  get prevSection() {
+    const index = this.selectedSectionIndex
+    const prevIndex = ((index > 0) ? index - 1  : -1)
+
+    return (prevIndex > -1 ? this.props.sections[prevIndex] : false)
   }
 
   renderIcon(item) {
@@ -56,7 +90,7 @@ export default class Section extends PureComponent {
     }} type={this.props.section.icon} />
   }
   
-  renderHeader() {
+  renderContentHeader() {
     return <div style={{ 
             flex: 1, display: "flex", 
             flexDirection: "column", 
@@ -68,29 +102,55 @@ export default class Section extends PureComponent {
     </div>
   }
 
-  renderText() {
-    const {
-      lightThemeBackgroundColor,
-      lightThemeTextColor
-    } = this.props
+  renderContentFooter() {
+    const next = this.nextSection
+    const prev = this.prevSection
+
+    return <div style={{ 
+            flex: 1, 
+            display: "flex", 
+            flexDirection: "row", 
+            color: this.props.theme.primaryColor, 
+            justifyContent: "center", 
+            boxShadow: "0px -2px 3px rgba(0.2,0.2,0.2,0.2)",
+            padding: "40px",
+            marginTop: "5px",
+            backgroundColor: "#ECEFF1",
+            alignItems: "flex-end" }}>
+
+          { prev ? <span style={{ fontSize: "20px", color: "#B0BEC5" }}>
+              <Fab style={{ margin: "10px", backgroundColor: "#E0E0E0" }} icon="arrow_back" onClick={this._back}/>
+              <span> Go back </span>
+            </span> : <div/> }
+
+          <div style={{ flex: 1 }}/>
+
+          { next ? <span style={{ fontSize: "20px" }}>
+            <span> Next: { next.title } </span>
+            <Fab style={{ margin: "10px" }} icon="arrow_forward" theme={['primaryBg', 'onPrimary']} onClick={this._next}/>
+          </span> : <div/> }
+    </div>
+  }
+
+  renderContentComponent() {
     return Utils.renderResponsive(
       'text',
       <Components.Text
-        source={this.props.section.text}
+        source={this.selectedSection.text}
         style={{
           paddingBottom: '60px',
           maxWidth: '',
-          backgroundColor: lightThemeBackgroundColor,
-          color: lightThemeTextColor
+          backgroundColor: this.props.lightThemeBackgroundColor,
+          color: this.props.lightThemeTextColor
         }}
       />,
       <Components.Text
-        source={this.props.section.text}
+        source={this.selectedSection.text}
         style={{
           paddingBottom: '60px',
           maxWidth: '',
-          backgroundColor: lightThemeBackgroundColor,
-          color: lightThemeTextColor
+          backgroundColor: this.props.lightThemeBackgroundColor,
+          color: this.props.lightThemeTextColor
         }}
       />
     )
@@ -143,54 +203,45 @@ export default class Section extends PureComponent {
     )
   }
 
+  renderSideMenu() {
+    return <Layout.Sider
+        trigger={null}
+        collapsible
+        collapsed={this.state.collapsed}
+        style={{
+          backgroundColor: this.props.lightThemeBackgroundColor
+        }}>
+        <Menu
+          defaultSelectedKeys={[this.selectedSection.path]}
+          mode="inline"
+          style={{
+            backgroundColor: this.props.lightThemeBackgroundColor
+          }}>
+          { this.props.sections.map((item) =>
+            this.renderMenuItem(item, this.selectedSection)
+          )}
+        </Menu>
+      </Layout.Sider>
+  }
+
   render() {
-    const {
-      sections,
-      section,
-      lightThemeBackgroundColor,
-      buttonsBackgroundColor,
-      lightThemeTextColor,
-      buttonsTextColor
-    } = this.props
-    const { Sider, Content } = Layout
-    
-    return (
-      <div >
+    return <div style={{
+      }}>
         <Layout>
-          <Sider
-            trigger={null}
-            collapsible
-            collapsed={this.state.collapsed}
-            style={{
-              backgroundColor: lightThemeBackgroundColor
-            }}
-          >
-            <Menu
-              defaultSelectedKeys={[this.props.section.path]}
-              mode="inline"
-              style={{
-                backgroundColor: lightThemeBackgroundColor
-              }}
-            >
-              {sections.map((item) =>
-                this.renderMenuItem(item, this.selectedSection)
-              )}
-            </Menu>
-          </Sider>
-          {section && (
+          { this.renderSideMenu()}
+          { this.selectedSection && (
             <Layout>
-              <Content
+              <Layout.Content
                 style={{
-                  backgroundColor: lightThemeBackgroundColor
-                }}
-              >
+                  backgroundColor: this.props.lightThemeBackgroundColor
+                }}>
                 { this.renderContentHeader() }
                 { this.renderContentComponent() }
-              </Content>
+              </Layout.Content>
             </Layout>
           )}
         </Layout>
-      </div>
-    )
+        { this.renderContentFooter() }
+    </div>
   }
 }
