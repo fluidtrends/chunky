@@ -1,4 +1,3 @@
-# The Chunky Advantage
 ## 12 Reasons To Absolutely ❤️Chunky
 
 #### ⭐1. Product Oriented 

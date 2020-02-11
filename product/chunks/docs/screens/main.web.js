@@ -36,6 +36,7 @@ export default class DocsScreen extends Screen {
         lightThemeTextColor={lightThemeTextColor}
         buttonsBackgroundColor={buttonsBackgroundColor}
         buttonsTextColor={buttonsTextColor}
+        theme={this.props.theme}
         selectionBackgroundColor={selectionBackgroundColor}
         sections={this.variants}
         section={this.selectedSection}

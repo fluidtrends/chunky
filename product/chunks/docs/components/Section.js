@@ -25,6 +25,23 @@ export default class Section extends PureComponent {
     return this.props.renderContent ? this.props.renderContent() : this.renderText()
   }
 
+  renderContentHeader() {
+    return this.props.renderContentHeader ? this.props.renderContentHeader() : this.renderHeader()
+  }
+  
+  renderHeader() {
+    console.log(this.props.section)
+    return <div style={{ 
+            color: this.props.theme.primaryColor, 
+            flex: 1, display: "flex", 
+            flexDirection: "column", 
+            justifyContent: "center", 
+            alignContent: "center" }}>
+        { this.props.section.icon ? <Icon style={{ fontSize: "80px" }} type={this.props.section.icon} />: <div/> }
+        { this.props.section.title ? <h1> {this.props.section.title} </h1> : <div/> }
+    </div>
+  }
+
   renderText() {
     const {
       lightThemeBackgroundColor,
@@ -141,7 +158,8 @@ export default class Section extends PureComponent {
                   backgroundColor: lightThemeBackgroundColor
                 }}
               >
-                {this.renderContentComponent()}
+                { this.renderContentHeader() }
+                { this.renderContentComponent() }
               </Content>
             </Layout>
           )}
