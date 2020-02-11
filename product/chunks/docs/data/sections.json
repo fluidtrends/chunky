@@ -18,9 +18,9 @@
     "icon": "thunderbolt"
   },
   {
-    "path": "components",
-    "title": "Components",
-    "icon": "api",
+    "path": "web",
+    "title": "Guide",
+    "icon": "book",
     "subSection": [
       {
         "path": "text",
@@ -29,10 +29,17 @@
         "icon": "file-text"
       },
       {
-        "path": "cover",
-        "title": "Cover",
-        "text": "local://docs/components/cover",
-        "icon": "picture"
+        "path": "components",
+        "title": "Components",
+        "icon": "build",
+        "subSection": [
+          {
+            "path": "text",
+            "title": "Text",
+            "text": "local://docs/components/text",
+            "icon": "file-text"
+          }
+        ]
       }
     ]
   }

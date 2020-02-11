@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _style = _interopRequireDefault(require("styled-jsx/style"));
+
 var _react = _interopRequireWildcard(require("react"));
 
 var _Cover = _interopRequireDefault(require("../components/Cover"));
@@ -19,11 +21,11 @@ var _antd = require("antd");
 
 var _Styles = _interopRequireDefault(require("./Styles"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -249,14 +251,20 @@ function (_PureComponent) {
   }, {
     key: "renderWithoutSidebar",
     value: function renderWithoutSidebar() {
-      return _react["default"].createElement(_antd.Layout, null, _react["default"].createElement(Content, {
+      return _react["default"].createElement(_antd.Layout, {
         style: {
-          margin: '0'
+          margin: 0,
+          padding: 0
+        }
+      }, _react["default"].createElement("div", {
+        style: {
+          margin: 0,
+          padding: 0
         }
       }, _react["default"].createElement("div", {
         style: {
           padding: 0,
-          background: '#ffffff',
+          margin: 0,
           minHeight: 360
         }
       }, this.renderComponents())), this.renderFooter());
@@ -268,15 +276,9 @@ function (_PureComponent) {
 
       var components = this.props.children || [];
       var index = 0;
-      var marginTop;
+      var marginTop = !this.props.forceNavigation && this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
 
-      if (this.props.forceNavigation) {
-        marginTop = 0;
-      } else {
-        marginTop = this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0;
-      }
-
-      if (this.props.desktop) {
+      if (this.props.desktop || !this.hasCover) {
         marginTop = 0;
       }
 
@@ -293,15 +295,17 @@ function (_PureComponent) {
     value: function render() {
       var _this4 = this;
 
-      return _react["default"].createElement("div", null, this.renderDrawer(), _react["default"].createElement("div", {
+      return _react["default"].createElement("div", {
+        className: "jsx-3876408960"
+      }, this.renderDrawer(), _react["default"].createElement("div", {
         style: this.styles.main.container,
         ref: function ref(c) {
           _this4.container = c;
-        }
-      }, this.renderNavigation(), this.renderCover(), this.renderPrimary()), _react["default"].createElement("style", {
-        jsx: true,
-        global: true
-      }, "\n        :root {\n          --mdc-theme-primary: red;\n          --mdc-theme-secondary: ".concat(this.theme.secondaryColor, ";\n        }     \n        h1 { font-size: ").concat(this.theme.titleTextSize, "px; }\n        h2 { font-size: ").concat(this.theme.subtitleTextSize, "px; }\n        h3 { font-size: ").concat(this.theme.summaryTextSize, "px; }\n        p { font-size: ").concat(this.theme.paragraphTextSize, "px; }      \n      ")));
+        },
+        className: "jsx-3876408960"
+      }, this.renderNavigation(), this.renderCover(), this.renderPrimary()), _react["default"].createElement(_style["default"], {
+        id: "3876408960"
+      }, ":root{--mdc-theme-primary:".concat(this.theme.primaryColor, ";--mdc-theme-secondary:").concat(this.theme.secondaryColor, ";}h1{font-size:").concat(this.theme.titleTextSize, "px;}h2{font-size:").concat(this.theme.subtitleTextSize, "px;}h3{font-weight:700;font-size:").concat(this.theme.headingTextSize, "px;}h4{font-weight:700;font-size:").concat(this.theme.subheadingTextSize, "px;}p{font-size:").concat(this.theme.paragraphTextSize, "px;}")));
     }
   }, {
     key: "styles",
@@ -330,7 +334,7 @@ function (_PureComponent) {
         return this.navigationHeight;
       }
 
-      return -this.navigationHeight;
+      return this.hasCover ? -this.navigationHeight : 0;
     }
   }, {
     key: "navigationUncover",

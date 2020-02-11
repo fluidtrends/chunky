@@ -1,4 +1,5 @@
-# Quick Start Guide
+# Quickstart
+## Your First Product In 5 Minutes Or Less
 
 #### Prerequisites
 

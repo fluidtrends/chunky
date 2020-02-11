@@ -228,9 +228,9 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderWithoutSidebar () {
-    return <Layout style={{ margin: 0, padding: 0, backgroundColor: "#ffff00"}}>
-      <div style={{ margin: 0, padding: 0, backgroundColor: "#ff0000"}}>
-        <div style={{ padding: 0, background: '#00ff00', margin: 0, minHeight: 360 }}>
+    return <Layout style={{ margin: 0, padding: 0 }}>
+      <div style={{ margin: 0, padding: 0 }}>
+        <div style={{ padding: 0, margin: 0, minHeight: 360 }}>
           {this.renderComponents()}
         </div>
       </div>
@@ -264,12 +264,13 @@ export default class DefaultLayout extends PureComponent {
       </div>
       <style jsx global>{`
         :root {
-          --mdc-theme-primary: red;
+          --mdc-theme-primary: ${this.theme.primaryColor};
           --mdc-theme-secondary: ${this.theme.secondaryColor};
         }     
         h1 { font-size: ${this.theme.titleTextSize}px; }
         h2 { font-size: ${this.theme.subtitleTextSize}px; }
-        h3 { font-size: ${this.theme.summaryTextSize}px; }
+        h3 { font-weight: 700; font-size: ${this.theme.headingTextSize}px; }
+        h4 { font-weight: 700; font-size: ${this.theme.subheadingTextSize}px; }
         p { font-size: ${this.theme.paragraphTextSize}px; }      
       `}</style>
     </div>
