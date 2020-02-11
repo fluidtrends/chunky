@@ -252,6 +252,13 @@ function (_Core$Screen) {
           return;
         }
 
+        if (_this2.props.variants.split('github://').length > 1) {
+          fetch("https://raw.githubusercontent.com/".concat(_this2.props.variants.substring(9))).then(function (response) {
+            return resolve(response.json());
+          });
+          return;
+        }
+
         var data = _this2.importData("".concat(_this2.props.variants).concat(_this2.props.desktop ? '.desktop' : ''));
 
         if (!data || !Array.isArray(data) || data.length === 0) {
@@ -798,6 +805,7 @@ function (_Core$Screen) {
         cache: this.cache,
         onEvent: this._onEvent,
         width: this.state.width,
+        theme: this.props.theme,
         importRemoteData: this.importRemoteData,
         height: this.state.height,
         isSmallScreen: this.isSmallScreen,

@@ -29,17 +29,17 @@ export default class Section extends PureComponent {
     return this.props.renderContentHeader ? this.props.renderContentHeader() : this.renderHeader()
   }
 
-  renderIcon() {
-    if (this.props.section.icon.split("http").length > 1) {
+  renderIcon(item) {
+    if (item.icon.split("http").length > 1) {
       return <img style={{
-          width: '32px',
-          marginTop: '-20px',
-          marginBottom: '-20px'
-        }} src={this.props.section.icon} />
+          width: '20px',
+          marginRight: "5px"
+        }} src={item.icon} />
     }
 
-    return <Icon style={{             
-    }} type={this.props.section.icon} />
+    return <Icon style={{    
+      color: this.props.theme.primaryColor         
+    }} type={item.icon} />
   }
 
   renderHeaderIcon() {
@@ -64,7 +64,7 @@ export default class Section extends PureComponent {
             justifyContent: "center", 
             alignItems: "center" }}>
         { this.props.section.icon ? this.renderHeaderIcon() : <div/> }
-        { this.props.section.header && !this.props.section.skipHeader ? <h1> {this.props.section.header} </h1> : <div/> }
+        { this.props.section.header ? <h1> {this.props.section.header} </h1> : <div/> }
     </div>
   }
 
@@ -136,7 +136,7 @@ export default class Section extends PureComponent {
           style= {{
             color: lightThemeTextColor
           }} >
-          {item.icon ? <Icon type={item.icon} /> : null}
+          {item.icon ? this.renderIcon(item) : null}
           <span>{item.title}</span>
         </div>
       </Menu.Item>

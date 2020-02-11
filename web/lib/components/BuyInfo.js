@@ -76,14 +76,15 @@ function (_Component) {
           width: "90vw",
           padding: '10px',
           color: '#455A64',
-          paddingBottom: '60px'
+          paddingBottom: '30px'
         }
       }), _react["default"].createElement(_Text["default"], {
         source: this.props.text,
         style: {
           width: "70vw",
           color: '#455A64',
-          paddingBottom: '60px'
+          padding: '10px',
+          paddingBottom: '30px'
         }
       }));
     }
@@ -92,14 +93,11 @@ function (_Component) {
     value: function renderButton() {
       var _this2 = this;
 
-      var _this$props$component = this.props.components.getAccess,
-          path = _this$props$component.path,
-          link = _this$props$component.link;
       return _react["default"].createElement(_antd.Button, {
-        href: path ? path : link,
+        href: this.props.link,
         type: "primary",
         style: {
-          backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor,
+          backgroundColor: this.state.hovered ? this.props.theme.hoverColor : this.props.theme.secondaryColor,
           border: 0,
           marginBottom: '30px',
           padding: '2px 15px'
@@ -131,8 +129,10 @@ function (_Component) {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          margin: '100px 15px',
-          backgroundColor: '#FBFBFB'
+          margin: 0,
+          paddingTop: "30px",
+          paddingBottom: "10px",
+          backgroundColor: this.props.backgroundColor
         }
       }, this.renderText(), this.renderButton());
     }

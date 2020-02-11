@@ -21,97 +21,14 @@
           "text": "local://intro",
           "image": "logo.gif",
           "textColor": "#37474F"
+        },
+        "info": {
+          "source": "buy",
+          "text": "local://description",
+          "action": "Learn More",
+          "backgroundColor": "#DCEDC8",
+          "link": "/docs"
         }
-      }
-    },
-    "platform": {
-      "title": "Platform",
-      "path": "/platform",
-      "cover": {
-        "image": "fullstack.png",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Chunky is offering you the opportunity to implement products on multiple platforms",
-        "titleStyle": {
-          "textAlign": "center"
-        },
-        "subtitleStyle": {
-          "textAlign": "center"
-        },
-        "subtitle": "By using Chunky you can focus more on the product itself instead of the technology stack",
-        "type": "default"
-      }
-    },
-    "webPlatform": {
-      "title": "Platform",
-      "path": "/platform/web",
-      "cover": {
-        "image": "web.svg",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Web Development",
-        "titleStyle": {
-          "textAlign": "center"
-        },
-        "subtitleStyle": {
-          "textAlign": "center"
-        },
-        "subtitle": "Create beautiful Static Web Apps that you can deploy with ease to your favourite static hosting provider, such as AWS S3.",
-        "type": "default"
-      }
-    },
-    "mobilePlatform": {
-      "title": "Platform",
-      "path": "/platform/mobile",
-      "cover": {
-        "image": "mobile.svg",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Mobile Development",
-        "titleStyle": {
-          "textAlign": "center"
-        },
-        "subtitleStyle": {
-          "textAlign": "center"
-        },
-        "subtitle": "Build native iOS and Android apps that you can easily package and deploy to the App Store and the Play Store.",
-        "type": "default"
-      }
-    },
-    "cloudPlatform": {
-      "title": "Platform",
-      "path": "/platform/cloud",
-      "cover": {
-        "image": "cloud.svg",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Cloud Development",
-        "titleStyle": {
-          "textAlign": "center"
-        },
-        "subtitleStyle": {
-          "textAlign": "center"
-        },
-        "subtitle": "Write simple serverless cloud functions that you can deploy with a single command to AWS Lambda.",
-        "type": "default"
-      }
-    },
-    "devopsPlatform": {
-      "title": "Platform",
-      "path": "/platform/devops",
-      "cover": {
-        "image": "devops.svg",
-        "opacity": 0.5,
-        "navigation": true,
-        "title": "Devops Development",
-        "titleStyle": {
-          "textAlign": "center"
-        },
-        "subtitleStyle": {
-          "textAlign": "center"
-        },
-        "subtitle": "Manipulate remote data, run reports, package binaries and deploy product artifacts effortlessly from your terminal.",
-        "type": "default"
       }
     }
   }

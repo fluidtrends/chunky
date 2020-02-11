@@ -153,7 +153,7 @@ export default class DefaultLayout extends PureComponent {
 
   renderComponent (component, index) {
     return (<div key={`component${index}`} style={this.styles.main.component}>
-      {component}
+      { component }
     </div>)
   }
 
@@ -250,7 +250,7 @@ export default class DefaultLayout extends PureComponent {
     return (<main style={{
       marginTop: `${marginTop}px`
     }}>
-      {components.map(c => this.renderComponent(c, index++))}
+      { components.map(c => this.renderComponent(c, index++)) }
     </main>)
   }
 

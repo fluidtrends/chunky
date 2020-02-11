@@ -117,7 +117,7 @@ export default class Text extends Component {
           {},
           {
             textAlign: 'center',
-            padding: '20px',
+            padding: '10px',
             maxWidth: '90vw',
             overflow: 'hidden'
           },

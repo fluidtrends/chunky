@@ -485,6 +485,7 @@ export default class WebScreen extends Core.Screen {
         cache: this.cache,
         onEvent: this._onEvent,
         width: this.state.width,
+        theme: this.props.theme,
         importRemoteData: this.importRemoteData,
         height: this.state.height,
         isSmallScreen: this.isSmallScreen,
@@ -496,6 +497,7 @@ export default class WebScreen extends Core.Screen {
 
   renderComponent (OriginalComponent, index) {
     const props = Object.assign({}, this.defaultComponentProps, { index })
+
     var ComponentContainer = React.cloneElement(
       OriginalComponent,
       Object.assign({}, this.defaultComponentProps, { index })
@@ -503,8 +505,10 @@ export default class WebScreen extends Core.Screen {
 
     if (typeof OriginalComponent.type === 'string') {
       return (
-        <Component {...props} key={`${index}`} style={{ alignSelf: 'stretch' }}>
-          {OriginalComponent}
+        <Component {...props} key={`${index}`} style={{ 
+          alignSelf: 'stretch'
+        }}>
+          { OriginalComponent }
         </Component>
       )
     }
@@ -515,7 +519,7 @@ export default class WebScreen extends Core.Screen {
 
     return (
       <TransitionGroup key={`${index}`} style={{ alignSelf: 'stretch' }}>
-        {ComponentContainer}
+        { ComponentContainer }
       </TransitionGroup>
     )
   }
