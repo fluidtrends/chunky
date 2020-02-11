@@ -2,4 +2,6 @@
 
 ## The Code Monkey You Were Never Meant To Be.
 
-### Chunky is an **Open Source Platform** that **beautifies** the Software Product Development process by taking care of all the tedious grunt work required to **build**, **launch** and **grow** great software products.
+As a Professional Software Developer, your job is to create great Software Products. Big emphasis on **create**. Your ability to create is the single most important factor in practicing your Software Development Profession. If we talk about Developer Performance it all comes down to how well a developer taps into their *creative ability*. Taking your performance as a Software Developer to the next level means **taking your creativity to the next level**. Software Development is a *Creative Process*. The more creative you are in that process, the better Software Products you will create. The problem is that most often than not, you can’t afford to be creative, even if you want to. Most of the time, your creativity as a Software Developer is literally stuck in the grunt work required to just make things work. Being a Creative Developer sounds nice and all but the truth is that you feel more like a Code Monkey.
+
+#### Chunky is the *Creative Development Platform* that helps you stop feeling like a Code Monkey by taking care of the tedious work required to build great Software Products and *gives you back your time* to become the Creative Developer you were always meant to be.
