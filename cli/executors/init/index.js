@@ -1,8 +1,12 @@
 const coreutils = require('coreutils')
 const product = require('./product')
-const setup = require('../carmel/setup')
+const setup = require('../../src/setup')
 
 function parseCommand (command, account, cache) {
+  if (!command) {
+    return Promise.reject(new Error('Missing options'))
+  }
+
   if (!command.name) {
     return Promise.reject(new Error('Missing option: name'))
   }
@@ -18,6 +22,6 @@ function parseCommand (command, account, cache) {
   return product.create({ name: command.name, template: command.template, bundle: command.bundle }, account, cache)
 }
 
-module.exports = function (command) {
+module.exports = (command) => {
   return setup().then(({ account, cache }) => parseCommand(command, account, cache))
 }

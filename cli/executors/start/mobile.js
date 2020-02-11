@@ -1,5 +1,5 @@
 const coreutils = require('coreutils')
-const operation = require('../carmel/operation')
+// const operation = require('../carmel/operation')
 
 module.exports = function(port, account, cache) {
     coreutils.logger.info(`Starting your mobile app ...`)

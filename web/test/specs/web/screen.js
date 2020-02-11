@@ -15,6 +15,9 @@ savor
 
   const props = {
     location: "/",
+    match: {
+      url: "test"
+    },
     theme: {
       keepNavigatorSticky: false
     },
@@ -34,6 +37,9 @@ savor
   const props = {
     location: "/",
     env: "production",
+    match: {
+      url: "test"
+    },
     provisioning: {
       rest: {
         url: "test"
@@ -70,6 +76,9 @@ savor
   const props = {
     location: "/",
     env: "production",
+    match: {
+      url: "test"
+    },
     provisioning: {
       rest: {
         url: "test"
@@ -138,7 +147,8 @@ savor
 .add('should handle complex variants', (context, done) => {
   global.fetch = () => Promise.resolve({ json: () => ({})})
   const props = Object.assign({}, _props, {
-    variants: "http://test"
+    variants: "http://test",
+    
   })
   context.mount(<LoadingScreen {...props}/>)
   
@@ -257,6 +267,9 @@ savor
 const _props = {
   location: { pathname: "/" },
   path: "/auth",
+  match: {
+    url: "test"
+  },
   sections: [{
     path: "/"
   }, {

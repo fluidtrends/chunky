@@ -5,7 +5,7 @@ const cache = require('../../src/cache')
 const cpy = require('cpy')
 const download = require('image-downloader')
 const merge = require('deepmerge')
-const operation = require('../carmel/operation')
+// const operation = require('../carmel/operation')
 
 function hasFile (filepath) {
   return fs.existsSync(path.resolve(process.cwd(), filepath))
@@ -151,7 +151,7 @@ function create({ name, template, bundle }, account, mainCache) {
    // Alright, time to generate the files
    .then((data) => createFiles(c, data))
 
-   .then(() => operation.send({ target: "journeys", type: "init", name, template, bundle, pwd: process.cwd() }, account, mainCache))
+  //  .then(() => operation.send({ target: "journeys", type: "init", name, template, bundle, pwd: process.cwd() }, account, mainCache))
 
    .then(() => {
      // All done

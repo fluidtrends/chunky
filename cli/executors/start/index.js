@@ -2,7 +2,7 @@ const coreutils = require('coreutils')
 const web = require('./web')
 const mobile = require('./mobile')
 const desktop = require('./desktop')
-const setup = require('../carmel/setup')
+const setup = require('../../src/setup')
 const fs = require('fs-extra')
 const path = require('path')
 

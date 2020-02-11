@@ -1,6 +1,5 @@
 const coreutils = require('coreutils')
-const setup = require('../carmel/setup')
-const operation = require('../carmel/operation')
+const setup = require('../../src/setup')
 
 function parseCommand (command, account, cache) {
   coreutils.logger.info("Let's get those stubborn dependencies installed ... ")
