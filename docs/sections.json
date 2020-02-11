@@ -8,13 +8,13 @@
     {
       "path": "benefits",
       "title": "Benefits",
-      "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/benefits.md",
+      "text": "github://idancali/chunky/master/docs/benefits",
       "icon": "star"
     },
     {
       "path": "Quickstart",
       "title": "Quickstart",
-      "text": "https://raw.githubusercontent.com/idancali/chunky/master/docs/start/quick.md",
+      "text": "github://idancali/chunky/master/docs/start/quick",
       "icon": "thunderbolt"
     }
 ]
