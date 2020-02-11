@@ -5,7 +5,7 @@
       "header": "Meet Chunky",
       "skipHeader": true,
       "text": "github://idancali/chunky/master/docs/intro",
-      "icon": "smile"
+      "icon": "https://raw.githubusercontent.com/idancali/chunky/master/logo.gif"
     },
     {
       "path": "benefits",
