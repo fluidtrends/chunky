@@ -1,28 +1,5 @@
-<p align="center"> <img src="https://raw.githubusercontent.com/fluidtrends/chunky/master/logo.gif" width="256px"> 
-
-<h1 align="center"> Chunky </h1>
-<h3 align="center"> The Creative Development Platform </h3>
-<p align="center"> Unleash Your Developer Creativity And Build Great Software Products </p>
-
-</p>
-
-<p align="center">
-<a href="https://circleci.com/gh/fluidtrends/workflows/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
-<a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
-<a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
-</p>
-
-<p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
-<a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Get Involved </a>
-</p>
-
----
-
-# Meet Chunky
-
-## The Code Monkey You Were Never Meant To Be
+# Meet Chunky.
+## The Code Monkey You Were Never Meant To Be.
 
 As a Professional Software Developer, your job is to create great Software Products. Big emphasis on **create**. Your ability to create is the single most important factor in practicing your Software Development Profession. If we talk about Developer Performance it all comes down to how well a developer taps into their *creative ability*. Taking your performance as a Software Developer to the next level means **taking your creativity to the next level**. Software Development is a *Creative Process*. The more creative you are in that process, the better Software Products you will create. The problem is that most often than not, you can’t afford to be creative, even if you want to. Most of the time, your creativity as a Software Developer is literally stuck in the grunt work required to just make things work. Being a Creative Developer sounds nice and all but the truth is that you feel more like a Code Monkey.
 
@@ -47,55 +24,3 @@ This idea, that our working memory maxes out at around 7 pieces of information, 
 > “the very lifeblood of the thought processes" ([Miller, 1956, p. 65](http://www.musanim.com/miller1956/))
 
 Which is a phenomenal idea. Chunking gives us a *scientifically backed mechanism for managing our creative thoughts*. When applied to Software Development, chunking then can reduce the amount of effort our brain needs to invest in processing the grunt work related to loading and processing the program in our working memory. With more cognitive capacity to spare, this effectively improves our brains ability to be more creative. **Chunking**, when applied effectively to Software Development, **can literally unlock your Developer Creativity**.
-
-## 12 Reasons To Absolutely ❤️Chunky
-
-#### ⭐1. Product Oriented 
-Chunky helps you focus on the Product rather than just on the code. On the *The What* of the Customer Experience rather than just on *The How* of the implementation. It accomplishes this by hiding the wires of much of the technical details so you can spend your time creating real Customer Value.
-
-#### ⭐2. Low Code 
-You can get started with Chunky with minimal programming experience and you can build beautiful products with only a few lines of code. Make no mistake though, Chunky is highly flexible and so if you're an experienced developer, you'll be pleased to find a lot of power and versatility as well.
-
-#### ⭐3. Full Stack 
-Chunky works across platforms, including mobile, web, desktop, cloud and blockchain. Every Chunky Product includes Native iOS and Android Apps, a Static Web App, a Desktop App, a Serverless Cloud Backend and a Smart Contract, all fully integrated, fully owned by you and fully satisfying.
-
-#### ⭐4. Beginner Friendly 
-The barrier of entry to Software Development is so much lower with Chunky. If you've never written a line of code in your life before, but are willing to start learning, Chunky is the best place to start your Developer Journey.
-
-#### ⭐5. Reduced Complexity 
-A Chunky Product is composed of reusable chunks of code, making the product much more easy to understand, debug and maintain. When working with chunks, the clear separation of concerns reduces your workload tremendously.
-
-#### ⭐6. Integrated Toolchain 
-You don't have to reinvent the wheel and patch together the supporting tools required to get a product up and running. With Chunky, you get mobile and web packagers out the box, hot reloading, configurable environments, and so much more.
-
-#### ⭐7. Command Line Interface 
-Chunky comes with a comprehensive and beautiful CLI that sits on your development machine, giving you access to a wealth of commands. Whether you want to create a brand new product, run it in development mode, publish it online, or run a report on your database, the Chunky CLI's got you covered.
-
-#### ⭐8. DevOps Friendly 
-AWS and Firebase are Chunky's two best friends and it supports a deep level of integration with key services such as AWS S3, AWS Route53 and the Firebase Realtime Database. All you need is a your Firebase and AWS credentials and Chunky does the rest.
-
-#### ⭐9. Strong Security 
-Your sensitive data such as your AWS access keys or other important information is kept in an encrypted vault on your development machine. Chunky allows you to lock and unlock your vault at will to protect your data with the highest level of security standards available today.
-
-#### ⭐10. High Order Components 
-Chunky makes use of wildly popular web and mobile low level component libraries to construct new configurable components, that incorporate business logic and can be used on mobile or web apps right out of the box.
-
-#### ⭐11. Product Templates 
-You can start a brand new Chunky Product from scratch but then again you can start with a Full Stack Product Template that is ready for production right out of the box.
-
-#### ⭐12. Declarative Data Operations 
-Working with remote services is not a pretty sight but Chunky makes authentication and general purpose data handling, both local and remote - a breeze. Just declare a few lines and lo and behold, use the automatically injected handlers.
-
----
-
-<h3 align="center">
- 👉 Next: <a href="docs/start/README.md"> Quick Start </a>
-</h3>
-
----
-
-<p align="center">
-<a href="docs/start/README.md"> Quick Start </a> |
-<a href="docs/guide/README.md"> Developer Guide </a> |
-<a href="docs/contrib/README.md"> Get Involved </a>
-</p>

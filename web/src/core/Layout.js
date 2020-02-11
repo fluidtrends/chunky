@@ -44,7 +44,7 @@ export default class DefaultLayout extends PureComponent {
       return this.navigationHeight
     }
 
-    return -this.navigationHeight
+    return this.hasCover ? -this.navigationHeight : 0
   }
 
   get navigationUncover () {
@@ -153,7 +153,7 @@ export default class DefaultLayout extends PureComponent {
 
   renderComponent (component, index) {
     return (<div key={`component${index}`} style={this.styles.main.component}>
-      {component}
+      { component }
     </div>)
   }
 
@@ -188,6 +188,7 @@ export default class DefaultLayout extends PureComponent {
   renderWithSidebar () {
     const collapseSidebar = (this.props.desktop ? false : this.props.isSmallScreen)
     const width = this.props.sidebarWidth
+    
     return <Layout>
       <Sider
         collapsible={false}
@@ -227,12 +228,12 @@ export default class DefaultLayout extends PureComponent {
   }
 
   renderWithoutSidebar () {
-    return <Layout>
-      <Content style={{ margin: '0' }}>
-        <div style={{ padding: 0, background: '#ffffff', minHeight: 360 }}>
+    return <Layout style={{ margin: 0, padding: 0 }}>
+      <div style={{ margin: 0, padding: 0 }}>
+        <div style={{ padding: 0, margin: 0, minHeight: 360 }}>
           {this.renderComponents()}
         </div>
-      </Content>
+      </div>
       {this.renderFooter()}
     </Layout>
   }
@@ -240,21 +241,16 @@ export default class DefaultLayout extends PureComponent {
   renderComponents () {
     var components = this.props.children || []
     var index = 0
-    let marginTop
-    if (this.props.forceNavigation) {
-      marginTop = 0
-    } else {
-      marginTop = (this.props.layout.fixed && !this.hasCover ? this.navigationHeight : 0)
-    }
+    let marginTop = (!this.props.forceNavigation && this.props.layout.fixed && !this.hasCover) ? this.navigationHeight : 0
 
-    if (this.props.desktop) {
+    if (this.props.desktop || !this.hasCover) {
       marginTop = 0
     }
 
     return (<main style={{
       marginTop: `${marginTop}px`
     }}>
-      {components.map(c => this.renderComponent(c, index++))}
+      { components.map(c => this.renderComponent(c, index++)) }
     </main>)
   }
 
@@ -268,12 +264,13 @@ export default class DefaultLayout extends PureComponent {
       </div>
       <style jsx global>{`
         :root {
-          --mdc-theme-primary: red;
+          --mdc-theme-primary: ${this.theme.primaryColor};
           --mdc-theme-secondary: ${this.theme.secondaryColor};
         }     
         h1 { font-size: ${this.theme.titleTextSize}px; }
         h2 { font-size: ${this.theme.subtitleTextSize}px; }
-        h3 { font-size: ${this.theme.summaryTextSize}px; }
+        h3 { font-weight: 700; font-size: ${this.theme.headingTextSize}px; }
+        h4 { font-weight: 700; font-size: ${this.theme.subheadingTextSize}px; }
         p { font-size: ${this.theme.paragraphTextSize}px; }      
       `}</style>
     </div>

@@ -16,13 +16,6 @@ body {
     font-size: 13px;
     -webkit-font-smoothing: antialiased;
 }
-pre {
-    background-color: #F5F5F5;
-    color: #455A64;
-    text-align: left;
-    padding: 20px;
-    width: 90%;
-}
 
 .text {
     text-align: left;
@@ -55,15 +48,22 @@ p {
     text-align: justify;
 }
 
-code {
+pre {
+    background-color: #000000;
+    text-align: left;
+    padding: 3px;
+    width: 90%;
+  }
+  
+  code {
     font-size: 14px;
-    background-color: #212121;
+    background-color: #000000;
     padding: 20px;
     color: #00C853;
     display: flex;
     text-align: left;
     flex: 1;
-}
+  }
 
 .transition-enter {
     opacity: 0.01;

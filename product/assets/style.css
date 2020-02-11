@@ -62,3 +62,19 @@ table td:last-child {
 .ant-menu-inline .ant-menu-submenu-title {
   width: calc(100% + 0px);
 }
+
+pre {
+  background-color: #000000;
+  text-align: left;
+  padding: 3px;
+  width: 90%;
+}
+
+code {
+  font-size: 14px;
+  padding: 20px;
+  color: #00C853;
+  display: flex;
+  text-align: left;
+  flex: 1;
+}

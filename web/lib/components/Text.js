@@ -174,7 +174,7 @@ function (_Component) {
       return _react["default"].createElement("div", {
         style: Object.assign({}, {
           textAlign: 'center',
-          padding: '20px',
+          padding: '10px',
           maxWidth: '90vw',
           overflow: 'hidden'
         }, this.props.style)

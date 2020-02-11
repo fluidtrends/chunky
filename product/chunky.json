@@ -5,7 +5,7 @@
   "androidSdkDir": "~/Library/Android/sdk",
   "sections": {
     "start": {
-      "stack": ["intro"]
+      "stack": ["intro", "docs"]
     }
   },
   "transitions": ["replace://start"],
@@ -16,17 +16,17 @@
     "statusBarLight": false,
     "titleTextSize": 50,
     "subtitleTextSize": 32,
-    "summaryTextSize": 24,  
+    "headingTextSize": 24,  
+    "subheadingTextSize": 22,  
     "paragraphTextSize": 20,
     "codeTextSize": 14,
     "headerColor": "#FF5722",
     "textColor": "#546E7A",
     "linkColor": "#0288D1",
-    "linkHoverColor": "#64B5F6",
-    "linkHoverBackgroundColor": "#F5F5F5",
+    "hoverColor": "#1B5E20",
     "progressColor": "rgba(50,50,50,0.9)",
-    "primaryColor": "#DD2C00",
-    "secondaryColor": "#0197A7",
+    "primaryColor": "#2196F3",
+    "secondaryColor": "#4CAF50",
     "navigationColor": "#FFFFFF",
     "navigationTintColor": "#37474F",
     "backgroundColor": "#999999",

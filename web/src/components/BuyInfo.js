@@ -21,32 +21,40 @@ export default class BuyInfo extends Component {
         width: `90vw`,
         padding: '10px',
         color: '#455A64',
-        paddingBottom: '60px'
+        paddingBottom: '30px'
       }} />,
       <Text source={this.props.text} style={{
         width: `70vw`,
         color: '#455A64',
-        paddingBottom: '60px'
+        padding: '10px',
+        paddingBottom: '30px'
       }} />)
 	}
 
 	renderButton () {
-    const { path, link } = this.props.components.getAccess
     return <Button
-      href={path? path : link}
+      href={ this.props.link }
       type="primary"
-      style={{backgroundColor: this.state.hovered ? this.props.hoveredButtonColor : this.props.buttonColor, border: 0, marginBottom: '30px', padding: '2px 15px'}}
+      style={{ backgroundColor: this.state.hovered ? this.props.theme.hoverColor : this.props.theme.secondaryColor, border: 0, marginBottom: '30px', padding: '2px 15px'}}
       onMouseEnter={() => {this.setState({hovered: true})}} 
       onMouseLeave={() => {this.setState({hovered: false})}}
     >
-			{this.props.action}<Icon type="arrow-right" style={{marginLeft: this.state.hovered ? '30px' : '5px'}} />
+			{this.props.action}<Icon type="arrow-right" style={{ marginLeft: this.state.hovered ? '30px' : '5px'}} />
 		</Button>
 	}
 
   renderComponent () {
 		return (<div 
-			style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center', alignItems: 'center', margin: '100px 15px', backgroundColor: '#FBFBFB' }} 
-			>
+      style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        margin: 0, 
+        paddingTop: "30px",
+        paddingBottom: "10px",
+        backgroundColor: this.props.backgroundColor }}>
 			{ this.renderText() }
 			{ this.renderButton() }
     </div>)

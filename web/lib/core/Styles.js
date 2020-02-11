@@ -12,6 +12,8 @@ var _main = function _main(_) {
     },
     component: {
       backgroundColor: '#FFFFFF',
+      padding: 0,
+      margin: 0,
       display: 'flex',
       flex: 1,
       alignItems: 'center',

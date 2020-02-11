@@ -1,0 +1,23 @@
+[
+    {
+      "path": "intro",
+      "title": "Hello",
+      "text": "github://idancali/chunky/master/docs/intro",
+      "icon": "https://raw.githubusercontent.com/idancali/chunky/master/logo.gif"
+    },
+    {
+      "path": "benefits",
+      "title": "Benefits",
+      "header": "The Chunky Advantage",
+      "text": "github://idancali/chunky/master/docs/benefits",
+      "icon": "star"
+    },
+    {
+      "path": "start",
+      "title": "Quickstart",
+      "header": "Get Started",
+      "text": "github://idancali/chunky/master/docs/start/quick",
+      "icon": "thunderbolt"
+    }
+]
+  
