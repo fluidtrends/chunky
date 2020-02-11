@@ -31,36 +31,27 @@ export default class Section extends PureComponent {
 
   renderHeaderIcon() {
     if (this.props.section.icon.split("http").length > 1) {
-      return <div style={{ 
-        color: this.props.theme.primaryColor, 
-        flex: 1, display: "flex", 
-        flexDirection: "column", 
-        justifyContent: "center", 
-        alignContent: "center" }}>
-        <img style={{
-          width: '120px',
-          marginTop: '20px',
+      return <img style={{
+          width: '240px',
+          marginTop: '-20px',
           marginBottom: '-20px'
         }} src={this.props.section.icon} />
-      </div>
     }
 
-    return <Icon style={{ fontSize: "80px" }} type={this.props.section.icon} />
+    return <Icon style={{             
+      fontSize: "80px" 
+    }} type={this.props.section.icon} />
   }
   
   renderHeader() {
-    if (this.props.section.skipHeader) {
-      return this.renderHeaderIcon()
-    }
-
     return <div style={{ 
-            color: this.props.theme.primaryColor, 
             flex: 1, display: "flex", 
             flexDirection: "column", 
+            color: this.props.theme.primaryColor, 
             justifyContent: "center", 
-            alignContent: "center" }}>
+            alignItems: "center" }}>
         { this.props.section.icon ? this.renderHeaderIcon() : <div/> }
-        { this.props.section.header ? <h1> {this.props.section.header} </h1> : <div/> }
+        { this.props.section.header && !this.props.section.skipHeader ? <h1> {this.props.section.header} </h1> : <div/> }
     </div>
   }
 
