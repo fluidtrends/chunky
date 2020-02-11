@@ -57,6 +57,7 @@ pre {
   
   code {
     font-size: 14px;
+    background-color: #000000;
     padding: 20px;
     color: #00C853;
     display: flex;

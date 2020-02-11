@@ -11,43 +11,21 @@ export default class DocsScreen extends Screen {
 
   componentDidMount() {
     super.componentDidMount()
-    this._sections = this.importData('sections')
-
-    if (!this.sections || this.sections.length === 0) {
-      return
-    }
-
-    var section = this.sections[0]
-
-    if (this.isRootPath) {
-      this.setState({ section })
-      return
-    }
-
-    this.sections.forEach(s => {
-      if (!this.isSamePath(this.path, `${this.props.path}/${s.path}`)) {
-        return
-      }
-      section = Object.assign({}, s)
-    })
-
-    this.setState({ section })
-  }
-
-  get sections() {
-    return this._sections || []
   }
 
   onSectionSelect(section) {
     this.setState({ section })
+    this.triggerRedirect(`${this.props.path}/${section.path}`)
+  }
+
+  get selectedSection() {
+    return this.state.section || this.variant
   }
 
   components() {
     const {
       lightThemeBackgroundColor,
       lightThemeTextColor,
-      darkThemeBackgroundColor,
-      darkThemeTextColor,
       buttonsBackgroundColor,
       buttonsTextColor,
       selectionBackgroundColor
@@ -56,13 +34,11 @@ export default class DocsScreen extends Screen {
       <Dashboard
         lightThemeBackgroundColor={lightThemeBackgroundColor}
         lightThemeTextColor={lightThemeTextColor}
-        darkThemeBackgroundColor={darkThemeBackgroundColor}
-        darkThemeTextColor={darkThemeTextColor}
         buttonsBackgroundColor={buttonsBackgroundColor}
         buttonsTextColor={buttonsTextColor}
         selectionBackgroundColor={selectionBackgroundColor}
-        sections={this.sections}
-        section={this.state.section}
+        sections={this.variants}
+        section={this.selectedSection}
         onSectionSelect={this._onSectionSelect}
       />
     ]

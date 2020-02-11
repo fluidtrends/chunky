@@ -5,7 +5,7 @@
       "icon": "home",
       "title": "Documentation",
       "path": "/docs",
-      "variants": "sections",
+      "variants": "https://raw.githubusercontent.com/idancali/chunky/master/docs/sections.json",
       "lightThemeBackgroundColor": "#fff",
       "lightThemeTextColor": "#001528",
       "darkThemeBackgroundColor": "#37474F",

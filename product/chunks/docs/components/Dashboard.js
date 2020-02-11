@@ -53,7 +53,11 @@ export default class Dashboard extends PureComponent {
     )
   }
 
-  renderMenuItem = (item, index) => {
+  get selectedSection() {
+    return this.state.selectedSection || this.props.section
+  }
+
+  renderMenuItem = (item) => {
     const {
       lightThemeBackgroundColor,
       selectionBackgroundColor,
@@ -62,7 +66,7 @@ export default class Dashboard extends PureComponent {
 
     return item.subSection ? (
       <SubMenu
-        key={`submenu-${index}`}
+        key={item.path}
         style={{ 
           margin: '10px 0',
           color: lightThemeTextColor 
@@ -81,8 +85,8 @@ export default class Dashboard extends PureComponent {
         key={item.path}
         style={{
           backgroundColor:
-            this.state.selectedSection &&
-            item.path === this.state.selectedSection.path ? selectionBackgroundColor : lightThemeBackgroundColor
+            this.selectedSection &&
+            item.path === this.selectedSection.path ? selectionBackgroundColor : lightThemeBackgroundColor
         }}
       >
         <div onClick={() => this.onSectionSelect(item)}
@@ -106,6 +110,7 @@ export default class Dashboard extends PureComponent {
       buttonsTextColor
     } = this.props
     const { Sider, Content } = Layout
+    
     return (
       <div >
         <Layout>
@@ -118,14 +123,14 @@ export default class Dashboard extends PureComponent {
             }}
           >
             <Menu
-              defaultSelectedKeys={['intro']}
+              defaultSelectedKeys={[this.props.section.path]}
               mode="inline"
               style={{
                 backgroundColor: lightThemeBackgroundColor
               }}
             >
-              {sections.map((item, index) =>
-                this.renderMenuItem(item, index, this.state.selectedSection)
+              {sections.map((item) =>
+                this.renderMenuItem(item, this.selectedSection)
               )}
             </Menu>
           </Sider>

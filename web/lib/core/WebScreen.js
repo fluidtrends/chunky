@@ -121,19 +121,23 @@ function (_Core$Screen) {
       this._load(this.props);
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.match.url === prevProps.match.url) {
+        return;
+      }
+
+      this._load(this.props);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      window.removeEventListener('resize', this._updateWindowDimensions);
+      window.removeEventListener('scroll', this._updateScroll);
+      this.unsubscribeFromHistory();
+    }
+  }, {
     key: "handleLocationChange",
-    // componentWillReceiveProps (nextProps) {
-    //   if (this.props.match.url !== nextProps.match.url) {
-    //     this._load(nextProps)
-    //     return
-    //   }
-    //   super.componentWillReceiveProps(nextProps)
-    // }
-    // componentWillUnmount () {
-    //   window.removeEventListener('resize', this._updateWindowDimensions)
-    //   window.removeEventListener('scroll', this._updateScroll)
-    //   this.unsubscribeFromHistory()
-    // }
     value: function handleLocationChange(location) {}
   }, {
     key: "scrollToTop",
@@ -293,7 +297,7 @@ function (_Core$Screen) {
       });
 
       if (!this.isVariantValid) {
-        throw new Error('Invalid variant');
+        this._variant = Object.assign({}, this.variants[0]);
       }
     }
   }, {
@@ -351,7 +355,7 @@ function (_Core$Screen) {
         return;
       }
 
-      if (!this.expectsVariants || this.isRootPath) {
+      if (!this.expectsVariants) {
         this.setState({
           loading: false,
           section: section
@@ -518,6 +522,9 @@ function (_Core$Screen) {
   }, {
     key: "redirect",
     value: function redirect(pathname) {
+      this.setState({
+        redirect: false
+      });
       return _react["default"].createElement(_reactRouter.Redirect, {
         exact: true,
         push: true,
@@ -548,6 +555,10 @@ function (_Core$Screen) {
   }, {
     key: "renderScreenLayout",
     value: function renderScreenLayout() {
+      if (this.state.loading) {
+        return this.renderLoading();
+      }
+
       var ScreenLayout = this.layout;
       return _react["default"].createElement(ScreenLayout, _extends({
         section: this.state.section,
@@ -565,6 +576,11 @@ function (_Core$Screen) {
         "private": this.props["private"],
         cover: this.cover
       }), this.renderComponents());
+    }
+  }, {
+    key: "renderLoading",
+    value: function renderLoading() {
+      return _react["default"].createElement("div", null);
     }
   }, {
     key: "sidebarMenuSelected",

@@ -30,6 +30,7 @@ export default class WebScreen extends Core.Screen {
 
   componentDidMount () {
     super.componentDidMount()
+
     this._updateWindowDimensions()
     this._sideMenu = [].concat(this.menu)
 
@@ -102,19 +103,19 @@ export default class WebScreen extends Core.Screen {
     return `${this.props.provisioning.rest.url}/${this.props.env === 'production' ? '' : this.props.env + '-'}`
   }
 
-  // componentWillReceiveProps (nextProps) {
-  //   if (this.props.match.url !== nextProps.match.url) {
-  //     this._load(nextProps)
-  //     return
-  //   }
-  //   super.componentWillReceiveProps(nextProps)
-  // }
+  componentDidUpdate (prevProps) {
+    if (this.props.match.url === prevProps.match.url) {
+        return
+    }
 
-  // componentWillUnmount () {
-  //   window.removeEventListener('resize', this._updateWindowDimensions)
-  //   window.removeEventListener('scroll', this._updateScroll)
-  //   this.unsubscribeFromHistory()
-  // }
+    this._load(this.props)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this._updateWindowDimensions)
+    window.removeEventListener('scroll', this._updateScroll)
+    this.unsubscribeFromHistory()
+  }
 
   handleLocationChange (location) {
   }
@@ -213,7 +214,6 @@ export default class WebScreen extends Core.Screen {
 
   _loadVariants () {
     return new Promise((resolve, reject) => {
-
       if (this.props.variants && ("boolean" === typeof this.props.variants)) {
         this._dynamicVariant = this.props.location.pathname.substring(this.props.path.length)
         this._dynamicVariant = (this._dynamicVariant[0] === '/' ? this._dynamicVariant.substring(1) : this._dynamicVariant)
@@ -234,7 +234,6 @@ export default class WebScreen extends Core.Screen {
         fetch(this.props.variants).then(response => resolve(response.json()))
         return
       }
-
 
       const data = this.importData(`${this.props.variants}${this.props.desktop ? '.desktop' : ''}`)
 
@@ -287,7 +286,7 @@ export default class WebScreen extends Core.Screen {
     })
 
     if (!this.isVariantValid) {
-      throw new Error('Invalid variant')
+      this._variant = Object.assign({}, this.variants[0])
     }
   }
 
@@ -325,7 +324,6 @@ export default class WebScreen extends Core.Screen {
     this.scrollToTop()
     this._path = props.location.pathname
 
-
     this._loadSections()
     const section = this._loadSection()
 
@@ -334,7 +332,7 @@ export default class WebScreen extends Core.Screen {
       return
     }
 
-    if (!this.expectsVariants || this.isRootPath) {
+    if (!this.expectsVariants) {
       this.setState({ loading: false, section })
       return
     }
@@ -529,6 +527,7 @@ export default class WebScreen extends Core.Screen {
   }
 
   redirect (pathname) {
+    this.setState({ redirect: false })
     return (
       <Redirect
         exact
@@ -557,6 +556,10 @@ export default class WebScreen extends Core.Screen {
   }
 
   renderScreenLayout () {
+    if (this.state.loading) {
+      return this.renderLoading()
+    }
+
     const ScreenLayout = this.layout
     return (
       <ScreenLayout
@@ -577,6 +580,10 @@ export default class WebScreen extends Core.Screen {
         { this.renderComponents() }
       </ScreenLayout>
     )
+  }
+
+  renderLoading() {
+    return <div/>
   }
 
   sidebarMenuSelected (item) {
@@ -602,7 +609,7 @@ export default class WebScreen extends Core.Screen {
     return <div />
   }
 
-  render () {
+  render () {    
     if (this.state.skip) {
       return <div />
     }
@@ -617,6 +624,7 @@ export default class WebScreen extends Core.Screen {
 
     if (this.state.redirect) {
       const { pathname, push } = this.state.redirect
+
       if (!this.isSamePath(this.path, pathname)) {
         return this.redirect(pathname, push)
       }
@@ -626,7 +634,7 @@ export default class WebScreen extends Core.Screen {
 
     return (
       <div style={{ height, width: '100vw', position: 'relative' }}>
-        {this.renderScreenLayout()}
+        { this.renderScreenLayout() }
       </div>
     )
   }
