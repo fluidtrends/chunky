@@ -47,6 +47,9 @@ ratings:
   paths:
   - src/**/*
   - web/src/**/*
+  - cli/src/**/*
+  - cli/commands/**/*
+  - cli/bin/**/*
 exclude_paths:
 - package.json
 - .circleci/**/*
@@ -67,7 +70,6 @@ exclude_paths:
 - dev/**/*
 - desktop/**/*
 - cloud/**/*
-- cli/**/*
 - blockchain/**/*
 - web/lib/**/*
 - web/app/**/*
@@ -77,3 +79,7 @@ exclude_paths:
 - web/package.json
 - web/.npmignore
 - web/.watchmanconfig
+- cli/test/**/*
+- cli/.npmignore
+- cli/assets/**/*
+
