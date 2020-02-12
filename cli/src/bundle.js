@@ -2,6 +2,7 @@ const { Octokit } = require('@octokit/rest')
 const path = require('path')
 const fs = require('fs-extra')
 const lali = require('lali')
+const Template = require('./Template')
 
 class _ {
     constructor(props, env) {
@@ -100,7 +101,7 @@ class _ {
 
     hasFixture(name) {
         return this.fixturePath(name) ? fs.existsSync(this.fixturePath(name)) : false
-     }
+    }
 
     loadTemplate(name, props = {}) {
         if (!this.hasTemplate(name)) {
@@ -119,7 +120,17 @@ class _ {
         const data = template.data(fixture)
         delete template.data
 
-        return (Object.assign({}, { _: template }, data, { bundleUri: this.fullId, bundlePath: this.cachedPath }))
+        return new Template(data, Object.assign({}, data, { bundleUri: this.fullId, bundlePath: this.cachedPath }, template, props))
+    }
+
+    generateFromTemplate(name, props) {
+        const template = this.loadTemplate(name, props)
+
+        if (!template) {
+            return Promise.reject(new Error(_.ERRORS.CANNOT_LOAD_TEMPLATE()))
+        }
+
+        return template.generate()
     }
 
     checkVersion() {
@@ -148,9 +159,9 @@ class _ {
     }
 }
 
-
 _.ERRORS = {
-    CANNOT_CHECK: (reason) => reason ? `Cannot check the latest version because ${reason}` : `Cannot check the latest version`
+    CANNOT_CHECK: (reason) => reason ? `Cannot check the latest version because ${reason}` : `Cannot check the latest version`,
+    CANNOT_LOAD_TEMPLATE: (reason) => reason ? `Cannot load template because ${reason}` : `Cannot load template`
 }
 
 module.exports = _

@@ -26,8 +26,9 @@ class _ extends Command {
       return Promise.reject(new Error(_.ERRORS.ALREADY_EXISTS('product')))
     }
 
-    // First let's ensure the bundle is ready for usage
+    // First let's ensure the bundle is ready for usage, then generate the product
     return this.bundle.initialize()
+                      .then(() => this.bundle.generateFromTemplate(this.args.template, { name: this.args.name }))
   }
 }
 

@@ -71,6 +71,8 @@ add('should not create if the environment is not ready', (context, done) => {
 }).
 
 add('should create with a ready environment', (context, done) => {
+  savor.addAsset('assets/bundles', 'bundles', context)
+
   const cmd = new Init({ env: { test: "test", homeDir: context.dir }})
   const bundle = new Bundle({ id: "aa/bb/1.0"}, cmd.env)
 
@@ -84,9 +86,8 @@ add('should create with a ready environment', (context, done) => {
 
   savor.promiseShouldSucceed(cmd.run({ 
     name: "test", 
-    template: "test", 
+    template: "personal", 
     bundle: "aa/bb/1.0" }), done, (error) => {
-
   })
 }).
 
