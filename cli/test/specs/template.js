@@ -5,6 +5,7 @@ const savor = require('savor')
 const path = require('path')
 const lali = require('lali')
 const fs = require('fs-extra')
+const download = require('image-downloader')
 const { Bundle, Environment, Template } = require ('../../src')
 
 savor.
@@ -35,24 +36,28 @@ add('should not generate without specified files', (context, done) => {
 
 add('should generate template files from scratch', (context, done) => {
   savor.addAsset('assets/bundles', 'bundles', context)
+  const stub = context.stub(download, 'image').callsFake(() => Promise.resolve())
 
   const env = new Environment({ homeDir: context.dir })
   const bundle = new Bundle({ id: "aa/bb/1.0"}, env)
 
   bundle.generateFromTemplate("personal", { name: "test" })
 
+  stub.restore()
   done()
 }).
 
 add('should generate but skip existing files', (context, done) => {
   savor.addAsset('assets/bundles', 'bundles', context)
   savor.addAsset('assets/chunky.json', 'chunky.json', context)
+  const stub = context.stub(download, 'image').callsFake(() => Promise.resolve())
 
   const env = new Environment({ homeDir: context.dir })
   const bundle = new Bundle({ id: "aa/bb/1.0"}, env)
 
   bundle.generateFromTemplate("personal", { name: "test" })
 
+  stub.restore()
   done()
 }).
 

@@ -30,6 +30,7 @@
     "cassi": "^0.3.1",
     "coreutils": "^0.3.0",
     "fs-extra": "^7.0.0",
+    "image-downloader": "^3.5.0",
     "js-base64": "^2.5.1",
     "lali": "^0.3.2",
     "slana": "^0.x",
