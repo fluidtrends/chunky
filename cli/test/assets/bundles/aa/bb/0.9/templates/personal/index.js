@@ -1,6 +1,6 @@
 module.exports = () => ({
   id: "personal",
-  fixture: "starter",
+  fixture: "unknown",
   tags: ["personal", "branding", "starter"],
   data: (fixture) => {
     fixture.chunks.intro.routes.main.cover.title = "This is my personal website"

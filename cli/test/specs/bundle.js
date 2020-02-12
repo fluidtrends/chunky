@@ -187,7 +187,7 @@ add('should not load an unknown template', (context, done) => {
 
 add('should not load a template with an unknown fixture', (context, done) => {
   const env = new Environment({ homeDir: context.dir })
-  const bundle = new Bundle({ id: "aa/bb/1.1"}, env)
+  const bundle = new Bundle({ id: "aa/bb/0.9"}, env)
 
   savor.addAsset('assets/bundles', 'bundles', context)
   context.replaceGetter(bundle, 'isCached', () => true)
@@ -198,6 +198,19 @@ add('should not load a template with an unknown fixture', (context, done) => {
     context.expect(bundle.hasTemplate('unknown')).to.be.false
     const template = bundle.loadTemplate('personal')
     context.expect(template).to.not.exist
+  })
+}).
+
+add('should not generate a template with an unknown fixture', (context, done) => {
+  const env = new Environment({ homeDir: context.dir })
+  const bundle = new Bundle({ id: "aa/bb/0.9"}, env)
+
+  savor.addAsset('assets/bundles', 'bundles', context)
+  context.replaceGetter(bundle, 'isCached', () => true)
+  context.replaceGetter(bundle, 'github', () => ({ repos: { getReleaseByTag: () => Promise.resolve() }}))
+
+  savor.promiseShouldFail(bundle.generateFromTemplate('oops'), done, (error) => {
+    context.expect(error.message).to.equal(Bundle.ERRORS.CANNOT_LOAD_TEMPLATE())
   })
 }).
 
@@ -212,7 +225,9 @@ add('should load a known template', (context, done) => {
   savor.promiseShouldSucceed(bundle.initialize(), done, (id) => {
     context.expect(bundle.hasTemplate('personal')).to.be.true
     const template = bundle.loadTemplate('personal')
-    context.expect(template._.id).to.equal('personal')
+    context.expect(template).to.exist
+    context.expect(template.props.id).to.equal('personal')
+    context.expect(template.data).to.exist
   })
 }).
 
