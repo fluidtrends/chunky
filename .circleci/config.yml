@@ -60,6 +60,26 @@ jobs:
           paths:
             - codeclimate.web.json
 
+  cli-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/chunky/tmp
+      - run:
+          name: Install cli dependencies
+          command: cd cli && npm install
+      - run:
+          name: Run cli tests
+          command: | 
+            cd cli
+            npm run coverage
+            ../tmp/cc-test-reporter format-coverage -t lcov -o ../tmp/codeclimate.cli.json --add-prefix cli
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - codeclimate.cli.json
+
   submit-coverage:
     <<: *defaults
     steps:
@@ -68,7 +88,7 @@ jobs:
       - run:
           name: Upload combined coverage to Code Climate
           command: |
-            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 2 -o tmp/codeclimate.total.json
+            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 3 -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
 workflows:
@@ -83,7 +103,11 @@ workflows:
       - web-tests:
           requires:
             - build
+      - cli-tests:
+          requires:
+            - build
       - submit-coverage:
           requires:
             - core-tests
             - web-tests
+            - cli-tests
