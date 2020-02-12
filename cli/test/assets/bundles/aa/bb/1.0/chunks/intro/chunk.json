@@ -1,0 +1,27 @@
+{
+  "name": "intro",
+  "routes": {
+    "main": {
+      "title": "Welcome",
+      "icon": "home",
+      "path": "/",
+      "cover": {
+        "image": "cover.r.png",
+        "opacity": 0.5,
+        "navigation": true,
+        "title": "Welcome",
+        "subtitle": "This is a cool intro",
+        "type": "default",
+        "primaryActionTitle": "Start Here"
+      },
+      "components": {
+        "intro": {
+          "source": "summary",
+          "text": "local://intro",
+          "image": "logo.gif",
+          "textColor": "#37474F"
+        }
+      }
+    }
+  }
+}
