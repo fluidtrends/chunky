@@ -2,8 +2,10 @@
 
 const savor = require('savor')
 const { Init } = require('../../commands')
-const { Environment, Bundle } = require ('../../src')
 const fs = require('fs-extra')
+const path = require('path')
+const download = require('image-downloader')
+const { Environment, Bundle } = require ('../../src')
 
 savor.
 
@@ -72,10 +74,11 @@ add('should not create if the environment is not ready', (context, done) => {
 
 add('should create with a ready environment', (context, done) => {
   savor.addAsset('assets/bundles', 'bundles', context)
+  const stub = context.stub(download, 'image').callsFake(() => Promise.resolve())
 
   const cmd = new Init({ env: { test: "test", homeDir: context.dir }})
   const bundle = new Bundle({ id: "aa/bb/1.0"}, cmd.env)
-
+  
   context.expect(cmd.bundle).to.not.exist
   context.replaceGetter(bundle, 'isCached', () => true)
   context.replaceGetter(bundle, 'github', () => ({
@@ -88,6 +91,7 @@ add('should create with a ready environment', (context, done) => {
     name: "test", 
     template: "personal", 
     bundle: "aa/bb/1.0" }), done, (error) => {
+    stub.restore()
   })
 }).
 

@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs-extra')
+const download = require('image-downloader')
 
 class _ {
     constructor(data, props) {
@@ -28,7 +29,7 @@ class _ {
         return fs.existsSync(file)
     }   
 
-    generate() {
+    generateFiles() {
         if (!this.props.files) {
             return Promise.reject(new Error(_.ERRORS.CANNOT_GENERATE('there are no files to be generated')))
         }
@@ -46,8 +47,35 @@ class _ {
             })
 
             resolve(files)
-        })
+        })        
     }
+
+    generateAssets() {
+        const dir = process.cwd()
+        const assetsDir = path.resolve(dir, 'assets')
+        
+        var remoteAssets = []
+
+        fs.existsSync(assetsDir) || fs.mkdirsSync(assetsDir)
+
+        Object.keys(this.props.assets).map(asset => {
+            const target = this.props.assets[asset]
+
+            if (target === 'local') {
+                fs.copySync(path.resolve(this.props.bundlePath, 'assets', asset), path.resolve(dir, 'assets', asset))
+                return
+            }
+
+            remoteAssets.push({ url: target, dest: path.resolve(dir, 'assets', asset) })
+        })
+
+        return Promise.all(remoteAssets.map((asset) => download.image(asset)))
+    }
+
+    generate() {
+        return Promise.all([this.generateFiles(), this.generateAssets()])
+    }
+
 }
 
 _.DIRS = [".chunky/web", "node_modules", "web", "chunks", "assets/text"]
