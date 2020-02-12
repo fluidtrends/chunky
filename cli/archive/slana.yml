@@ -1,0 +1,115 @@
+name: chunky
+footer:
+  suffix: "Chunky says:"
+  text: "hey there"
+
+commands:
+- name: init [name]
+  more: Specify a custom name or go with the default generated name
+  description: Create a new product
+  executor: commands/init
+  options:
+  - name: template
+    description: The product template to use
+    default: personal
+    type: string
+  - name: bundle
+    description: The product bundle where the template resides
+    default: fluidtrends/chunky-bananas
+    type: string
+  examples:
+  - command: init MyProduct
+    description: Create a new product using the default template
+  - command: init MyProduct --template some-template
+    description: Create a new product using the specified template from the default bundle
+  - command: init MyProduct --template some-template --bundle some-bundle
+    description: Create a new product using the specified template from the specified bundle
+
+- name: install
+  more: Install the dependencies
+  description: Install all dependencies
+  executor: commands/install
+  examples:
+  - command: install
+    description: Install everything
+
+- name: update
+  more: Update chunky
+  description: Update chunky to the latest version
+  executor: commands/update
+  examples:
+  - command: update
+    description: Update to the latest version
+
+- name: start [platforms..]
+  description: Start the packagers for one or more platforms
+  more: The supported platforms are web and mobile
+  executor: commands/start
+  options:
+  - name: mobile-packager-port
+    description: Use a custom mobile packager port
+    type: string
+    default: 8081
+  - name: web-packager-port
+    description: Use a custom web packager port
+    default: 8082
+    type: string
+  - name: desktop-packager-port
+    description: Use a custom desktop packager port
+    default: 8083
+    type: string
+  examples:
+  - command: start
+    description: Start all the packagers, using the default ports
+  - command: start web mobile
+    description: Start the web and mobile packagers, using the default ports
+  - command: start mobile
+    description: Start the mobile packager only, using the default mobile port
+  - command: start web
+    description: Start the web packager only, using the default web port
+  - command: start --mobile-port 9200
+    description: Start all the packagers, using the default web port and a custom mobile port
+  - command: start mobile --mobile-port 9200
+    description: Start the mobile packager only, using a custom mobile port
+
+- name: run [platforms..]
+  description: Run the product on one or more platforms
+  more: The supported platforms are ios, android, web
+  executor: commands/run
+  options:
+  - name: release
+    description: Run the release package
+    default: false
+    type: boolean
+  - name: web-port
+    description: Use a custom web app port
+    default: 8082
+    type: string
+  examples:
+  - command: run
+    description: Run the product on all the platforms
+  - command: run ios
+    description: Run the iOS app only
+  - command: run android
+    description: Run the Android app only
+  - command: run web
+    description: Run the Web app only
+  - command: run site
+    description: Run the Site only
+
+- name: package [platforms..]
+  description: Package the product for one or more platforms
+  more: The supported platforms are ios, android, web and site
+  executor: commands/package
+  options:
+  - name: optimize
+    description: Optimize the package
+    default: false
+    type: boolean
+  examples:
+  - command: package
+    description: Package the product for all the platforms
+  - command: package ios
+    description: Package the iOS app only
+  - command: package site android --optimize
+    description: Package the site and the Android app and optimize then

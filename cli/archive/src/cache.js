@@ -5,7 +5,7 @@ const got = require('got')
 const cpy = require('cpy')
 const deepmerge = require('deepmerge')
 const lali = require('lali')
-const octokit = require('@octokit/rest')()
+const { Octokit } = require('@octokit/rest')()
 const cassi = require('cassi')
 const download = require('download')
 const decompress = require('decompress')
@@ -23,7 +23,7 @@ const CHUNKY_HOME_DIR = path.resolve(HOME_DIR, '.chunky')
 const CARMEL_VAULT_PASSWORD = `_chunky_carmel_`
 const MASTER_VAULT_PASSWORD = `_chunky_master_`
 const EVENTS_VAULT_PASSWORD = `_chunky_events_`
-const MAX_CACHED_EVENTS = 100
+// const MAX_CACHED_EVENTS = 100
 
 const _dir = (props) => CHUNKY_HOME_DIR
 const _bundlesDir = (props) => path.resolve(_dir(props), 'bundles')
@@ -75,42 +75,42 @@ const _addDeps = (props) => (env) => {
   })
 }
 
-const _bundleFixture = (props) => (bundleUri, fixtureId) => {
-  if (!_bundleExists(props)(bundleUri)) {
-    throw new Error(`The ${bundleUri} bundle is not cached`)
-  }
+// const _bundleFixture = (props) => (bundleUri, fixtureId) => {
+//   if (!_bundleExists(props)(bundleUri)) {
+//     throw new Error(`The ${bundleUri} bundle is not cached`)
+//   }
 
-  const fixturePath = _bundlePath(props)(`${bundleUri}/fixtures/${fixtureId}`)
-  if (!fs.existsSync(fixturePath)) {
-    throw new Error(`The ${bundleUri} bundle does not include the ${fixtureId} fixture`)
-  }
+//   const fixturePath = _bundlePath(props)(`${bundleUri}/fixtures/${fixtureId}`)
+//   if (!fs.existsSync(fixturePath)) {
+//     throw new Error(`The ${bundleUri} bundle does not include the ${fixtureId} fixture`)
+//   }
 
-  return require(fixturePath)(props)
-}
+//   return require(fixturePath)(props)
+// }
 
-const _bundleTemplate = (props) => (bundleUri, templateId) => {
-  return new Promise((resolve, reject) => {
+// const _bundleTemplate = (props) => (bundleUri, templateId) => {
+//   return new Promise((resolve, reject) => {
 
-    _info(props)(`Looking for the ${templateId} template inside the bundle ...`)
+//     _info(props)(`Looking for the ${templateId} template inside the bundle ...`)
 
-    if (!_bundleExists(props)(bundleUri)) {
-      throw new Error(`The ${bundleUri} bundle is not cached`)
-    }
+//     if (!_bundleExists(props)(bundleUri)) {
+//       throw new Error(`The ${bundleUri} bundle is not cached`)
+//     }
 
-    const templatePath = _bundlePath(props)(`${bundleUri}/templates/${templateId}`)
-    if (!fs.existsSync(templatePath)) {
-      throw new Error(`The ${bundleUri} bundle does not include the ${templateId} template`)
-    }
+//     const templatePath = _bundlePath(props)(`${bundleUri}/templates/${templateId}`)
+//     if (!fs.existsSync(templatePath)) {
+//       throw new Error(`The ${bundleUri} bundle does not include the ${templateId} template`)
+//     }
 
-    const template = require(templatePath)(props)
-    const fixture = _bundleFixture(props)(bundleUri, template.fixture)
-    const bundlePath = _bundlePath(props)(bundleUri)
-    const data = template.data(fixture)
+//     const template = require(templatePath)(props)
+//     const fixture = _bundleFixture(props)(bundleUri, template.fixture)
+//     const bundlePath = _bundlePath(props)(bundleUri)
+//     const data = template.data(fixture)
 
-    _ok(props)(`Using the ${templateId} template from the ${bundleUri} bundle`)
-    resolve(Object.assign({}, data, { bundleUri, bundlePath }))
-  })
-}
+//     _ok(props)(`Using the ${templateId} template from the ${bundleUri} bundle`)
+//     resolve(Object.assign({}, data, { bundleUri, bundlePath }))
+//   })
+// }
 
 const _bundlePackage = (props) => (uri) => {
   if (!_bundleExists(props)(uri)) {
@@ -134,66 +134,66 @@ const _info = (props) => (message) => coreutils.logger.info(message)
 const _skip = (props) => (message) => coreutils.logger.skip(message)
 const _error = (props) => (message) => coreutils.logger.error(message)
 
-const _findRemoteBundle = (props) => (uri) => {
-    const [owner, repo, version] = uri.split("/")
+// const _findRemoteBundle = (props) => (uri) => {
+//     const [owner, repo, version] = uri.split("/")
 
-    _info(props)(`Looking for bundle ${owner}/${repo} ...`)
+//     _info(props)(`Looking for bundle ${owner}/${repo} ...`)
 
-    if (version) {
-      return octokit.repos.getReleaseByTag({ owner, repo, tag: `${version}` })
-                    .then((release) => {
-                      _ok(props)(`Found remote bundle ${owner}/${repo} (${version})`)
-                      return `${owner}/${repo}/${version}`
-                    })
-    }
+//     if (version) {
+//       return Octokit.repos.getReleaseByTag({ owner, repo, tag: `${version}` })
+//                     .then((release) => {
+//                       _ok(props)(`Found remote bundle ${owner}/${repo} (${version})`)
+//                       return `${owner}/${repo}/${version}`
+//                     })
+//     }
 
-    return octokit.repos.getLatestRelease({ owner, repo })
-                  .then((release) => {
-                    const v = release.data.tag_name.substring(0)
-                    _ok(props)(`Found latest remote bundle ${owner}/${repo} (${v})`)
-                    return `${owner}/${repo}/${v}`
-                  })
-}
+//     return Octokit.repos.getLatestRelease({ owner, repo })
+//                   .then((release) => {
+//                     const v = release.data.tag_name.substring(0)
+//                     _ok(props)(`Found latest remote bundle ${owner}/${repo} (${v})`)
+//                     return `${owner}/${repo}/${v}`
+//                   })
+// }
 
-const _downloadBundle = (props) => (uri) => {
-  return new Promise((resolve, reject) => {
-    if (_bundleExists(props)(uri)) {
-      // No need to download if it already exists
-      _ok(props)(`Using cached ${uri} bundle`)
-      resolve(uri)
-      return
-    }
+// const _downloadBundle = (props) => (uri) => {
+//   return new Promise((resolve, reject) => {
+//     if (_bundleExists(props)(uri)) {
+//       // No need to download if it already exists
+//       _ok(props)(`Using cached ${uri} bundle`)
+//       resolve(uri)
+//       return
+//     }
 
-    if (!_exists(props)){
-      // Initialize the cache if this is the first time using it
-      _create(props)
-      _ok(props)(`Initialized the global cache`)
-    }
+//     if (!_exists(props)){
+//       // Initialize the cache if this is the first time using it
+//       _create(props)
+//       _ok(props)(`Initialized the global cache`)
+//     }
 
-    const cachedPath = _bundlePath(props)(uri)
-    const info = _bundleInfo(props)(uri)
+//     const cachedPath = _bundlePath(props)(uri)
+//     const info = _bundleInfo(props)(uri)
 
-    _info(props)(`Downloading the remote bundle ...`)
+//     _info(props)(`Downloading the remote bundle ...`)
 
-    // Look up the bundle archive
-    const link = `https://github.com/${info.username}/${info.repo}/archive/${info.version}.tar.gz`
+//     // Look up the bundle archive
+//     const link = `https://github.com/${info.username}/${info.repo}/archive/${info.version}.tar.gz`
 
-    // Prepare the bundle cache location
-    fs.mkdirsSync(cachedPath)
+//     // Prepare the bundle cache location
+//     fs.mkdirsSync(cachedPath)
 
-    // Attempt to download the bundle
-    lali.link(link).install(cachedPath)
-        .then((data) => {
-          _ok(props)(`The ${uri} bundle archive was successfully cached`)
-          resolve(uri)
-        })
-        .catch((error) => {
-          // Clean up the bundle cache location
-          _error(props)(`The remote ${uri} bundle archive does exist`)
-          fs.removeSync(cachedPath)
-        })
-   })
-}
+//     // Attempt to download the bundle
+//     lali.link(link).install(cachedPath)
+//         .then((data) => {
+//           _ok(props)(`The ${uri} bundle archive was successfully cached`)
+//           resolve(uri)
+//         })
+//         .catch((error) => {
+//           // Clean up the bundle cache location
+//           _error(props)(`The remote ${uri} bundle archive does exist`)
+//           fs.removeSync(cachedPath)
+//         })
+//    })
+// }
 
 // const _downloadDeps = (props) => (type) => {
 //   return new Promise((resolve, reject) => {
@@ -253,24 +253,24 @@ const _downloadBundle = (props) => (uri) => {
 //                   })
 // }
 
-const _saveEvent = (props) => (event) => {
-  const id = `${Date.now()}-${uuid.v4()}`
-  const file = path.resolve(_eventsDir(props), `${id}.json`)
-  const content = Base64.encode(JSON.stringify(event))
-  fs.writeFileSync(file, content)
+// const _saveEvent = (props) => (event) => {
+//   const id = `${Date.now()}-${uuid.v4()}`
+//   const file = path.resolve(_eventsDir(props), `${id}.json`)
+//   const content = Base64.encode(JSON.stringify(event))
+//   fs.writeFileSync(file, content)
 
-  let events = _eventsVault.read('events') || []
+//   let events = _eventsVault.read('events') || []
 
-  if (events.length >= MAX_CACHED_EVENTS) {
-    const oldId = events.shift()
-    fs.removeSync(path.resolve(_eventsDir(props), `${oldId}.json`))
-  }
+//   if (events.length >= MAX_CACHED_EVENTS) {
+//     const oldId = events.shift()
+//     fs.removeSync(path.resolve(_eventsDir(props), `${oldId}.json`))
+//   }
 
-  events.push(id)
-  _eventsVault.write('events', events) || []
+//   events.push(id)
+//   _eventsVault.write('events', events) || []
 
-  return id
-}
+//   return id
+// }
 
 const _event = (props) => (id) => {
   const file = path.resolve(_eventsDir(props), `${id}.json`)
