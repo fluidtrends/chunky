@@ -9,3 +9,5 @@ package-lock.json
 \.idea/
 dist
 cc-test-reporter
+yarn.lock
+web/yarn.lock
