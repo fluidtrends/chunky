@@ -9,7 +9,8 @@
     "testing": "react-savor testing",
     "lint": "react-savor lint",
     "coverage": "react-savor coverage",
-    "docs": "react-savor doc"
+    "docs": "react-savor doc",
+    "open:coverage": "open coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",

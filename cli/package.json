@@ -6,7 +6,8 @@
   "scripts": {
     "test": "savor test",
     "coverage": "savor coverage",
-    "archive": "tar -cvjSf archive.tar.bz2 *"
+    "archive": "tar -cvjSf archive.tar.bz2 *",
+    "open:coverage": "open coverage/lcov-report/index.html"
   },
   "engines": {
     "node": "^8"
