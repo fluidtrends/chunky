@@ -1,11 +1,9 @@
 const path = require('path')
 const fs = require('fs-extra')
-const Environment = require('./Environment')
 
 class _ {
     constructor(props) {
         this._props = Object.assign({}, props)
-        this._env = new Environment( Object.assign({}, this.props.env))
     }
 
     // TO BE IMPLEMENTED BY CHILDREN
@@ -16,6 +14,10 @@ class _ {
     
     get props() {
         return this._props
+    }
+
+    get cache() {
+        return this._cache
     }
 
     get env () {
@@ -49,10 +51,14 @@ class _ {
             return Promise.reject(new Error(_.ERRORS.MISSING_ARG(missing[0])))
         }
 
-        // Make sure the environment and then execute the command
-        return this.env.initialize(args)
-                       .then(() => this.initialize())
-                       .then(() => this.exec())
+        // // Let's load the cache
+        // this._cache = new Cache()
+
+        // // Make sure the environment and then execute the command
+        // return this.env.initialize(args)
+        //                .then(() => this.initialize())
+        //                .then(() => this.cache.initialize())
+        //                .then(() => this.exec())
     }
 }
 

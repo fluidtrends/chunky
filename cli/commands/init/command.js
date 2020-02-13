@@ -1,4 +1,4 @@
-const { Command, Bundle } = require('../../src')
+const { Command, Product } = require('../..')
  
 class _ extends Command {
   constructor(props) {
@@ -8,13 +8,16 @@ class _ extends Command {
   get requiredArgs() { return REQUIRED }
   get title() { return TITLE }
 
-  get bundle() {
-    return this._bundle
+  // get bundle() {
+  //   return this._bundle
+  // }
+
+  get product() {
+    return this._product
   }
   
   initialize() {
-    // Let's create the appropriate bundle
-    this._bundle = new Bundle({ id: this.args.bundle }, this.env)
+    this._product = new Product({ name: this.args.name }, this.env)
 
     return new Promise((resolve, reject) => {
       resolve()
@@ -26,10 +29,8 @@ class _ extends Command {
       return Promise.reject(new Error(_.ERRORS.ALREADY_EXISTS('product')))
     }
 
-    // First let's ensure the bundle is ready for usage, then generate the product
-    return this.bundle.initialize()
-                      .then(() => this.bundle.generateFromTemplate(this.args.template, { name: this.args.name }))
-  }
+    return this.product.generate(this.args)
+ }
 }
 
 const REQUIRED = ['name', 'template', 'bundle']

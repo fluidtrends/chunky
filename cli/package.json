@@ -27,15 +27,8 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
-    "@octokit/rest": "^16.43.1",
-    "cassi": "^0.3.1",
-    "coreutils": "^0.3.0",
-    "fs-extra": "^7.0.0",
-    "image-downloader": "^3.5.0",
-    "js-base64": "^2.5.1",
-    "lali": "^0.3.2",
-    "slana": "^0.x",
-    "uuid": "^3.0.0"
+    "dodi": "^1.1.2",
+    "slana": "latest"
   },
   "devDependencies": {
     "savor": "^1.1.2"
