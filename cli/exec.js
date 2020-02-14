@@ -1,0 +1,1 @@
+module.exports = (args) => require('./src/Runner').run(args)

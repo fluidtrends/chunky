@@ -1,16 +1,53 @@
-const coreutils = require('coreutils')
+const coreutils = require("coreutils")
+const Carmel = require("@carmel/sdk")
 
-module.exports = (command, args) => {
-    const cmd = new command({ env: args.env })
-    coreutils.logger.header(`${cmd.title}`)
+class _ {
+    constructor(args) {
+        this._args = Object.assign({}, args)
+    }
 
-    cmd.run(args).then(() => {
-        // The execution was success
-        coreutils.logger.footer(`Wow, amazing! You're good to go!`)
-    })
+    get args() {
+        return this._args
+    }
 
-    .catch((error) => {
-        // Something went wrong
-        coreutils.logger.error(`Error: ${error.message}`)
-    })
+    static run(args) {
+        const _this = new _(args)
+        _this.exec()
+    }
+
+    get session() {
+        return this._session
+    }
+
+    exec() {
+        this._session = new Carmel.Session({ name: _.NAME })
+
+        try {
+            // Check the command passed
+            const cmd = new require(`../commands/${this.args._[0]}`)
+            const command = new cmd(this.args)
+
+            // Start execution
+            coreutils.logger.header(_.MESSAGES.START(command.title))
+
+            return this.session.initialize()
+                                .then(() => {
+                                    coreutils.logger.ok(_.MESSAGES.SESSION_READY())
+                                })
+                                .then(() => {
+                                    coreutils.logger.footer(_.MESSAGES.COMPLETION())
+                                })
+                                .catch((e) => { throw e })
+        } catch (error) {
+            coreutils.logger.error(error)
+        }
+    }
 }
+
+_.NAME = 'carmel'
+_.MESSAGES = {
+    START: (cmd) => `${cmd}`,
+    SESSION_READY: () => `Session ready`,
+    COMPLETION: () => `Congrats, you did it!`
+}
+module.exports = _

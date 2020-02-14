@@ -128,12 +128,13 @@ class _ {
 
     generate(props) {
       // Let's create the appropriate bundle
-      const bundle = new Bundle({ id: props.bundle }, this.env)
+    //   const bundle = new Bundle({ id: props.bundle }, this.env)
 
-      // First let's ensure the bundle is ready for usage
-      return bundle.initialize()
-                   .then(() => bundle.loadTemplate(props))
-                   .then((template) => this.generateFiles(template))
+    //   // First let's ensure the bundle is ready for usage
+    //   return bundle.initialize()
+    //                .then(() => bundle.loadTemplate(props))
+    //                .then((template) => this.generateFiles(template))
+        return Promise.resolve()
     }
 }
 

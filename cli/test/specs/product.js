@@ -1,9 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-const { Octokit } = require('@octokit/rest')
 const savor = require('savor')
-const path = require('path')
-const fs = require('fs-extra')
 
 savor.
 
