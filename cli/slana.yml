@@ -7,7 +7,7 @@ commands:
 - name: init [name]
   more: Specify a custom name or go with the default generated name
   description: Create a new product
-  executor: commands/init
+  executor: exec
   options:
   - name: template
     description: The product template to use
