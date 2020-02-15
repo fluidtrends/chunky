@@ -19,21 +19,23 @@ class _ {
         return this._session
     }
 
+    get command() {
+        return this._command
+    }
+
     exec() {
         this._session = new Carmel.Session({ name: _.NAME })
 
         try {
             // Check the command passed
             const cmd = new require(`../commands/${this.args._[0]}`)
-            const command = new cmd(this.args)
+            this._command = new cmd(this.args)
 
-            // Start execution
-            coreutils.logger.header(_.MESSAGES.START(command.title))
+            coreutils.logger.header(_.MESSAGES.START(this.command.title))
+
             return this.session.initialize()
-                                .then(() => Carmel.Commander.run(command, this.session))
-                                .then(() => {
-                                    coreutils.logger.footer(_.MESSAGES.COMPLETION())
-                                })
+                                .then(() => Carmel.Commander.run(this.command, this.session))
+                                .then(() => coreutils.logger.footer(_.MESSAGES.COMPLETION()))
                                 .catch((e) => coreutils.logger.error(e))
         } catch (error) {
             coreutils.logger.error(error)
@@ -44,7 +46,7 @@ class _ {
 _.NAME = 'carmel'
 _.MESSAGES = {
     START: (cmd) => `${cmd}`,
-    SESSION_READY: () => `Starting execution ...`,
     COMPLETION: () => `Congrats, you did it!`
 }
+
 module.exports = _
