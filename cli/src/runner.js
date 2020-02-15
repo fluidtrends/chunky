@@ -29,15 +29,12 @@ class _ {
 
             // Start execution
             coreutils.logger.header(_.MESSAGES.START(command.title))
-
             return this.session.initialize()
-                                .then(() => {
-                                    coreutils.logger.ok(_.MESSAGES.SESSION_READY())
-                                })
+                                .then(() => Carmel.Commander.run(command, this.session))
                                 .then(() => {
                                     coreutils.logger.footer(_.MESSAGES.COMPLETION())
                                 })
-                                .catch((e) => { throw e })
+                                .catch((e) => coreutils.logger.error(e))
         } catch (error) {
             coreutils.logger.error(error)
         }
@@ -47,7 +44,7 @@ class _ {
 _.NAME = 'carmel'
 _.MESSAGES = {
     START: (cmd) => `${cmd}`,
-    SESSION_READY: () => `Session ready`,
+    SESSION_READY: () => `Starting execution ...`,
     COMPLETION: () => `Congrats, you did it!`
 }
 module.exports = _
