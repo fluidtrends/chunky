@@ -29,7 +29,7 @@
   "dependencies": {
     "@carmel/sdk": "^1.1.3",
     "coreutils": "^0.3.0",
-    "slana": 
+    "slana": "latest"
   },
   "devDependencies": {
     "savor": "^1.1.2"
