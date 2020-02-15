@@ -8,6 +8,14 @@ class _ extends Carmel.Commands.Init {
 
     exec(session) {
       return super.exec(session).then(() => {
+        session.workspace.saveContext({ 
+          install: {
+            type: "npm"
+          },
+          start: {
+            script: "node_modules/react-dom-chunky/bin/start"
+          }
+        })
         coreutils.logger.ok(`You're good to go!`)
       })
    }

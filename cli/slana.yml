@@ -24,3 +24,42 @@ commands:
     description: Create a new product using the specified template from the default bundle
   - command: init MyProduct --template some-template --bundle some-bundle
     description: Create a new product using the specified template from the specified bundle
+
+- name: install
+  more: Install the dependencies
+  description: Install all dependencies
+  executor: exec
+  examples:
+  - command: install
+    description: Install everything
+
+- name: start [platforms..]
+  description: Start the packagers for one or more platforms
+  more: The supported platforms are web, mobile and desktop
+  executor: exec
+  options:
+  - name: mobile-packager-port
+    description: Use a custom mobile packager port
+    type: string
+    default: 8081
+  - name: web-packager-port
+    description: Use a custom web packager port
+    default: 8082
+    type: string
+  - name: desktop-packager-port
+    description: Use a custom desktop packager port
+    default: 8083
+    type: string
+  examples:
+  - command: start
+    description: Start all the packagers, using the default ports
+  - command: start web mobile
+    description: Start the web and mobile packagers, using the default ports
+  - command: start mobile
+    description: Start the mobile packager only, using the default mobile port
+  - command: start web
+    description: Start the web packager only, using the default web port
+  - command: start --mobile-port 9200
+    description: Start all the packagers, using the default web port and a custom mobile port
+  - command: start mobile --mobile-port 9200
+    description: Start the mobile packager only, using a custom mobile port
