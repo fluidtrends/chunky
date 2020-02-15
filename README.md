@@ -6,6 +6,15 @@
 
 </p>
 
+
+<p align="center"> 
+
+<img src="https://img.shields.io/npm/v/react-chunky?color=green&label=core"/>
+<img src="https://img.shields.io/npm/v/react-dom-chunky?color=green&label=web"/>
+<img src="https://img.shields.io/npm/v/chunky-cli?color=green&label=cli"/>
+
+</p>
+
 <p align="center">
 <a href="https://circleci.com/gh/fluidtrends/workflows/chunky"><img src="https://circleci.com/gh/fluidtrends/chunky.svg?style=svg"/></a>
 <a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
