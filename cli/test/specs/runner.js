@@ -19,7 +19,7 @@ add('should catch a failed command execution', (context, done) => {
   done()
 }).
 
-add('should run an init command', (context, done) => {
+add('should run a command', (context, done) => {
   Runner.run({ _: ["init"], name: "test", template: "hey" })
   
   done()

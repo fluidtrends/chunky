@@ -1,0 +1,7 @@
+{
+    "context": {
+        "start": {
+            "script": "starter.js"
+        }
+    }
+}
