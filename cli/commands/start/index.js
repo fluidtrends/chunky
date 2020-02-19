@@ -8,7 +8,19 @@ class _ extends Carmel.Commands.Start {
       super(args)
     }
 
+    load(session) {
+      this._port = "8081"
+      this._config = {}
+      this._secure = {}
+      this._chunks = session.workspace.findDirs('chunks')
+    }
+
+    get execArgs() {
+      return { port: this._port, config: this.config, secure: this.secure, chunks: this.chunks }
+    }
+
     exec(session) {
+      this.load(session)
       return super.exec(session).then(() => {
         coreutils.logger.ok(`Started ...`)
       })
