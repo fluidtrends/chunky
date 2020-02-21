@@ -7,6 +7,8 @@ class _ extends Carmel.Commands.Init {
     }
 
     exec(session) {
+      const templateProps = {}
+      
       return super.exec(session)
 
                   // Create the workspace context
@@ -15,13 +17,25 @@ class _ extends Carmel.Commands.Init {
                   // Install the required archive, if necessary
                   .then(() => session.index.installArchive(this.archive))
 
-                   // Let's load up the archive first
+                  // Let's load up the archive first
                   .then((archive) => archive.load())
 
-                  // TODO: load the template and save it to the workspace
+                  // Find the template, if any
+                  .then((archive) => { 
+                    if (archive.templates && this.template && archive.templates[this.template.path]) {
+                      return archive.templates[this.template.path].load(templateProps)
+                    }
+                  })
 
-                  .then(() => {
-                      coreutils.logger.ok(`You're good to go!`)
+                  .then((template) => {
+                      if (!template) {
+                        coreutils.logger.error(`The template is invalid`)
+                        return 
+                      }
+
+                      template.save(session.workspace.dir, {}).then(() => {
+                        coreutils.logger.ok(`You're good to go!`)
+                      })
                   })
 
    }

@@ -416,8 +416,8 @@ export default class App extends PureComponent {
   }
 
   renderRoutes() {
-    const dynamicRoutes = this.routes.filter(r => r.key.split("/").includes(":variant"))
-    const staticRoutes = this.routes.filter(r => !r.key.split("/").includes(":variant"))
+    const dynamicRoutes = this.routes.filter(r => r && r.key.split("/").includes(":variant"))
+    const staticRoutes = this.routes.filter(r => r && !r.key.split("/").includes(":variant"))
 
     return staticRoutes.concat(dynamicRoutes)
   }

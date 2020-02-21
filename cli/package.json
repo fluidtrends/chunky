@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
-    "@carmel/sdk": "^1.2.2",
+    "@carmel/sdk": "^1.2.3",
     "coreutils": "^0.3.0",
     "slana": "latest"
   },
