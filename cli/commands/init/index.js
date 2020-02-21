@@ -7,17 +7,27 @@ class _ extends Carmel.Commands.Init {
     }
 
     exec(session) {
-      return super.exec(session).then(() => {
-        session.workspace.saveContext({ 
-          install: {
-            type: "npm"
-          },
-          start: {
-            script: "node_modules/react-dom-chunky/bin/start"
-          }
-        })
-        coreutils.logger.ok(`You're good to go!`)
-      })
+      return super.exec(session)
+                  .then(() => {
+                    session.workspace.saveContext({ 
+                      install: {
+                        type: "npm"
+                      },
+                      start: {
+                        script: "node_modules/react-dom-chunky/bin/start"
+                      }
+                    })
+                  })
+                  .then(() => session.index.installArchive(this.archive))
+                  .then((archive) => archive.load())
+                  .then((archive) => {
+                    console.log(archive.files)
+                  })
+                  // .then((archive) => archive.save(session.workspace.dir, this.args))
+                  .then(() => {
+                      coreutils.logger.ok(`You're good to go!`)
+                  })
+
    }
   }
   

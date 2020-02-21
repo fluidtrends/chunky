@@ -9,21 +9,26 @@ class _ extends Carmel.Commands.Start {
     }
 
     load(session) {
-      this._port = "8081"
-      this._config = {}
-      this._secure = {}
-      this._chunks = session.workspace.findDirs('chunks')
-    }
-
-    get execArgs() {
-      return { port: this._port, config: this.config, secure: this.secure, chunks: this.chunks }
+      var props = {
+        dir: process.cwd(),
+        port: "8082"
+      } 
+  
+      return session.workspace.loadFile('chunky.json')
+                    .then((config) => { 
+                      props.config = Object.assign({}, config) 
+                      return session.workspace.findDirs('chunks')
+                    })
+                    .then((dirs) => Promise.all(dirs.map(dir => session.workspace.loadFile(`chunks/${dir}/chunk.json`))))
+                    .then((chunks) => { 
+                      props.chunks = [].concat(chunks)
+                      return props
+                    })
     }
 
     exec(session) {
-      this.load(session)
-      return super.exec(session).then(() => {
-        coreutils.logger.ok(`Started ...`)
-      })
+      return Promise.all([super.exec(session), this.load(session)])
+                    .then(([script, props]) => script(props))
    }
 }
 
