@@ -6,6 +6,7 @@ import { Core } from 'react-chunky'
 import { Route } from 'react-router-dom'
 import './global'
 
+
 const render = (Component, config) => {
   var appConfig = Object.assign({}, config)
   delete appConfig.chunks
