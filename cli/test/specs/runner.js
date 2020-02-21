@@ -20,6 +20,7 @@ add('should catch a failed command execution', (context, done) => {
 }).
 
 add('should run a command', (context, done) => {
+  //TODO stub out the npm download call
   Runner.run({ _: ["init"], name: "test", template: "hey" })
   
   done()

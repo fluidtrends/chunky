@@ -452,10 +452,10 @@ function (_PureComponent) {
     key: "renderRoutes",
     value: function renderRoutes() {
       var dynamicRoutes = this.routes.filter(function (r) {
-        return r.key.split("/").includes(":variant");
+        return r && r.key.split("/").includes(":variant");
       });
       var staticRoutes = this.routes.filter(function (r) {
-        return !r.key.split("/").includes(":variant");
+        return r && !r.key.split("/").includes(":variant");
       });
       return staticRoutes.concat(dynamicRoutes);
     }
