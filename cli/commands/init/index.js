@@ -21,7 +21,7 @@ class _ extends Carmel.Commands.Init {
                   .then(() => session.index.installArchive(this.archive))
                   .then((archive) => archive.load())
                   .then((archive) => {
-                    console.log(archive.files)
+                    // console.log(archive.files)
                   })
                   // .then((archive) => archive.save(session.workspace.dir, this.args))
                   .then(() => {
