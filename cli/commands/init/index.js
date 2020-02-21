@@ -12,16 +12,26 @@ class _ extends Carmel.Commands.Init {
       return super.exec(session)
 
                   // Create the workspace context
-                  .then(() => session.workspace.saveContext(_.CONTEXT()))
+                  .then(() => {
+                    coreutils.logger.ok("Created the workspace")
+                    return session.workspace.saveContext(_.CONTEXT())
+                  })
 
                   // Install the required archive, if necessary
-                  .then(() => session.index.installArchive(this.archive))
+                  .then(() => { 
+                    coreutils.logger.ok("Initialized the context")
+                    return session.index.installArchive(this.archive)
+                  })
 
                   // Let's load up the archive first
-                  .then((archive) => archive.load())
+                  .then((archive) => { 
+                    coreutils.logger.ok("Prepared the bundle")
+                    return archive.load()
+                  })
 
                   // Find the template, if any
                   .then((archive) => { 
+                    coreutils.logger.ok("Initialized the bundle")
                     if (archive.templates && this.template && archive.templates[this.template.path]) {
                       return archive.templates[this.template.path].load(templateProps)
                     }
@@ -33,8 +43,9 @@ class _ extends Carmel.Commands.Init {
                         return 
                       }
 
+                      coreutils.logger.ok("Found the template")
                       template.save(session.workspace.dir, {}).then(() => {
-                        coreutils.logger.ok(`You're good to go!`)
+                        coreutils.logger.footer(`Congrats! Enjoy your new product :)`)
                       })
                   })
 

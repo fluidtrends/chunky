@@ -55,17 +55,15 @@ Take a look inside your current working directory - that's your brand new shiny 
 Because every Chunky Product is a Node.js module, we need to install the Node.js dependencies. Chunky does that for you with a single command:
 
 ```console
-chunk install
+npm i
 ```
-
-![](http://files.carmel.io/media/install-small.gif)
 
 ### STEP 4
 
 This is great! One more step - ready? Just type the following to see your Web app in action:
 
 ```console
-chunky start web
+chunky start
 ```
 
 ![](http://files.carmel.io/media/start-web-small.gif)
