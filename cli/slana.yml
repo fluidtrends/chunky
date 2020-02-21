@@ -4,11 +4,15 @@ footer:
   text: "keep on building ;)"
 
 commands:
-- name: init [name]
+- name: init
   more: Specify a custom name or go with the default generated name
   description: Create a new product
   executor: exec
   options:
+  - name: name
+    description: The product name
+    type: string
+    default: chunky
   - name: template
     description: The product template to use
     type: string
@@ -18,14 +22,6 @@ commands:
     description: Create a new product using the default template
   - command: init MyProduct --template some-template
     description: Create a new product using the specified template from the default bundle
-
-- name: install
-  more: Install the dependencies
-  description: Install all dependencies
-  executor: exec
-  examples:
-  - command: install
-    description: Install everything
 
 - name: start [platforms..]
   description: Start the packagers for one or more platforms

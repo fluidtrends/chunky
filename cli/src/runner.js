@@ -35,7 +35,6 @@ class _ {
 
             return this.session.initialize()
                                 .then(() => Carmel.Commander.run(this.command, this.session))
-                                .then(() => coreutils.logger.footer(_.MESSAGES.COMPLETION()))
                                 .catch((e) => coreutils.logger.error(e))
         } catch (error) {
             coreutils.logger.error(error)
