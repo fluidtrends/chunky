@@ -7,7 +7,7 @@ commands:
 - name: init
   more: Specify a custom name or go with the default generated name
   description: Create a new product
-  executor: exec
+  executor: src/exec
   options:
   - name: name
     description: The product name
@@ -26,7 +26,7 @@ commands:
 - name: start [platforms..]
   description: Start the packagers for one or more platforms
   more: The supported platforms are web, mobile and desktop
-  executor: exec
+  executor: src/exec
   options:
   - name: mobile-packager-port
     description: Use a custom mobile packager port
