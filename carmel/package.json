@@ -1,21 +1,15 @@
 {
-  "name": "chunky-cli",
-  "version": "1.2.2",
-  "description": "The Chunky Command Line Interface",
-  "preferGlobal": true,
+  "name": "chunky-carmel-plugin",
+  "version": "1.0.0",
+  "description": "The Chunky Carmel plugin",
   "scripts": {
     "test": "savor test",
-    "coverage": "savor coverage",
-    "archive": "tar -cvjSf archive.tar.bz2 *",
-    "open:coverage": "open coverage/lcov-report/index.html"
+    "coverage": "savor coverage"
   },
   "engines": {
     "node": "^8"
   },
-  "main": "service/start.js",
-  "bin": {
-    "chunky": "bin/cli.js"
-  },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fluidtrends/chunky.git"
@@ -27,8 +21,8 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
-    "chunky-carmel-plugin": "^1.0.0",
-    "slana": "latest"
+    "@carmel/sdk": "^1.2.5",
+    "coreutils": "^0.3.0"
   },
   "devDependencies": {
     "savor": "^1.1.2"

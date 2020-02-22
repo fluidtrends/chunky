@@ -1,0 +1,14 @@
+{
+  "name": "chunky-bananas",
+  "version": "1.1.0",
+  "description": "The Default Chunky Bundle",
+  "author": {
+    "name": "I. Dan Calinescu",
+    "email": "idancalinescu@gmail.com"
+  },
+  "keywords": "chunky, chunky bundle, chunky bananas bundle, chunky templates",
+  "license": "MIT",
+  "contributors": [],
+  "repository": "fluidtrends/chunky-bananas",
+  "homepage": "https://carmel.io/code/chunky"
+}
