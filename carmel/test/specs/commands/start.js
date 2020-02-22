@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 const savor = require('savor')
-const Start = require('../../../commands/start')
+const Start = require('../../../src/commands/start')
 const { Session, Commander } = require("@carmel/sdk")
 
 savor.
@@ -17,4 +17,4 @@ add('should start a new web app', (context, done) => {
   })
 }).
 
-run('[CLI] Start Command')
+run('[Chunky Carmel Plugin] Start Command')

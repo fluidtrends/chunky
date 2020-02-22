@@ -80,6 +80,26 @@ jobs:
           paths:
             - codeclimate.cli.json
 
+  carmel-plugin-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/chunky/tmp
+      - run:
+          name: Install carmel plugin dependencies
+          command: cd carmel && npm install
+      - run:
+          name: Run carmel plugin tests
+          command: | 
+            cd carmel
+            npm run coverage
+            ../tmp/cc-test-reporter format-coverage -t lcov -o ../tmp/codeclimate.carmel.json --add-prefix carmel
+      - persist_to_workspace:
+          root: tmp
+          paths:
+            - codeclimate.carmel.json
+
   submit-coverage:
     <<: *defaults
     steps:
@@ -88,7 +108,7 @@ jobs:
       - run:
           name: Upload combined coverage to Code Climate
           command: |
-            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 3 -o tmp/codeclimate.total.json
+            ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 4 -o tmp/codeclimate.total.json
             ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
 
 workflows:
@@ -106,8 +126,12 @@ workflows:
       - cli-tests:
           requires:
             - build
+      - carmel-plugin-tests:
+          requires:
+            - build
       - submit-coverage:
           requires:
             - core-tests
             - web-tests
             - cli-tests
+            - carmel-plugin-tests

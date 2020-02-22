@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 
 const savor = require('savor')
-const Init = require('../../../commands/init')
+const Init = require('../../../src/commands/init')
 
 savor.
 
@@ -11,4 +11,4 @@ add('should create a new workspace with a default context', (context, done) => {
   done()
 }).
 
-run('[CLI] Init Command')
+run('[Chunky Carmel Plugin] Init Command')
