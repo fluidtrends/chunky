@@ -1,12 +1,12 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
+    "start": "node bin/start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "rebuild": "electron-rebuild -f"
