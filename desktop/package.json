@@ -1,20 +1,15 @@
 {
-  "name": "carmel",
-  "productName": "carmel",
-  "version": "1.0.0",
+  "name": "react-electron-chunky",
+  "productName": "chunky",
+  "version": "1.1.1",
   "preferGlobal": true,
-  "description": "My Electron application description",
+  "description": "The Chunky Desktop framework",
   "main": ".webpack/main",
-  "bin": {
-    "chunky": "bin/cli.js"
-  },
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
+    "start": "node bin/start",
+    "package": "node bin/package",
     "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "rebuild": "electron-rebuild -f",
-    "lint": "echo \"No linting configured\""
+    "rebuild": "electron-rebuild -f"
   },
   "keywords": [],
   "author": {
