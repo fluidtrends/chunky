@@ -7,7 +7,7 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "node bin/start",
-    "package": "electron-forge package",
+    "package": "node bin/package",
     "make": "electron-forge make",
     "rebuild": "electron-rebuild -f"
   },
