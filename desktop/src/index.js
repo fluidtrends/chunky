@@ -1,143 +1,107 @@
-import { app, BrowserWindow, protocol, ipcMain, ipcRenderer } from 'electron'
-import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer'
-import { enableLiveReload } from 'electron-compile'
-import 'babel-polyfill'
-import path from 'path'
-import controller from '../../../desktop/controller'
-require('fix-path')()
-require('electron-debug')({
-  enabled: false
-})
-
-let mainWindow
-let startWindow
-let deepLink
-let session
-
-const processDeepLink = function () {
-  console.log(deepLink)
+global.navigator = {
+  userAgent: 'chunky'
 }
 
-protocol.registerStandardSchemes(['carmel'])
+const { app, Tray, Menu, BrowserWindow, globalShortcut } = require('electron')
+const path = require('path')
+const Session = require('./MainSession')
 
-const start = async () => {
-  controller.start({ ipcMain, mainWindow })
-      .then((s) => {
-        session = s
-        mainWindow.webContents.send('start', { session })
-        setTimeout(() => {
-          startWindow && startWindow.close()
-          mainWindow && mainWindow.show()
-        }, 1000)
-      })
-      .catch((error) => {
-        mainWindow && mainWindow.close()
-        startWindow.webContents.send('event', { error: error.message })
-      })
-}
+const PORT = 13001
 
-const destroyWindow = () => {
-  if (!controller) {
-    app.quit()
-    return
-  }
+let window
+let session 
+let tray
+let loaded = false
 
-  controller.stop().then(() => app.quit())
-}
+app.dock.hide()
 
-const createWindow = async () => {
-  startWindow = new BrowserWindow({
-    width: 800,
-    height: 500,
-    minWidth: 800,
-    minHeight: 500,
-    frame: false,
-    resizable: false,
-    title: app.getName(),
-    center: true,
-    show: true
-  })
-
-  mainWindow = new BrowserWindow({
-    width: 1400,
-    height: 800,
-    center: true,
-    minWidth: 1024,
-    title: app.getName(),
-    minHeight: 800,
+const createWindow = () => {
+  window = new BrowserWindow({
+    width: 400,
+    height: 600,
     show: false,
-    backgroundColor: '#f5f5f5'
-  })
-
-  mainWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'main.html')}`)
-  startWindow.loadURL(`file://${path.join(path.dirname(__dirname), 'app', 'pages', 'start.html')}`)
-
-  mainWindow.webContents.on('did-finish-load', () => {
-    if (!controller) {
-      startWindow.close()
-      mainWindow.show()
-      return
+    frame: false,
+    backgroundColor: '#ECEFF1',
+    fullscreenable: false,
+    resizable: false,
+    transparent: false,
+    webPreferences: {
+      nodeIntegration: true,
+      backgroundThrottling: false,
+      webviewTag: true
     }
-
-    start()
   })
 
-  mainWindow.on('page-title-updated', (evt) => {
-    evt.preventDefault()
+  window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+  window.webContents.openDevTools()
+
+  window.on('closed', () => {
+    window = null
   })
 
-  mainWindow.on('closed', () => {
-    destroyWindow()
-  })
-
-  startWindow.on('closed', () => {
-    startWindow = null
-  })
-
-  ipcMain.on('startEvent', (event, e) => {
-    if (e.close) {
-      startWindow.close()
+  window.on('blur', () => {
+    if (!window.webContents.isDevToolsOpened()) {
+      window.hide()
     }
   })
 }
 
-const shouldQuit = app.makeSingleInstance((argv, workingDirectory) => {
-  if (process.platform === 'win32') {
-    deepLink = argv.slice(1)
-  }
+const createTray = () => {
+  tray = new Tray(path.join('assets', 'icon.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Toggle', click() { toggleWindow() }},
+    { label: 'Quit', click() { app.quit() }}
+  ])
+  tray.setContextMenu(contextMenu)
 
-  processDeepLink(deepLink)
+  tray.on('click', function (event) {
+    toggleWindow()
+  })
+}
 
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore()
-    mainWindow.focus()
-  }
+const getWindowPosition = () => {
+    const windowBounds = window.getBounds()
+    const trayBounds = tray.getBounds()
+    const x = Math.round(trayBounds.x + (trayBounds.width / 2) - (windowBounds.width / 2) - (loaded ? 0 : 18))
+    const y = Math.round(trayBounds.y + trayBounds.height + 4)
+
+    loaded = true
+    return { x: x, y: y }
+}
+
+const toggleWindow = () => {
+    if (window.isVisible()) {
+      window.hide() 
+      return 
+    } 
+    
+    tray.setImage(path.join('assets', 'icon.png'))
+    showWindow()
+}
+
+const showWindow = () => {
+    const position = getWindowPosition()
+    window.setPosition(position.x, position.y, false)
+    window.show()
+}
+
+app.on('ready', () => {
+  createWindow()
+  session = new Session({ window })
+  session.initialize().then(() => {
+      const ret = globalShortcut.register('CommandOrControl+1', () => {
+        toggleWindow()
+      })
+  
+      window.once('ready-to-show', () => {
+        createTray()
+        toggleWindow()
+      })
+  })
 })
-
-if (shouldQuit) {
-  app.quit()
-}
-
-app.on('ready', createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
-})
-
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
-
-app.setAsDefaultProtocolClient('carmel')
-
-app.on('will-finish-launching', () => {
-  app.on('open-url', (event, url) => {
-    event.preventDefault()
-    deepLink = url
-    processDeepLink(deepLink)
-  })
 })

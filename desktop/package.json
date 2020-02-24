@@ -1,77 +1,131 @@
 {
-  "name": "react-electron-chunky",
-  "version": "0.9.52",
-  "description": "The Chunky Desktop Framework",
+  "name": "carmel",
+  "productName": "carmel",
+  "version": "1.0.0",
+  "preferGlobal": true,
+  "description": "My Electron application description",
+  "main": ".webpack/main",
+  "bin": {
+    "chunky": "bin/cli.js"
+  },
   "scripts": {
-    "transpile": "node_modules/babel-cli/bin/babel.js src --out-dir lib --plugins=styled-jsx/babel"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "rebuild": "electron-rebuild -f",
+    "lint": "echo \"No linting configured\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/fluidtrends/chunky.git"
+  "keywords": [],
+  "author": {
+    "name": "I. Dan Calinescu",
+    "email": "idancalinescu@gmail.com"
   },
-  "author": "I. Dan Calinescu <idancalinescu@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/fluidtrends/chunky/issues"
-  },
-  "homepage": "https://github.com/fluidtrends/chunky",
-  "babel": {
-    "plugins": [
-      "transform-react-jsx",
-      "transform-es2015-destructuring",
-      "transform-object-rest-spread",
-      "css-modules-transform",
-      "styled-jsx/babel"
-    ],
-    "presets": [
-      "react",
-      "env"
-    ]
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "assets/logo.icns"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "carmel"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-dmg",
+          "config": {
+            "name": "carmel",
+            "icon": "assets/logo.icns"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./ui/index.html",
+                  "js": "./ui/index.js",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
   },
   "dependencies": {
-    "adm-zip": "^0.4.7",
-    "autoprefixer": "7.1.1",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.22.1",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-css-modules-transform": "^1.5.0",
-    "babel-plugin-react-css-modules": "^3.2.1",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-es2015-classes": "^6.24.1",
-    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "command-exists": "^1.2.6",
-    "cpy": "^6.0.0",
-    "devtron": "^1.4.0",
-    "electron-compile": "^6.4.2",
-    "electron-debug": "^2.0.0",
-    "electron-devtools-installer": "^2.1.0",
-    "electron-fetch": "^1.1.0",
-    "electron-forge": "^5.1.1",
-    "electron-main-fetch": "^0.1.0",
-    "electron-react-devtools": "^0.5.3",
+    "antd": "^3.23.3",
+    "copyfiles": "^2.1.1",
+    "cpy": "^8.0.0",
+    "decompress": "^4.2.0",
+    "download": "^7.1.0",
+    "electron-dl": "^1.14.0",
+    "electron-log": "^4.0.0",
+    "electron-main-fetch": "^0.2.0",
     "electron-squirrel-startup": "^1.0.0",
-    "eslint": "^3",
-    "eslint-config-airbnb": "^15",
-    "eslint-plugin-import": "^2",
-    "eslint-plugin-jsx-a11y": "^5",
-    "eslint-plugin-react": "^7",
-    "fix-path": "^2.1.0",
-    "fs-extra": "^5.0.0",
-    "lali": "^0.2.0",
-    "node-cmd": "^3.0.0",
-    "node-ipc": "^9.1.1",
-    "react-dom-chunky": "0.9.x",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "recursive-copy": "^2.0.9",
-    "request-progress": "^3.0.0",
-    "require-context": "^1.1.0",
-    "shelljs": "^0.8.1"
+    "favicon-getter": "^1.1.3",
+    "fs-extra": "^8.1.0",
+    "js-base64": "^2.5.1",
+    "jsonfile": "^5.0.0",
+    "lali": "^1.0.0",
+    "node-7z": "^1.1.1",
+    "opn": "^6.0.0",
+    "os": "^0.1.1",
+    "os-name": "^3.1.0",
+    "react": "^16.9.0",
+    "react-detect-offline": "^2.4.0",
+    "react-dom": "^16.9.0",
+    "react-markdown": "^4.2.2",
+    "react-reveal": "^1.2.2",
+    "react-spring": "^8.0.27",
+    "recursive-readdir": "^2.2.2",
+    "rsync": "^0.6.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
+    "url-loader": "^2.2.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "@electron-forge/cli": "6.0.0-beta.45",
+    "@electron-forge/maker-deb": "6.0.0-beta.45",
+    "@electron-forge/maker-dmg": "6.0.0-beta.45",
+    "@electron-forge/maker-rpm": "6.0.0-beta.45",
+    "@electron-forge/maker-squirrel": "6.0.0-beta.45",
+    "@electron-forge/maker-zip": "6.0.0-beta.45",
+    "@electron-forge/plugin-webpack": "6.0.0-beta.45",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-import": "^1.12.1",
+    "css-loader": "^3.0.0",
+    "electron": "^6.0.11",
+    "electron-rebuild": "^1.8.6",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "node-loader": "^0.6.0",
+    "prop-types": "^15.7.2",
+    "style-loader": "^0.23.1"
   }
 }
