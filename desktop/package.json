@@ -1,7 +1,7 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
   "main": ".webpack/main",
@@ -95,20 +95,20 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "url-loader": "^2.2.0",
-    "uuid": "^3.3.3"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
+    "uuid": "^3.3.3",
     "@electron-forge/cli": "6.0.0-beta.45",
     "@electron-forge/maker-deb": "6.0.0-beta.45",
     "@electron-forge/maker-dmg": "6.0.0-beta.45",
     "@electron-forge/maker-rpm": "6.0.0-beta.45",
     "@electron-forge/maker-squirrel": "6.0.0-beta.45",
     "@electron-forge/maker-zip": "6.0.0-beta.45",
-    "@electron-forge/plugin-webpack": "6.0.0-beta.45",
+    "@electron-forge/plugin-webpack": "6.0.0-beta.45"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
     "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.1",
