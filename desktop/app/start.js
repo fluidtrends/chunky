@@ -3,7 +3,7 @@ const path = require('path')
 
 function start (options) {
   const dir = path.resolve(options.dir)
-
+  
   return api.start({
     dir,
     interactive: true,
