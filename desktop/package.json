@@ -1,7 +1,7 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
   "main": ".webpack/main",
@@ -102,9 +102,7 @@
     "@electron-forge/maker-rpm": "6.0.0-beta.45",
     "@electron-forge/maker-squirrel": "6.0.0-beta.45",
     "@electron-forge/maker-zip": "6.0.0-beta.45",
-    "@electron-forge/plugin-webpack": "6.0.0-beta.45"
-  },
-  "devDependencies": {
+    "@electron-forge/plugin-webpack": "6.0.0-beta.45",
     "@babel/core": "^7.6.0",
     "@babel/plugin-transform-modules-commonjs": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
@@ -113,7 +111,6 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.12.1",
     "css-loader": "^3.0.0",
-    "electron": "^6.0.11",
     "electron-rebuild": "^1.8.6",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
@@ -122,5 +119,8 @@
     "node-loader": "^0.6.0",
     "prop-types": "^15.7.2",
     "style-loader": "^0.23.1"
+  },
+  "devDependencies": {
+    "electron": "^6.0.11"
   }
 }
