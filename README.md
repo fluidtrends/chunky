@@ -12,6 +12,7 @@
 <img src="https://img.shields.io/npm/v/react-chunky?color=green&label=core"/>
 <img src="https://img.shields.io/npm/v/react-dom-chunky?color=green&label=web"/>
 <img src="https://img.shields.io/npm/v/chunky-cli?color=green&label=cli"/>
+<img src="https://img.shields.io/npm/v/react-electron-chunky?color=green&label=desktop"/>
 
 </p>
 

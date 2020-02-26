@@ -1,5 +1,5 @@
 import React from 'react'
-import config from './config'
+import config from './appConfig'
 import * as firebase from 'firebase/app'
 import firebaseConfig from '__app/firebase.config.json'
 

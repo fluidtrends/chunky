@@ -7,15 +7,14 @@ import './index.less'
 import '../app/global'
 import App from './App'
 
+console.log(chunky)
+
 const render = (Component, config) => {
   var appConfig = Object.assign({}, config)
   delete appConfig.chunks
-  ReactDOM.render(
-    <AppContainer>
-      <Core.AppContainer {...config} autoRefresh>
+  ReactDOM.render(<Core.AppContainer {...config} autoRefresh>
         <Component {...appConfig} autoRefresh />
-      </Core.AppContainer>
-    </AppContainer>,
+  </Core.AppContainer>, 
   document.getElementById('chunky'))
 }
 
