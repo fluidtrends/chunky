@@ -82,15 +82,15 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "../chunky/desktop/src/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/MainSession.js":
-/*!****************************!*\
-  !*** ./src/MainSession.js ***!
-  \****************************/
+/***/ "../chunky/desktop/src/MainSession.js":
+/*!********************************************!*\
+  !*** ../chunky/desktop/src/MainSession.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -170,10 +170,10 @@ module.exports = Session;
 
 /***/ }),
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "../chunky/desktop/src/index.js":
+/*!**************************************!*\
+  !*** ../chunky/desktop/src/index.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -190,7 +190,7 @@ var _require = __webpack_require__(/*! electron */ "electron"),
 
 var path = __webpack_require__(/*! path */ "path");
 
-var Session = __webpack_require__(/*! ./MainSession */ "./src/MainSession.js");
+var Session = __webpack_require__(/*! ./MainSession */ "../chunky/desktop/src/MainSession.js");
 
 var PORT = 13001;
 var window;
