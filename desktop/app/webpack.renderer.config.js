@@ -1,6 +1,7 @@
 const rules = require('./webpack.rules');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack')
+const path = require('path')
 
 rules.push(
   {
@@ -20,7 +21,7 @@ rules.push(
 
 const plugins = [
   new HtmlWebPackPlugin({
-    filename: "./app/index.html"
+    filename: "../ui/index.html"
   }), 
   new webpack.ExternalsPlugin('commonjs', [
     'electron'
@@ -28,7 +29,12 @@ const plugins = [
 ]
 
 module.exports = {
-  module: {
+  module: { 
     rules
+  },
+  resolve: {
+    alias: {
+      "__app": path.resolve(process.cwd())
+    }
   }
 }

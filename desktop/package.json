@@ -1,15 +1,18 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
-  "main": ".webpack/main",
+  "main": "./app/main",
   "scripts": {
     "start": "node bin/start",
     "package": "node bin/package",
     "make": "electron-forge make",
     "rebuild": "electron-rebuild -f"
+  },
+  "bin": {
+    "start": "bin/start.js"
   },
   "keywords": [],
   "author": {
@@ -18,52 +21,7 @@
   },
   "license": "MIT",
   "config": {
-    "forge": {
-      "packagerConfig": {
-        "icon": "assets/logo.icns"
-      },
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "carmel"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-dmg",
-          "config": {
-            "name": "carmel",
-            "icon": "assets/logo.icns"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
-      "plugins": [
-        [
-          "@electron-forge/plugin-webpack",
-          {
-            "mainConfig": "./webpack.main.config.js",
-            "renderer": {
-              "config": "./webpack.renderer.config.js",
-              "entryPoints": [
-                {
-                  "html": "./ui/index.html",
-                  "js": "./ui/index.js",
-                  "name": "main_window"
-                }
-              ]
-            }
-          }
-        ]
-      ]
-    }
+    "forge": "./app/config.js"
   },
   "dependencies": {
     "antd": "^3.23.3",
