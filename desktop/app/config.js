@@ -1,19 +1,28 @@
+const path = require('path')
+
+const dir = path.dirname(__dirname)
+const cwd = process.cwd()
+
+const props = {
+  name: "chunky"
+}
+
 module.exports = ({
     "packagerConfig": {
-        "icon": "assets/logo.icns"
+        "icon": path.resolve(cwd, "assets", "logo.icns")
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "carmel"
+            "name": props.name
           }
         },
         {
           "name": "@electron-forge/maker-dmg",
           "config": {
-            "name": "chunky",
-            "icon": "assets/logo.icns"
+            "name": props.name,
+            "icon": path.resolve(cwd, "assets", "logo.icns")
           }
         },
         {
@@ -29,13 +38,13 @@ module.exports = ({
         [
           "@electron-forge/plugin-webpack",
           {
-            "mainConfig": "./node_modules/react-electron-chunky/webpack.main.config.js",
+            "mainConfig": path.resolve(dir, "app", "webpack.main.config.js"),
             "renderer": {
-              "config": "./node_modules/react-electron-chunky/webpack.renderer.config.js",
+              "config":  path.resolve(dir, "app", "webpack.renderer.config.js"),
               "entryPoints": [
                 {
-                  "html": "./node_modules/react-electron-chunky/ui/index.html",
-                  "js": "./node_modules/react-electron-chunky/ui/index.js",
+                  "html": path.resolve(dir, "ui", "index.html"),
+                  "js": path.resolve(dir, "ui", "index.js"),
                   "name": "main_window"
                 }
               ]

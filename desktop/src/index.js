@@ -5,7 +5,6 @@ global.navigator = {
 const { app, Tray, Menu, BrowserWindow, globalShortcut } = require('electron')
 const path = require('path')
 const Session = require('./MainSession')
-
 const PORT = 13001
 
 let window
@@ -47,7 +46,7 @@ const createWindow = () => {
 }
 
 const createTray = () => {
-  tray = new Tray(path.join('assets', 'icon.png'))
+  tray = new Tray(path.resolve(process.cwd(), 'assets', 'icon.png'))
   const contextMenu = Menu.buildFromTemplate([
     { label: 'Toggle', click() { toggleWindow() }},
     { label: 'Quit', click() { app.quit() }}
@@ -75,7 +74,7 @@ const toggleWindow = () => {
       return 
     } 
     
-    tray.setImage(path.join('assets', 'icon.png'))
+    tray.setImage(path.resolve(process.cwd(), 'assets', 'icon.png'))
     showWindow()
 }
 
