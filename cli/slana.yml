@@ -4,15 +4,11 @@ footer:
   text: "keep on building ;)"
 
 commands:
-- name: init
+- name: init [name]
   more: Specify a custom name or go with the default generated name
   description: Create a new product
   executor: src/exec
   options:
-  - name: name
-    description: The product name
-    type: string
-    default: chunky
   - name: template
     description: The product template to use
     type: string
@@ -23,23 +19,15 @@ commands:
   - command: init MyProduct --template some-template
     description: Create a new product using the specified template from the default bundle
 
-- name: start [platforms..]
-  description: Start the packagers for one or more platforms
+- name: start [platform]
+  description: Start the packager for a specific platform
   more: The supported platforms are web, mobile and desktop
   executor: src/exec
   options:
-  - name: mobile-packager-port
-    description: Use a custom mobile packager port
+  - name: port
+    description: Use a custom packager port
     type: string
-    default: 8081
-  - name: web-packager-port
-    description: Use a custom web packager port
     default: 8082
-    type: string
-  - name: desktop-packager-port
-    description: Use a custom desktop packager port
-    default: 8083
-    type: string
   examples:
   - command: start
     description: Start all the packagers, using the default ports
