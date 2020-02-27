@@ -4,6 +4,15 @@ const run = require('./run')
 class _ extends Carmel.Commands.Start {
     constructor(args) {
       super(args)
+      this._platform = _.PLATFORMS[args.platform ? args.platform.toUpperCase() : _.DEFAULT_PLATFORM.toUpperCase()]
+    }
+
+    get platform() {
+      return this._platform
+    }
+
+    get target() {
+      return this.platform
     }
 
     load(session) {
@@ -30,6 +39,10 @@ class _ extends Carmel.Commands.Start {
    }
 }
 
-_.ERRORS = Object.assign({}, _.ERRORS, {})
+_.ERRORS = Object.assign({}, _.ERRORS, {
+})
+
+_.PLATFORMS = { WEB: "web", DESKTOP: "desktop", MOBILE: "mobile" }
+_.DEFAULT_PLATFORM = _.PLATFORMS.WEB
 
 module.exports = _
