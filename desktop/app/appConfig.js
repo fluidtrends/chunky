@@ -9,6 +9,4 @@ config.strings = strings
 config.platform = 'desktop'
 config.desktop = desktop
 
-console.log("*******", config)
-
 export default config
