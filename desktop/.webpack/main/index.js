@@ -210,6 +210,7 @@ var createWindow = function createWindow() {
     resizable: false,
     transparent: false,
     webPreferences: {
+      preload: undefined,
       nodeIntegration: true,
       backgroundThrottling: false,
       webviewTag: true

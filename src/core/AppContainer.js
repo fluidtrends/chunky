@@ -33,7 +33,11 @@ export default class AppContainer extends Component {
       return
     }
 
-    Analytics.initialize(this.props.info.analytics)
+    try {
+      Analytics.initialize(this.props.info.analytics)
+    } catch (e) {
+      // Absorb issues here but TODO make this better
+    }
   }
 
   _initializeDataProviders (pool, env) {
