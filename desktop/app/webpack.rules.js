@@ -1,3 +1,6 @@
+const path = require('path')
+const chunkyDir = path.dirname(path.resolve(require.resolve('react-electron-chunky')))
+
 module.exports = [
     {
         test: /\.node$/,
@@ -15,7 +18,13 @@ module.exports = [
     },
     {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        include: [
+            path.resolve(process.cwd(), "chunks"),
+            path.resolve(process.cwd(), "desktop"),
+            path.resolve(chunkyDir, "app"),
+            path.resolve(chunkyDir, "src"),
+            path.resolve(chunkyDir, "ui")
+        ],
         use: {
             loader: "babel-loader",
             options: {
