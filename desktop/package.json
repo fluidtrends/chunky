@@ -1,14 +1,11 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
   "scripts": {
-    "start": "node bin/start",
-    "package": "node bin/package",
-    "make": "electron-forge make",
-    "rebuild": "electron-rebuild -f"
+    "postinstall": "npm i electron@6.0.11"
   },
   "bin": {
     "start": "bin/start.js"
@@ -19,6 +16,20 @@
     "email": "idancalinescu@gmail.com"
   },
   "license": "MIT",
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-transform-destructuring",
+      "@babel/plugin-transform-react-jsx",
+      "@babel/plugin-proposal-class-properties",
+      "styled-jsx/babel",
+      "babel-plugin-macros"
+    ],
+    "presets": [
+      "@babel/react",
+      "@babel/env"
+    ]
+  },
   "config": {
     "forge": "./app/config.js"
   },
@@ -65,7 +76,7 @@
     "os-name": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
-    "react-chunky": "^1.2.0",
+    "react-chunky": "^1.2.1",
     "react-detect-offline": "^2.4.0",
     "react-dom": "^16.9.0",
     "react-markdown": "^4.2.2",
