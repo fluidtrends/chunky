@@ -3,6 +3,8 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const webpack = require('webpack')
 const path = require('path')
 
+const chunkyDir = path.dirname(path.resolve(require.resolve('react-electron-chunky')))
+
 rules.push(
   {
     test: /\.less$/,
@@ -21,7 +23,7 @@ rules.push(
 
 const plugins = [
   new HtmlWebPackPlugin({
-    filename: "../ui/index.html"
+    filename: path.resolve(chunkyDir, 'ui', 'index.html')
   }), 
   new webpack.ExternalsPlugin('commonjs', [
     'electron'
@@ -35,6 +37,11 @@ module.exports = {
   resolve: {
     alias: {
       "__app": path.resolve(process.cwd())
-    }
+    },
+    modules: [
+      path.resolve(chunkyDir, "node_modules"),
+      path.resolve(process.cwd(), "node_modules"),
+      "node_modules"
+    ]
   }
 }
