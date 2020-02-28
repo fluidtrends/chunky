@@ -1,11 +1,11 @@
 {
   "name": "react-electron-chunky",
   "productName": "chunky",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "preferGlobal": true,
   "description": "The Chunky Desktop framework",
   "scripts": {
-    "postinstall": "npm i"
+    "postinstall": "npm i electron@6.0.11 @babel/core@7.6.0 @babel/preset-env@7.6.0 @babel/preset-react#7.0.0"
   },
   "bin": {
     "start": "bin/start.js"
