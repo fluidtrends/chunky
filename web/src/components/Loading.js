@@ -1,7 +1,7 @@
 import React from 'react'
 import Component from '../core/Component'
 import { Typography } from '@rmwc/typography'
-import { Spin, Icon } from 'antd'
+import { Spin } from 'antd'
 
 export default class LoadingComponent extends Component {
   constructor (props) {
@@ -10,10 +10,7 @@ export default class LoadingComponent extends Component {
   }
 
   render () {
-    const indicator = <Icon type='loading' style={{ fontSize: 48, color: '#039BE5' }} spin />
-
-    return (
-      <div
+    return <div
         style={{
           display: 'flex',
           flex: 1,
@@ -26,11 +23,10 @@ export default class LoadingComponent extends Component {
           alignItems: 'center'
         }}
       >
-        <Spin indicator={indicator} style={{padding: '40px'}} />
+        <Spin style={{padding: '40px'}} />
         <Typography use='headline' style={{ color: '#B0BEC5' }} tag='h2'>
           {this.props.message}
         </Typography>
       </div>
-    )
   }
 }
