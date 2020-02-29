@@ -56,10 +56,6 @@ savor
   const container = context.mount(<LoadingScreen {...props}/>)
   const screen = container.instance()
 
-  context.expect(screen.isMobile).to.be.false
-  context.expect(screen.platformOS).to.exist
-  context.expect(screen.isWindows !== screen.isMac).to.be.true
-  context.expect(screen.platformType).to.exist
   context.expect(screen.restUrl).to.exist
   context.expect(screen.sideMenu).to.exist
   context.expect(screen.layout).to.exist

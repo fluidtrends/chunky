@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import Media from './Media'
-import Timer from './Timer'
 import { Icon } from 'antd'
 import { Button } from '@rmwc/button'
 import { Typography } from '@rmwc/typography'
@@ -138,23 +137,6 @@ export default class Cover extends Component {
         {' '}
         {translatedTitle}
       </Typography>
-    )
-  }
-
-  renderCoverTimeline() {
-    const backgroundColor = '#00ACC1',
-      textColor = '#ffffff'
-
-    return (
-      <div style={{ maxWidth: 450, maxHeight: 300 }}>
-        <Timer
-          periods={this.props.timedPeriods}
-          textColor={textColor}
-          simple
-          actionTitle="Buy tokens"
-          onAction={this.triggerEvent()}
-        />
-      </div>
     )
   }
 

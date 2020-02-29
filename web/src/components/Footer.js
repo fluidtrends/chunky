@@ -1,15 +1,12 @@
 import React, { PureComponent } from 'react'
 import Component from '../core/Component'
 import { renderResponsive } from '../utils/responsive'
-import SocialIcons from './SocialIcons'
 import {
   List,
   ListItem,
   ListItemText
 } from '@rmwc/list'
-import { Icon } from '@rmwc/icon'
 import { Button } from '@rmwc/button'
-import { Typography } from '@rmwc/typography'
 
 export default class Footer extends Component {
 
@@ -108,15 +105,6 @@ export default class Footer extends Component {
         justifyContent: 'center',
       }}>
         <img src={`assets/${this.props.theme.logoLightImage}`} style={{width: '150px'}}/>
-      </div>
-      <div style={{
-        minHeight: '80px',
-        padding: '10px',
-        display: 'flex',
-        alignSelf: 'center',
-        flex: 1,
-      }}>
-        <SocialIcons iconColor={this.props.theme.footerSocialIconsColor} iconColorHover={this.props.theme.footerSocialIconsColorHover} isSmallScreen={isSmallScreen} socialMediaLinks={this.props.footer.socialMediaLinks} />
       </div>
       <div style={{
         backgroundColor: this.props.theme.footerColor,
