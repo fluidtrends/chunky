@@ -11,7 +11,6 @@ import {
 import marked from 'marked'
 import URL from 'url-parse'
 import { Data } from 'react-chunky'
-import Handlebars from 'handlebars/dist/cjs/handlebars'
 
 export default class Text extends Component {
   constructor(props) {
@@ -58,7 +57,6 @@ export default class Text extends Component {
         : url
     return fetch(translatedUrl)
       .then(response => response.text())
-      .then(response => Handlebars.compile(response)(Object.assign({}, this.props.input)))
       .then(markdown => marked(markdown, {}))
   }
 

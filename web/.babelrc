@@ -1,0 +1,18 @@
+{
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-transform-destructuring",
+        "@babel/plugin-transform-react-jsx",
+        "@babel/plugin-proposal-class-properties",
+        "styled-jsx/babel",
+        "babel-plugin-macros",
+        ["import", {
+            "libraryName": "antd",
+            "style": "true"
+        }]
+  ],
+  "presets": [
+    "@babel/react",
+    "@babel/env"
+  ]
+}

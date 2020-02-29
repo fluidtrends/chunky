@@ -7,7 +7,7 @@ import { Loading } from '../../../../src/components'
 savor
 
 .add('should handle component lifecycle', (context, done) => {
-  const props = { id: "test", option: { file: "test" }}
+  const props = { id: "test", message: "testing" }
   const container = context.shallow(<Loading {...props}/>)
 
   // And, we're looking good
