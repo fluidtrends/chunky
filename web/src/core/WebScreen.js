@@ -7,8 +7,6 @@ import * as DefaultComponents from '../components'
 import merge from 'deepmerge'
 import { breakpoints } from '../utils/responsive'
 import { default as Layout } from './Layout'
-import { detect } from 'detect-browser'
-import platform from 'platform'
 
 export default class WebScreen extends Core.Screen {
   constructor (props) {
@@ -40,7 +38,6 @@ export default class WebScreen extends Core.Screen {
       this.handleLocationChange.bind(this)
     )
     this._onEvent = this.onEvent.bind(this)
-    this._browser = detect()
 
     this.triggerAnalyticsView(this.props.location.pathname)
     const account = this.isLoggedIn ? 'member' : 'guest'
@@ -61,30 +58,6 @@ export default class WebScreen extends Core.Screen {
     }
 
     this._load(this.props)
-  }
-
-  get platformType() {
-    if (this.isMobile) {
-      return this.platformOS
-    }
-
-    return this.isWindows ? "windows" : (this.isMac ? "mac" : "linux")
-  }
-
-  get platformOS() {
-    return platform.os.family.toLowerCase()
-  }
-
-  get isMobile() {
-    return ["ios", "android"].includes(this.platformOS === 'ios' || this.platformOS)
-  }
-
-  get isMac() {
-    return "darwin" === this.platformOS
-  }
-
-  get isWindows() {
-    return this.platformOS.includes("windows")
   }
 
   get sidebarWidth () {
@@ -118,10 +91,6 @@ export default class WebScreen extends Core.Screen {
   }
 
   handleLocationChange (location) {
-  }
-
-  get browser () {
-    return this._browser
   }
 
   scrollToTop () {

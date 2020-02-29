@@ -1,13 +1,12 @@
 {
   "name": "react-chunky",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "The Chunky Universal Framework",
   "main": "lib/index.js",
   "scripts": {
     "transpile": "node_modules/@babel/cli/bin/babel.js src --out-dir lib",
     "test": "react-savor test",
     "testing": "react-savor testing",
-    "lint": "react-savor lint",
     "coverage": "react-savor coverage",
     "docs": "react-savor doc",
     "open:coverage": "open coverage/lcov-report/index.html"
@@ -36,6 +35,9 @@
       "@babel/env"
     ]
   },
+  "files": [
+    "lib/**/*"
+  ],
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -56,9 +58,7 @@
     "firebaseline": "0.x",
     "html-entities": "^1.2.1",
     "http": "0.0.0",
-    "istanbul": "^0.4.5",
     "js-base64": "^2.4.3",
-    "lali": "^0.x",
     "marked": "^0.3.6",
     "moment": "^2.15.1",
     "moment-timezone": "^0.5.14",
