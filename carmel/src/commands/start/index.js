@@ -1,5 +1,6 @@
 const Carmel = require('@carmel/sdk')
 const run = require('./run')
+const path = require('path')
 
 class _ extends Carmel.Commands.Start {
     constructor(args) {
@@ -18,9 +19,20 @@ class _ extends Carmel.Commands.Start {
     load(session) {
       var props = {
         dir: process.cwd(),
-        port: "8082"
+        port: 8082,
+        name: "Chunky",
+        startScript: {
+          dev: path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
+        },
+        page: {
+          dev: path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'app', 'pages', 'default.html')
+        }
       } 
-  
+
+      // TODO figure these two out
+      // assetsGlob,
+      // root
+                      
       return session.workspace.loadFile('chunky.json')
                     .then((config) => { 
                       props.config = Object.assign({}, config) 
@@ -28,7 +40,7 @@ class _ extends Carmel.Commands.Start {
                     })
                     .then((dirs) => Promise.all(dirs.map(dir => session.workspace.loadFile(`chunks/${dir}/chunk.json`))))
                     .then((chunks) => { 
-                      props.chunks = [].concat(chunks)
+                      props.sections = [].concat(chunks)
                       return props
                     })
     }

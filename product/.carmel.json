@@ -1,0 +1,9 @@
+{
+    "context": {
+        "start": {
+            "web": {
+                "script": "default"
+            }
+        }
+    }
+}
