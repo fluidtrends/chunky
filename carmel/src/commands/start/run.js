@@ -37,7 +37,7 @@ const _makeShadows = (workspace, chunks) => {
 }
 
 const run = ({ session, props, script }) => {
-    _makeShadows (session.workspace, props.chunks)
+    _makeShadows (session.workspace, props.sections)
     return script(props)
 }
 
