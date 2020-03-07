@@ -1,6 +1,6 @@
 {
   "name": "chunky",
-  "env": "dev",
+  "env": "development",
   "id": "io.chunky",
   "androidSdkDir": "~/Library/Android/sdk",
   "sections": {
@@ -56,6 +56,7 @@
     "https://unpkg.com/react-media/umd/react-media.min.js",
     "https://unpkg.com/react-router/umd/react-router.min.js",
     "https://unpkg.com/rmwc@5.7.2/dist/styles.js",
+    "https://unpkg.com/rmwc@5.7.2/dist/index.js",
     "https://unpkg.com/react-router-dom/umd/react-router-dom.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js",
