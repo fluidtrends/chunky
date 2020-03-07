@@ -17,22 +17,30 @@ class _ extends Carmel.Commands.Start {
     }
 
     load(session) {
+      // const archive = session.index.sections.archives.findArchive({ id: "papanache" })
+      // console.log(archive.path)
+      const root = path.resolve(session.index.path, 'archives', 'papanache', '1.1.0')
+
+      // console.log(require.resolve('react-dom-chunky'))
+
+      const _dir = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky')
+      //'/Users/idancali/idancali/dev/chunky/web'
+      const assetsGlob = `${path.resolve(_dir, 'app', 'assets')}/**/**`
+
       var props = {
         dir: process.cwd(),
         port: 8082,
-        name: "Chunky",
+        name: "chunky",
+        assetsGlob,
         startScript: {
-          dev: path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'app', 'index.dev.js')
+          dev: path.resolve(_dir, 'app', 'index.dev.js')
         },
         page: {
-          dev: path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky', 'app', 'pages', 'default.html')
-        }
+          dev: path.resolve(_dir, 'app', 'pages', 'default.html')
+        },
+        root
       } 
 
-      // TODO figure these two out
-      // assetsGlob,
-      // root
-                      
       return session.workspace.loadFile('chunky.json')
                     .then((config) => { 
                       props.config = Object.assign({}, config) 
