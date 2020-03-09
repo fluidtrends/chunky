@@ -28,10 +28,10 @@ class _ extends Carmel.Commands.Start {
         name: "chunky",
         assetsGlob,
         startScript: {
-          dev: path.resolve(_dir, 'app', 'index.dev.js')
+          dev: path.resolve(chunkyWeb, 'app', 'index.dev.js')
         },
         page: {
-          dev: path.resolve(_dir, 'app', 'pages', 'default.html')
+          dev: path.resolve(chunkyWeb, 'app', 'pages', 'default.html')
         },
         root
       } 
