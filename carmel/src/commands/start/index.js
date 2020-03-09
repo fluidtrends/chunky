@@ -38,7 +38,7 @@ class _ extends Carmel.Commands.Start {
     }
 
     load(session) {
-      const config = this.makeConfig(session)
+      const props = this.makeConfig(session)
 
       return session.workspace.loadFile('chunky.json')
                     .then((config) => { 
