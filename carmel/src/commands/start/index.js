@@ -16,18 +16,13 @@ class _ extends Carmel.Commands.Start {
       return this.platform
     }
 
-    load(session) {
-      // const archive = session.index.sections.archives.findArchive({ id: "papanache" })
-      // console.log(archive.path)
-      const root = path.resolve(session.index.path, 'archives', 'papanache', '1.1.0')
+    makeConfig(session) {
+      const papanacheVersion = session.get('papanacheVersion')
+      const chunkyWeb = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky')
+      const assetsGlob = `${path.resolve(chunkyWeb, 'app', 'assets')}/**/**`
+      const root = path.resolve(session.index.path, 'archives', 'papanache', papanacheVersion)
 
-      // console.log(require.resolve('react-dom-chunky'))
-
-      const _dir = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky')
-      //'/Users/idancali/idancali/dev/chunky/web'
-      const assetsGlob = `${path.resolve(_dir, 'app', 'assets')}/**/**`
-
-      var props = {
+      return {
         dir: process.cwd(),
         port: 8082,
         name: "chunky",
@@ -40,6 +35,10 @@ class _ extends Carmel.Commands.Start {
         },
         root
       } 
+    }
+
+    load(session) {
+      const config = this.makeConfig(session)
 
       return session.workspace.loadFile('chunky.json')
                     .then((config) => { 
