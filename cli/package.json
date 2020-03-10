@@ -1,6 +1,6 @@
 {
   "name": "chunky-cli",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "description": "The Chunky Command Line Interface",
   "preferGlobal": true,
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
-    "chunky-carmel-plugin": "^1.3.3",
+    "chunky-carmel-plugin": "^1.4.0",
     "slana": "latest"
   },
   "devDependencies": {
