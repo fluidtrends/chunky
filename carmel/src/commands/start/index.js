@@ -20,7 +20,7 @@ class _ extends Carmel.Commands.Start {
       const papanacheVersion = session.get('papanacheVersion')
       const chunkyWeb = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky')
       const assetsGlob = `${path.resolve(chunkyWeb, 'app', 'assets')}/**/**`
-      const root = path.resolve(session.index.path, 'archives', 'papanache', papanacheVersion)
+      const root = path.resolve(session.index.path, 'archives', 'papanache', papanacheVersion, 'papanache')
 
       return {
         dir: process.cwd(),
