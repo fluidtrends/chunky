@@ -43,7 +43,7 @@
 
     <%if (app.scripts) { %>
     <% app.scripts.forEach(function(s){ %>
-    <script crossorigin async defer src="<%- s %>"></script>
+    <script type="text/javascript" src="<%- s %>"></script>
     <% })} %>
 
     <%if (app.vars) { %>
