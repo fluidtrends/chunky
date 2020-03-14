@@ -18,22 +18,27 @@ class _ extends Carmel.Commands.Start {
 
     makeConfig(session) {
       const papanacheVersion = session.get('papanacheVersion')
-      const chunkyWeb = path.resolve(process.cwd(), 'node_modules', 'react-dom-chunky')
-      const assetsGlob = `${path.resolve(chunkyWeb, 'app', 'assets')}/**/*`
+      const bananasVersion = session.get('bananasVersion')
+
+      const templateDir = path.resolve(session.index.path, 'archives', '@fluidtrends/bananas', bananasVersion, '@fluidtrends/bananas')
       const root = path.resolve(session.index.path, 'archives', 'papanache', papanacheVersion, 'papanache')
 
+      const dir = process.cwd()
+      const chunkyWebDir = path.resolve(templateDir, 'node_modules', 'react-dom-chunky')
+
       return {
-        dir: process.cwd(),
+        dir,
+        root,
+        templateDir,
         port: 8082,
         name: "chunky",
-        assetsGlob,
+        assetsGlob: `${path.resolve(chunkyWebDir, 'app', 'assets')}/**/*`,
         startScript: {
-          dev: path.resolve(chunkyWeb, 'app', 'index.dev.js')
+          dev: path.resolve(chunkyWebDir, 'app', 'index.dev.js')
         },
         page: {
-          dev: path.resolve(chunkyWeb, 'app', 'pages', 'default.html')
-        },
-        root
+          dev: path.resolve(chunkyWebDir, 'app', 'pages', 'default.html')
+        }
       } 
     }
 

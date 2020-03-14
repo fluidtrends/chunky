@@ -1,6 +1,6 @@
 {
   "name": "chunky-carmel-plugin",
-  "version": "1.5.6",
+  "version": "1.6.0",
   "description": "The Chunky Carmel plugin",
   "scripts": {
     "test": "savor test",
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/fluidtrends/chunky",
   "dependencies": {
-    "@carmel/sdk": "^1.5.5",
+    "@carmel/sdk": "^1.6.0",
     "coreutils": "^0.3.0"
   },
   "devDependencies": {

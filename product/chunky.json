@@ -37,51 +37,23 @@
     "footerSocialIconsColor": "#fff",
     "footerSocialIconsColorHover": "#37474F"
   },
-  "styles": [
-    "https://fonts.googleapis.com/css?family=Roboto",
-    "https://fonts.googleapis.com/css?family=Montserrat:400,700",
-    "https://fonts.googleapis.com/icon?family=Material+Icons",
-    "https://unpkg.com/material-components-web@4.0.0/dist/material-components-web.css",
-    "https://unpkg.com/antd@4.0.2/dist/antd.min.css"
-  ],
-  "scripts": [
-    "https://unpkg.com/react@16.13.0/umd/react.production.min.js",
-    "https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js",
-    "https://unpkg.com/antd@4.0.2/dist/antd.min.js"
-  ],
-  "styles-old": [
-    "https://fonts.googleapis.com/css?family=Roboto",
-    "https://fonts.googleapis.com/css?family=Montserrat:400,700",
-    "https://fonts.googleapis.com/icon?family=Material+Icons",
-    "https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css",
-    "https://unpkg.com/material-components-web@4.0.0/dist/material-components-web.css",
-    "https://unpkg.com/react-placeholder@3.0.2/lib/reactPlaceholder.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css",
-    "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css",
-    "https://unpkg.com/antd@4.0.2/dist/antd.css"
-  ],
-  "scripts-old": [
-    "https://unpkg.com/react@16/umd/react.production.min.js",
-    "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/react-transition-group/2.4.0/react-transition-group.min.js",
-    "https://unpkg.com/react-media/umd/react-media.min.js",
-    "https://unpkg.com/react-router/umd/react-router.min.js",
-    "https://unpkg.com/rmwc@5.7.2/dist/styles.js",
-    "https://unpkg.com/rmwc@5.7.2/dist/index.js",
-    "https://unpkg.com/react-router-dom/umd/react-router-dom.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js",
-    "https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js",
-    "https://www.gstatic.com/firebasejs/4.4.0/firebase.js",
-    "https://unpkg.com/material-components-web@4.0.0/dist/material-components-web.min.js",
-    "https://unpkg.com/react-progressive-image@0.6.0/umd/react-progressive-image.min.js",
-    "https://www.google.com/recaptcha/api.js",
-    "https://js.braintreegateway.com/web/dropin/1.14.1/js/dropin.min.js",
-    "https://unpkg.com/antd@4.0.2/dist/antd.js"
-  ],
   "info": {
     "copyright": "2020",
     "watermark": "Created with Chunky"
   },
-  "template": "personal"
+  "template": "personal",
+  "styles": {
+    "web": [
+      "https://fonts.googleapis.com/css?family=Roboto",
+      "https://fonts.googleapis.com/css?family=Montserrat:400,700",
+      "https://fonts.googleapis.com/icon?family=Material+Icons",
+      "https://unpkg.com/material-components-web@5.1.0/dist/material-components-web.min.css",
+      "https://unpkg.com/antd@4.0.2/dist/antd.min.css"
+    ]
+  },
+  "scripts": {
+    "web": [
+      "https://unpkg.com/antd@4.0.2/dist/antd.js"
+    ]
+  }  
 }
