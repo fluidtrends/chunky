@@ -13,15 +13,6 @@
   },
   "homepage": "http://www.chunky.io",
   "dependencies": {
-    "react-dom-chunky": "^1.3.1",
-    "antd": "^3.26.13",
-    "firebase": "^7.10.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-hot-loader": "^4.12.19",
-    "rmwc": "^5.7.2"
   },
-  "devDependencies": {
-    "react-savor": "^1.2.1"
-  }
+  "devDependencies": {}
 }
