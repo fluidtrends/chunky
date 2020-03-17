@@ -41,3 +41,12 @@ commands:
     description: Start all the packagers, using the default web port and a custom mobile port
   - command: start mobile --mobile-port 9200
     description: Start the mobile packager only, using a custom mobile port
+
+- name: make [platform]
+  description: Build for a specific platform
+  more: The supported platforms are web, mobile and desktop
+  executor: src/exec
+  options:
+  examples:
+  - command: build web
+    description: Build the website
