@@ -1,6 +1,5 @@
 const Carmel = require('@carmel/sdk')
-const Script = require('../Script')
-const run = require('../run')
+const Script = require('../../Script')
 
 class _ extends Carmel.Commands.Start {
 
