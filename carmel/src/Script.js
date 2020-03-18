@@ -2,7 +2,6 @@ const path = require('path')
 
 class _ {
     constructor(args) {
-      super(args)
       this._platform = _.PLATFORMS[args.platform ? args.platform.toUpperCase() : _.DEFAULT_PLATFORM.toUpperCase()]
     }
 
