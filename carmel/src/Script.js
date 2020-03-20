@@ -2,6 +2,7 @@ const path = require('path')
 
 class _ {
     constructor(args) {
+      this._args = Object.assign({}, args)
       this._platform = _.PLATFORMS[args.platform ? args.platform.toUpperCase() : _.DEFAULT_PLATFORM.toUpperCase()]
     }
 
@@ -11,6 +12,14 @@ class _ {
 
     get target() {
       return this.platform
+    }
+
+    get args() {
+      return this._args
+    }
+
+    get isDev() {
+      return this.args.dev
     }
 
     makeConfig(session) {
@@ -23,7 +32,7 @@ class _ {
       const dir = process.cwd()
       const chunkyWebDir = path.resolve(templateDir, 'node_modules', 'react-dom-chunky')
 
-      const dev = true 
+      const dev = this.isDev 
 
       return {
         dir,
