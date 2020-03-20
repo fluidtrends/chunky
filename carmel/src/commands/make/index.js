@@ -6,7 +6,7 @@ class _ extends Carmel.Commands.Make {
 
   constructor(args) {
       super(args)
-      this._script = new Script(args)
+      this._script = new Script(Object.assign({}, args, { dev: false }))
     }
 
     get script() {
