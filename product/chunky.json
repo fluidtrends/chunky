@@ -3,7 +3,7 @@
   "env": "development",
   "id": "io.chunky",
   "androidSdkDir": "~/Library/Android/sdk",
-  "sections": {
+  "app": {
     "start": {
       "stack": ["intro", "docs"]
     }

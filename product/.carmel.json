@@ -4,6 +4,11 @@
             "web": {
                 "script": "default"
             }
+        },
+        "make": {
+            "web": {
+                "script": "default"
+            }
         }
     }
 }
