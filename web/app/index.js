@@ -9,7 +9,7 @@ const main = (route, redirect) => (<Core.AppContainer {...chunky.config}>
     <App {...chunky.config} route={route} redirect={redirect} />
 </Core.AppContainer>)
 
-if (!__DOM) {
+if (typeof __DOM === 'undefined') {
   ReactDOM.hydrate(main(chunky.route, true), document.getElementById('chunky'))
 }
 
