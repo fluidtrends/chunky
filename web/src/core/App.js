@@ -367,9 +367,9 @@ export default class App extends PureComponent {
     this._menu = []
     this._sidebar = []
 
-    for (const sectionName in this.props.sections) {
+    for (const sectionName in this.props.app) {
       // Look through all the app's sections and for each, build defaults if necessary
-      var section = this.props.sections[sectionName]
+      var section = this.props.app[sectionName]
       section.name = sectionName
       section.account = account
       section.layout = section.layout || 'default'
