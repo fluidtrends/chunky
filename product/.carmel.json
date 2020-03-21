@@ -9,6 +9,12 @@
             "web": {
                 "script": "default"
             }
+        },
+        "preview": {
+            "web": {
+                "script": "default"
+            }
         }
+
     }
 }
