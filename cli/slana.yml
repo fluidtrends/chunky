@@ -48,5 +48,14 @@ commands:
   executor: src/exec
   options:
   examples:
-  - command: build web
+  - command: make web
     description: Build the website
+
+- name: preview [platform]
+  description: Preview for a specific platform
+  more: The supported platforms are web, mobile and desktop
+  executor: src/exec
+  options:
+  examples:
+  - command: preview web
+    description: Preview the website
