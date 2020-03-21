@@ -6,17 +6,17 @@ import { Core } from 'react-chunky'
 import './global'
 
 const main = (route, redirect) => (<Core.AppContainer {...chunky.config}>
-  <App {...chunky.config} route={route} redirect={redirect} />
+    <App {...chunky.config} route={route} redirect={redirect} />
 </Core.AppContainer>)
 
-if (typeof window !== 'undefined' || typeof document !== 'undefined') {
-  ReactDOM.render(main(chunky.route, true), document.getElementById('chunky'))
+if (!__DOM) {
+  ReactDOM.hydrate(main(chunky.route, true), document.getElementById('chunky'))
 }
 
 export function renderStaticPage (route) {
   return new Promise((resolve, reject) => {
     try {
-      const html = ReactDOMServer.renderToStaticMarkup(main(route))
+      const html = ReactDOMServer.renderToString(main(route))
       resolve(html)
     } catch (e) {
       reject(e)
