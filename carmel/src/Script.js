@@ -34,13 +34,17 @@ class _ {
 
       const dev = this.isDev 
 
+      const templateAssets = [{
+        path: `node_modules/react-dom-chunky/app/assets`, glob: '**/*' 
+      }]
+
       return {
         dir,
         root,
         templateDir,
         port: 8082,
         name: "chunky",
-        assetsGlob: `${path.resolve(chunkyWebDir, 'app', 'assets')}/**/*`,
+        templateAssets,
         script: path.resolve(chunkyWebDir, 'app', `index${dev ? '.dev' : ''}.js`),
         page: path.resolve(chunkyWebDir, 'app', 'pages', 'default.html')
       } 
