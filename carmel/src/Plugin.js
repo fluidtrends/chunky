@@ -6,7 +6,6 @@ class _ extends Plugin {
         super(Object.assign({}, props))
     }
 
-
     findCommand(id) {
         return require(`./commands/${id}`)
     }
