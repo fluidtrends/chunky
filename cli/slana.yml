@@ -46,7 +46,6 @@ commands:
   description: Build for a specific platform
   more: The supported platforms are web, mobile and desktop
   executor: src/exec
-  options:
   examples:
   - command: make web
     description: Build the website
@@ -55,7 +54,35 @@ commands:
   description: Preview for a specific platform
   more: The supported platforms are web, mobile and desktop
   executor: src/exec
-  options:
   examples:
   - command: preview web
     description: Preview the website
+
+- name: deploy [platform]
+  description: Deploy for a specific platform
+  more: The supported platforms are web, mobile and desktop
+  executor: src/exec
+  examples:
+  - command: deploy web
+    description: Deploy the website
+
+- name: lock
+  description: Lock the secure data
+  more: Makes sure the vaults are locked
+  executor: src/exec
+  options:
+  - name: save
+    description: Save the password to the keystore
+    type: boolean
+    default: false
+  examples:
+  - command: lock --save
+    description: Lock the data and save the password
+
+- name: unlock
+  description: Unlock the secure data
+  more: Makes sure the vaults are unlocked
+  executor: src/exec
+  examples:
+  - command: unlock
+    description: Unlock the data
