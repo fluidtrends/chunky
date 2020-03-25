@@ -12,7 +12,6 @@ class _ extends Carmel.Commands.Unlock {
                     coreutils.logger.footer(`Congrats! Your data is now unlocked :)`)
                   })
                   .catch((e) => {
-                    console.log(e)
                     coreutils.logger.error(e)
                   })
     }
