@@ -14,7 +14,9 @@
             "web": {
                 "script": "default"
             }
+        },
+        "deploy": {
+            "web": {}
         }
-
     }
 }

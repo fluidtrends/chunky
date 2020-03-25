@@ -11,7 +11,11 @@ class _ extends Carmel.Commands.Lock {
                   .then(() => {
                     coreutils.logger.footer(`Congrats! Your data is now locked :)`)
                   })
-   }
+                  .catch((e) => {
+                    console.log(e)
+                    coreutils.logger.error(e)
+                  })
+    }
   }
   
   _.ERRORS = Object.assign({}, _.ERRORS, {})
