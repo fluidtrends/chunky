@@ -1,5 +1,4 @@
 const Carmel = require('@carmel/sdk')
-const coreutils = require('coreutils')
 
 class _ extends Carmel.Commands.Unlock {
     constructor(args) {
@@ -9,10 +8,10 @@ class _ extends Carmel.Commands.Unlock {
     exec(session) {      
       return super.exec(session)
                   .then(() => {
-                    coreutils.logger.footer(`Congrats! Your data is now unlocked :)`)
+                    session.logger.done(`Congrats! Your data is now unlocked :)`)
                   })
                   .catch((e) => {
-                    coreutils.logger.error(e)
+                    session.logger.error(e)
                   })
     }
   }
