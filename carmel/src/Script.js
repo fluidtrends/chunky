@@ -43,7 +43,6 @@ class _ {
         root,
         templateDir,
         port: 8082,
-        name: "chunky",
         templateAssets,
         script: path.resolve(chunkyWebDir, 'app', `index${dev ? '.dev' : ''}.js`),
         page: path.resolve(chunkyWebDir, 'app', 'pages', 'default.html')
