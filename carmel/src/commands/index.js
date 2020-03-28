@@ -4,6 +4,7 @@ const Make = require('./make')
 const Preview = require('./preview')
 const Deploy = require('./deploy')
 const Data = require('./data')
+const Setup = require('./setup')
 
 module.exports = {
     Init,
@@ -11,5 +12,6 @@ module.exports = {
     Preview,
     Data,
     Deploy,
+    Setup,
     Start
 }
