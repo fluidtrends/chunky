@@ -19,7 +19,11 @@ class _ extends Carmel.Commands.Preview {
 
     exec(session) {
       return Promise.all([super.exec(session), this.script.load(session)])
-                    .then(([script, props]) => script(props))
+                    .then(([script, props]) => {
+                      process.stdout.write = Function.prototype
+                      process.stderr.write = Function.prototype
+                      return script(props)
+                    })
    }
 }
 
