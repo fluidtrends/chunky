@@ -4,6 +4,14 @@ footer:
   text: "keep on building ;)"
 
 commands:
+- name: setup [operation]
+  more: Configure your development environmnt
+  description: Supported operations are masterpass, account
+  executor: src/exec
+  examples:
+  - command: setup masterpass
+    description: Setup the master password
+
 - name: init [name]
   more: Specify a custom name or go with the default generated name
   description: Create a new product
