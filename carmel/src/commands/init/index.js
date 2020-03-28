@@ -14,7 +14,7 @@ class _ extends Carmel.Commands.Init {
       return super.exec(session)
                   // Create the workspace context
                   .then(() => {
-                    // return session.workspace.saveContext(_.CONTEXT())
+                    return session.workspace.saveContext(_.CONTEXT())
                   })
 
                   // Install the required archive, if necessary
@@ -51,13 +51,15 @@ class _ extends Carmel.Commands.Init {
   }
   
   _.ERRORS = Object.assign({}, _.ERRORS, {})
-  _.DEFAULT_INSTALLER = 'npm'
-  _.DEFAULT_START_SCRIPT = 'node_modules/react-dom-chunky/bin/start.js'
 
   _.CONTEXT = (archive) => Object.assign({}, {
     _: { archive },
-    install: { type: _.DEFAULT_INSTALLER },
-    start: { script: _.DEFAULT_START_SCRIPT }
+    setup: { },
+    init: { },
+    install: { },
+    start: { web: "default" },
+    make: { web: "default" },
+    deploy: { web: "default" }
   })
 
   module.exports = _
