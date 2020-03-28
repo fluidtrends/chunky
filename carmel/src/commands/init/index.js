@@ -57,9 +57,10 @@ class _ extends Carmel.Commands.Init {
     setup: { },
     init: { },
     install: { },
-    start: { web: "default" },
-    make: { web: "default" },
-    deploy: { web: "default" }
+    start: { web: { script: "default" }},
+    make: {  web: { script: "default" }},
+    preview: {  web: { script: "default" }},
+    deploy: { }
   })
 
   module.exports = _
