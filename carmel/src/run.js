@@ -21,7 +21,7 @@ const _makeShadows = (workspace, chunks) => {
     var shadows = { web: "", desktop: "", mobile: ""}
  
     // This is where we expect the shadows to exist
-    const shadowsDir = path.resolve(workspace.dir, '.chunky')
+    const shadowsDir = path.resolve(workspace.dir, '.carmel')
     const shadowsChunksDir = path.resolve(shadowsDir, 'chunks')
 
     // We want to make sure we start with fresh locations 
@@ -38,7 +38,7 @@ const _makeShadows = (workspace, chunks) => {
 
 const run = ({ session, props, script }) => {
     _makeShadows (session.workspace, props.sections)
-    return script(props)
+    return script.exec(Object.assign({}, script.props, props))
 }
 
 SHADOW_TYPES = { web: ".web", desktop: ".desktop", mobile: "" }

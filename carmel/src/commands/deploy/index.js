@@ -9,7 +9,7 @@ class _ extends Carmel.Commands.Deploy {
     exec(session) {      
       return super.exec(session)
                   .then(() => {
-                    coreutils.logger.footer(`Congrats! Your app is now published :)`)
+                    session.logger.done(`Congrats! Your app is now published :)`)
                   })
    }
   }
