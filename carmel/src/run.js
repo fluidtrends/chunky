@@ -21,7 +21,7 @@ const _makeShadows = (workspace, chunks) => {
     var shadows = { web: "", desktop: "", mobile: ""}
  
     // This is where we expect the shadows to exist
-    const shadowsDir = path.resolve(workspace.dir, '.carmel')
+    const shadowsDir = path.resolve(workspace.dir, '.app')
     const shadowsChunksDir = path.resolve(shadowsDir, 'chunks')
 
     // We want to make sure we start with fresh locations 
