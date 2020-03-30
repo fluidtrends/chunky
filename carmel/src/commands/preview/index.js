@@ -22,7 +22,7 @@ class _ extends Carmel.Commands.Preview {
                     .then(([script, props]) => {
                       process.stdout.write = Function.prototype
                       process.stderr.write = Function.prototype
-                      return script(props)
+                      return script.exec(Object.assign({}, script.props, props))
                     })
    }
 }
