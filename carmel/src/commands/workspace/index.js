@@ -1,6 +1,6 @@
 const Carmel = require('@carmel/sdk')
 
-class _ extends Carmel.Commands.Data {
+class _ extends Carmel.Commands.Workspace {
     constructor(args) {
       super(args)
     }

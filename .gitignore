@@ -5,6 +5,7 @@ node_modules
 .chunky
 coverage
 build
+.app
 package-lock.json
 \.idea/
 dist

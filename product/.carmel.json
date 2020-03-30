@@ -1,22 +1,25 @@
 {
-    "context": {
-        "start": {
-            "web": {
-                "script": "default"
-            }
-        },
-        "make": {
-            "web": {
-                "script": "default"
-            }
-        },
-        "preview": {
-            "web": {
-                "script": "default"
-            }
-        },
-        "deploy": {
-            "web": {}
-        }
+  "context": {
+    "start": {
+      "web": {
+        "script": "default"
+      }
+    },
+    "make": {
+      "web": {
+        "script": "default"
+      }
+    },
+    "preview": {
+      "web": {
+        "script": "default"
+      }
+    },
+    "deploy": {
+      "web": {}
     }
+  },
+  "web": {
+    "domain": "chunky.io"
+  }
 }
