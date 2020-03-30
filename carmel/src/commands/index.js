@@ -4,12 +4,14 @@ const Make = require('./make')
 const Preview = require('./preview')
 const Deploy = require('./deploy')
 const Data = require('./data')
+const Workspace = require('./workspace')
 const Setup = require('./setup')
 
 module.exports = {
     Init,
     Make,
     Preview,
+    Workspace,
     Data,
     Deploy,
     Setup,

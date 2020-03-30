@@ -4,7 +4,7 @@ footer:
   text: "keep on building ;)"
 
 commands:
-- name: setup [operation]
+- name: setup [operation] [operationType]
   more: Configure your development environmnt
   description: Supported operations are masterpass, account
   executor: src/exec
@@ -70,11 +70,16 @@ commands:
   description: Deploy for a specific platform
   more: The supported platforms are web, mobile and desktop
   executor: src/exec
+  options:
+  - name: profile
+    description: Use a custom AWS profile
+    type: string
+    default: default
   examples:
   - command: deploy web
     description: Deploy the website
 
-- name: data [operation]
+- name: data [operation] [key] [values..]
   description: Manage the data
   more: Supported operations are lock, unlock, save, read
   executor: src/exec
@@ -86,3 +91,11 @@ commands:
   examples:
   - command: data lock
     description: Lock the secure data
+
+- name: workspace [operation] [key] [values..]
+  description: Manage the workspace
+  more: Supported operations are set, get
+  executor: src/exec
+  examples:
+  - command: workspace set web domain=mydomain.com
+    description: Set the domain to use

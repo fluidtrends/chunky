@@ -2,6 +2,7 @@
   "name": "chunky",
   "env": "development",
   "id": "io.chunky",
+  "domain": "chunky.io",
   "androidSdkDir": "~/Library/Android/sdk",
   "app": {
     "start": {
