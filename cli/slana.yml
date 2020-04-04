@@ -99,3 +99,11 @@ commands:
   examples:
   - command: workspace set web domain=mydomain.com
     description: Set the domain to use
+
+- name: cloud [operation] [key] [values..]
+  description: Manage the cloud
+  more: Supported operations are add
+  executor: src/exec
+  examples:
+  - command: cloud add api
+    description: Add an api
