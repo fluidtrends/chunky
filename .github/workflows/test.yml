@@ -18,8 +18,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - uses: paambaati/codeclimate-action@v2.2.4
+    - run: |
+        mkdir -p tmp/
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
+        chmod +x ./tmp/cc-test-reporter
+    - run: | 
+        npm run coverage 
+        ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.main.json
+    - run: |
+        ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 4 -o tmp/codeclimate.total.json
+        ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: npm run coverage
+
