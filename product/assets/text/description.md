@@ -1,1 +1,0 @@
-Chunky is the *Creative Development Platform* that helps you stop feeling like a Code Monkey by taking care of the tedious work required to build great Software Products and *gives you back your time* to become the Creative Developer you were always meant to be.

@@ -1,9 +1,0 @@
-node_modules
-.git
-cli
-mobile
-coverage
-.circleci
-product
-.DS_Store
-dist
