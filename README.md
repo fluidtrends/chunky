@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-<a href="https://twitter.com"> <img src="https://img.shields.io/twitter/follow/fluidchunky?label=Follow%20me&style=social"/></a>
+<a href="https://twitter.com/fluidchunky"> <img src="https://img.shields.io/twitter/follow/fluidchunky?label=Follow%20me&style=social"/></a>
 </p>
 
 ---
