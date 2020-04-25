@@ -13,21 +13,24 @@ jobs:
     runs-on: ${{ matrix.platform }}
     name: build on node ${{ matrix.node }} ${{ matrix.platform }}
     steps:
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: |
+    - name: "Install dependencies"
+      run: npm ci
+    - name: "Download CC Test Reporter"
+      run: |
         mkdir -p tmp/
         curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./tmp/cc-test-reporter
         chmod +x ./tmp/cc-test-reporter
-    - run: | 
+    - name: "Run coverage"
+      run: | 
         npm run coverage 
         ./tmp/cc-test-reporter format-coverage -t lcov -o tmp/codeclimate.main.json
-    - run: |
+    - name: "Submit CC coverage"
+      run: |
         ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -p 1 -o tmp/codeclimate.total.json
         ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
-
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
