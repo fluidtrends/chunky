@@ -46,40 +46,14 @@ engines:
 ratings:
   paths:
   - src/**/*
-  - web/src/**/*
-  - cli/src/**/*
-  - cli/commands/**/*
-  - cli/bin/**/*
 exclude_paths:
 - package.json
 - .circleci/**/*
 - .codeclimate.yml
-- .es*
 - .gitignore
 - .npmignore
-- .watch*
 - LICENSE
 - README.md
 - logo.gif
+- logo.png
 - test/**/*
-- wordpress/**/*
-- product/**/*
-- mobile/**/*
-- lib/**/*
-- docs/**/*
-- dev/**/*
-- desktop/**/*
-- cloud/**/*
-- blockchain/**/*
-- web/lib/**/*
-- web/app/**/*
-- web/bin/**/*
-- web/packager/**/*
-- web/test/**/*
-- web/package.json
-- web/.npmignore
-- web/.watchmanconfig
-- cli/test/**/*
-- cli/.npmignore
-- cli/assets/**/*
-

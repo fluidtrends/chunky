@@ -1,0 +1,31 @@
+name: Chunky
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  setup:
+    strategy:
+      matrix:
+        platform: ["ubuntu-latest"]
+        node: [10.x]
+    runs-on: ${{ matrix.platform }}
+    name: build on node ${{ matrix.node }} ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run:
+        name: Install dependencies
+        command: npm ci
+  test:
+    requires:
+      - setup
+    steps:
+      - uses: paambaati/codeclimate-action@v2.2.4
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage
