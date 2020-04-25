@@ -20,6 +20,7 @@ jobs:
     - run: npm ci
   test:
     needs: setup
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: paambaati/codeclimate-action@v2.2.4
         env:
