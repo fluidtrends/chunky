@@ -9,7 +9,10 @@
 <a href="https://codeclimate.com/github/fluidtrends/chunky/maintainability"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/maintainability"/></a>
 <a href="https://codeclimate.com/github/fluidtrends/chunky/test_coverage"><img src="https://api.codeclimate.com/v1/badges/f6621e761f82f6c84f40/test_coverage" /></a>
 </p>
+
+<p align="center">
 <a href="https://twitter.com"> <img src="https://img.shields.io/twitter/follow/fluidchunky?label=Follow%20me&style=social"/></a>
+</p>
 
 ---
 
