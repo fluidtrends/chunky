@@ -21,8 +21,7 @@ jobs:
         name: Install dependencies
         command: npm ci
   test:
-    requires:
-      - setup
+    needs: setup
     steps:
       - uses: paambaati/codeclimate-action@v2.2.4
         env:
