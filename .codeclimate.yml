@@ -47,10 +47,11 @@ ratings:
   paths:
   - src/**/*
 exclude_paths:
-- package.json
-- .circleci/**/*
 - .codeclimate.yml
+- .github/**/*
+- .watch*
 - .gitignore
+- package*
 - .npmignore
 - LICENSE
 - README.md
