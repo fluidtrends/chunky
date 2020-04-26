@@ -7,7 +7,8 @@
     "test": "savor test",
     "testing": "savor testing",
     "coverage": "savor coverage",
-    "open:coverage": "open coverage/lcov-report/index.html"
+    "open:coverage": "open coverage/lcov-report/index.html",
+    "workflows:main": "node workflows/main"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,11 @@
     "src/**/*"
   ],
   "dependencies": {
+    "@octokit/rest": "^17.6.0",
+    "fs-extra": "^9.0.0",
+    "google-auth-library": "^6.0.0",
+    "googleapis": "^49.0.0",
+    "moment": "^2.24.0",
     "savor": "^1.1.2"
   },
   "devDependencies": {}
