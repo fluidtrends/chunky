@@ -1,11 +1,11 @@
 const savor = require('savor')
-const main = savor.src('main')
+const Workflow = savor.src('Workflow')
 
 savor
 
 .add('initialize', (context, done) => {
-  const m = new main()
+  const workflow = new Workflow()
   done()
 })
 
-.run('Main')
+.run('Workflow')
