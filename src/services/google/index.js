@@ -4,6 +4,10 @@ const serviceAccount = require('./serviceAccount.json')
 
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
+const sheet = (spreadsheetId) => ({
+    rows: async (range) => _._.sheets.spreadsheets.values.get({ spreadsheetId, range }).then(({ data}) => data.values)
+})
+
 const init = async () => {
     if (!process.env.CHUNKY_GOOGLE_PRIVATE_KEY) {
         throw new Error('Missing Chunky Google Private Key')
@@ -19,7 +23,7 @@ const init = async () => {
 }
 
 const _ = {
-    init
+    init, sheet
 }
 
 module.exports = _
