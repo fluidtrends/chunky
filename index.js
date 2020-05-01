@@ -1,3 +1,3 @@
-const Workflow = require('./src/Workflow')
+const Sync = require('./src/Sync')
 
-module.exports = { Workflow }
+module.exports = { Sync }
