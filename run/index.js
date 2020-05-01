@@ -1,11 +1,11 @@
 (async () => {
-    const workflows = require('../src/workflows')
-    const Workflow = workflows[process.argv.length > 2 ? process.argv[2] : 'main'] || workflows.main
-
+    const { Sync } = require('..')
+    const sync = new Sync()
+     
     try {
-        const workflow = new Workflow({ })
-        await workflow.run()
+        const [,, task, productName] = process.argv
+        await sync.run({ task, productName })
     } catch (e) {
-        console.log(e)
+        console.error(e.message)
     }
 })()
