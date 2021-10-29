@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
+echo "Installing Prysm ..."
+
 cd ~        
 sudo apt install curl
 curl -LO https://github.com/prysmaticlabs/prysm/releases/download/v1.4.3/beacon-chain-v1.4.3-linux-amd64
@@ -27,3 +29,5 @@ sudo useradd --no-create-home --shell /bin/false prysmvalidator
 sudo mkdir -p /var/lib/prysm/validator
 sudo chown -R prysmvalidator:prysmvalidator /var/lib/prysm/validator
 sudo chmod 700 /var/lib/prysm/validator
+
+echo "Prysm ready."
